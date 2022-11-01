@@ -1,0 +1,37 @@
+require('nvim-tree').setup({
+  -- disable_netrw = false,
+  -- hijack_netrw = false,
+
+  open_on_setup_file = true,
+  ignore_ft_on_setup = { 'gitcommit' },
+  -- respect_buf_cwd = true,
+  sync_root_with_cwd = true,
+  reload_on_bufenter = true,
+  prefer_startup_root = true,
+  update_focused_file = {
+    enable = true,
+    update_root = true,
+    ignore_list = { 'help' },
+  },
+
+  git = {
+    enable = true,
+  },
+
+  view = {
+    width = 50,
+    adaptive_size = false,
+    mappings = {
+      list = {
+        {
+          key = 'u',
+          action = 'dir_up',
+        },
+        {
+          key = 's',
+          action = nil,
+        },
+      },
+    },
+  },
+})

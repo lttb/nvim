@@ -1,1 +1,1 @@
-# nvim
+# lttb.nvim

@@ -1,3 +1,10 @@
+.DS_Store
+packer_compiled.*
+
+misc/undodir/**
+!misc/undodir/.gitkeep
+
+
 # Compiled Lua sources
 luac.out
 
