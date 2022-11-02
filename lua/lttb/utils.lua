@@ -22,7 +22,7 @@ function M.keyplug(name, command, opts)
 end
 
 function M.keymap(mode, keys, command, opts)
-  local options = {}
+  local options = { silent = true }
 
   if type(keys) ~= 'table' then
     keys = { keys }
@@ -33,7 +33,12 @@ function M.keymap(mode, keys, command, opts)
   end
 
   for _, value in pairs(keys) do
-    vim.api.nvim_set_keymap(mode, value, '<Plug>(' .. command .. ')', options)
+    vim.keymap.set(
+      mode,
+      value,
+      (mode == 'i' and '<esc>' or '<esc>') .. '<Plug>(' .. command .. ')',
+      options
+    )
   end
 end
 

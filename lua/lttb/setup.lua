@@ -267,6 +267,8 @@ require('packer').startup(function(use)
 
         'onsails/lspkind.nvim',
         'L3MON4D3/LuaSnip',
+
+        'lukas-reineke/cmp-rg',
       },
       config = function()
         require('lttb.plugins.lsp')
@@ -333,7 +335,7 @@ require('packer').startup(function(use)
   use_nvim({
     'abecodes/tabout.nvim',
     config = function()
-      require('tabout').setup()
+      require('tabout').setup({})
     end,
     wants = { 'nvim-treesitter' }, -- or require if not used so far
     after = { 'nvim-cmp' }, -- if a completion plugin is using tabs load it before
@@ -452,88 +454,9 @@ require('packer').startup(function(use)
   use_nvim({
     'nvim-telescope/telescope.nvim',
     config = function()
-      local utils = require('lttb.utils')
-
-      require('lttb.plugins.telescope').setup()
-
-      utils.keyplug('lttb-telescope', '<cmd>Telescope<cr>')
-
-      vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, {
-        desc = '[?] Find recently opened files',
-      })
-
-      vim.keymap.set('n', '<leader><space>', function()
-        require('telescope.builtin').buffers({
-          sort_mru = true,
-          ignore_current_buffer = true,
-        })
-      end, {
-        desc = '[ ] Find existing buffers',
-      })
-
-      utils.keyplug('lttb-search-buffer', function()
-        require('telescope.builtin').current_buffer_fuzzy_find()
-      end)
-
-      vim.keymap.set('n', '<leader>sa', function()
-        require('telescope.builtin').find_files({
-          hidden = true,
-          no_ignore = true,
-        })
-      end, {
-        desc = '[S]earch [A]ll files',
-      })
-
-      vim.keymap.set('n', '<leader>ss', function()
-        vim.fn.system('git rev-parse --is-inside-work-tree')
-
-        if vim.v.shell_error == 0 then
-          require('telescope.builtin').git_files({
-            show_untracked = true,
-            -- recurse_submodules = true,
-          })
-        else
-          require('telescope.builtin').find_files({})
-        end
-      end, {
-        desc = '[S]earch Files',
-      })
-
-      vim.keymap.set('n', '<leader>sf', function()
-        require('telescope.builtin').git_files({
-          recurse_submodules = true,
-        })
-      end, {
-        desc = '[S]earch [F]iles Recurse Submodules',
-      })
-
-      vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, {
-        desc = '[S]earch [H]elp',
-      })
-
-      vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, {
-        desc = '[S]earch current [W]ord',
-      })
-
-      vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, {
-        desc = '[S]earch by [G]rep',
-      })
-
-      vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, {
-        desc = '[S]earch [D]iagnostics',
-      })
-
-      vim.keymap.set(
-        'n',
-        '<leader>sb',
-        require('telescope.builtin').current_buffer_fuzzy_find,
-        {
-          desc = '[S]earch [B]buffer',
-        }
-      )
+      require('lttb.plugins.telescope')
     end,
   })
-
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use_nvim({
     'nvim-telescope/telescope-fzf-native.nvim',
@@ -541,6 +464,18 @@ require('packer').startup(function(use)
     cond = vim.fn.executable('make') == 1,
   })
   -- }}}
+
+  use({
+    'akinsho/toggleterm.nvim',
+    tag = '*',
+    config = function()
+      require('toggleterm').setup({
+        open_mapping = [[<C-j>]],
+        direction = 'float',
+        close_on_exit = false,
+      })
+    end,
+  })
 
   use_nvim({
     'folke/noice.nvim',
@@ -563,6 +498,8 @@ require('packer').startup(function(use)
     cond = function()
       return not require('lttb.utils').is_neovide()
     end,
+    -- NOTE: a bit distracting, check it later
+    disable = true,
   })
 
   -- Automatically set up your configuration after cloning packer.nvim

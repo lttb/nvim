@@ -1,15 +1,5 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 
-lsp_formatting = function(bufnr)
-  vim.lsp.buf.format({
-    filter = function(client)
-      -- use only "null-ls"
-      return client.name == 'null-ls'
-    end,
-    bufnr = bufnr,
-  })
-end
-
 local servers = {
   'sumneko_lua',
   'tsserver',
@@ -27,7 +17,6 @@ require('mason-lspconfig').setup({
 
   automatic_installation = true,
 })
-
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -80,32 +69,6 @@ local on_attach = function(_, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function()
-    lsp_formatting(bufnr)
-  end, {
-    desc = 'Format current buffer with LSP',
-  })
-
-  -- Autoformat on save and exit to norm
-  if _.supports_method('textDocument/formatting') then
-    local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
-
-    vim.api.nvim_clear_autocmds({
-      group = augroup,
-      buffer = bufnr,
-    })
-    local autocmd_opts = {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        lsp_formatting(bufnr)
-      end,
-    }
-    vim.api.nvim_create_autocmd('InsertLeave', autocmd_opts)
-    vim.api.nvim_create_autocmd('BufWritePre', autocmd_opts)
-  end
 
   -- Disable formatting from the language server to select null-ts by default
   _.server_capabilities.document_formatting = false
@@ -166,6 +129,10 @@ cmp.setup({
     },
     {
       name = 'buffer',
+      keyword_length = 3,
+    },
+    {
+      name = 'rg',
       keyword_length = 3,
     },
   }),
@@ -266,4 +233,3 @@ require('lspconfig').sumneko_lua.setup({
   },
 })
 -- }}}
-
