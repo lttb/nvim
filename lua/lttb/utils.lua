@@ -36,7 +36,10 @@ function M.keymap(mode, keys, command, opts)
     vim.keymap.set(
       mode,
       value,
-      (mode == 'i' and '<esc>' or '<esc>') .. '<Plug>(' .. command .. ')',
+      (mode == 'i' and '<C-\\><C-n>' or '<C-\\><C-n>')
+        .. '<Plug>('
+        .. command
+        .. ')',
       options
     )
   end

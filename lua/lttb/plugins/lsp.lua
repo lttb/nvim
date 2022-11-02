@@ -18,6 +18,15 @@ require('mason-lspconfig').setup({
   automatic_installation = true,
 })
 
+-- Highlight line number instead of having icons in sign column
+-- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
+vim.cmd([[
+  sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticError
+  sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticWarn
+  sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticInfo
+  sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticHint
+]])
+
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -72,6 +81,28 @@ local on_attach = function(_, bufnr)
 
   -- Disable formatting from the language server to select null-ts by default
   _.server_capabilities.document_formatting = false
+
+  -- Show diagnostics on hover
+  -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-line-diagnostics-automatically-in-hover-window
+  vim.api.nvim_create_autocmd('CursorHold', {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = {
+          'BufLeave',
+          'CursorMoved',
+          'InsertEnter',
+          'FocusLost',
+        },
+        border = 'rounded',
+        source = 'always',
+        prefix = ' ',
+        scope = 'cursor',
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end,
+  })
 end
 
 -- CMP {{{

@@ -191,7 +191,9 @@ require('packer').startup(function(use)
     }))
   end
 
-  use({
+  use_nvim({ 'tpope/vim-sleuth' })
+
+  use_nvim({
     'folke/which-key.nvim',
     config = function()
       require('which-key').setup({})
@@ -204,8 +206,6 @@ require('packer').startup(function(use)
       require('Comment').setup()
     end,
   })
-
-  use_nvim({ 'tpope/vim-sleuth' })
 
   -- Git {{{
   use_nvim({
@@ -465,7 +465,7 @@ require('packer').startup(function(use)
   })
   -- }}}
 
-  use({
+  use_nvim({
     'akinsho/toggleterm.nvim',
     tag = '*',
     config = function()
@@ -474,6 +474,24 @@ require('packer').startup(function(use)
         direction = 'float',
         close_on_exit = false,
       })
+    end,
+
+    -- NOTE: disable in favor of FTerm
+    disable = true,
+  })
+
+  use_nvim({
+    'numToStr/FTerm.nvim',
+    config = function()
+      require('FTerm').setup({
+        auto_close = true,
+      })
+
+      local utils = require('lttb.utils')
+
+      utils.keyplug('lttb-toggle-term', function()
+        require('FTerm').toggle()
+      end)
     end,
   })
 

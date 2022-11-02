@@ -5,6 +5,9 @@ local utils = require('lttb.utils')
 -- Fix gx, avoid netrw
 vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr>', { silent = true })
 
+-- Simplify switch no normal mode
+vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')
+
 -- Quick Save shortcut
 utils.keyplug('lttb-quick-save', '<esc><cmd>update<cr>')
 
@@ -52,4 +55,10 @@ utils.keymap('n', '<leader>sw', 'lttb-search-current-word', {
 
 utils.keymap('n', '<leader>sd', 'lttb-search-diagnostics', {
   desc = '[S]earch [D]iagnostics',
+})
+
+-- Terminal
+
+utils.keymap({ 'n', 't', 'i' }, { '<C-j>', '<D-j>' }, 'lttb-toggle-term', {
+  desc = 'Toggle terminal',
 })
