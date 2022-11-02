@@ -30,11 +30,25 @@ M.pallettes = {
       theme_style = 'dark',
 
       colors = {},
+
+      overrides = function(c)
+        local util = require('github-theme.util')
+
+        return {
+          IndentBlanklineChar = {
+            fg = '#2f363d',
+          },
+
+          IndentBlanklineContextChar = {
+            fg = '#383f46',
+          },
+        }
+      end,
     },
   },
 }
 
-M.variant = 'light'
+M.variant = 'dark'
 M.name = 'github'
 
 M.current = M.pallettes[M.variant]

@@ -178,6 +178,10 @@ require('packer').startup(function(use)
     return
   end
 
+  if require('lttb.utils').is_neovide() then
+    require('lttb.neovide')
+  end
+
   -- nvim only
 
   local use_nvim = function(plugin)
@@ -439,36 +443,37 @@ require('packer').startup(function(use)
         always_scroll = true,
       })
     end,
+    cond = function()
+      return not require('lttb.utils').is_neovide()
+    end,
   })
 
   -- Telescope {{{
   use_nvim({
     'nvim-telescope/telescope.nvim',
     config = function()
-      require('lttb.plugins.telescope').setup({})
+      local utils = require('lttb.utils')
+
+      require('lttb.plugins.telescope').setup()
+
+      utils.keyplug('lttb-telescope', '<cmd>Telescope<cr>')
 
       vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, {
         desc = '[?] Find recently opened files',
       })
-      vim.keymap.set(
-        'n',
-        '<leader><space>',
-        require('telescope.builtin').buffers,
-        {
-          desc = '[ ] Find existing buffers',
-        }
-      )
-      vim.keymap.set('n', '<leader>/', function()
-        -- You can pass additional configuration to telescope to change theme, layout, etc.
-        require('telescope.builtin').current_buffer_fuzzy_find(
-          require('telescope.themes').get_dropdown({
-            winblend = 10,
-            -- previewer = false,
-          })
-        )
+
+      vim.keymap.set('n', '<leader><space>', function()
+        require('telescope.builtin').buffers({
+          sort_mru = true,
+          ignore_current_buffer = true,
+        })
       end, {
-        desc = '[/] Fuzzily search in current buffer]',
+        desc = '[ ] Find existing buffers',
       })
+
+      utils.keyplug('lttb-search-buffer', function()
+        require('telescope.builtin').current_buffer_fuzzy_find()
+      end)
 
       vim.keymap.set('n', '<leader>sa', function()
         require('telescope.builtin').find_files({
@@ -478,21 +483,46 @@ require('packer').startup(function(use)
       end, {
         desc = '[S]earch [A]ll files',
       })
-      vim.keymap.set('n', '<leader>sf', require('telescope.builtin').git_files, {
-        desc = '[S]earch [F]iles',
+
+      vim.keymap.set('n', '<leader>ss', function()
+        vim.fn.system('git rev-parse --is-inside-work-tree')
+
+        if vim.v.shell_error == 0 then
+          require('telescope.builtin').git_files({
+            show_untracked = true,
+            -- recurse_submodules = true,
+          })
+        else
+          require('telescope.builtin').find_files({})
+        end
+      end, {
+        desc = '[S]earch Files',
       })
+
+      vim.keymap.set('n', '<leader>sf', function()
+        require('telescope.builtin').git_files({
+          recurse_submodules = true,
+        })
+      end, {
+        desc = '[S]earch [F]iles Recurse Submodules',
+      })
+
       vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, {
         desc = '[S]earch [H]elp',
       })
+
       vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, {
         desc = '[S]earch current [W]ord',
       })
+
       vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, {
         desc = '[S]earch by [G]rep',
       })
+
       vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, {
         desc = '[S]earch [D]iagnostics',
       })
+
       vim.keymap.set(
         'n',
         '<leader>sb',
@@ -515,7 +545,12 @@ require('packer').startup(function(use)
   use_nvim({
     'folke/noice.nvim',
     config = function()
-      require('noice').setup({})
+      require('noice').setup({
+        messages = {
+          view_warn = 'mini',
+          view_error = 'mini',
+        },
+      })
     end,
     requires = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -525,6 +560,9 @@ require('packer').startup(function(use)
       --   If not available, we use `mini` as the fallback
       'rcarriga/nvim-notify',
     },
+    cond = function()
+      return not require('lttb.utils').is_neovide()
+    end,
   })
 
   -- Automatically set up your configuration after cloning packer.nvim

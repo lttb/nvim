@@ -1,7 +1,19 @@
+local actions = require('telescope.actions')
+
 local M = {}
 
 M.setup = function()
   require('telescope').setup({
+    defaults = {
+      winblend = 10,
+
+      mappings = {
+        i = {
+          ['<esc>'] = actions.close,
+        },
+      },
+    },
+
     extensions = {
       fzf = {
         fuzzy = true, -- false will only do exact matching

@@ -28,14 +28,6 @@ require('mason-lspconfig').setup({
   automatic_installation = true,
 })
 
-vim.diagnostic.config({
-  virtual_text = false,
-})
-
--- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-capabilities.offsetEncoding = { 'utf-8' }
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -119,6 +111,123 @@ local on_attach = function(_, bufnr)
   _.server_capabilities.document_formatting = false
 end
 
+-- CMP {{{
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+local luasnip = require('luasnip')
+local cmp_buffer = require('cmp_buffer')
+local compare = cmp.config.compare
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+
+  mapping = cmp.mapping.preset.insert({
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete({}),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+
+  sources = cmp.config.sources({
+    {
+      name = 'nvim_lsp',
+      keyword_length = 1,
+    },
+    {
+      name = 'luasnip',
+    },
+    {
+      name = 'path',
+    },
+    {
+      name = 'buffer',
+      keyword_length = 3,
+    },
+  }),
+
+  sorting = {
+    comparators = {
+      compare.locality,
+      compare.recently_used,
+      compare.score,
+      compare.offset,
+      compare.order,
+    },
+  },
+
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
+
+      if vim.tbl_contains({ 'path' }, entry.source.name) then
+        local icon, hl_group = require('nvim-web-devicons').get_icon(
+          entry:get_completion_item().label
+        )
+        if icon then
+          vim_item.kind = icon
+          vim_item.kind_hl_group = hl_group
+          return vim_item
+        end
+      end
+
+      return lspkind.cmp_format({ with_text = false })(entry, vim_item)
+    end,
+  },
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' },
+  },
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'cmdline' },
+    { name = 'path' },
+  },
+})
+
+-- }}}
+
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
+-- nvim-cmp supports additional completion capabilities
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+capabilities.offsetEncoding = { 'utf-8' }
+
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup({
     on_attach = on_attach,
@@ -158,87 +267,3 @@ require('lspconfig').sumneko_lua.setup({
 })
 -- }}}
 
--- nvim-cmp setup
-local cmp = require('cmp')
-local lspkind = require('lspkind')
-local luasnip = require('luasnip')
-local cmp_buffer = require('cmp_buffer')
-local compare = cmp.config.compare
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete({}),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    }),
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  }),
-  sources = {
-    {
-      name = 'nvim_lsp',
-      keyword_length = 1,
-    },
-    {
-      name = 'luasnip',
-    },
-    {
-      name = 'path',
-    },
-    {
-      name = 'buffer',
-      keyword_length = 3,
-    },
-  },
-  sorting = {
-    comparators = {
-      compare.locality,
-      compare.recently_used,
-      compare.score,
-      compare.offset,
-      compare.order,
-    },
-  },
-  formatting = {
-    format = function(entry, vim_item)
-      vim_item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
-
-      if vim.tbl_contains({ 'path' }, entry.source.name) then
-        local icon, hl_group = require('nvim-web-devicons').get_icon(
-          entry:get_completion_item().label
-        )
-        if icon then
-          vim_item.kind = icon
-          vim_item.kind_hl_group = hl_group
-          return vim_item
-        end
-      end
-
-      return lspkind.cmp_format({ with_text = false })(entry, vim_item)
-    end,
-  },
-})
