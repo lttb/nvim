@@ -13,6 +13,9 @@ utils.keyplug('lttb-quick-save', '<esc><cmd>update<cr>')
 
 utils.keymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
 
+-- Copilot remap
+vim.keymap.set('i', '<D-l>', '<C-l>')
+
 -- Commands
 
 utils.keymap('n', '<S-D-p>', 'lttb-telescope')
@@ -61,4 +64,10 @@ utils.keymap('n', '<leader>sd', 'lttb-search-diagnostics', {
 
 utils.keymap({ 'n', 't', 'i' }, { '<C-j>', '<D-j>' }, 'lttb-toggle-term', {
   desc = 'Toggle terminal',
+})
+
+-- LSP
+
+utils.keymap('n', { '<leader>ca', '<D-.>' }, 'lttb-lsp-code-action', {
+  desc = '[C]ode [A]ction',
 })

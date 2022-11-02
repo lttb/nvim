@@ -70,6 +70,16 @@ require('packer').startup(function(use)
   })
 
   use({
+    'ggandor/leap-spooky.nvim',
+    requires = {
+      'ggandor/leap.nvim',
+    },
+    config = function()
+      require('leap-spooky').setup({})
+    end,
+  })
+
+  use({
     'phaazon/hop.nvim',
     branch = 'v2',
     config = function()
@@ -323,11 +333,19 @@ require('packer').startup(function(use)
           suggestion = {
             auto_trigger = true,
             keymap = {
-              accept = '<C-CR>',
+              accept = '<C-l>',
             },
           },
         })
       end, 100)
+    end,
+  })
+
+  use_nvim({
+    'zbirenbaum/copilot-cmp',
+    after = { 'copilot.lua' },
+    config = function()
+      require('copilot_cmp').setup()
     end,
   })
 
@@ -517,6 +535,18 @@ require('packer').startup(function(use)
       return not require('lttb.utils').is_neovide()
     end,
     -- NOTE: a bit distracting, check it later
+    disable = true,
+  })
+
+  use_nvim({
+    'cbochs/portal.nvim',
+    config = function()
+      require('portal').setup({})
+
+      vim.keymap.set('n', '<leader>o', require('portal').jump_backward, {})
+      vim.keymap.set('n', '<leader>i', require('portal').jump_forward, {})
+    end,
+    -- NOTE: not sure if I need it
     disable = true,
   })
 

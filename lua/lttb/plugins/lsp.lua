@@ -41,8 +41,11 @@ local on_attach = function(_, bufnr)
     })
   end
 
+  local utils = require('lttb.utils')
+
+  utils.keyplug('lttb-lsp-code-action', vim.lsp.buf.code_action)
+
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
@@ -148,6 +151,7 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
+    { name = 'copilot', group_index = 2 },
     {
       name = 'nvim_lsp',
       keyword_length = 1,
