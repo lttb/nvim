@@ -74,7 +74,6 @@ require('packer').startup(function(use)
     branch = 'v2',
     config = function()
       local hop = require('hop')
-      local hop_hint = require('hop.hint')
 
       hop.setup()
 
@@ -395,10 +394,11 @@ require('packer').startup(function(use)
         colors = require('lttb.theme').current.github_theme.colors,
         overrides = require('lttb.theme').current.github_theme.overrides,
 
-        dark_float = false,
-        dark_sidebar = false,
+        dark_float = true,
+        dark_sidebar = true,
         keyword_style = 'NONE',
         transparent = false,
+        sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
       })
     end,
   })
@@ -441,7 +441,7 @@ require('packer').startup(function(use)
         extended_keymaps = true,
 
         hide_cursor = true,
-        max_length = 50,
+        max_length = 150,
         always_scroll = true,
       })
     end,
