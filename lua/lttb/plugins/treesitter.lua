@@ -1,12 +1,14 @@
 local M = {}
 
 M.setup = function(settings)
+  local utils = require('lttb.utils')
+
   require('nvim-treesitter.configs').setup(vim.tbl_deep_extend('force', {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'lua', 'typescript', 'rust', 'go', 'python' },
 
     highlight = {
-      enable = true,
+      enable = not utils.is_vscode(),
     },
 
     indent = {
