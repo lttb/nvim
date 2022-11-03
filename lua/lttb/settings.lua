@@ -112,6 +112,8 @@ vim.opt.completeopt = { 'menu', 'noinsert', 'noselect' } -- Customize completion
 -- item'
 vim.opt.formatlistpat = [[^\s*[0-9\-\+\*]\+[\.\)]*\s\+]]
 
+vim.opt.whichwrap = 'b,s,<,>,[,],h,l'
+
 -- }}}
 
 

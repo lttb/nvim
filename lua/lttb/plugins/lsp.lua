@@ -156,10 +156,12 @@ cmp.setup({
 
   sorting = {
     comparators = {
+      compare.offset,
+      compare.exact,
       compare.locality,
       compare.recently_used,
       compare.score,
-      compare.offset,
+      compare.length,
       compare.order,
     },
   },

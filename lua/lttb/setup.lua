@@ -138,6 +138,8 @@ require('packer').startup(function(use)
         search_method = 'cover_or_nearest',
       })
 
+      require('mini.align').setup({})
+
       if require('lttb.utils').is_vscode() then
         return
       end

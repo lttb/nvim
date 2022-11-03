@@ -6,18 +6,20 @@ local utils = require('lttb.utils')
 vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr>', { silent = true })
 
 -- Substitute remaps
-utils.keymap('n', 'r', 'lttb-substiture-operator', {
+utils.keymap('n', '<leader>x', 'lttb-substiture-operator', {
   desc = 'Substitute',
+  noremap = true,
 })
-utils.keymap('n', 'rr', 'lttb-substiture-line', {
-  desc = 'Substitute line',
-})
-utils.keymap('n', 'R', 'lttb-substiture-eol', {
-  desc = 'Substitute to end of line',
-})
-utils.keymap('x', 'r', 'lttb-substiture-visual', {
+utils.keymap('x', '<leader>x', 'lttb-substiture-visual', {
   desc = 'Substitute visual selection',
+  noremap = true,
 })
+vim.keymap.set(
+  'n',
+  '<leader>xx',
+  "<cmd>lua require('substitute.exchange').operator()<cr>",
+  { noremap = true }
+)
 
 -- Char motions
 utils.keymap('', 'f', 'lttb-f')
