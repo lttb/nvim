@@ -57,11 +57,21 @@ require('packer').startup(function(use)
     'ggandor/leap.nvim',
     config = function()
       local leap = require('leap')
+
       leap.set_default_keymaps()
 
-      vim.keymap.set({ 'n' }, '<Plug>(leap-forward)', function()
+      vim.keymap.set({ 'n', 'v', 'x' }, '<Plug>(leap-forward)', function()
         leap.leap({
           target_windows = { vim.fn.win_getid() },
+
+          opts = {
+            equivalence_classes = {
+              '\t\r\n',
+              ')]}>',
+              '([{<',
+              { '"', "'", '`' },
+            },
+          },
         })
       end, {
         silent = true,
@@ -85,10 +95,12 @@ require('packer').startup(function(use)
       local substitute = require('substitute')
       substitute.setup({})
 
-      vim.keymap.set('n', 'r', substitute.operator, { noremap = true })
-      vim.keymap.set('n', 'rr', require('substitute').line, { noremap = true })
-      vim.keymap.set('n', 'R', require('substitute').eol, { noremap = true })
-      vim.keymap.set('x', 'r', require('substitute').visual, { noremap = true })
+      local utils = require('lttb.utils')
+
+      utils.keyplug('lttb-substiture-operator', substitute.operator)
+      utils.keyplug('lttb-substiture-line', substitute.line)
+      utils.keyplug('lttb-substiture-eol', substitute.eol)
+      utils.keyplug('lttb-substiture-visual', substitute.visual)
     end,
   })
 
@@ -98,31 +110,22 @@ require('packer').startup(function(use)
     config = function()
       local hop = require('hop')
 
-      hop.setup()
+      hop.setup({
+        jump_on_sole_occurrence = true,
+      })
 
-      vim.keymap.set('', 'f', function()
+      local utils = require('lttb.utils')
+
+      utils.keyplug('lttb-f', function()
         hop.hint_char1({
           current_line_only = false,
         })
       end)
 
-      vim.keymap.set('', 'F', function()
-        hop.hint_char1({
-          current_line_only = false,
-        })
-      end)
-
-      vim.keymap.set('', 't', function()
+      utils.keyplug('lttb-t', function()
         hop.hint_char1({
           current_line_only = false,
           hint_offset = -1,
-        })
-      end)
-
-      vim.keymap.set('', 'T', function()
-        hop.hint_char1({
-          current_line_only = false,
-          hint_offset = 1,
         })
       end)
     end,
@@ -392,20 +395,6 @@ require('packer').startup(function(use)
     'kyazdani42/nvim-tree.lua',
     config = function()
       require('lttb.plugins.nvim-tree')
-
-      local nt_api = require('nvim-tree.api')
-
-      vim.keymap.set('n', '<leader>b', function()
-        nt_api.tree.toggle(true, true)
-      end, {
-        silent = true,
-      })
-
-      vim.keymap.set('n', '<leader>e', function()
-        nt_api.tree.focus()
-      end, {
-        silent = true,
-      })
     end,
   })
 

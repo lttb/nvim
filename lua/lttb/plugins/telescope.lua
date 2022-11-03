@@ -51,7 +51,6 @@ utils.keyplug('lttb-find-files', function()
   if vim.v.shell_error == 0 then
     builtin.git_files({
       show_untracked = true,
-      -- recurse_submodules = true,
     })
   else
     builtin.find_files({})
@@ -72,6 +71,15 @@ utils.keyplug('lttb-search-grep', builtin.live_grep)
 
 utils.keyplug('lttb-search-help', builtin.help_tags)
 
+utils.keyplug('lttb-search-diagnostics', builtin.diagnostics)
+
 utils.keyplug('lttb-search-current-word', builtin.grep_string)
 
-utils.keyplug('lttb-search-diagnostics', builtin.diagnostics)
+utils.keyplug('lttb-lsp-references', builtin.lsp_references)
+
+utils.keyplug('lttb-lsp-document-symbols', builtin.lsp_document_symbols)
+
+utils.keyplug(
+  'lttb-lsp-workspace-symbols',
+  builtin.lsp_dynamic_workspace_symbols
+)

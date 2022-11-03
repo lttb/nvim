@@ -30,57 +30,39 @@ vim.cmd([[
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
-
-    vim.keymap.set('n', keys, func, {
-      buffer = bufnr,
-      desc = desc,
-    })
-  end
-
   local utils = require('lttb.utils')
 
   utils.keyplug('lttb-lsp-code-action', vim.lsp.buf.code_action)
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  utils.keyplug('lttb-lsp-rename', vim.lsp.buf.rename)
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap(
-    '<leader>ds',
-    require('telescope.builtin').lsp_document_symbols,
-    '[D]ocument [S]ymbols'
-  )
-  nmap(
-    '<leader>ws',
-    require('telescope.builtin').lsp_dynamic_workspace_symbols,
-    '[W]orkspace [S]ymbols'
-  )
+  utils.keyplug('lttb-lsp-definition', vim.lsp.buf.definition)
 
-  -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  utils.keyplug('lttb-lsp-implementation', vim.lsp.buf.implementation)
+
+  utils.keyplug('lttb-lsp-hover', vim.lsp.buf.hover)
+
+  utils.keyplug('lttb-lsp-signature-help', vim.lsp.buf.signature_help)
 
   -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap(
-    '<leader>wa',
-    vim.lsp.buf.add_workspace_folder,
-    '[W]orkspace [A]dd Folder'
+
+  utils.keyplug('lttb-lsp-declaration', vim.lsp.buf.declaration)
+
+  utils.keyplug('lttb-lsp-type-definition', vim.lsp.buf.type_definition)
+
+  utils.keyplug(
+    'lttb-lsp-add-workspace-folder',
+    vim.lsp.buf.add_workspace_folder
   )
-  nmap(
-    '<leader>wr',
-    vim.lsp.buf.remove_workspace_folder,
-    '[W]orkspace [R]emove Folder'
+
+  utils.keyplug(
+    'lttb-lsp-remove-workspace-folder',
+    vim.lsp.buf.remove_workspace_folder
   )
-  nmap('<leader>wl', function()
+
+  utils.keyplug('lttb-lsp-list-workspace-folders', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  end)
 
   -- Disable formatting from the language server to select null-ts by default
   _.server_capabilities.document_formatting = false

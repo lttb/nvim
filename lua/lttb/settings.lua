@@ -54,7 +54,7 @@ vim.opt.shortmess     = 'aoOFc' -- Disable certain messages from |ins-completion
 -- TODO: check if needed
 vim.opt.showmode      = false   -- Don't show mode in command line
 
-vim.opt.textwidth = 120
+vim.opt.textwidth = 80
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 20
 

@@ -31,3 +31,14 @@ require('nvim-tree').setup({
     },
   },
 })
+
+local nt_api = require('nvim-tree.api')
+local utils = require('lttb.utils')
+
+utils.keyplug('lttb-sidebar-toggle', function()
+  nt_api.tree.toggle(true, true)
+end)
+
+utils.keyplug('lttb-sidebar-focus', function()
+  nt_api.tree.focus()
+end)

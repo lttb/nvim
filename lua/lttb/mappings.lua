@@ -5,6 +5,24 @@ local utils = require('lttb.utils')
 -- Fix gx, avoid netrw
 vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr>', { silent = true })
 
+-- Substitute remaps
+utils.keymap('n', 'r', 'lttb-substiture-operator', {
+  desc = 'Substitute',
+})
+utils.keymap('n', 'rr', 'lttb-substiture-line', {
+  desc = 'Substitute line',
+})
+utils.keymap('n', 'R', 'lttb-substiture-eol', {
+  desc = 'Substitute to end of line',
+})
+utils.keymap('x', 'r', 'lttb-substiture-visual', {
+  desc = 'Substitute visual selection',
+})
+
+-- Char motions
+utils.keymap('', 'f', 'lttb-f')
+utils.keymap('', 't', 'lttb-t')
+
 -- Simplify switch no normal mode
 vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')
 
@@ -14,10 +32,18 @@ utils.keyplug('lttb-quick-save', '<esc><cmd>update<cr>')
 utils.keymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
 
 -- Copilot remap
-vim.keymap.set('i', '<D-l>', '<C-l>')
+vim.keymap.set('i', '<D-l>', '<C-l>', { remap = true })
+
+-- Sidebar
+utils.keymap('n', '<leader>b', 'lttb-sidebar-toggle', {
+  desc = 'Toggle sidebar',
+})
+
+utils.keymap('n', '<leader>e', 'lttb-sidebar-focus', {
+  desc = 'Focus sidebar',
+})
 
 -- Commands
-
 utils.keymap('n', '<S-D-p>', 'lttb-telescope')
 
 utils.keymap('n', { '<leader>/', '<D-f>' }, 'lttb-search-buffer', {
@@ -69,5 +95,58 @@ utils.keymap({ 'n', 't', 'i' }, { '<C-j>', '<D-j>' }, 'lttb-toggle-term', {
 -- LSP
 
 utils.keymap('n', { '<leader>ca', '<D-.>' }, 'lttb-lsp-code-action', {
-  desc = '[C]ode [A]ction',
+  desc = 'LSP: [C]ode [A]ction',
+})
+
+utils.keymap('n', '<leader>rn', 'lttb-lsp-rename', {
+  desc = 'LSP: [R]e[n]ame',
+})
+
+utils.keymap('n', 'gd', 'lttb-lsp-definition', {
+  desc = 'LSP: [G]oto [D]efinition',
+})
+
+utils.keymap('n', 'gi', 'lttb-lsp-implementation', {
+  desc = 'LSP: [G]oto [I]mplementation',
+})
+
+utils.keymap('n', 'gr', 'lttb-lsp-references', {
+  desc = 'LSP: [G]oto [R]eferences',
+})
+
+utils.keymap('n', '<leader>ds', 'lttb-lsp-document-symbols', {
+  desc = 'LSP: [D]ocument [S]ymbols',
+})
+
+utils.keymap('n', '<leader>ws', 'lttb-lsp-workspace-symbols', {
+  desc = 'LSP: [W]orkspace [S]ymbols',
+})
+
+-- See `:help K` for why this keymap
+utils.keymap('n', 'K', 'lttb-lsp-hover', {
+  desc = 'LSP: Hover Documentation',
+})
+
+utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {
+  desc = 'LSP: Signature Documentation',
+})
+
+utils.keymap('n', 'gD', 'lttb-lsp-declaration', {
+  desc = 'LSP: [G]oto [D]eclaration',
+})
+
+utils.keymap('n', '<leader>D', 'lttb-lsp-type-definition', {
+  desc = 'LSP: Type [D]efinition',
+})
+
+utils.keymap('n', '<leader>wa', 'lttb-lsp-add-workspace-folder', {
+  desc = 'LSP: [W]orkspace [A]dd Folder',
+})
+
+utils.keymap('n', '<leader>wr', 'lttb-lsp-remove-workspace-folder', {
+  desc = 'LSP: [W]orkspace [R]emove Folder',
+})
+
+utils.keymap('n', '<leader>wl', 'lttb-lsp-list-workspace-folders', {
+  desc = 'LSP: [W]orkspace [L]ist Folders',
 })
