@@ -22,8 +22,6 @@ vim.keymap.set(
 )
 
 -- Char motions
-utils.keymap('', 'f', 'lttb-f')
-utils.keymap('', 't', 'lttb-t')
 
 -- Simplify switch no normal mode
 vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')

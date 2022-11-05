@@ -116,13 +116,13 @@ require('packer').startup(function(use)
 
       local utils = require('lttb.utils')
 
-      utils.keyplug('lttb-f', function()
+      utils.keyplug('lttb-hop-on', function()
         hop.hint_char1({
           current_line_only = false,
         })
       end)
 
-      utils.keyplug('lttb-t', function()
+      utils.keyplug('lttb-hop-pre', function()
         hop.hint_char1({
           current_line_only = false,
           hint_offset = -1,
@@ -222,10 +222,16 @@ require('packer').startup(function(use)
   use_nvim({ 'tpope/vim-sleuth' })
 
   use_nvim({
+    'kyazdani42/nvim-web-devicons',
+  })
+
+  use_nvim({
     'folke/which-key.nvim',
     config = function()
       require('which-key').setup({})
     end,
+    -- NOTE: causes freezes with insert mode: <C-O>"+p
+    disable = true,
   })
 
   use_nvim({
@@ -374,6 +380,8 @@ require('packer').startup(function(use)
     end,
     wants = { 'nvim-treesitter' }, -- or require if not used so far
     after = { 'nvim-cmp' }, -- if a completion plugin is using tabs load it before
+    -- NOTE: going to remove
+    disable = true,
   })
 
   use_nvim({
@@ -388,10 +396,6 @@ require('packer').startup(function(use)
     end,
   })
   -- }}}
-
-  use_nvim({
-    'kyazdani42/nvim-web-devicons',
-  })
 
   use_nvim({
     'kyazdani42/nvim-tree.lua',
@@ -423,6 +427,22 @@ require('packer').startup(function(use)
         sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
       })
     end,
+  })
+
+  use_nvim({
+    'catppuccin/nvim',
+    as = 'catppuccin',
+    config = function()
+      require('catppuccin').setup({
+        flavour = 'fraper',
+        background = { -- :h background
+          light = 'latte',
+          dark = 'frappe',
+        },
+      })
+    end,
+    -- NOTE: seems like it's failing to compile
+    disable = true,
   })
 
   use_nvim({
@@ -521,10 +541,10 @@ require('packer').startup(function(use)
     'folke/noice.nvim',
     config = function()
       require('noice').setup({
-        messages = {
-          view_warn = 'mini',
-          view_error = 'mini',
-        },
+        -- messages = {
+        --   view_warn = 'mini',
+        --   view_error = 'mini',
+        -- },
       })
     end,
     requires = {
@@ -533,13 +553,13 @@ require('packer').startup(function(use)
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
-      'rcarriga/nvim-notify',
+      -- 'rcarriga/nvim-notify',
     },
     cond = function()
       return not require('lttb.utils').is_neovide()
     end,
     -- NOTE: a bit distracting, check it later
-    disable = true,
+    -- disable = true,
   })
 
   use_nvim({

@@ -10,8 +10,9 @@ vim.g.maplocalleader = ' '
 
 
 -- General {{{
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- NOTE: it's breaking vim-rhubarb (:Gbrowse) if set to true
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 vim.opt.hidden       = true     -- Allow switching from unsaved buffer
 vim.opt.wrap         = false    -- Display long lines as just one line
@@ -20,7 +21,7 @@ vim.opt.fileencoding = 'utf-8'  -- Use this encoding when writing to file
 vim.opt.mouse        = 'a'      -- Enable mouse
 vim.opt.backup       = false    -- Don't store backup
 vim.opt.writebackup  = false    -- Don't store backup
-vim.opt.timeoutlen   = 250      -- Faster response at cost of fast typing
+vim.opt.timeoutlen   = 1000
 vim.opt.updatetime   = 300      -- Faster CursorHold
 vim.opt.switchbuf    = 'usetab' -- Use already opened buffers when switching
 vim.opt.modeline     = true     -- Allow modeline
@@ -36,6 +37,7 @@ vim.opt.undodir  = vim.fn.expand('$HOME/.config/nvim/misc/undodir') -- Set direc
 -- UI {{{
 
 vim.opt.background = require('lttb.theme').variant
+vim.cmd.colorscheme = require('lttb.theme').colorscheme
 
 vim.opt.termguicolors = true    -- Enable gui colors
 vim.opt.cursorline    = true    -- Enable highlighting of the current line
