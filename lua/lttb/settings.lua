@@ -37,7 +37,6 @@ vim.opt.undodir  = vim.fn.expand('$HOME/.config/nvim/misc/undodir') -- Set direc
 -- UI {{{
 
 vim.opt.background = require('lttb.theme').variant
-vim.cmd.colorscheme = require('lttb.theme').colorscheme
 
 vim.opt.termguicolors = true    -- Enable gui colors
 vim.opt.cursorline    = true    -- Enable highlighting of the current line

@@ -33,6 +33,7 @@ require('packer').startup(function(use)
   -- Treesitter {{{
   use({
     'nvim-treesitter/nvim-treesitter',
+    'nvim-treesitter/playground',
     -- run = ':TSUpdate',
     run = function()
       require('nvim-treesitter.install').update({ with_sync = true })
@@ -354,11 +355,19 @@ require('packer').startup(function(use)
     config = function()
       vim.defer_fn(function()
         require('copilot').setup({
+          panel = {
+            auto_refresh = true,
+          },
+
           suggestion = {
             auto_trigger = true,
             keymap = {
               accept = '<C-l>',
             },
+          },
+
+          filetypes = {
+            ['*'] = true,
           },
         })
       end, 100)
@@ -406,7 +415,7 @@ require('packer').startup(function(use)
 
   use_nvim({
     'nvim-lualine/lualine.nvim',
-    after = { 'github-nvim-theme' },
+    -- after = { 'github-nvim-theme' },
     config = function()
       require('lttb.plugins.lualine')
     end,
@@ -415,10 +424,12 @@ require('packer').startup(function(use)
   use_nvim({
     'projekt0n/github-nvim-theme',
     config = function()
+      local theme = require('lttb.theme')
+
       require('github-theme').setup({
-        theme_style = require('lttb.theme').current.github_theme.theme_style,
-        colors = require('lttb.theme').current.github_theme.colors,
-        overrides = require('lttb.theme').current.github_theme.overrides,
+        theme_style = theme.current.github_theme.theme_style,
+        colors = theme.current.github_theme.colors,
+        overrides = theme.current.github_theme.overrides,
 
         dark_float = true,
         dark_sidebar = true,
@@ -426,6 +437,8 @@ require('packer').startup(function(use)
         transparent = false,
         sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
       })
+
+      vim.cmd.colorscheme = theme.colorscheme
     end,
   })
 
@@ -433,15 +446,15 @@ require('packer').startup(function(use)
     'catppuccin/nvim',
     as = 'catppuccin',
     config = function()
+      local theme = require('lttb.theme')
+
       require('catppuccin').setup({
-        flavour = 'fraper',
-        background = { -- :h background
-          light = 'latte',
-          dark = 'frappe',
-        },
+        flavour = 'frappe',
       })
+
+      vim.cmd.colorscheme = theme.colorscheme
     end,
-    -- NOTE: seems like it's failing to compile
+
     disable = true,
   })
 
@@ -559,7 +572,7 @@ require('packer').startup(function(use)
       return not require('lttb.utils').is_neovide()
     end,
     -- NOTE: a bit distracting, check it later
-    -- disable = true,
+    disable = true,
   })
 
   use_nvim({
