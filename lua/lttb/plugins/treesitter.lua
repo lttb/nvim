@@ -103,4 +103,6 @@ M.setup = function(settings)
   }, settings))
 end
 
+require('lttb.plugins.treesitter-hl')
+
 return M
