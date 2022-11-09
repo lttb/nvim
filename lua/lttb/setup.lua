@@ -369,18 +369,23 @@ require('packer').startup(function(use)
           filetypes = {
             ['*'] = true,
           },
+
+          -- NOTE: it has to be node v16
+          -- @see https://github.com/zbirenbaum/copilot.lua/issues/69
+          -- Check later if it works with v18
+          copilot_node_command = 'node',
         })
       end, 100)
     end,
   })
 
-  use_nvim({
-    'zbirenbaum/copilot-cmp',
-    after = { 'copilot.lua' },
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  })
+  -- use_nvim({
+  --   'zbirenbaum/copilot-cmp',
+  --   after = { 'copilot.lua' },
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end,
+  -- })
 
   use_nvim({
     'abecodes/tabout.nvim',
@@ -396,8 +401,12 @@ require('packer').startup(function(use)
   use_nvim({
     'lukas-reineke/indent-blankline.nvim',
     config = function()
+      local utils = require('lttb.utils')
+      local indent_char = utils.is_neovide() and '·' or '┊'
+
       require('indent_blankline').setup({
-        char = '┊',
+        char = indent_char,
+        context_char = indent_char,
         show_trailing_blankline_indent = false,
         show_current_context = true,
         show_first_indent_level = false,
@@ -505,21 +514,6 @@ require('packer').startup(function(use)
     end,
   })
 
-  -- Telescope {{{
-  use_nvim({
-    'nvim-telescope/telescope.nvim',
-    config = function()
-      require('lttb.plugins.telescope')
-    end,
-  })
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use_nvim({
-    'nvim-telescope/telescope-fzf-native.nvim',
-    run = 'make',
-    cond = vim.fn.executable('make') == 1,
-  })
-  -- }}}
-
   use_nvim({
     'akinsho/toggleterm.nvim',
     tag = '*',
@@ -585,6 +579,45 @@ require('packer').startup(function(use)
     end,
     -- NOTE: not sure if I need it
     disable = true,
+  })
+
+  -- Telescope {{{
+  use_nvim({
+    'nvim-telescope/telescope.nvim',
+    config = function()
+      require('lttb.plugins.telescope')
+    end,
+  })
+
+  use_nvim({
+    'nvim-telescope/telescope-fzf-native.nvim',
+    -- @see https://github.com/nvim-telescope/telescope-fzf-native.nvim#cmake-windows-linux-macos
+    -- run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+    run = ' arch -arm64 make',
+  })
+
+  -- }}}
+
+  use_nvim({
+    'natecraddock/workspaces.nvim',
+    config = function()
+      local workspaces = require('workspaces')
+
+      workspaces.setup({
+        global_cd = true,
+
+        hooks = {
+          open_pre = function()
+            -- Close buffers
+            vim.cmd('%bdelete')
+          end,
+
+          open = {
+            'NvimTreeOpen',
+          },
+        },
+      })
+    end,
   })
 
   -- Automatically set up your configuration after cloning packer.nvim

@@ -1,8 +1,9 @@
+local telescope = require('telescope')
 local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 local utils = require('lttb.utils')
 
-require('telescope').setup({
+telescope.setup({
   defaults = {
     winblend = 10,
 
@@ -12,20 +13,10 @@ require('telescope').setup({
       },
     },
   },
-
-  extensions = {
-    fzf = {
-      fuzzy = true, -- false will only do exact matching
-      override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-      case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
-      -- the default case_mode is "smart_case"
-    },
-  },
 })
 
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
+telescope.load_extension('fzf')
+-- telescope.load_extension('workspaces')
 
 utils.keyplug('lttb-telescope', '<cmd>Telescope<cr>')
 

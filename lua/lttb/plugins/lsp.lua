@@ -133,10 +133,15 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
-    { name = 'copilot', group_index = 2 },
+    -- { name = 'copilot', group_index = 2 },
     {
       name = 'nvim_lsp',
       keyword_length = 1,
+      entry_filter = function(entry)
+        -- from cmp docs :h cmp-config.sources[n].entry_filter
+        return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()]
+          ~= 'Text'
+      end,
     },
     {
       name = 'luasnip',
@@ -158,10 +163,12 @@ cmp.setup({
     comparators = {
       compare.offset,
       compare.exact,
-      compare.locality,
-      compare.recently_used,
       compare.score,
+      compare.recently_used,
       compare.length,
+      compare.locality,
+      compare.kind,
+      compare.sort_text,
       compare.order,
     },
   },
@@ -183,6 +190,10 @@ cmp.setup({
 
       return lspkind.cmp_format({ with_text = false })(entry, vim_item)
     end,
+  },
+
+  experimental = {
+    ghost_text = false, -- this feature conflict with copilot.vim's preview.
   },
 })
 
