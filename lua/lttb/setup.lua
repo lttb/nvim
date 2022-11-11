@@ -61,7 +61,7 @@ require('packer').startup(function(use)
 
       leap.set_default_keymaps()
 
-      vim.keymap.set({ 'n', 'v', 'x' }, '<Plug>(leap-forward)', function()
+      vim.keymap.set('', 's', function()
         leap.leap({
           target_windows = { vim.fn.win_getid() },
 
@@ -87,6 +87,16 @@ require('packer').startup(function(use)
     },
     config = function()
       require('leap-spooky').setup({})
+    end,
+  })
+
+  use({
+    'ggandor/flit.nvim',
+    requires = {
+      'ggandor/leap.nvim',
+    },
+    config = function()
+      require('flit').setup()
     end,
   })
 
