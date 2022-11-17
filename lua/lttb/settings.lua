@@ -86,8 +86,8 @@ end
 vim.opt.expandtab   = true    -- Convert tabs to spaces
 
 -- "vim-sleuth" should detect it
--- vim.opt.tabstop     = 2       -- Insert 2 spaces for a tab
--- vim.opt.shiftwidth  = 2       -- Use this number of spaces for indentation
+vim.opt.tabstop     = 2       -- Insert 2 spaces for a tab
+vim.opt.shiftwidth  = 2       -- Use this number of spaces for indentation
 
 vim.opt.smarttab    = true    -- Make tabbing smarter (will realize you have 2 vs 4)
 vim.opt.smartindent = true    -- Make indenting smart
