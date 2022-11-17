@@ -45,6 +45,18 @@ require('packer').startup(function(use)
   use({
     'RRethy/nvim-treesitter-textsubjects',
   })
+  use({
+    'nvim-treesitter/nvim-treesitter-context',
+    after = 'nvim-treesitter',
+    config = function()
+      require('treesitter-context').setup()
+
+      -- NOTE: for some reason nvim_set_hl didn't override
+      vim.cmd([[
+        hi! link TreesitterContext CursorLineFold
+      ]])
+    end,
+  })
   -- }}}
 
   use({
