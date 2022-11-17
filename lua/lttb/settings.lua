@@ -29,7 +29,7 @@ vim.opt.modeline     = true     -- Allow modeline
 vim.opt.undofile = true                              -- Enable persistent undo
 vim.opt.undodir  = vim.fn.expand('$HOME/.config/nvim/misc/undodir') -- Set directory for persistent undo
 
-vim.opt.shell = '/opt/homebrew/bin/zsh' -- Use zsh as shell
+vim.opt.shell = 'zsh' -- Use zsh as shell
 
 -- }}}
 
