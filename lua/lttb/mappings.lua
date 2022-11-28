@@ -3,7 +3,7 @@ local utils = require('lttb.utils')
 -- Global mappings
 
 -- Fix gx, avoid netrw
-vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr>', { silent = true })
+vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
 
 -- Substitute remaps
 utils.keymap('n', '<leader>x', 'lttb-substiture-operator', {
