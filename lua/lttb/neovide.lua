@@ -10,7 +10,7 @@ local theme = require('lttb.theme')
 vim.opt.guifont = 'FiraCode Nerd Font:h15:#e-subpixelantialias:#h-none'
 
 if theme.variant == 'dark' then
-  vim.g.neovide_background_color = '#23292f'
+  -- vim.g.neovide_background_color = '#23292f'
 else
   vim.g.neovide_background_color = '#ffffff'
 end
