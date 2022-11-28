@@ -3,7 +3,7 @@ require('nvim-tree').setup({
   -- hijack_netrw = false,
 
   open_on_setup_file = true,
-  ignore_ft_on_setup = { 'gitcommit' },
+  ignore_ft_on_setup = { 'gitcommit', 'gitrebase' },
   -- respect_buf_cwd = true,
   sync_root_with_cwd = true,
   reload_on_bufenter = true,
