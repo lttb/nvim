@@ -9,6 +9,8 @@ M.setup = function(settings)
 
     highlight = {
       enable = not utils.is_vscode(),
+
+      additional_vim_regex_highlighting = false,
     },
 
     indent = {

@@ -382,7 +382,7 @@ require('packer').startup(function(use)
           },
 
           suggestion = {
-            auto_trigger = true,
+            auto_trigger = false,
             keymap = {
               accept = '<C-l>',
             },
@@ -424,7 +424,7 @@ require('packer').startup(function(use)
     'lukas-reineke/indent-blankline.nvim',
     config = function()
       local utils = require('lttb.utils')
-      local indent_char = utils.is_neovide() and '·' or '┊'
+      local indent_char = false and utils.is_neovide() and '·' or '┊'
 
       require('indent_blankline').setup({
         char = indent_char,
@@ -453,43 +453,6 @@ require('packer').startup(function(use)
   })
 
   use_nvim({
-    'projekt0n/github-nvim-theme',
-    config = function()
-      local theme = require('lttb.theme')
-
-      require('github-theme').setup({
-        theme_style = theme.current.github_theme.theme_style,
-        colors = theme.current.github_theme.colors,
-        overrides = theme.current.github_theme.overrides,
-
-        dark_float = true,
-        dark_sidebar = true,
-        keyword_style = 'NONE',
-        transparent = false,
-        sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
-      })
-
-      vim.cmd.colorscheme = theme.colorscheme
-    end,
-  })
-
-  use_nvim({
-    'catppuccin/nvim',
-    as = 'catppuccin',
-    config = function()
-      local theme = require('lttb.theme')
-
-      require('catppuccin').setup({
-        flavour = 'frappe',
-      })
-
-      vim.cmd.colorscheme = theme.colorscheme
-    end,
-
-    disable = true,
-  })
-
-  use_nvim({
     'RRethy/vim-illuminate',
     config = function()
       -- <a-n> and <a-p> as keymaps to move between references
@@ -515,6 +478,67 @@ require('packer').startup(function(use)
       })
     end,
     -- WARN: candidate to remove, as "mini.cursorword" feels better
+    disable = true,
+  })
+
+  use_nvim({
+    'projekt0n/github-nvim-theme',
+    config = function()
+      local theme = require('lttb.theme')
+      local utils = require('lttb.utils')
+
+      require('github-theme').setup({
+        theme_style = theme.current.github_theme.theme_style,
+        colors = theme.current.github_theme.colors,
+        overrides = theme.current.github_theme.overrides,
+
+        -- dark_float = not utils.is_neovide(),
+        -- dark_sidebar = not utils.is_neovide(),
+        dark_float = true,
+        dark_sidebar = true,
+        keyword_style = 'NONE',
+        transparent = false,
+        sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
+      })
+
+      vim.cmd.colorscheme(theme.colorscheme)
+    end,
+
+    disable = false,
+  })
+
+  use_nvim({
+    'catppuccin/nvim',
+    as = 'catppuccin',
+    config = function()
+      local theme = require('lttb.theme')
+
+      require('catppuccin').setup({
+        flavour = 'frappe',
+
+        integrations = {
+          hop = true,
+
+          indent_blankline = {
+            enabled = true,
+          },
+
+          leap = true,
+          mason = true,
+
+          native_lsp = {
+            enabled = true,
+          },
+
+          illuminate = true,
+
+          mini = true,
+        },
+      })
+
+      vim.cmd.colorscheme('catppuccin')
+    end,
+
     disable = true,
   })
 

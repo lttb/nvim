@@ -1,3 +1,4 @@
+local utils = require('lttb.utils')
 local M = {}
 
 M.pallettes = {
@@ -48,9 +49,15 @@ M.pallettes = {
   },
 }
 
-M.variant = 'dark'
 M.name = 'github'
+M.variant = 'dark'
 M.colorscheme = 'github_dark'
+
+if utils.is_neovide() then
+  -- Force light theme for neovide
+  -- M.variant = 'light'
+  -- M.colorscheme = 'github_light'
+end
 
 M.current = M.pallettes[M.variant]
 
