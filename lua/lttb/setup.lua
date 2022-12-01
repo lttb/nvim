@@ -608,11 +608,11 @@ require('packer').startup(function(use)
       --   If not available, we use `mini` as the fallback
       -- 'rcarriga/nvim-notify',
     },
-    cond = function()
-      return not require('lttb.utils').is_neovide()
-    end,
+    -- cond = function()
+    --   return not require('lttb.utils').is_neovide()
+    -- end,
     -- NOTE: a bit distracting, check it later
-    disable = true,
+    disable = false,
   })
 
   use_nvim({

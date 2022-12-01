@@ -28,7 +28,7 @@ M.pallettes = {
 
   dark = {
     github_theme = {
-      theme_style = 'dark',
+      theme_style = 'dimmed',
 
       colors = {},
 
