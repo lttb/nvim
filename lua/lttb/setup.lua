@@ -51,10 +51,15 @@ require('packer').startup(function(use)
     config = function()
       require('treesitter-context').setup()
 
-      -- NOTE: for some reason nvim_set_hl didn't override
-      vim.cmd([[
-        hi! link TreesitterContext CursorLineFold
-      ]])
+      local theme = require('lttb.theme')
+
+      if (theme.name == 'github') then
+        -- NOTE: for some reason nvim_set_hl didn't override
+        vim.cmd([[
+          hi! link TreesitterContext CursorLineFold
+        ]])
+      end
+
     end,
   })
   -- }}}
@@ -167,7 +172,7 @@ require('packer').startup(function(use)
         return
       end
 
-      require('mini.cursorword').setup({})
+      -- require('mini.cursorword').setup({})
 
       local MiniMap = require('mini.map')
 
@@ -382,7 +387,7 @@ require('packer').startup(function(use)
           },
 
           suggestion = {
-            auto_trigger = false,
+            auto_trigger = true,
             keymap = {
               accept = '<C-l>',
             },
@@ -457,28 +462,28 @@ require('packer').startup(function(use)
     config = function()
       -- <a-n> and <a-p> as keymaps to move between references
       -- and <a-i> as a textobject for the reference illuminated under the cursor.
-      vim.api.nvim_set_hl(
-        0,
-        'IlluminatedWordText',
-        { link = 'LspReferenceText' }
-      )
-      vim.api.nvim_set_hl(
-        0,
-        'IlluminatedWordRead',
-        { link = 'LspReferenceText' }
-      )
-      vim.api.nvim_set_hl(
-        0,
-        'IlluminatedWordWrite',
-        { link = 'LspReferenceText' }
-      )
+      -- vim.api.nvim_set_hl(
+      --   0,
+      --   'IlluminatedWordText',
+      --   { link = 'LspReferenceText' }
+      -- )
+      -- vim.api.nvim_set_hl(
+      --   0,
+      --   'IlluminatedWordRead',
+      --   { link = 'LspReferenceText' }
+      -- )
+      -- vim.api.nvim_set_hl(
+      --   0,
+      --   'IlluminatedWordWrite',
+      --   { link = 'LspReferenceText' }
+      -- )
 
       require('illuminate').configure({
         modes_denylist = { 'i' },
       })
     end,
     -- WARN: candidate to remove, as "mini.cursorword" feels better
-    disable = true,
+    disable = false,
   })
 
   use_nvim({
@@ -504,7 +509,7 @@ require('packer').startup(function(use)
       vim.cmd.colorscheme(theme.colorscheme)
     end,
 
-    disable = false,
+    disable = true,
   })
 
   use_nvim({
@@ -539,7 +544,7 @@ require('packer').startup(function(use)
       vim.cmd.colorscheme('catppuccin')
     end,
 
-    disable = true,
+    disable = false,
   })
 
   use_nvim({

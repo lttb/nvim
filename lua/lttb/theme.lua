@@ -49,9 +49,9 @@ M.pallettes = {
   },
 }
 
-M.name = 'github'
-M.variant = 'dark'
-M.colorscheme = 'github_dark'
+M.name = 'catppuccin'
+M.variant = 'light'
+M.colorscheme = 'catppuccin'
 
 if utils.is_neovide() then
   -- Force light theme for neovide
