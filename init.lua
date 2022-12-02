@@ -3,6 +3,5 @@
 
 -- Source configuration files
 require('lttb.settings')
-require('lttb.theme')
 require('lttb.setup')
 require('lttb.mappings')
