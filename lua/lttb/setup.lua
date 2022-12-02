@@ -53,13 +53,12 @@ require('packer').startup(function(use)
 
       local theme = require('lttb.theme')
 
-      if (theme.name == 'github') then
+      if theme.colorscheme == 'github_light' then
         -- NOTE: for some reason nvim_set_hl didn't override
         vim.cmd([[
           hi! link TreesitterContext CursorLineFold
         ]])
       end
-
     end,
   })
   -- }}}
@@ -172,7 +171,7 @@ require('packer').startup(function(use)
         return
       end
 
-      -- require('mini.cursorword').setup({})
+      require('mini.cursorword').setup({})
 
       local MiniMap = require('mini.map')
 
@@ -483,7 +482,7 @@ require('packer').startup(function(use)
       })
     end,
     -- WARN: candidate to remove, as "mini.cursorword" feels better
-    disable = false,
+    disable = true,
   })
 
   use_nvim({
@@ -500,7 +499,7 @@ require('packer').startup(function(use)
         -- dark_float = not utils.is_neovide(),
         -- dark_sidebar = not utils.is_neovide(),
         dark_float = true,
-        dark_sidebar = true,
+        dark_sidebar = false,
         keyword_style = 'NONE',
         transparent = false,
         sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
@@ -509,8 +508,15 @@ require('packer').startup(function(use)
       vim.cmd.colorscheme(theme.colorscheme)
     end,
 
-    disable = true,
+    disable = false,
   })
+
+  -- use_nvim({
+  --   'lourenci/github-colors',
+  --   config = function()
+  --     vim.cmd.colorscheme('github-colors')
+  --   end,
+  -- })
 
   use_nvim({
     'catppuccin/nvim',
@@ -520,6 +526,23 @@ require('packer').startup(function(use)
 
       require('catppuccin').setup({
         flavour = 'frappe',
+
+        term_colors = true,
+        no_italic = true,
+        no_bold = true,
+        dim_inactive = {
+          enabled = true,
+        },
+
+        custom_highlights = {
+          -- IndentBlanklineChar = {
+          --   fg = '#2f363d',
+          -- },
+
+          -- IndentBlanklineContextChar = {
+          --   fg = '#383f46',
+          -- },
+        },
 
         integrations = {
           hop = true,
@@ -544,7 +567,7 @@ require('packer').startup(function(use)
       vim.cmd.colorscheme('catppuccin')
     end,
 
-    disable = false,
+    disable = true,
   })
 
   use_nvim({

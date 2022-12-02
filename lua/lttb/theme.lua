@@ -21,6 +21,10 @@ M.pallettes = {
           IndentBlanklineContextChar = {
             fg = '#c5c5c5',
           },
+
+          TSVariable = {
+            fg = c.black,
+          },
         }
       end,
     },
@@ -28,7 +32,7 @@ M.pallettes = {
 
   dark = {
     github_theme = {
-      theme_style = 'dimmed',
+      theme_style = 'dark',
 
       colors = {},
 
@@ -41,7 +45,11 @@ M.pallettes = {
           },
 
           IndentBlanklineContextChar = {
-            fg = '#383f46',
+            fg = '#454d56',
+          },
+
+          TSVariable = {
+            fg = c.bright_white,
           },
         }
       end,
@@ -49,16 +57,21 @@ M.pallettes = {
   },
 }
 
-M.name = 'catppuccin'
+M.name = 'github_theme'
 M.variant = 'light'
-M.colorscheme = 'catppuccin'
-
-if utils.is_neovide() then
-  -- Force light theme for neovide
-  -- M.variant = 'light'
-  -- M.colorscheme = 'github_light'
-end
+M.colorscheme = 'github_light'
 
 M.current = M.pallettes[M.variant]
+
+-- TODO: Add support for other themes
+if (utils.is_kitty() and M.colorscheme == 'github_light') then
+  vim.cmd([[
+    augroup kitty_mp
+        autocmd!
+        au VimLeave * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors --reset
+        au VimEnter * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors "$HOME/.config/kitty/themes/github-light.conf"
+    augroup END
+  ]])
+end
 
 return M

@@ -4,6 +4,10 @@ function M.hl_create(group)
   vim.api.nvim_set_hl(0, group, require('lttb.theme').current[group])
 end
 
+function M.is_kitty()
+  return vim.env.KITTY_WINDOW_ID ~= nil
+end
+
 function M.is_vscode()
   return vim.g.vscode ~= nil
 end
