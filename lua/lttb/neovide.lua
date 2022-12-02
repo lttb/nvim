@@ -26,3 +26,6 @@ vim.g.neovide_input_use_logo = true
 vim.g.neovide_padding_top = 24
 vim.g.neovide_padding_left = 24
 vim.g.neovide_padding_right = 24
+
+-- vim.g.neovide_profiler = true
+vim.g.neovide_refresh_rate = 144
