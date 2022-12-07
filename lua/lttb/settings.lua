@@ -93,7 +93,7 @@ vim.opt.smarttab    = true    -- Make tabbing smarter (will realize you have 2 v
 vim.opt.smartindent = true    -- Make indenting smart
 vim.opt.autoindent  = true    -- Use auto indent
 vim.opt.iskeyword:append('-') -- Treat dash separated words as a word text object
-vim.opt.virtualedit = 'block' -- Allow going past the end of line in visual block mode
+vim.opt.virtualedit = 'onemore' -- Allow going past the end of line in visual block mode
 vim.opt.startofline = false   -- Don't position cursor on line start after certain operations
 vim.opt.breakindent = true    -- Indent wrapped lines to match line start
 

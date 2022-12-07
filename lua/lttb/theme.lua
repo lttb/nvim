@@ -25,6 +25,10 @@ M.pallettes = {
           TSVariable = {
             fg = c.black,
           },
+
+          TSParameter = {
+            fg = c.orange,
+          },
         }
       end,
     },
@@ -64,7 +68,7 @@ M.colorscheme = 'github_light'
 M.current = M.pallettes[M.variant]
 
 -- TODO: Add support for other themes
-if (utils.is_kitty() and M.colorscheme == 'github_light') then
+if utils.is_kitty() and M.colorscheme == 'github_light' then
   vim.cmd([[
     augroup kitty_mp
         autocmd!
