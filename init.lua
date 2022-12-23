@@ -3,5 +3,5 @@
 
 -- Source configuration files
 require('lttb.settings')
-require('lttb.setup')
+require('lttb.lazy')
 require('lttb.mappings')
