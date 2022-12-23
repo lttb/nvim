@@ -36,21 +36,27 @@ require('lazy').setup(vim.list_extend({
   {
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
-      require('treesitter-context').setup()
-
       local theme = require('lttb.theme')
 
       if theme.colorscheme == 'github_light' then
+        -- NOTE: for some reason nvim_set_hl didn't override
+        -- vim.cmd('hi! link TreesitterContext CursorLineFold')
         vim.api.nvim_set_hl(0, 'TreesitterContext', {
           link = 'CursorLineFold',
           default = false,
+          nocombine = true,
         })
       end
+
+      require('treesitter-context').setup()
     end,
   },
   -- }}}
 
-  { 'kylechui/nvim-surround' },
+  {
+    'kylechui/nvim-surround',
+    config = true,
+  },
 
   {
     'ggandor/leap.nvim',
@@ -198,10 +204,21 @@ require('lazy').setup(vim.list_extend({
     'kyazdani42/nvim-web-devicons',
   },
 
+  'JoosepAlviste/nvim-ts-context-commentstring',
+
   {
     'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup({
+        ignore = '^$',
+        pre_hook = require(
+          'ts_context_commentstring.integrations.comment_nvim'
+        ).create_pre_hook(),
+      })
+    end,
   },
 
+  -- {{{ Git
   {
     'tpope/vim-fugitive',
     event = 'VimEnter',
@@ -215,7 +232,10 @@ require('lazy').setup(vim.list_extend({
   {
     'lewis6991/gitsigns.nvim',
     event = 'VimEnter',
+    config = true,
   },
+
+  -- }}}
 
   -- LSP and CMP {{{
   'williamboman/mason.nvim',
@@ -254,6 +274,7 @@ require('lazy').setup(vim.list_extend({
   {
     'windwp/nvim-ts-autotag',
     event = 'VimEnter',
+    config = true,
   },
 
   {
@@ -278,9 +299,7 @@ require('lazy').setup(vim.list_extend({
   {
     'axelvc/template-string.nvim',
     event = 'VimEnter',
-    config = function()
-      require('template-string').setup()
-    end,
+    config = true,
   },
 
   {

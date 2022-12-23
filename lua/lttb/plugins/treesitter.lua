@@ -7,6 +7,10 @@ M.setup = function(settings)
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'lua', 'typescript', 'rust', 'go', 'python' },
 
+    context_commentstring = {
+      enable = true,
+    },
+
     highlight = {
       enable = not utils.is_vscode(),
 
