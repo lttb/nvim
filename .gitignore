@@ -4,6 +4,7 @@ packer_compiled.*
 misc/undodir/**
 !misc/undodir/.gitkeep
 
+.luarc.json
 
 # Compiled Lua sources
 luac.out

@@ -41,10 +41,10 @@ require('lazy').setup(vim.list_extend({
       local theme = require('lttb.theme')
 
       if theme.colorscheme == 'github_light' then
-        -- NOTE: for some reason nvim_set_hl didn't override
-        vim.cmd([[
-          hi! link TreesitterContext CursorLineFold
-        ]])
+        vim.api.nvim_set_hl(0, 'TreesitterContext', {
+          link = 'CursorLineFold',
+          default = false,
+        })
       end
     end,
   },
