@@ -15,7 +15,6 @@ telescope.setup({
   },
 })
 
-telescope.load_extension('fzf')
 -- telescope.load_extension('workspaces')
 
 utils.keyplug('lttb-telescope', '<cmd>Telescope<cr>')

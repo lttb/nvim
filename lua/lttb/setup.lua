@@ -670,7 +670,11 @@ require('packer').startup({
       'nvim-telescope/telescope-fzf-native.nvim',
       -- @see https://github.com/nvim-telescope/telescope-fzf-native.nvim#cmake-windows-linux-macos
       -- run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-      run = ' arch -arm64 make',
+      run = 'make',
+      after = 'telescope.nvim',
+      config = function()
+        require('telescope').load_extension('fzf')
+      end,
     })
 
     -- }}}
@@ -724,3 +728,13 @@ if packer_bootstrap then
 end
 
 require('lttb.plugins.treesitter').setup({})
+
+-- Automatically source and re-compile packer whenever you save this init.lua
+local packer_group = vim.api.nvim_create_augroup('Packer', {
+  clear = true,
+})
+vim.api.nvim_create_autocmd('BufWritePost', {
+  command = 'source <afile> | PackerCompile',
+  group = packer_group,
+  pattern = vim.fn.expand('$MYVIMRC'),
+})
