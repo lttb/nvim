@@ -46,6 +46,8 @@ require('lazy').setup(vim.list_extend(
     {
       'nvim-treesitter/nvim-treesitter-context',
       config = function()
+        require('treesitter-context').setup()
+
         local theme = require('lttb.theme')
 
         if theme.colorscheme == 'github_light' then
@@ -57,8 +59,6 @@ require('lazy').setup(vim.list_extend(
           -- })
           vim.cmd('hi! link TreesitterContext CursorLineFold')
         end
-
-        require('treesitter-context').setup()
       end,
     },
     -- }}}
@@ -92,10 +92,15 @@ require('lazy').setup(vim.list_extend(
           silent = true,
         })
       end,
-      dependencies = {
-        'ggandor/leap-spooky.nvim',
-        'ggandor/flit.nvim',
-      },
+    },
+    { 'ggandor/leap-spooky.nvim', config = true },
+    {
+      'ggandor/flit.nvim',
+      config = function()
+        require('flit').setup({
+          labeled_modes = 'nv',
+        })
+      end,
     },
 
     {
