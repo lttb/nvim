@@ -46,6 +46,8 @@ require('lazy').setup(vim.list_extend(
     {
       'nvim-treesitter/nvim-treesitter-context',
       config = function()
+        require('treesitter-context').setup()
+
         local theme = require('lttb.theme')
 
         if theme.colorscheme == 'github_light' then
@@ -57,8 +59,6 @@ require('lazy').setup(vim.list_extend(
           -- })
           vim.cmd('hi! link TreesitterContext CursorLineFold')
         end
-
-        require('treesitter-context').setup()
       end,
     },
     -- }}}
@@ -370,11 +370,12 @@ require('lazy').setup(vim.list_extend(
 
     {
       'nvim-lualine/lualine.nvim',
-      -- after = { 'github-nvim-theme' },
       config = function()
         require('lttb.plugins.lualine')
       end,
     },
+
+    { 'arkav/lualine-lsp-progress' },
 
     {
       'projekt0n/github-nvim-theme',
@@ -429,6 +430,16 @@ require('lazy').setup(vim.list_extend(
           require('FTerm').toggle()
         end)
       end,
+    },
+
+    {
+      'folke/noice.nvim',
+      config = function()
+        require('noice').setup({})
+      end,
+      dependencies = {
+        'MunifTanjim/nui.nvim',
+      },
     },
 
     {
