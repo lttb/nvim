@@ -46,8 +46,6 @@ require('lazy').setup(vim.list_extend(
     {
       'nvim-treesitter/nvim-treesitter-context',
       config = function()
-        require('treesitter-context').setup()
-
         local theme = require('lttb.theme')
 
         if theme.colorscheme == 'github_light' then
@@ -59,6 +57,8 @@ require('lazy').setup(vim.list_extend(
           -- })
           vim.cmd('hi! link TreesitterContext CursorLineFold')
         end
+
+        require('treesitter-context').setup()
       end,
     },
     -- }}}
