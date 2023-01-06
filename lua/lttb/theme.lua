@@ -62,8 +62,8 @@ M.pallettes = {
 }
 
 M.name = 'github_theme'
-M.variant = 'dark'
-M.colorscheme = 'github_dark'
+M.variant = 'light'
+M.colorscheme = 'github_light'
 
 M.current = M.pallettes[M.variant]
 

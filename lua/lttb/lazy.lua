@@ -47,18 +47,6 @@ require('lazy').setup(vim.list_extend(
       'nvim-treesitter/nvim-treesitter-context',
       config = function()
         require('treesitter-context').setup()
-
-        local theme = require('lttb.theme')
-
-        if theme.colorscheme == 'github_light' then
-          -- NOTE: for some reason nvim_set_hl didn't override
-          -- vim.api.nvim_set_hl(0, 'TreesitterContext', {
-          --   link = 'CursorLineFold',
-          --   default = false,
-          --   nocombine = true,
-          -- })
-          vim.cmd('hi! link TreesitterContext CursorLineFold')
-        end
       end,
     },
     -- }}}
@@ -466,6 +454,18 @@ require('lazy').setup(vim.list_extend(
     enabled = not utils.is_vscode(),
   })
 ))
+
+local theme = require('lttb.theme')
+
+if theme.colorscheme == 'github_light' then
+  -- NOTE: for some reason nvim_set_hl didn't override
+  vim.api.nvim_set_hl(0, 'TreesitterContext', {
+    link = 'CursorLineFold',
+    default = false,
+    nocombine = true,
+  })
+  -- vim.cmd('hi! link TreesitterContext CursorLineFold')
+end
 
 if utils.is_vscode() then
   require('lttb.vscode')
