@@ -123,7 +123,7 @@ utils.keymap('n', '<leader>ws', 'lttb-lsp-workspace-symbols', {
 })
 
 -- See `:help K` for why this keymap
-utils.keymap('n', 'K', 'lttb-lsp-hover', {
+utils.keymap('n', { 'gh' }, 'lttb-lsp-hover', {
   desc = 'LSP: Hover Documentation',
 })
 
