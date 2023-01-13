@@ -252,6 +252,14 @@ return vim.list_extend(
     },
 
     {
+      'mvllow/modes.nvim',
+      tag = 'v0.2.0',
+      config = {
+        line_opacity = 0.05,
+      },
+    },
+
+    {
       'luukvbaal/statuscol.nvim',
       config = function()
         require('statuscol').setup({
