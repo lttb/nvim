@@ -211,3 +211,5 @@ local treesitter_migrate = function()
 end
 
 treesitter_migrate()
+
+return {}

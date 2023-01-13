@@ -1,9 +1,7 @@
-local M = {}
-
-M.setup = function(settings)
+local config = function()
   local utils = require('lttb.utils')
 
-  require('nvim-treesitter.configs').setup(vim.tbl_deep_extend('force', {
+  require('nvim-treesitter.configs').setup({
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'lua', 'typescript', 'rust', 'go', 'python' },
 
@@ -106,9 +104,21 @@ M.setup = function(settings)
         },
       },
     },
-  }, settings))
+  })
 end
 
-require('lttb.plugins.treesitter-hl')
-
-return M
+return {
+  {
+    'nvim-treesitter/nvim-treesitter',
+    config = config,
+  },
+  'nvim-treesitter/playground',
+  'nvim-treesitter/nvim-treesitter-textobjects',
+  'RRethy/nvim-treesitter-textsubjects',
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require('treesitter-context').setup()
+    end,
+  },
+}

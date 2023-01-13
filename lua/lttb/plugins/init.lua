@@ -1,20 +1,3 @@
--- vim:fileencoding=utf-8:foldmethod=marker
-
--- {{{ Bootstrap lazy
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    '--single-branch',
-    'https://github.com/folke/lazy.nvim.git',
-    lazypath,
-  })
-end
-vim.opt.runtimepath:prepend(lazypath)
--- }}}
-
 local utils = require('lttb.utils')
 
 local function map_plugins_config(tbl, c)
@@ -28,28 +11,10 @@ local function map_plugins_config(tbl, c)
   return t
 end
 
-require('lazy').setup(vim.list_extend(
+return vim.list_extend(
   {
     'lewis6991/impatient.nvim',
     'nvim-lua/plenary.nvim',
-
-    -- {{{ Treesitter
-    {
-      'nvim-treesitter/nvim-treesitter',
-      config = function()
-        require('lttb.plugins.treesitter').setup({})
-      end,
-    },
-    'nvim-treesitter/playground',
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    'RRethy/nvim-treesitter-textsubjects',
-    {
-      'nvim-treesitter/nvim-treesitter-context',
-      config = function()
-        require('treesitter-context').setup()
-      end,
-    },
-    -- }}}
 
     {
       'kylechui/nvim-surround',
@@ -209,7 +174,6 @@ require('lazy').setup(vim.list_extend(
     },
 
     { 'JoosepAlviste/nvim-ts-context-commentstring' },
-
     {
       'numToStr/Comment.nvim',
       config = function()
@@ -221,154 +185,6 @@ require('lazy').setup(vim.list_extend(
         })
       end,
     },
-
-    -- {{{ Git
-    {
-      'tpope/vim-fugitive',
-      event = 'VimEnter',
-    },
-
-    {
-      'tpope/vim-rhubarb',
-      event = 'VimEnter',
-    },
-
-    {
-      'lewis6991/gitsigns.nvim',
-      event = 'VimEnter',
-      config = true,
-    },
-
-    -- }}}
-
-    -- LSP and CMP {{{
-    { 'williamboman/mason.nvim' },
-    { 'williamboman/mason-lspconfig.nvim' },
-    { 'neovim/nvim-lspconfig' },
-    {
-      'L3MON4D3/LuaSnip',
-      dependencies = { 'saadparwaiz1/cmp_luasnip' },
-    },
-    {
-      'hrsh7th/nvim-cmp',
-      dependencies = {
-        'neovim/nvim-lspconfig',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-cmdline',
-
-        'onsails/lspkind.nvim',
-        'L3MON4D3/LuaSnip',
-
-        'lukas-reineke/cmp-rg',
-      },
-      config = function()
-        require('lttb.plugins.lsp')
-      end,
-    },
-
-    {
-      'jose-elias-alvarez/null-ls.nvim',
-      config = function()
-        require('lttb.plugins.null-ls')
-      end,
-    },
-
-    {
-      'windwp/nvim-ts-autotag',
-      event = 'VimEnter',
-      config = true,
-    },
-
-    {
-      'windwp/nvim-autopairs',
-      event = 'VimEnter',
-      dependencies = {
-        'hrsh7th/nvim-cmp',
-      },
-      config = function()
-        local npairs = require('nvim-autopairs')
-
-        npairs.setup({
-          check_ts = true,
-        })
-
-        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-        local cmp = require('cmp')
-        cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-      end,
-    },
-
-    {
-      'axelvc/template-string.nvim',
-      event = 'VimEnter',
-      config = true,
-    },
-
-    {
-      'zbirenbaum/copilot.lua',
-      event = 'VimEnter',
-      config = function()
-        vim.defer_fn(function()
-          require('copilot').setup({
-            panel = {
-              auto_refresh = true,
-            },
-
-            suggestion = {
-              auto_trigger = true,
-              keymap = {
-                accept = '<C-l>',
-              },
-            },
-
-            filetypes = {
-              ['*'] = true,
-            },
-
-            -- NOTE: it has to be node v16
-            -- @see https://github.com/zbirenbaum/copilot.lua/issues/69
-            -- Check later if it works with v18
-            copilot_node_command = 'node',
-          })
-        end, 100)
-      end,
-    },
-
-    {
-      'lukas-reineke/indent-blankline.nvim',
-      config = function()
-        local utils = require('lttb.utils')
-        local indent_char = false and utils.is_neovide() and '·' or '┊'
-
-        require('indent_blankline').setup({
-          char = indent_char,
-          context_char = indent_char,
-          show_trailing_blankline_indent = false,
-          show_current_context = true,
-          show_first_indent_level = false,
-        })
-      end,
-    },
-
-    -- }}}
-
-    {
-      'kyazdani42/nvim-tree.lua',
-      config = function()
-        require('lttb.plugins.nvim-tree')
-      end,
-    },
-
-    {
-      'nvim-lualine/lualine.nvim',
-      config = function()
-        require('lttb.plugins.lualine')
-      end,
-    },
-
-    { 'arkav/lualine-lsp-progress' },
 
     {
       'projekt0n/github-nvim-theme',
@@ -434,47 +250,7 @@ require('lazy').setup(vim.list_extend(
         'MunifTanjim/nui.nvim',
       },
     },
-
-    {
-      'nvim-telescope/telescope.nvim',
-      config = function()
-        require('lttb.plugins.telescope')
-      end,
-    },
-    {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      -- @see https://github.com/nvim-telescope/telescope-fzf-native.nvim#cmake-windows-linux-macos
-      -- run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-      build = 'make',
-      config = function()
-        require('telescope').load_extension('fzf')
-      end,
-    },
   }, {
     enabled = not utils.is_vscode(),
   })
-))
-
-local theme = require('lttb.theme')
-
-if theme.colorscheme == 'github_light' then
-  -- NOTE: for some reason nvim_set_hl didn't override
-  vim.api.nvim_set_hl(0, 'TreesitterContext', {
-    link = 'CursorLineFold',
-    default = false,
-    nocombine = true,
-  })
-  -- vim.cmd('hi! link TreesitterContext CursorLineFold')
-end
-
-if utils.is_vscode() then
-  require('lttb.vscode')
-
-  return
-end
-
-if utils.is_neovide() then
-  require('lttb.neovide')
-
-  return
-end
+)
