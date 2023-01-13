@@ -94,7 +94,7 @@ utils.keymap({ 'n', 't', 'i' }, { '<C-j>', '<D-j>' }, 'lttb-toggle-term', {
 
 -- LSP
 
-utils.keymap('n', { '<leader>ca', '<D-.>' }, 'lttb-lsp-code-action', {
+utils.keymap('n', { '<leader>ca', '<D-.>', '<C-.>' }, 'lttb-lsp-code-action', {
   desc = 'LSP: [C]ode [A]ction',
 })
 

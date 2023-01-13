@@ -33,7 +33,8 @@ local function config()
   local on_attach = function(_, bufnr)
     local utils = require('lttb.utils')
 
-    utils.keyplug('lttb-lsp-code-action', vim.lsp.buf.code_action)
+    -- utils.keyplug('lttb-lsp-code-action', vim.lsp.buf.code_action)
+    utils.keyplug('lttb-lsp-code-action', '<cmd>CodeActionMenu<cr>')
 
     utils.keyplug('lttb-lsp-rename', vim.lsp.buf.rename)
 
@@ -288,6 +289,14 @@ return {
       'lukas-reineke/cmp-rg',
     },
     config = config,
+  },
+
+  {
+    'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu',
+    config = function()
+      vim.g.code_action_menu_show_diff = true
+    end,
   },
 
   {
