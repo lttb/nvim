@@ -250,6 +250,16 @@ return vim.list_extend(
         'MunifTanjim/nui.nvim',
       },
     },
+
+    {
+      'luukvbaal/statuscol.nvim',
+      config = function()
+        require('statuscol').setup({
+          separator = ' ',
+        })
+      end,
+      enabled = vim.fn.has('nvim-0.9.0') == 1,
+    },
   }, {
     enabled = not utils.is_vscode(),
   })
