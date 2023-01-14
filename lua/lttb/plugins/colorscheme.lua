@@ -4,8 +4,6 @@ local themes = {
   github_theme = {
     'projekt0n/github-nvim-theme',
     config = function()
-      local theme = require('lttb.theme')
-
       require('github-theme').setup({
         theme_style = theme.current.github_theme.theme_style,
         colors = theme.current.github_theme.colors,
@@ -49,9 +47,17 @@ local themes = {
         no_italic = true,
 
         custom_highlights = function(c)
+          local cursorword_bg = theme.colorscheme == 'catppuccin-latte'
+              and c.crust
+            or c.surface1
+
           return {
-            MiniCursorword = { bg = c.surface1 },
-            MiniCursorwordCurrent = { bg = c.surface1 },
+            MiniCursorword = {
+              bg = cursorword_bg,
+            },
+            MiniCursorwordCurrent = {
+              bg = cursorword_bg,
+            },
 
             -- LspDiagnosticsUnderlineError = {
             --   link = 'DiagnosticVirtualTextError',
@@ -69,32 +75,20 @@ local themes = {
         end,
 
         integrations = {
-          -- leap = true,
-          -- hop = true,
-          -- mason = true,
-          -- noice = true,
-          -- treesitter_context = true,
-          -- treesitter = true,
+          leap = true,
+          hop = true,
+          mason = true,
+          noice = true,
+          treesitter_context = true,
+          treesitter = true,
 
-          -- indent_blankline = {
-          --   enabled = true,
-          --   colored_indent_levels = false,
-          -- },
+          indent_blankline = {
+            enabled = true,
+            colored_indent_levels = false,
+          },
 
           native_lsp = {
-            -- enabled = true,
-            -- virtual_text = {
-            --   errors = { 'italic' },
-            --   hints = { 'italic' },
-            --   warnings = { 'italic' },
-            --   information = { 'italic' },
-            -- },
-            -- underlines = {
-            --   errors = { bg = '#EEBEBE' },
-            --   hints = { bg = '#626880' },
-            --   warnings = { bg = '#EF9F76' },
-            --   information = { bg = '#EA999C' },
-            -- },
+            enabled = true,
           },
         },
       })
