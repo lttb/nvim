@@ -13,17 +13,17 @@ local function config()
     },
 
     sections = {
-      lualine_c = {
-        {
-          'filename',
-          newfile_status = true,
-          path = 1,
-        },
-        -- {
-        --   git_blame.get_current_blame_text,
-        --   cond = git_blame.is_blame_text_available,
-        -- },
-      },
+      -- lualine_c = {
+      --   {
+      --     'filename',
+      --     newfile_status = true,
+      --     path = 1,
+      --   },
+      --   -- {
+      --   --   git_blame.get_current_blame_text,
+      --   --   cond = git_blame.is_blame_text_available,
+      --   -- },
+      -- },
     },
   })
 end

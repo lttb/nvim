@@ -68,17 +68,17 @@ if theme.colorscheme == 'edge' then
 end
 
 -- TODO: Add support for other themes
-if utils.is_kitty() and theme.colorscheme == 'github_light' then
-  vim.cmd([[
-    augroup kitty_mp
-        autocmd!
-        au VimLeave * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors --reset
-        au VimEnter * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors "$HOME/.config/kitty/themes/github-light.conf"
-    augroup END
-  ]])
-end
-
 if utils.is_kitty() then
+  if theme.colorscheme == 'github_light' then
+    vim.cmd([[
+      augroup kitty_mp
+          autocmd!
+          au VimLeave * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors --reset
+          au VimEnter * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors "$HOME/.config/kitty/themes/github-light.conf"
+      augroup END
+    ]])
+  end
+
   vim.cmd([[
     augroup kitty_padding
         autocmd!
@@ -86,4 +86,20 @@ if utils.is_kitty() then
         au VimEnter * :silent !kitty @ --to=$KITTY_LISTEN_ON set-spacing padding=0 margin=0
     augroup END
   ]])
+
+  vim.api.nvim_create_autocmd('VimLeave', {
+    callback = function()
+      vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title')
+    end,
+  })
+  vim.api.nvim_create_autocmd('BufEnter', {
+    callback = function()
+      vim.schedule(function()
+        vim.cmd(
+          'silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title --temporary '
+            .. vim.fn.expand('%:~:.')
+        )
+      end)
+    end,
+  })
 end
