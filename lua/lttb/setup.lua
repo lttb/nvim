@@ -19,20 +19,9 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup('lttb.plugins')
 
+require('lttb.theme-setup')
+
 local utils = require('lttb.utils')
-local theme = require('lttb.theme')
-
-vim.cmd.colorscheme(theme.colorscheme)
-
-if theme.colorscheme == 'github_light' then
-  -- NOTE: for some reason nvim_set_hl didn't override
-  vim.api.nvim_set_hl(0, 'TreesitterContext', {
-    link = 'CursorLineFold',
-    default = false,
-    nocombine = true,
-  })
-  -- vim.cmd('hi! link TreesitterContext CursorLineFold')
-end
 
 if utils.is_vscode() then
   require('lttb.settings.vscode')

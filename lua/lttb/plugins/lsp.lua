@@ -19,15 +19,6 @@ local function config()
     automatic_installation = true,
   })
 
-  -- Highlight line number instead of having icons in sign column
-  -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
-  vim.cmd([[
-  sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticError
-  sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticWarn
-  sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticInfo
-  sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticHint
-]])
-
   -- LSP settings.
   --  This function gets run when an LSP connects to a particular buffer.
   local on_attach = function(_, bufnr)
@@ -293,6 +284,16 @@ return {
       'lukas-reineke/cmp-rg',
     },
     config = config,
+  },
+
+  {
+    'narutoxy/dim.lua',
+    config = {
+      disable_lsp_decorations = true,
+    },
+    -- TODO: enable when this issue will be resolved
+    -- @see https://github.com/0oAstro/dim.lua/issues/20
+    enabled = false,
   },
 
   {

@@ -61,21 +61,10 @@ M.pallettes = {
   },
 }
 
-M.name = 'github_theme'
-M.variant = 'light'
-M.colorscheme = 'github_light'
+M.variant = 'dark'
+M.name = 'edge'
+M.colorscheme = 'edge'
 
 M.current = M.pallettes[M.variant]
-
--- TODO: Add support for other themes
-if utils.is_kitty() and M.colorscheme == 'github_light' then
-  vim.cmd([[
-    augroup kitty_mp
-        autocmd!
-        au VimLeave * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors --reset
-        au VimEnter * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors "$HOME/.config/kitty/themes/github-light.conf"
-    augroup END
-  ]])
-end
 
 return M

@@ -1,0 +1,54 @@
+require('lttb.utils.treesitter-hl')
+
+local utils = require('lttb.utils')
+local theme = require('lttb.theme')
+
+vim.opt.background = theme.variant
+vim.cmd.colorscheme(theme.colorscheme)
+
+-- Highlight line number instead of having icons in sign column
+-- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
+vim.cmd([[
+  sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticError
+  sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticWarn
+  sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticInfo
+  sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticHint
+]])
+
+vim.cmd([[
+  highlight ErrorText gui=NONE
+  highlight WarningText gui=NONE
+  highlight InfoText gui=NONE
+  highlight HintText gui=NONE
+]])
+
+if theme.colorscheme == 'github_light' then
+  -- NOTE: for some reason nvim_set_hl didn't override
+  vim.api.nvim_set_hl(0, 'TreesitterContext', {
+    link = 'CursorLineFold',
+    default = false,
+    nocombine = true,
+  })
+  -- vim.cmd('hi! link TreesitterContext CursorLineFold')
+end
+
+if theme.colorscheme == 'edge' then
+  if theme.variant == 'dark' then
+    vim.api.nvim_set_hl(
+      0,
+      '@variable',
+      { fg = '#fafafa', link = nil, default = false, nocombine = true }
+    )
+  end
+end
+
+-- TODO: Add support for other themes
+if utils.is_kitty() and theme.colorscheme == 'github_light' then
+  vim.cmd([[
+    augroup kitty_mp
+        autocmd!
+        au VimLeave * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors --reset
+        au VimEnter * :silent !kitty @ --to=$KITTY_LISTEN_ON set-colors "$HOME/.config/kitty/themes/github-light.conf"
+    augroup END
+  ]])
+end

@@ -38,8 +38,6 @@ vim.opt.shell = 'zsh' -- Use zsh as shell
 
 -- UI {{{
 
-vim.opt.background = require('lttb.theme').variant
-
 vim.opt.termguicolors = true    -- Enable gui colors
 vim.opt.cursorline    = true    -- Enable highlighting of the current line
 vim.opt.number        = true    -- Show line numbers

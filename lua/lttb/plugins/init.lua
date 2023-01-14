@@ -161,6 +161,15 @@ return vim.list_extend(
         })
       end,
     },
+
+    {
+      'mvllow/modes.nvim',
+      tag = 'v0.2.1',
+      config = {
+        line_opacity = 0.05,
+      },
+      enabled = false,
+    },
   },
   map_plugins_config({
     { 'tpope/vim-sleuth' },
