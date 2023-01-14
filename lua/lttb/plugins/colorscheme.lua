@@ -41,7 +41,7 @@ local themes = {
         -- transparent_background = true,
         term_colors = true,
         dim_inactive = {
-          enabled = true,
+          enabled = false,
           shade = 'dark',
           percentage = 0.15,
         },
@@ -82,7 +82,7 @@ local themes = {
           -- },
 
           native_lsp = {
-            enabled = true,
+            -- enabled = true,
             -- virtual_text = {
             --   errors = { 'italic' },
             --   hints = { 'italic' },

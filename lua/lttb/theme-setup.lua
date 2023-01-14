@@ -77,3 +77,13 @@ if utils.is_kitty() and theme.colorscheme == 'github_light' then
     augroup END
   ]])
 end
+
+if utils.is_kitty() then
+  vim.cmd([[
+    augroup kitty_padding
+        autocmd!
+        au VimLeave * :silent !kitty @ --to=$KITTY_LISTEN_ON set-spacing padding-left=10 margin=0
+        au VimEnter * :silent !kitty @ --to=$KITTY_LISTEN_ON set-spacing padding=0 margin=0
+    augroup END
+  ]])
+end
