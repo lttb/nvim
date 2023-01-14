@@ -1,5 +1,7 @@
 local function config()
-  require('nvim-tree').setup({
+  local nvim_tree = require('nvim-tree')
+
+  nvim_tree.setup({
     -- disable_netrw = false,
     -- hijack_netrw = false,
 
@@ -15,6 +17,10 @@ local function config()
       ignore_list = { 'help' },
     },
 
+    remove_keymaps = {
+      's',
+    },
+
     git = {
       enable = true,
     },
@@ -23,13 +29,30 @@ local function config()
       width = 50,
       adaptive_size = false,
       mappings = {
-        list = {
-          {
-            key = 's',
-            action = nil,
-          },
-        },
+        list = {},
       },
+    },
+
+    renderer = {
+      highlight_opened_files = 'icon',
+      highlight_modified = 'name',
+
+      icons = {
+        git_placement = 'after',
+        modified_placement = 'after',
+      },
+    },
+
+    diagnostics = {
+      enable = true,
+      show_on_dirs = true,
+      severity = {
+        min = vim.diagnostic.severity.WARN,
+      },
+    },
+
+    modified = {
+      enable = true,
     },
   })
 

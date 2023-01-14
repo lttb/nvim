@@ -33,6 +33,8 @@ return vim.list_extend(
             target_windows = { vim.fn.win_getid() },
 
             opts = {
+              max_phase_one_targets = 2,
+
               equivalence_classes = {
                 '\t\r\n',
                 ')]}>',
