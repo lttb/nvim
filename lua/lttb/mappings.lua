@@ -21,6 +21,8 @@ vim.keymap.set(
   { noremap = true }
 )
 
+vim.keymap.set('v', 'x', '"*x')
+
 -- Char motions
 -- utils.keymap('n', 's', 'lttb-hop-on')
 
