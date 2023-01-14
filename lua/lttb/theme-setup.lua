@@ -22,6 +22,31 @@ vim.cmd([[
   highlight HintText gui=NONE
 ]])
 
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', {
+  link = 'DiagnosticVirtualTextError',
+  underline = false,
+  default = false,
+  -- nocombine = true,
+})
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', {
+  link = 'DiagnosticVirtualTextWarning',
+  underline = false,
+  default = false,
+  -- nocombine = true,
+})
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInfo', {
+  link = 'DiagnosticVirtualTextInformation',
+  underline = false,
+  default = false,
+  -- nocombine = true,
+})
+vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', {
+  link = 'DiagnosticVirtualTextHint',
+  underline = false,
+  default = false,
+  -- nocombine = true,
+})
+
 if theme.colorscheme == 'github_light' then
   -- NOTE: for some reason nvim_set_hl didn't override
   vim.api.nvim_set_hl(0, 'TreesitterContext', {

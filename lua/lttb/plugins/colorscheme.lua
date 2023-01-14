@@ -45,6 +45,58 @@ local themes = {
           shade = 'dark',
           percentage = 0.15,
         },
+
+        no_italic = true,
+
+        custom_highlights = function(c)
+          return {
+            MiniCursorword = { bg = c.surface1 },
+            MiniCursorwordCurrent = { bg = c.surface1 },
+
+            -- LspDiagnosticsUnderlineError = {
+            --   link = 'DiagnosticVirtualTextError',
+            -- },
+            -- LspDiagnosticsUnderlineWarning = {
+            --   link = 'DiagnosticVirtualTextError',
+            -- },
+            -- LspDiagnosticsUnderlineInformation = {
+            --   link = 'DiagnosticVirtualTextError',
+            -- },
+            -- LspDiagnosticsUnderlineHint = {
+            --   link = 'DiagnosticVirtualTextError',
+            -- },
+          }
+        end,
+
+        integrations = {
+          -- leap = true,
+          -- hop = true,
+          -- mason = true,
+          -- noice = true,
+          -- treesitter_context = true,
+          -- treesitter = true,
+
+          -- indent_blankline = {
+          --   enabled = true,
+          --   colored_indent_levels = false,
+          -- },
+
+          native_lsp = {
+            enabled = true,
+            -- virtual_text = {
+            --   errors = { 'italic' },
+            --   hints = { 'italic' },
+            --   warnings = { 'italic' },
+            --   information = { 'italic' },
+            -- },
+            -- underlines = {
+            --   errors = { bg = '#EEBEBE' },
+            --   hints = { bg = '#626880' },
+            --   warnings = { bg = '#EF9F76' },
+            --   information = { bg = '#EA999C' },
+            -- },
+          },
+        },
       })
     end,
   },

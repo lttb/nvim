@@ -62,8 +62,8 @@ M.pallettes = {
 }
 
 M.variant = 'dark'
-M.name = 'edge'
-M.colorscheme = 'edge'
+M.name = 'catppuccin'
+M.colorscheme = 'catppuccin-frappe'
 
 M.current = M.pallettes[M.variant]
 
