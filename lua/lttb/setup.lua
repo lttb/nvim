@@ -22,6 +22,8 @@ require('lazy').setup('lttb.plugins')
 local utils = require('lttb.utils')
 local theme = require('lttb.theme')
 
+vim.cmd.colorscheme(theme.colorscheme)
+
 if theme.colorscheme == 'github_light' then
   -- NOTE: for some reason nvim_set_hl didn't override
   vim.api.nvim_set_hl(0, 'TreesitterContext', {

@@ -13,7 +13,7 @@ end
 
 return vim.list_extend(
   {
-    'lewis6991/impatient.nvim',
+    -- 'lewis6991/impatient.nvim',
     'nvim-lua/plenary.nvim',
 
     {
@@ -62,8 +62,6 @@ return vim.list_extend(
         local substitute = require('substitute')
         substitute.setup({})
 
-        local utils = require('lttb.utils')
-
         utils.keyplug('lttb-substiture-operator', substitute.operator)
         utils.keyplug('lttb-substiture-line', substitute.line)
         utils.keyplug('lttb-substiture-eol', substitute.eol)
@@ -80,8 +78,6 @@ return vim.list_extend(
         hop.setup({
           jump_on_sole_occurrence = true,
         })
-
-        local utils = require('lttb.utils')
 
         utils.keyplug('lttb-hop-on', function()
           hop.hint_char1({
@@ -187,30 +183,6 @@ return vim.list_extend(
     },
 
     {
-      'projekt0n/github-nvim-theme',
-      config = function()
-        local theme = require('lttb.theme')
-        local utils = require('lttb.utils')
-
-        require('github-theme').setup({
-          theme_style = theme.current.github_theme.theme_style,
-          colors = theme.current.github_theme.colors,
-          overrides = theme.current.github_theme.overrides,
-
-          -- dark_float = not utils.is_neovide(),
-          -- dark_sidebar = not utils.is_neovide(),
-          dark_float = true,
-          dark_sidebar = false,
-          keyword_style = 'NONE',
-          transparent = false,
-          sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
-        })
-
-        vim.cmd.colorscheme(theme.colorscheme)
-      end,
-    },
-
-    {
       'declancm/cinnamon.nvim',
       config = function()
         require('cinnamon').setup({
@@ -233,8 +205,6 @@ return vim.list_extend(
           auto_close = true,
         })
 
-        local utils = require('lttb.utils')
-
         utils.keyplug('lttb-toggle-term', function()
           require('FTerm').toggle()
         end)
@@ -248,14 +218,6 @@ return vim.list_extend(
       end,
       dependencies = {
         'MunifTanjim/nui.nvim',
-      },
-    },
-
-    {
-      'mvllow/modes.nvim',
-      tag = 'v0.2.0',
-      config = {
-        line_opacity = 0.05,
       },
     },
 
