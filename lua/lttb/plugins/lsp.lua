@@ -287,13 +287,12 @@ return {
   },
 
   {
-    'narutoxy/dim.lua',
+    'zbirenbaum/neodim',
+    event = 'LspAttach',
     config = {
-      disable_lsp_decorations = true,
+      alpha = 0.5,
+      blend_color = '#2a2c3c',
     },
-    -- TODO: enable when this issue will be resolved
-    -- @see https://github.com/0oAstro/dim.lua/issues/20
-    enabled = false,
   },
 
   {
