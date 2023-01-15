@@ -29,7 +29,9 @@ local function config()
       width = 50,
       adaptive_size = false,
       mappings = {
-        list = {},
+        list = {
+          { key = { '<LeftRelease>' }, action = 'preview' },
+        },
       },
     },
 
