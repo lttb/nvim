@@ -1,5 +1,7 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 
+local utils = require('lttb.utils')
+
 local function config()
   local servers = {
     'sumneko_lua',
@@ -22,8 +24,6 @@ local function config()
   -- LSP settings.
   --  This function gets run when an LSP connects to a particular buffer.
   local on_attach = function(_, bufnr)
-    local utils = require('lttb.utils')
-
     -- utils.keyplug('lttb-lsp-code-action', vim.lsp.buf.code_action)
     utils.keyplug('lttb-lsp-code-action', '<cmd>CodeActionMenu<cr>')
 
@@ -33,7 +33,8 @@ local function config()
 
     utils.keyplug('lttb-lsp-implementation', vim.lsp.buf.implementation)
 
-    utils.keyplug('lttb-lsp-hover', vim.lsp.buf.hover)
+    -- use hover.nvim instead
+    -- utils.keyplug('lttb-lsp-hover', vim.lsp.buf.hover)
 
     utils.keyplug('lttb-lsp-signature-help', vim.lsp.buf.signature_help)
 
@@ -284,6 +285,29 @@ return {
       'lukas-reineke/cmp-rg',
     },
     config = config,
+  },
+
+  {
+    'lewis6991/hover.nvim',
+    config = function()
+      require('hover').setup({
+        init = function()
+          require('hover.providers.lsp')
+          require('hover.providers.gh')
+          require('hover.providers.gh_user')
+          require('hover.providers.jira')
+          require('hover.providers.man')
+          require('hover.providers.dictionary')
+        end,
+      })
+
+      utils.keyplug('lttb-lsp-hover', require('hover').hover, {
+        desc = 'hover.nvim',
+      })
+      utils.keyplug('lttb-lsp-hover-select', require('hover').hover_select, {
+        desc = 'hover.nvim (select)',
+      })
+    end,
   },
 
   {

@@ -61,8 +61,12 @@ utils.keymap('n', '<leader>?', 'lttb-find-recent-files', {
   desc = '[?] Find recently opened files',
 })
 
-utils.keymap('n', '<leader><space>', 'lttb-find-buffers', {
+utils.keymap('n', '<leader><leader>', 'lttb-smart-open', {
   desc = '[ ] Find existing buffers',
+})
+
+utils.keymap('n', '<leader>sb', 'lttb-find-buffers', {
+  desc = '[S] Find existing [B]uffers',
 })
 
 utils.keymap('n', '<leader>sa', 'lttb-find-all-files', {
@@ -125,9 +129,11 @@ utils.keymap('n', '<leader>ws', 'lttb-lsp-workspace-symbols', {
   desc = 'LSP: [W]orkspace [S]ymbols',
 })
 
--- See `:help K` for why this keymap
-utils.keymap('n', { 'gh' }, 'lttb-lsp-hover', {
+utils.keymap('n', { 'gh', 'K' }, 'lttb-lsp-hover', {
   desc = 'LSP: Hover Documentation',
+})
+utils.keymap('n', { 'gK' }, 'lttb-lsp-hover-select', {
+  desc = 'LSP: Hover Documentation Select',
 })
 
 utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {

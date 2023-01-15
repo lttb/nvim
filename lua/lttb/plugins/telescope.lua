@@ -1,8 +1,9 @@
+local utils = require('lttb.utils')
+
 local config = function()
   local telescope = require('telescope')
   local actions = require('telescope.actions')
   local builtin = require('telescope.builtin')
-  local utils = require('lttb.utils')
 
   telescope.setup({
     defaults = {
@@ -89,6 +90,18 @@ return {
         config = function()
           require('telescope').load_extension('fzf')
         end,
+      },
+
+      {
+        'danielfalk/smart-open.nvim',
+        config = function()
+          require('telescope').load_extension('smart_open')
+
+          utils.keyplug('lttb-smart-open', function()
+            require('telescope').extensions.smart_open.smart_open()
+          end)
+        end,
+        dependencies = { 'kkharji/sqlite.lua' },
       },
     },
   },
