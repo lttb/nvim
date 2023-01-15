@@ -135,6 +135,9 @@ utils.keymap('n', { 'gh', 'K' }, 'lttb-lsp-hover', {
 utils.keymap('n', { 'gK' }, 'lttb-lsp-hover-select', {
   desc = 'LSP: Hover Documentation Select',
 })
+utils.keymap('n', { 'gh' }, 'lttb-lsp-hover-native', {
+  desc = 'LSP: Hover Documentation Native',
+})
 
 utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {
   desc = 'LSP: Signature Documentation',

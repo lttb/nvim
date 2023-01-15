@@ -34,7 +34,7 @@ local function config()
     utils.keyplug('lttb-lsp-implementation', vim.lsp.buf.implementation)
 
     -- use hover.nvim instead
-    -- utils.keyplug('lttb-lsp-hover', vim.lsp.buf.hover)
+    utils.keyplug('lttb-lsp-hover-native', vim.lsp.buf.hover)
 
     utils.keyplug('lttb-lsp-signature-help', vim.lsp.buf.signature_help)
 

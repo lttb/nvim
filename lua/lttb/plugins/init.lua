@@ -59,19 +59,6 @@ return vim.list_extend(
     },
 
     {
-      'gbprod/substitute.nvim',
-      config = function()
-        local substitute = require('substitute')
-        substitute.setup({})
-
-        utils.keyplug('lttb-substiture-operator', substitute.operator)
-        utils.keyplug('lttb-substiture-line', substitute.line)
-        utils.keyplug('lttb-substiture-eol', substitute.eol)
-        utils.keyplug('lttb-substiture-visual', substitute.visual)
-      end,
-    },
-
-    {
       'phaazon/hop.nvim',
       branch = 'v2',
       config = function()
@@ -93,6 +80,26 @@ return vim.list_extend(
             hint_offset = -1,
           })
         end)
+      end,
+    },
+
+    {
+      'gbprod/substitute.nvim',
+      config = function()
+        local substitute = require('substitute')
+        substitute.setup({})
+
+        utils.keyplug('lttb-substiture-operator', substitute.operator)
+        utils.keyplug('lttb-substiture-line', substitute.line)
+        utils.keyplug('lttb-substiture-eol', substitute.eol)
+        utils.keyplug('lttb-substiture-visual', substitute.visual)
+      end,
+    },
+
+    {
+      'chaoren/vim-wordmotion',
+      init = function()
+        vim.g.wordmotion_prefix = 'm'
       end,
     },
 
@@ -277,6 +284,8 @@ return vim.list_extend(
           end,
         })
       end,
+      -- feels quite buggy, disable for now
+      enabled = false,
     },
   }, {
     enabled = not utils.is_vscode(),
