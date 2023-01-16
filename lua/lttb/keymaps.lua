@@ -1,6 +1,55 @@
+-- vim:fileencoding=utf-8:foldmethod=marker
+
 local utils = require('lttb.utils')
 
--- Global mappings
+-- {{{ Global mappings
+
+-- @see https://github.com/LazyVim/LazyVim/blob/30b7215de80a215c9bc72640505ea76431ff515c/lua/lazyvim/config/keymaps.lua
+
+-- better up/down
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+-- Move to window using the <ctrl> hjkl keys
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Go to left window' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Go to lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Go to upper window' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Go to right window' })
+
+-- Resize window using <ctrl> arrow keys
+vim.keymap.set('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase window height' })
+vim.keymap.set('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease window height' })
+vim.keymap.set('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease window width' })
+vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase window width' })
+
+-- Clear search with <esc>
+vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
+
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+vim.keymap.set('n', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
+vim.keymap.set('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
+vim.keymap.set('o', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
+vim.keymap.set('n', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
+vim.keymap.set('x', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
+vim.keymap.set('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
+
+-- better indenting
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
+-- quit
+vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
+
+-- highlights under cursor
+if vim.fn.has('nvim-0.9.0') == 1 then
+  vim.keymap.set('n', '<leader>sH', vim.show_pos, { desc = 'Highlight Groups at cursor' })
+end
+
+-- buffers
+vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
+vim.keymap.set('n', '<leader>bw', '<cmd>bdelete<cr>', { desc = 'Delete Buffer' })
+
+-- }}}
 
 -- Fix gx, avoid netrw
 vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
@@ -14,13 +63,9 @@ utils.keymap('x', '<leader>x', 'lttb-substiture-visual', {
   desc = 'Substitute visual selection',
   noremap = true,
 })
-vim.keymap.set(
-  'n',
-  '<leader>xx',
-  "<cmd>lua require('substitute.exchange').operator()<cr>",
-  { noremap = true }
-)
+vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').operator()<cr>", { noremap = true })
 
+-- cut into system clipboard in visual mode
 vim.keymap.set('v', 'x', '"*x')
 
 -- Char motions
@@ -31,18 +76,17 @@ vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')
 
 -- Quick Save shortcut
 utils.keyplug('lttb-quick-save', '<esc><cmd>update<cr>')
-
 utils.keymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
 
 -- Copilot remap
-vim.keymap.set('i', '<D-l>', '<C-l>', { remap = true })
+-- vim.keymap.set('i', '<D-l>', '<C-l>', { remap = true })
 
 -- Sidebar
-utils.keymap('n', '<leader>b', 'lttb-sidebar-toggle', {
+utils.keymap('n', '<M-b>', 'lttb-sidebar-toggle', {
   desc = 'Toggle sidebar',
 })
 
-utils.keymap('n', '<leader>e', 'lttb-sidebar-focus', {
+utils.keymap('n', '<M-e>', 'lttb-sidebar-focus', {
   desc = 'Focus sidebar',
 })
 
@@ -95,7 +139,7 @@ utils.keymap('n', '<leader>sd', 'lttb-search-diagnostics', {
 
 -- Terminal
 
-utils.keymap({ 'n', 't', 'i' }, { '<C-j>', '<D-j>' }, 'lttb-toggle-term', {
+utils.keymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
   desc = 'Toggle terminal',
 })
 
