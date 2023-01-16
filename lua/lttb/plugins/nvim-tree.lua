@@ -5,6 +5,7 @@ local function config()
     -- disable_netrw = false,
     -- hijack_netrw = false,
 
+    open_on_setup = true,
     open_on_setup_file = true,
     ignore_ft_on_setup = { 'gitcommit', 'gitrebase' },
     -- respect_buf_cwd = true,

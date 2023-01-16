@@ -14,6 +14,23 @@ local config = function()
           ['<esc>'] = actions.close,
         },
       },
+
+      get_selection_window = function()
+        if vim.bo.filetype ~= 'NvimTree' then
+          return 0
+        end
+
+        local windows = vim.api.nvim_tabpage_list_wins(0)
+
+        -- find any not NvimTree window to avoid sidebar flickering
+        for _, win in ipairs(windows) do
+          local filetype = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), 'filetype')
+
+          if filetype ~= 'NvimTree' then
+            return win
+          end
+        end
+      end,
     },
   })
 
@@ -71,10 +88,7 @@ local config = function()
 
   utils.keyplug('lttb-lsp-document-symbols', builtin.lsp_document_symbols)
 
-  utils.keyplug(
-    'lttb-lsp-workspace-symbols',
-    builtin.lsp_dynamic_workspace_symbols
-  )
+  utils.keyplug('lttb-lsp-workspace-symbols', builtin.lsp_dynamic_workspace_symbols)
 end
 
 return {
