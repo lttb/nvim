@@ -94,12 +94,18 @@ if utils.is_kitty() then
   })
   vim.api.nvim_create_autocmd('BufEnter', {
     callback = function()
-      vim.schedule(function()
+      -- defer title setting to avoid flickering
+      vim.defer_fn(function()
+        local filepath = vim.fn.expand('%:~:.')
+
+        if filepath == 'NvimTree_1' then
+          return
+        end
+
         vim.cmd(
-          'silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title --temporary '
-            .. vim.fn.expand('%:~:.')
+          'silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title ' .. filepath
         )
-      end)
+      end, 100)
     end,
   })
 end
