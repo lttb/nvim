@@ -93,7 +93,10 @@ utils.keymap('n', '<M-e>', 'lttb-sidebar-focus', {
 -- Commands
 utils.keymap('n', '<S-D-p>', 'lttb-telescope')
 
-utils.keymap('n', { '<leader>/', '<D-f>' }, 'lttb-search-buffer', {
+vim.keymap.set('n', '<leader>/', '/', {
+  noremap = true,
+})
+utils.keymap('n', { '/', '<D-f>' }, 'lttb-search-buffer', {
   desc = '[/] Fuzzily search in current buffer',
 })
 
