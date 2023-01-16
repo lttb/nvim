@@ -59,11 +59,7 @@ end
 
 if theme.colorscheme == 'edge' then
   if theme.variant == 'dark' then
-    vim.api.nvim_set_hl(
-      0,
-      '@variable',
-      { fg = '#fafafa', link = nil, default = false, nocombine = true }
-    )
+    vim.api.nvim_set_hl(0, '@variable', { fg = '#fafafa', link = nil, default = false, nocombine = true })
   end
 end
 
@@ -102,9 +98,7 @@ if utils.is_kitty() then
           return
         end
 
-        vim.cmd(
-          'silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title ' .. filepath
-        )
+        vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title ' .. filepath)
       end, 100)
     end,
   })
