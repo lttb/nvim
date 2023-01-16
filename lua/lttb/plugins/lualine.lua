@@ -5,6 +5,8 @@ local function config()
   local theme = require('lttb.theme')
 
   require('lualine').setup({
+    disabled_filetypes = { 'NvimTree' },
+
     options = {
       icons_enabled = true,
       theme = 'auto',
