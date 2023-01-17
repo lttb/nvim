@@ -49,11 +49,23 @@ local function config()
         buffer = bufnr,
       })
 
+      local format_timer
+
       local autocmd_opts = {
         group = augroup,
         buffer = bufnr,
         callback = function()
-          lsp_formatting(bufnr)
+          if format_timer then
+            format_timer:stop()
+
+            if not format_timer:is_closing() then
+              format_timer:close()
+            end
+          end
+
+          format_timer = vim.defer_fn(function()
+            lsp_formatting(bufnr)
+          end, 100)
         end,
       }
 

@@ -32,6 +32,33 @@ if utils.is_vscode() then
   return
 end
 
+-- {{{ Text editing navigation
+
+vim.keymap.set('x', '<BS>', 'd')
+
+local function native_nav(key, ncmd, icmd, xcmd)
+  vim.keymap.set('n', key, ncmd, { remap = true })
+  vim.keymap.set('i', key, '<esc>' .. key .. (icmd or ''), { remap = true })
+  if xcmd then
+    vim.keymap.set('x', key, xcmd, { remap = true })
+  end
+end
+
+native_nav('<M-BS>', ',bda,w', 'i')
+native_nav('<M-DEL>', 'da,w', 'i')
+
+native_nav('<S-Left>', 'vh', '', 'h')
+native_nav('<S-Right>', 'vl', '', 'l')
+native_nav('<S-Up>', 'vk', '', 'k')
+native_nav('<S-Down>', 'vj', '', 'j')
+
+native_nav('<M-Left>', ',b', 'i')
+native_nav('<M-Right>', ',e,w', 'i')
+
+native_nav('<M-S-Left>', ',ev,b', '', ',b')
+native_nav('<M-S-Right>', 'vi,w', '', ',w')
+-- }}}
+
 -- {{{ Global mappings
 
 -- @see https://github.com/LazyVim/LazyVim/blob/30b7215de80a215c9bc72640505ea76431ff515c/lua/lazyvim/config/keymaps.lua
