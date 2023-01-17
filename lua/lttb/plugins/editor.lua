@@ -158,4 +158,36 @@ return {
       end, {})
     end,
   },
+
+  {
+    'windwp/nvim-spectre',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      local spectre = require('spectre')
+
+      spectre.setup()
+
+      utils.keyplug('lttb-spectre', spectre.open, {
+        desc = 'spectre.nvim',
+      })
+
+      utils.keyplug('lttb-spectre-search-in-file', spectre.open_file_search, {
+        desc = 'spectre.nvim | search in file',
+      })
+
+      utils.keyplug('lttb-spectre-search-word', function()
+        spectre.open_visual({ select_word = true })
+      end, {
+        desc = 'spectre.nvim | search word',
+      })
+
+      utils.keyplug('lttb-spectre-open-visual', function()
+        spectre.open_visual({ select_word = true })
+      end, {
+        desc = 'spectre.nvim | open visual',
+      })
+    end,
+  },
 }

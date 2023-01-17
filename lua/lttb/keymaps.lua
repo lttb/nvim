@@ -127,6 +127,13 @@ utils.keymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
   desc = 'Toggle terminal',
 })
 
+-- Spectre
+
+utils.keymap('n', 'S', 'lttb-spectre')
+utils.keymap('n', '<leader>srw', 'lttb-spectre-search-word')
+utils.keymap('n', '<leader>sr', 'lttb-spectre-open-visual')
+utils.keymap('n', '<leader>srf', 'lttb-spectre-search-in-file')
+
 -- Commands
 utils.keymap('n', '<S-D-p>', 'lttb-telescope')
 
