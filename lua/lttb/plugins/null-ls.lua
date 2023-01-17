@@ -63,10 +63,13 @@ local function config()
   })
 end
 
+if utils.is_vscode() then
+  return {}
+end
+
 return {
   {
     'jose-elias-alvarez/null-ls.nvim',
     config = config,
-    enabled = not utils.is_vscode(),
   },
 }

@@ -99,7 +99,7 @@ return vim.list_extend(
     {
       'chaoren/vim-wordmotion',
       init = function()
-        vim.g.wordmotion_prefix = 'm'
+        vim.g.wordmotion_prefix = ','
       end,
     },
 
@@ -193,9 +193,7 @@ return vim.list_extend(
       config = function()
         require('Comment').setup({
           ignore = '^$',
-          pre_hook = require(
-            'ts_context_commentstring.integrations.comment_nvim'
-          ).create_pre_hook(),
+          pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
         })
       end,
     },
@@ -268,12 +266,7 @@ return vim.list_extend(
         autolist.create_mapping_hook('n', '>>', autolist.indent)
         autolist.create_mapping_hook('n', '<<', autolist.indent)
         autolist.create_mapping_hook('n', '<C-r>', autolist.force_recalculate)
-        autolist.create_mapping_hook(
-          'n',
-          '<leader>x',
-          autolist.invert_entry,
-          ''
-        )
+        autolist.create_mapping_hook('n', '<leader>x', autolist.invert_entry, '')
         vim.api.nvim_create_autocmd('TextChanged', {
           pattern = '*',
           callback = function()

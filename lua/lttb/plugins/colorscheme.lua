@@ -1,3 +1,4 @@
+local utils = require('lttb.utils')
 local theme = require('lttb.theme')
 
 local themes = {
@@ -47,9 +48,7 @@ local themes = {
         no_italic = true,
 
         custom_highlights = function(c)
-          local cursorword_bg = theme.colorscheme == 'catppuccin-latte'
-              and c.crust
-            or c.surface1
+          local cursorword_bg = theme.colorscheme == 'catppuccin-latte' and c.crust or c.surface1
 
           return {
             MiniCursorword = {
@@ -118,5 +117,9 @@ local themes = {
     },
   },
 }
+
+if utils.is_vscode() then
+  return {}
+end
 
 return themes[theme.name]

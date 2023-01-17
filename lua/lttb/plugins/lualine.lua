@@ -31,6 +31,10 @@ local function config()
   })
 end
 
+if utils.is_vscode() then
+  return {}
+end
+
 return {
   {
     'nvim-lualine/lualine.nvim',
@@ -38,6 +42,5 @@ return {
     dependencies = {
       { 'arkav/lualine-lsp-progress' },
     },
-    enabled = not utils.is_vscode(),
   },
 }

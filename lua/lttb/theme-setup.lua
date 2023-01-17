@@ -1,7 +1,11 @@
-require('lttb.utils.treesitter-hl')
-
 local utils = require('lttb.utils')
 local theme = require('lttb.theme')
+
+if utils.is_vscode() then
+  return
+end
+
+require('lttb.utils.treesitter-hl')
 
 vim.opt.background = theme.variant
 vim.cmd.colorscheme(theme.colorscheme)

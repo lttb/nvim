@@ -1,3 +1,5 @@
+local utils = require('lttb.utils')
+
 local function config()
   local nvim_tree = require('nvim-tree')
 
@@ -71,10 +73,13 @@ local function config()
   end)
 end
 
+if utils.is_vscode() then
+  return {}
+end
+
 return {
   {
     'kyazdani42/nvim-tree.lua',
     config = config,
-    enabled = not require('lttb.utils').is_vscode(),
   },
 }
