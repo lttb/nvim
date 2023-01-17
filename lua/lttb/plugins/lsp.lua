@@ -29,9 +29,10 @@ local function config()
 
     utils.keyplug('lttb-lsp-rename', vim.lsp.buf.rename)
 
-    utils.keyplug('lttb-lsp-definition', vim.lsp.buf.definition)
+    -- utils.keyplug('lttb-lsp-definition', vim.lsp.buf.definition)
+    -- utils.keyplug('lttb-lsp-type-definition', vim.lsp.buf.type_definition)
 
-    utils.keyplug('lttb-lsp-implementation', vim.lsp.buf.implementation)
+    -- utils.keyplug('lttb-lsp-implementation', vim.lsp.buf.implementation)
 
     -- use hover.nvim instead
     utils.keyplug('lttb-lsp-hover-native', vim.lsp.buf.hover)
@@ -42,17 +43,9 @@ local function config()
 
     utils.keyplug('lttb-lsp-declaration', vim.lsp.buf.declaration)
 
-    utils.keyplug('lttb-lsp-type-definition', vim.lsp.buf.type_definition)
+    utils.keyplug('lttb-lsp-add-workspace-folder', vim.lsp.buf.add_workspace_folder)
 
-    utils.keyplug(
-      'lttb-lsp-add-workspace-folder',
-      vim.lsp.buf.add_workspace_folder
-    )
-
-    utils.keyplug(
-      'lttb-lsp-remove-workspace-folder',
-      vim.lsp.buf.remove_workspace_folder
-    )
+    utils.keyplug('lttb-lsp-remove-workspace-folder', vim.lsp.buf.remove_workspace_folder)
 
     utils.keyplug('lttb-lsp-list-workspace-folders', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -133,8 +126,7 @@ local function config()
         keyword_length = 1,
         entry_filter = function(entry)
           -- from cmp docs :h cmp-config.sources[n].entry_filter
-          return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()]
-            ~= 'Text'
+          return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
         end,
       },
       {
@@ -171,9 +163,7 @@ local function config()
         vim_item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
 
         if vim.tbl_contains({ 'path' }, entry.source.name) then
-          local icon, hl_group = require('nvim-web-devicons').get_icon(
-            entry:get_completion_item().label
-          )
+          local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
           if icon then
             vim_item.kind = icon
             vim_item.kind_hl_group = hl_group
@@ -260,6 +250,10 @@ local function config()
     },
   })
   -- }}}
+end
+
+if utils.is_vscode() then
+  return {}
 end
 
 return {

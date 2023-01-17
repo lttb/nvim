@@ -47,7 +47,7 @@ end
 
 -- buffers
 vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
-vim.keymap.set('n', '<leader>bw', '<cmd>bdelete<cr>', { desc = 'Delete Buffer' })
+vim.keymap.set('n', '<leader>bw', '<cmd>bdelete!<cr>', { desc = 'Delete Buffer' })
 
 -- }}}
 
@@ -156,18 +156,6 @@ utils.keymap('n', '<leader>rn', 'lttb-lsp-rename', {
   desc = 'LSP: [R]e[n]ame',
 })
 
-utils.keymap('n', 'gd', 'lttb-lsp-definition', {
-  desc = 'LSP: [G]oto [D]efinition',
-})
-
-utils.keymap('n', 'gi', 'lttb-lsp-implementation', {
-  desc = 'LSP: [G]oto [I]mplementation',
-})
-
-utils.keymap('n', 'gr', 'lttb-lsp-references', {
-  desc = 'LSP: [G]oto [R]eferences',
-})
-
 utils.keymap('n', '<leader>ds', 'lttb-lsp-document-symbols', {
   desc = 'LSP: [D]ocument [S]ymbols',
 })
@@ -186,8 +174,16 @@ utils.keymap('n', { 'gh' }, 'lttb-lsp-hover-native', {
   desc = 'LSP: Hover Documentation Native',
 })
 
-utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {
-  desc = 'LSP: Signature Documentation',
+utils.keymap('n', 'gd', 'lttb-lsp-definition', {
+  desc = 'LSP: [G]oto [D]efinition',
+})
+
+utils.keymap('n', 'gi', 'lttb-lsp-implementation', {
+  desc = 'LSP: [G]oto [I]mplementation',
+})
+
+utils.keymap('n', 'gr', 'lttb-lsp-references', {
+  desc = 'LSP: [G]oto [R]eferences',
 })
 
 utils.keymap('n', 'gD', 'lttb-lsp-declaration', {
@@ -196,6 +192,10 @@ utils.keymap('n', 'gD', 'lttb-lsp-declaration', {
 
 utils.keymap('n', '<leader>D', 'lttb-lsp-type-definition', {
   desc = 'LSP: Type [D]efinition',
+})
+
+utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {
+  desc = 'LSP: Signature Documentation',
 })
 
 utils.keymap('n', '<leader>wa', 'lttb-lsp-add-workspace-folder', {

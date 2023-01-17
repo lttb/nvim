@@ -4,6 +4,7 @@ local config = function()
   local telescope = require('telescope')
   local actions = require('telescope.actions')
   local builtin = require('telescope.builtin')
+  local telescope_themes = require('telescope.themes')
 
   telescope.setup({
     defaults = {
@@ -84,11 +85,37 @@ local config = function()
 
   utils.keyplug('lttb-search-current-word', builtin.grep_string)
 
-  utils.keyplug('lttb-lsp-references', builtin.lsp_references)
+  utils.keyplug('lttb-lsp-references', function()
+    builtin.lsp_references(telescope_themes.get_ivy({
+      show_line = false,
+    }))
+  end)
+
+  utils.keyplug('lttb-lsp-implementation', function()
+    builtin.lsp_implementations(telescope_themes.get_ivy({
+      show_line = false,
+    }))
+  end)
+
+  utils.keyplug('lttb-lsp-definition', function()
+    builtin.lsp_definitions(telescope_themes.get_ivy({
+      show_line = false,
+    }))
+  end)
+
+  utils.keyplug('lttb-lsp-type-definition', function()
+    builtin.lsp_type_definitions(telescope_themes.get_ivy({
+      show_line = false,
+    }))
+  end)
 
   utils.keyplug('lttb-lsp-document-symbols', builtin.lsp_document_symbols)
 
   utils.keyplug('lttb-lsp-workspace-symbols', builtin.lsp_dynamic_workspace_symbols)
+end
+
+if utils.is_vscode() then
+  return {}
 end
 
 return {
