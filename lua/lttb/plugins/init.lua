@@ -56,6 +56,8 @@ return vim.list_extend(
           labeled_modes = 'nv',
         })
       end,
+      -- NOTE: use hop
+      enabled = false,
     },
 
     {
@@ -174,9 +176,10 @@ return vim.list_extend(
     {
       'mvllow/modes.nvim',
       tag = 'v0.2.1',
-      config = {
+      opts = {
         line_opacity = 0.05,
       },
+      -- NOTE: something's wrong with the colours
       enabled = false,
     },
   },
@@ -229,9 +232,11 @@ return vim.list_extend(
 
     {
       'folke/noice.nvim',
-      config = function()
-        require('noice').setup({})
-      end,
+      opts = {
+        presets = {
+          command_palette = true, -- position the cmdline and popupmenu together
+        },
+      },
       dependencies = {
         'MunifTanjim/nui.nvim',
       },

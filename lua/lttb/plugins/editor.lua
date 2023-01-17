@@ -31,7 +31,7 @@ return {
   {
     'zbirenbaum/neodim',
     event = 'LspAttach',
-    config = {
+    opts = {
       alpha = 0.5,
       blend_color = '#2a2c3c',
     },
@@ -167,7 +167,10 @@ return {
     config = function()
       local spectre = require('spectre')
 
-      spectre.setup()
+      spectre.setup({
+        live_update = true,
+        is_insert_mode = true,
+      })
 
       utils.keyplug('lttb-spectre', spectre.open, {
         desc = 'spectre.nvim',
@@ -189,5 +192,14 @@ return {
         desc = 'spectre.nvim | open visual',
       })
     end,
+  },
+
+  {
+    'smjonas/live-command.nvim',
+    opts = {
+      commands = {
+        Norm = { cmd = 'norm' },
+      },
+    },
   },
 }

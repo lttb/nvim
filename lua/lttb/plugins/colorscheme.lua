@@ -96,7 +96,7 @@ local themes = {
 
   onenord = {
     'rmehri01/onenord.nvim',
-    config = {
+    opts = {
       borders = false,
       fade_nc = false,
       disable = {
@@ -110,7 +110,7 @@ local themes = {
 
   tokyonight = {
     'folke/tokyonight.nvim',
-    config = {
+    opts = {
       styles = {
         keywords = { italic = false },
       },

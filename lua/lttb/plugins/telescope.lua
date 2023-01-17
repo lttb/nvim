@@ -77,7 +77,32 @@ local config = function()
     builtin.current_buffer_fuzzy_find()
   end)
 
-  utils.keyplug('lttb-search-grep', builtin.live_grep)
+  utils.keyplug('lttb-search-grep', function()
+    builtin.live_grep({
+      glob_pattern = {
+        '!lazy-lock.json',
+        '!.lock',
+        '!package-lock.json',
+        '!LICENSE',
+      },
+    })
+  end)
+
+  utils.keyplug('lttb-search-grep-by-type', function()
+    local type_filter = vim.fn.input('Filetype: ')
+
+    builtin.live_grep({
+      type_filter = type_filter,
+    })
+  end)
+
+  utils.keyplug('lttb-search-grep-by-glob', function()
+    local glob_pattern = vim.fn.input('Glob: ')
+
+    builtin.live_grep({
+      glob_pattern = glob_pattern,
+    })
+  end)
 
   utils.keyplug('lttb-search-help', builtin.help_tags)
 

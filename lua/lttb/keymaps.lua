@@ -23,7 +23,7 @@ vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').opera
 vim.keymap.set('v', 'x', '"*x')
 
 -- Char motions
--- utils.keymap('n', 's', 'lttb-hop-on')
+utils.keymap('n', 'f', 'lttb-hop-on')
 
 -- Simplify switch no normal mode
 vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')
@@ -112,6 +112,9 @@ utils.keymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
 -- Copilot remap
 -- vim.keymap.set('i', '<D-l>', '<C-l>', { remap = true })
 
+-- live-command.nvim
+vim.keymap.set('n', '<leader>l', ':Norm ', { desc = 'Live Command' })
+
 -- Sidebar
 utils.keymap('n', '<M-b>', 'lttb-sidebar-toggle', {
   desc = 'Toggle sidebar',
@@ -146,7 +149,13 @@ utils.keymap('n', { '/', '<D-f>' }, 'lttb-search-buffer', {
   noremap = true,
 })
 
-utils.keymap('n', { '<leader>sg', '<S-D-f>' }, 'lttb-search-grep', {
+utils.keymap('n', '<leader>gt', 'lttb-search-grep-by-type', {
+  desc = '[S]earch by [G]rep by [T]ype',
+})
+utils.keymap('n', '<leader>gf', 'lttb-search-grep-by-glob', {
+  desc = '[S]earch by [G]rep by [F]ile glob',
+})
+utils.keymap('n', { '<leader>gg', '<S-D-f>' }, 'lttb-search-grep', {
   desc = '[S]earch by [G]rep',
 })
 
@@ -200,10 +209,6 @@ utils.keymap('n', '<leader>ds', 'lttb-lsp-document-symbols', {
   desc = 'LSP: [D]ocument [S]ymbols',
 })
 
-utils.keymap('n', '<leader>ws', 'lttb-lsp-workspace-symbols', {
-  desc = 'LSP: [W]orkspace [S]ymbols',
-})
-
 utils.keymap('n', { 'gh', 'K' }, 'lttb-lsp-hover', {
   desc = 'LSP: Hover Documentation',
 })
@@ -238,6 +243,10 @@ utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {
   desc = 'LSP: Signature Documentation',
 })
 
+utils.keymap('n', '<leader>ws', 'lttb-lsp-workspace-symbols', {
+  desc = 'LSP: [W]orkspace [S]ymbols',
+})
+
 utils.keymap('n', '<leader>wa', 'lttb-lsp-add-workspace-folder', {
   desc = 'LSP: [W]orkspace [A]dd Folder',
 })
@@ -249,3 +258,5 @@ utils.keymap('n', '<leader>wr', 'lttb-lsp-remove-workspace-folder', {
 utils.keymap('n', '<leader>wl', 'lttb-lsp-list-workspace-folders', {
   desc = 'LSP: [W]orkspace [L]ist Folders',
 })
+
+vim.keymap.set('n', '<leader>ww', '<leader>bw', { remap = true })
