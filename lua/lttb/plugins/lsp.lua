@@ -29,10 +29,14 @@ local function config()
 
     utils.keyplug('lttb-lsp-rename', vim.lsp.buf.rename)
 
-    -- utils.keyplug('lttb-lsp-definition', vim.lsp.buf.definition)
-    -- utils.keyplug('lttb-lsp-type-definition', vim.lsp.buf.type_definition)
+    utils.keyplug('lttb-lsp-definition-native', vim.lsp.buf.definition)
+    utils.keyplug('lttb-lsp-type-definition-native', vim.lsp.buf.type_definition)
 
-    -- utils.keyplug('lttb-lsp-implementation', vim.lsp.buf.implementation)
+    utils.keyplug('lttb-lsp-declaration-native', vim.lsp.buf.declaration)
+
+    utils.keyplug('lttb-lsp-implementation-native', vim.lsp.buf.implementation)
+
+    utils.keyplug('lttb-lsp-references-native', vim.lsp.buf.references)
 
     -- use hover.nvim instead
     utils.keyplug('lttb-lsp-hover-native', vim.lsp.buf.hover)
@@ -40,8 +44,6 @@ local function config()
     utils.keyplug('lttb-lsp-signature-help', vim.lsp.buf.signature_help)
 
     -- Lesser used LSP functionality
-
-    utils.keyplug('lttb-lsp-declaration', vim.lsp.buf.declaration)
 
     utils.keyplug('lttb-lsp-add-workspace-folder', vim.lsp.buf.add_workspace_folder)
 
@@ -279,159 +281,5 @@ return {
       'lukas-reineke/cmp-rg',
     },
     config = config,
-  },
-
-  {
-    'lewis6991/hover.nvim',
-    config = function()
-      require('hover').setup({
-        init = function()
-          require('hover.providers.lsp')
-          require('hover.providers.gh')
-          require('hover.providers.gh_user')
-          require('hover.providers.jira')
-          require('hover.providers.man')
-          require('hover.providers.dictionary')
-        end,
-      })
-
-      utils.keyplug('lttb-lsp-hover', require('hover').hover, {
-        desc = 'hover.nvim',
-      })
-      utils.keyplug('lttb-lsp-hover-select', require('hover').hover_select, {
-        desc = 'hover.nvim (select)',
-      })
-    end,
-  },
-
-  {
-    'zbirenbaum/neodim',
-    event = 'LspAttach',
-    config = {
-      alpha = 0.5,
-      blend_color = '#2a2c3c',
-    },
-  },
-
-  {
-    'weilbith/nvim-code-action-menu',
-    cmd = 'CodeActionMenu',
-    config = function()
-      vim.g.code_action_menu_show_diff = true
-    end,
-  },
-
-  {
-    'windwp/nvim-ts-autotag',
-    event = 'VimEnter',
-    config = true,
-  },
-
-  {
-    'windwp/nvim-autopairs',
-    event = 'VimEnter',
-    dependencies = {
-      'hrsh7th/nvim-cmp',
-    },
-    config = function()
-      local npairs = require('nvim-autopairs')
-
-      npairs.setup({
-        check_ts = true,
-      })
-
-      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      local cmp = require('cmp')
-      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-    end,
-  },
-
-  {
-    'axelvc/template-string.nvim',
-    event = 'VimEnter',
-    config = true,
-  },
-
-  {
-    'zbirenbaum/copilot.lua',
-    event = 'VimEnter',
-    config = function()
-      vim.defer_fn(function()
-        require('copilot').setup({
-          panel = {
-            auto_refresh = true,
-          },
-
-          suggestion = {
-            auto_trigger = true,
-            keymap = {
-              accept = '<M-l>',
-            },
-          },
-
-          filetypes = {
-            ['*'] = true,
-          },
-
-          -- NOTE: it has to be node v16
-          -- @see https://github.com/zbirenbaum/copilot.lua/issues/69
-          -- Check later if it works with v18
-          copilot_node_command = 'node',
-        })
-      end, 100)
-    end,
-  },
-
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    config = function()
-      local utils = require('lttb.utils')
-      local indent_char = false and utils.is_neovide() and '·' or '┊'
-
-      require('indent_blankline').setup({
-        char = indent_char,
-        context_char = indent_char,
-        show_trailing_blankline_indent = false,
-        show_current_context = true,
-        show_first_indent_level = false,
-      })
-    end,
-  },
-
-  {
-    -- TODO: review this plugin, not sure I'll keep it
-    'vuki656/package-info.nvim',
-    dependencies = { 'MunifTanjim/nui.nvim' },
-    ft = { 'json' },
-    config = function()
-      local package_info = require('package-info')
-      local gs = package.loaded.gitsigns
-
-      package_info.setup({
-        autostart = false,
-        hide_up_to_date = true,
-      })
-
-      vim.api.nvim_create_user_command('NpmInstall', function()
-        package_info.install()
-      end, {})
-
-      vim.api.nvim_create_user_command('NpmDelete', function()
-        package_info.delete()
-      end, {})
-
-      vim.api.nvim_create_user_command('NpmToggle', function()
-        gs.toggle_current_line_blame()
-        package_info.toggle()
-      end, {})
-
-      vim.api.nvim_create_user_command('NpmUpdate', function()
-        package_info.update()
-      end, {})
-
-      vim.api.nvim_create_user_command('NpmVersion', function()
-        package_info.change_version()
-      end, {})
-    end,
   },
 }

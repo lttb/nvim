@@ -2,6 +2,36 @@
 
 local utils = require('lttb.utils')
 
+-- quit
+vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
+
+-- Fix gx, avoid netrw
+vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
+
+-- Substitute remaps
+utils.keymap('n', '<leader>x', 'lttb-substiture-operator', {
+  desc = 'Substitute',
+  noremap = true,
+})
+utils.keymap('x', '<leader>x', 'lttb-substiture-visual', {
+  desc = 'Substitute visual selection',
+  noremap = true,
+})
+vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').operator()<cr>", { noremap = true })
+
+-- cut into system clipboard in visual mode
+vim.keymap.set('v', 'x', '"*x')
+
+-- Char motions
+-- utils.keymap('n', 's', 'lttb-hop-on')
+
+-- Simplify switch no normal mode
+vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')
+
+if utils.is_vscode() then
+  return
+end
+
 -- {{{ Global mappings
 
 -- @see https://github.com/LazyVim/LazyVim/blob/30b7215de80a215c9bc72640505ea76431ff515c/lua/lazyvim/config/keymaps.lua
@@ -37,9 +67,6 @@ vim.keymap.set('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev se
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
--- quit
-vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
-
 -- highlights under cursor
 if vim.fn.has('nvim-0.9.0') == 1 then
   vim.keymap.set('n', '<leader>sH', vim.show_pos, { desc = 'Highlight Groups at cursor' })
@@ -50,29 +77,6 @@ vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buff
 vim.keymap.set('n', '<leader>bw', '<cmd>bdelete!<cr>', { desc = 'Delete Buffer' })
 
 -- }}}
-
--- Fix gx, avoid netrw
-vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
-
--- Substitute remaps
-utils.keymap('n', '<leader>x', 'lttb-substiture-operator', {
-  desc = 'Substitute',
-  noremap = true,
-})
-utils.keymap('x', '<leader>x', 'lttb-substiture-visual', {
-  desc = 'Substitute visual selection',
-  noremap = true,
-})
-vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').operator()<cr>", { noremap = true })
-
--- cut into system clipboard in visual mode
-vim.keymap.set('v', 'x', '"*x')
-
--- Char motions
--- utils.keymap('n', 's', 'lttb-hop-on')
-
--- Simplify switch no normal mode
-vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')
 
 -- Quick Save shortcut
 utils.keyplug('lttb-quick-save', '<esc><cmd>update<cr>')
@@ -90,14 +94,22 @@ utils.keymap('n', '<M-e>', 'lttb-sidebar-focus', {
   desc = 'Focus sidebar',
 })
 
+-- Terminal
+
+utils.keymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
+  desc = 'Toggle terminal',
+})
+
 -- Commands
 utils.keymap('n', '<S-D-p>', 'lttb-telescope')
 
 vim.keymap.set('n', '<leader>/', '/', {
   noremap = true,
 })
+
 utils.keymap('n', { '/', '<D-f>' }, 'lttb-search-buffer', {
   desc = '[/] Fuzzily search in current buffer',
+  noremap = true,
 })
 
 utils.keymap('n', { '<leader>sg', '<S-D-f>' }, 'lttb-search-grep', {
@@ -140,12 +152,6 @@ utils.keymap('n', '<leader>sd', 'lttb-search-diagnostics', {
   desc = '[S]earch [D]iagnostics',
 })
 
--- Terminal
-
-utils.keymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
-  desc = 'Toggle terminal',
-})
-
 -- LSP
 
 utils.keymap('n', { '<leader>ca', '<D-.>', '<C-.>' }, 'lttb-lsp-code-action', {
@@ -186,12 +192,12 @@ utils.keymap('n', 'gr', 'lttb-lsp-references', {
   desc = 'LSP: [G]oto [R]eferences',
 })
 
-utils.keymap('n', 'gD', 'lttb-lsp-declaration', {
-  desc = 'LSP: [G]oto [D]eclaration',
-})
-
 utils.keymap('n', '<leader>D', 'lttb-lsp-type-definition', {
   desc = 'LSP: Type [D]efinition',
+})
+
+utils.keymap('n', 'gD', 'lttb-lsp-declaration', {
+  desc = 'LSP: [G]oto [D]eclaration',
 })
 
 utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {
