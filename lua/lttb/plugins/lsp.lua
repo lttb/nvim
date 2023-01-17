@@ -397,4 +397,41 @@ return {
       })
     end,
   },
+
+  {
+    -- TODO: review this plugin, not sure I'll keep it
+    'vuki656/package-info.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    ft = { 'json' },
+    config = function()
+      local package_info = require('package-info')
+      local gs = package.loaded.gitsigns
+
+      package_info.setup({
+        autostart = false,
+        hide_up_to_date = true,
+      })
+
+      vim.api.nvim_create_user_command('NpmInstall', function()
+        package_info.install()
+      end, {})
+
+      vim.api.nvim_create_user_command('NpmDelete', function()
+        package_info.delete()
+      end, {})
+
+      vim.api.nvim_create_user_command('NpmToggle', function()
+        gs.toggle_current_line_blame()
+        package_info.toggle()
+      end, {})
+
+      vim.api.nvim_create_user_command('NpmUpdate', function()
+        package_info.update()
+      end, {})
+
+      vim.api.nvim_create_user_command('NpmVersion', function()
+        package_info.change_version()
+      end, {})
+    end,
+  },
 }
