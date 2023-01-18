@@ -102,7 +102,11 @@ local function config()
         select = true,
       }),
       ['<Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
+        -- support copilot
+        -- @see https://github.com/zbirenbaum/copilot.lua/issues/91#issuecomment-1345190310
+        if require('copilot.suggestion').is_visible() then
+          require('copilot.suggestion').accept()
+        elseif cmp.visible() then
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()

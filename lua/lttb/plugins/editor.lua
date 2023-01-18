@@ -88,9 +88,7 @@ return {
 
           suggestion = {
             auto_trigger = true,
-            keymap = {
-              accept = '<M-l>',
-            },
+            accept = false,
           },
 
           filetypes = {
