@@ -71,7 +71,7 @@ local function config()
       }
 
       vim.api.nvim_create_autocmd('InsertLeave', autocmd_opts)
-      vim.api.nvim_create_autocmd('BufWritePre', autocmd_opts)
+      -- vim.api.nvim_create_autocmd('BufWritePre', autocmd_opts)
     end,
   })
 end

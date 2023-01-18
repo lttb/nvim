@@ -5,8 +5,6 @@ if utils.is_vscode() then
   return
 end
 
-require('lttb.utils.treesitter-hl')
-
 vim.opt.background = theme.variant
 vim.cmd.colorscheme(theme.colorscheme)
 
@@ -50,6 +48,12 @@ vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', {
   default = false,
   -- nocombine = true,
 })
+
+-- add treesitter support for some themes
+-- @see https://github.com/projekt0n/github-nvim-theme/issues/220
+if theme.name == 'github' then
+  require('lttb.utils.treesitter-hl')
+end
 
 if theme.colorscheme == 'github_light' then
   -- NOTE: for some reason nvim_set_hl didn't override

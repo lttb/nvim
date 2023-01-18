@@ -39,18 +39,25 @@ local themes = {
       require('catppuccin').setup({
         -- transparent_background = true,
         term_colors = true,
+
         dim_inactive = {
           enabled = false,
           shade = 'dark',
           percentage = 0.15,
         },
 
-        no_italic = true,
+        styles = {
+          conditionals = {},
+        },
 
         custom_highlights = function(c)
           local cursorword_bg = theme.colorscheme == 'catppuccin-latte' and c.crust or c.surface1
 
           return {
+            ['@tag.attribute.tsx'] = {
+              fg = c.lavender,
+              style = {},
+            },
             MiniCursorword = {
               bg = cursorword_bg,
             },
