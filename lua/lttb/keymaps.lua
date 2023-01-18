@@ -22,6 +22,7 @@ vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').opera
 -- cut into system clipboard in visual mode
 vim.keymap.set('v', 'x', '"*x')
 
+
 -- Char motions
 utils.keymap('n', 'f', 'lttb-hop-on')
 
@@ -115,12 +116,16 @@ utils.keymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
 -- live-command.nvim
 vim.keymap.set('n', '<leader>l', ':Norm ', { desc = 'Live Command' })
 
+-- Alt commands {{{
+
+vim.keymap.set('n', '<M-w>', '<leader>bw', { remap = true })
+
 -- Sidebar
-utils.keymap('n', '<M-b>', 'lttb-sidebar-toggle', {
+utils.keymap('n', { '<M-b>', '<D-b>' }, 'lttb-sidebar-toggle', {
   desc = 'Toggle sidebar',
 })
 
-utils.keymap('n', '<M-e>', 'lttb-sidebar-focus', {
+utils.keymap('n', { '<M-e>', '<D-e>' }, 'lttb-sidebar-focus', {
   desc = 'Focus sidebar',
 })
 
@@ -129,6 +134,8 @@ utils.keymap('n', '<M-e>', 'lttb-sidebar-focus', {
 utils.keymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
   desc = 'Toggle terminal',
 })
+
+-- }}}
 
 -- Spectre
 
@@ -258,5 +265,3 @@ utils.keymap('n', '<leader>wr', 'lttb-lsp-remove-workspace-folder', {
 utils.keymap('n', '<leader>wl', 'lttb-lsp-list-workspace-folders', {
   desc = 'LSP: [W]orkspace [L]ist Folders',
 })
-
-vim.keymap.set('n', '<leader>ww', '<leader>bw', { remap = true })
