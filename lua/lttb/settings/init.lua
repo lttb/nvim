@@ -115,7 +115,6 @@ vim.opt.formatlistpat = [[^\s*[0-9\-\+\*]\+[\.\)]*\s\+]]
 
 vim.opt.whichwrap = 'b,s,<,>,[,],h,l'
 
-vim.opt.foldopen = 'all'
 vim.opt.foldclose = 'all'
 
 -- }}}
