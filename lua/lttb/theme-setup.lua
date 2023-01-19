@@ -106,7 +106,7 @@ if utils.is_kitty() then
           return
         end
 
-        vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title ' .. filepath)
+        vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title --temporary ' .. filepath)
       end, 100)
     end,
   })

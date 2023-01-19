@@ -22,8 +22,8 @@ vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').opera
 -- cut into system clipboard in visual mode
 vim.keymap.set('v', 'x', '"*x')
 
-vim.keymap.set('n', '<C-O>', '<C-O>zv', { noremap = true })
-vim.keymap.set('n', '<C-I>', '<C-I>zv', { noremap = true })
+vim.keymap.set('n', '<C-O>', '<C-O>zv', { remap = true })
+vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
 
 -- Char motions
 utils.keymap('n', 'f', 'lttb-hop-on')

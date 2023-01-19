@@ -211,6 +211,7 @@ return vim.list_extend(
 
           hide_cursor = true,
           max_length = 150,
+          scroll_limit = 150,
           always_scroll = true,
         })
       end,

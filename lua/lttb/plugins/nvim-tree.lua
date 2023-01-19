@@ -8,7 +8,7 @@ local function config()
     -- hijack_netrw = false,
 
     open_on_setup = true,
-    open_on_setup_file = true,
+    open_on_setup_file = false,
     ignore_ft_on_setup = { 'gitcommit', 'gitrebase' },
     -- respect_buf_cwd = true,
     sync_root_with_cwd = true,
