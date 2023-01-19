@@ -54,7 +54,7 @@ local function config()
     end)
 
     -- Disable formatting from the language server to select null-ts by default
-    _.server_capabilities.document_formatting = false
+    _.server_capabilities.document_formatting = true
 
     -- Show diagnostics on hover
     -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-line-diagnostics-automatically-in-hover-window
@@ -221,6 +221,18 @@ local function config()
     })
   end
 
+  require('lspconfig').jsonls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+
+    settings = {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
+    },
+  })
+
   -- LUA {{{
   -- Make runtime files discoverable to the server
   local runtime_path = vim.split(package.path, ';')
@@ -286,4 +298,5 @@ return {
     },
     config = config,
   },
+  { 'b0o/schemastore.nvim' },
 }
