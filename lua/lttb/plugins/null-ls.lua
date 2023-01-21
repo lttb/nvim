@@ -10,6 +10,7 @@ local function config()
       --   return client.name == 'null-ls'
       -- end,
       bufnr = bufnr,
+      async = true,
     })
   end
 
@@ -41,6 +42,11 @@ local function config()
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function()
         lsp_formatting(bufnr)
+
+        -- NOTE: check later, eslint fix all should work automatically
+        -- if vim.fn.exists(':EslintFixAll') > 0 then
+        --   vim.cmd('EslintFixAll')
+        -- end
       end, {
         desc = 'Format current buffer with LSP',
       })
@@ -66,12 +72,12 @@ local function config()
 
           format_timer = vim.defer_fn(function()
             lsp_formatting(bufnr)
-          end, 100)
+          end, 0)
         end,
       }
 
       vim.api.nvim_create_autocmd('InsertLeave', autocmd_opts)
-      -- vim.api.nvim_create_autocmd('BufWritePre', autocmd_opts)
+      vim.api.nvim_create_autocmd('BufWritePre', autocmd_opts)
     end,
   })
 end

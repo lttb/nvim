@@ -214,24 +214,31 @@ local function config()
 
   capabilities.offsetEncoding = { 'utf-8' }
 
-  for _, lsp in ipairs(servers) do
-    require('lspconfig')[lsp].setup({
+  for _, name in ipairs(servers) do
+    opts = {}
+
+    if name == 'jsonls' then
+      opts = {
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      }
+    elseif name == 'eslint' then
+      opts = {
+        settings = {
+          autoFixOnSave = true,
+        },
+      }
+    end
+
+    require('lspconfig')[name].setup(vim.tbl_extend('force', {
       on_attach = on_attach,
       capabilities = capabilities,
-    })
+    }, opts))
   end
-
-  require('lspconfig').jsonls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-
-    settings = {
-      json = {
-        schemas = require('schemastore').json.schemas(),
-        validate = { enable = true },
-      },
-    },
-  })
 
   -- LUA {{{
   -- Make runtime files discoverable to the server
