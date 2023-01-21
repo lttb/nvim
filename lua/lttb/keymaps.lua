@@ -172,23 +172,23 @@ utils.keymap('n', '<leader>?', 'lttb-find-recent-files', {
   desc = '[?] Find recently opened files',
 })
 
-utils.keymap('n', '<leader><leader>', 'lttb-smart-open', {
-  desc = '[ ] Find existing buffers',
+utils.keymap('n', { '<leader>ss', '<D-p>' }, 'lttb-smart-open', {
+  desc = '[ ] Smart Open',
 })
 
-utils.keymap('n', '<leader>sb', 'lttb-find-buffers', {
-  desc = '[S] Find existing [B]uffers',
+utils.keymap('n', '<leader><leader>', 'lttb-find-buffers', {
+  desc = '[S]earch [B]uffers',
 })
 
 utils.keymap('n', '<leader>sa', 'lttb-find-all-files', {
   desc = '[S]earch [A]ll files',
 })
 
-utils.keymap('n', { '<leader>ss', '<D-p>' }, 'lttb-find-files', {
-  desc = '[S]earch Files',
+utils.keymap('n', '<leader>sf', 'lttb-find-files', {
+  desc = '[S]earch [F]iles',
 })
 
-utils.keymap('n', '<leader>sf', 'lttb-find-files-submodules', {
+utils.keymap('n', '<leader>se', 'lttb-find-files-submodules', {
   desc = '[S]earch [F]iles Recurse Submodules',
 })
 
@@ -210,15 +210,15 @@ utils.keymap('n', { '<leader>ca', '<D-.>', '<C-.>' }, 'lttb-lsp-code-action', {
   desc = 'LSP: [C]ode [A]ction',
 })
 
-utils.keymap('n', '<leader>rn', 'lttb-lsp-rename', {
-  desc = 'LSP: [R]e[n]ame',
+utils.keymap('n', '<leader>cn', 'lttb-lsp-rename', {
+  desc = 'LSP: [C]hange [n]ame',
 })
 
 utils.keymap('n', '<leader>ds', 'lttb-lsp-document-symbols', {
   desc = 'LSP: [D]ocument [S]ymbols',
 })
 
-utils.keymap('n', { 'gh', 'K' }, 'lttb-lsp-hover', {
+utils.keymap('n', { 'K' }, 'lttb-lsp-hover', {
   desc = 'LSP: Hover Documentation',
 })
 utils.keymap('n', { 'gK' }, 'lttb-lsp-hover-select', {
@@ -250,20 +250,4 @@ utils.keymap('n', 'gD', 'lttb-lsp-declaration', {
 
 utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {
   desc = 'LSP: Signature Documentation',
-})
-
-utils.keymap('n', '<leader>ws', 'lttb-lsp-workspace-symbols', {
-  desc = 'LSP: [W]orkspace [S]ymbols',
-})
-
-utils.keymap('n', '<leader>wa', 'lttb-lsp-add-workspace-folder', {
-  desc = 'LSP: [W]orkspace [A]dd Folder',
-})
-
-utils.keymap('n', '<leader>wr', 'lttb-lsp-remove-workspace-folder', {
-  desc = 'LSP: [W]orkspace [R]emove Folder',
-})
-
-utils.keymap('n', '<leader>wl', 'lttb-lsp-list-workspace-folders', {
-  desc = 'LSP: [W]orkspace [L]ist Folders',
 })
