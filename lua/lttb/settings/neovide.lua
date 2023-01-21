@@ -13,6 +13,8 @@ if theme.colorscheme == 'github_dark' then
   vim.g.neovide_background_color = '#23292f'
 elseif theme.colorscheme == 'github_light' then
   vim.g.neovide_background_color = '#f7f9fb'
+elseif theme.colorscheme == 'catppuccin-latte' then
+  vim.g.neovide_background_color = '#282c3c'
 end
 
 vim.g.neovide_fullscreen = false
