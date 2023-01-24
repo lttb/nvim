@@ -109,7 +109,14 @@ vim.keymap.set('n', '<leader>bw', '<cmd>bdelete!<cr>', { desc = 'Delete Buffer' 
 -- }}}
 
 -- Quick Save shortcut
-utils.keyplug('lttb-quick-save', '<esc><cmd>update<cr>')
+-- utils.keyplug('lttb-quick-save', '<esc><cmd>Format<cmd>update<cr>')
+utils.keyplug('lttb-quick-save', function()
+  if vim.fn.exists(':Format') > 0 then
+    vim.cmd('Format')
+  end
+
+  vim.cmd('update')
+end)
 utils.keymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
 
 -- Copilot remap

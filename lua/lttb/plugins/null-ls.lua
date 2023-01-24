@@ -3,14 +3,14 @@ local utils = require('lttb.utils')
 local function config()
   local null_ls = require('null-ls')
 
-  local lsp_formatting = function(bufnr)
+  local lsp_formatting = function(bufnr, async)
     vim.lsp.buf.format({
       -- filter = function(client)
       --   -- use only "null-ls"
       --   return client.name == 'null-ls'
       -- end,
       bufnr = bufnr,
-      async = true,
+      async = async or false,
     })
   end
 
@@ -41,7 +41,7 @@ local function config()
 
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function()
-        lsp_formatting(bufnr)
+        lsp_formatting(bufnr, false)
 
         -- NOTE: check later, eslint fix all should work automatically
         -- if vim.fn.exists(':EslintFixAll') > 0 then
@@ -71,13 +71,13 @@ local function config()
           end
 
           format_timer = vim.defer_fn(function()
-            lsp_formatting(bufnr)
+            lsp_formatting(bufnr, true)
           end, 0)
         end,
       }
 
       vim.api.nvim_create_autocmd('InsertLeave', autocmd_opts)
-      vim.api.nvim_create_autocmd('BufWritePre', autocmd_opts)
+      -- vim.api.nvim_create_autocmd('BufWritePre', autocmd_opts)
     end,
   })
 end
