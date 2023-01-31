@@ -104,7 +104,7 @@ end
 
 -- buffers
 vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
-vim.keymap.set('n', '<leader>bw', '<cmd>bdelete!<cr>', { desc = 'Delete Buffer' })
+vim.keymap.set('n', '<leader>bw', '<cmd>bprevious | bd! #<cr>', { silent = true, desc = 'Delete Buffer' })
 vim.keymap.set('n', '<leader>ww', '<leader>bw', { remap = true })
 
 -- }}}
