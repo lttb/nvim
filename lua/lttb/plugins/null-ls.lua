@@ -5,10 +5,10 @@ local function config()
 
   local lsp_formatting = function(bufnr, async)
     vim.lsp.buf.format({
-      -- filter = function(client)
-      --   -- use only "null-ls"
-      --   return client.name == 'null-ls'
-      -- end,
+      filter = function(client)
+        -- use only "null-ls"
+        return client.name == 'null-ls'
+      end,
       bufnr = bufnr,
       async = async or false,
     })
