@@ -41,7 +41,12 @@ vim.keymap.set('x', '<BS>', 'd')
 
 local function native_nav(key, ncmd, icmd, xcmd)
   vim.keymap.set('n', key, ncmd, { remap = true })
-  vim.keymap.set('i', key, '<esc>' .. key .. (icmd or ''), { remap = true })
+  vim.keymap.set(
+    'i',
+    key,
+    '<cmd>set eventignore=InsertLeave<cr><esc>' .. key .. '<cmd>set eventignore=""<cr>' .. (icmd or ''),
+    { remap = true }
+  )
   if xcmd then
     vim.keymap.set('x', key, xcmd, { remap = true })
   end
