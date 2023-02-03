@@ -180,11 +180,11 @@ utils.keymap('n', '<leader>?', 'lttb-find-recent-files', {
   desc = '[?] Find recently opened files',
 })
 
-utils.keymap('n', { '<leader>ss', '<D-p>' }, 'lttb-smart-open', {
+utils.keymap('n', { '<leader><leader>', '<D-p>' }, 'lttb-smart-open', {
   desc = '[ ] Smart Open',
 })
 
-utils.keymap('n', '<leader><leader>', 'lttb-find-buffers', {
+utils.keymap('n', '<leader>ss', 'lttb-find-buffers', {
   desc = '[S]earch [B]uffers',
 })
 
