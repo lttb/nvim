@@ -114,7 +114,7 @@ return vim.list_extend(
 
         require('mini.align').setup({})
 
-        if require('lttb.utils').is_vscode() then
+        if utils.is_vscode() then
           return
         end
 
