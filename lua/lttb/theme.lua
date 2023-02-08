@@ -75,9 +75,9 @@ M.pallettes = {
   },
 }
 
-M.variant = 'light'
-M.name = 'github_theme'
-M.colorscheme = 'github_light'
+M.variant = 'dark'
+M.name = 'catppuccin'
+M.colorscheme = 'catppuccin-frappe'
 
 M.current = M.pallettes[M.variant]
 
