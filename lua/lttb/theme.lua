@@ -13,6 +13,8 @@ M.pallettes = {
       overrides = function(c)
         local util = require('github-theme.util')
 
+        local orange = '#e36108'
+
         return {
           IndentBlanklineChar = {
             fg = '#e6eaec',
@@ -26,12 +28,16 @@ M.pallettes = {
             fg = c.black,
           },
 
+          ['@property'] = {
+            fg = c.white,
+          },
+
           ['@parameter'] = {
-            fg = '#e36108',
+            fg = orange,
           },
 
           ['@type'] = {
-            fg = c.syntax.func,
+            fg = c.magenta,
           },
 
           ['@type.builtin'] = {
