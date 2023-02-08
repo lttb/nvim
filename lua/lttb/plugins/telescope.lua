@@ -171,7 +171,9 @@ return {
           require('telescope').load_extension('smart_open')
 
           utils.keyplug('lttb-smart-open', function()
-            require('telescope').extensions.smart_open.smart_open()
+            require('telescope').extensions.smart_open.smart_open({
+              cwd_only = true,
+            })
           end)
         end,
         dependencies = { 'kkharji/sqlite.lua' },
