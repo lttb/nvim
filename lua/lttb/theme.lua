@@ -22,12 +22,20 @@ M.pallettes = {
             fg = '#c5c5c5',
           },
 
-          TSVariable = {
+          ['@variable'] = {
             fg = c.black,
           },
 
-          TSParameter = {
-            fg = c.orange,
+          ['@parameter'] = {
+            fg = '#e36108',
+          },
+
+          ['@type'] = {
+            fg = c.syntax.func,
+          },
+
+          ['@type.builtin'] = {
+            fg = c.blue,
           },
         }
       end,
@@ -61,9 +69,9 @@ M.pallettes = {
   },
 }
 
-M.variant = 'dark'
-M.name = 'catppuccin'
-M.colorscheme = 'catppuccin-frappe'
+M.variant = 'light'
+M.name = 'github_theme'
+M.colorscheme = 'github_light'
 
 M.current = M.pallettes[M.variant]
 

@@ -52,7 +52,7 @@ vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', {
 -- add treesitter support for some themes
 -- @see https://github.com/projekt0n/github-nvim-theme/issues/220
 if theme.name == 'github' then
-  require('lttb.utils.treesitter-hl')
+  -- require('lttb.utils.treesitter-hl')
 end
 
 if theme.colorscheme == 'github_light' then
