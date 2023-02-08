@@ -22,6 +22,8 @@ vim.cmd([[
   highlight WarningText gui=NONE
   highlight InfoText gui=NONE
   highlight HintText gui=NONE
+
+  highlight! link NoiceCursor Cursor
 ]])
 
 vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', {
