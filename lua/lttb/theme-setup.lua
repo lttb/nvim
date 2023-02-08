@@ -83,17 +83,16 @@ if utils.is_kitty() then
     ]])
   end
 
-  vim.cmd([[
-    augroup kitty_padding
-        autocmd!
-        au VimLeave * :silent !kitty @ --to=$KITTY_LISTEN_ON set-spacing padding-left=10 padding-right=10 margin=0
-        au VimEnter * :silent !kitty @ --to=$KITTY_LISTEN_ON set-spacing padding=0 margin=0
-    augroup END
-  ]])
+  vim.api.nvim_create_autocmd('VimEnter', {
+    callback = function()
+      vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-spacing padding=0 margin=0')
+    end,
+  })
 
   vim.api.nvim_create_autocmd('VimLeave', {
     callback = function()
       vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title')
+      vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-spacing padding-h=10')
     end,
   })
   vim.api.nvim_create_autocmd('BufEnter', {
