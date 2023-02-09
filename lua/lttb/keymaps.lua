@@ -26,7 +26,8 @@ vim.keymap.set('n', '<C-O>', '<C-O>zv', { remap = true })
 vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
 
 -- Char motions
-utils.keymap('n', 'f', 'lttb-hop-on')
+utils.keymap('', 'f', 'lttb-hop-on', { remap = true })
+utils.keymap('', 't', 'lttb-hop-pre', { remap = true })
 
 -- Simplify switch no normal mode
 vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')

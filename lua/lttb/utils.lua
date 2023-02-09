@@ -37,12 +37,7 @@ function M.keymap(mode, keys, command, opts)
   end
 
   for _, value in pairs(keys) do
-    vim.keymap.set(
-      mode,
-      value,
-      (mode == 'i' and '<C-\\><C-n>' or '<C-\\><C-n>') .. '<Plug>(' .. command .. ')',
-      options
-    )
+    vim.keymap.set(mode, value, (mode == 'i' and '<C-\\><C-n>' or '') .. '<Plug>(' .. command .. ')', options)
   end
 end
 
