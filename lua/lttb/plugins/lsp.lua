@@ -143,11 +143,11 @@ local function config()
       },
       {
         name = 'buffer',
-        keyword_length = 3,
+        -- keyword_length = 3,
       },
       {
         name = 'rg',
-        keyword_length = 3,
+        -- keyword_length = 3,
       },
     }),
 
@@ -182,7 +182,7 @@ local function config()
     },
 
     experimental = {
-      ghost_text = false, -- this feature conflict with copilot.vim's preview.
+      ghost_text = true, -- this feature conflict with copilot.vim's preview.
     },
   })
 
