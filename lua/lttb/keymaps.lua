@@ -124,7 +124,7 @@ utils.keyplug('lttb-quick-save', function()
 
   vim.cmd('update')
 end)
-utils.keymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
+utils.nkeymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
 
 -- Copilot remap
 -- vim.keymap.set('i', '<D-l>', '<C-l>', { remap = true })
