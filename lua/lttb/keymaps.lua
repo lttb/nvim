@@ -30,7 +30,7 @@ utils.keymap('', 'f', 'lttb-hop-on', { remap = true })
 utils.keymap('', 't', 'lttb-hop-pre', { remap = true })
 
 -- Simplify switch no normal mode
-vim.keymap.set({ 'n', 'i', 'c', 'v', 't' }, '<S-Space>', '<C-\\><C-n>')
+vim.keymap.set({ 'i', 'c', 'v', 't' }, '<M-Space>', '<C-\\><C-n>')
 
 if utils.is_vscode() then
   return
@@ -147,7 +147,7 @@ utils.keymap('n', { '<M-e>', '<D-e>' }, 'lttb-sidebar-focus', {
 
 -- Terminal
 
-utils.keymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
+utils.nkeymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
   desc = 'Toggle terminal',
 })
 

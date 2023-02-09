@@ -25,7 +25,7 @@ function M.keyplug(name, command, opts)
   vim.keymap.set('', '<Plug>(' .. name .. ')', command, opts)
 end
 
-function M.keymap(mode, keys, command, opts)
+function M.keymap(mode, keys, command, opts, precmd)
   local options = { silent = true }
 
   if type(keys) ~= 'table' then
@@ -37,8 +37,12 @@ function M.keymap(mode, keys, command, opts)
   end
 
   for _, value in pairs(keys) do
-    vim.keymap.set(mode, value, (mode == 'i' and '<C-\\><C-n>' or '') .. '<Plug>(' .. command .. ')', options)
+    vim.keymap.set(mode, value, (precmd or '') .. '<Plug>(' .. command .. ')', options)
   end
+end
+
+function M.nkeymap(mode, keys, command, opts)
+  M.keymap(mode, keys, command, opts, '<C-\\><C-n>')
 end
 
 return M
