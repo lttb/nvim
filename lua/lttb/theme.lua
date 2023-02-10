@@ -25,7 +25,7 @@ M.pallettes = {
           },
 
           ['@variable'] = {
-            fg = c.black,
+            fg = c.fg,
           },
 
           ['@property'] = {
@@ -42,6 +42,18 @@ M.pallettes = {
 
           ['@type.builtin'] = {
             fg = c.blue,
+          },
+
+          ['@method'] = {
+            fg = c.syntax.func,
+          },
+
+          ['@method.call'] = {
+            fg = c.syntax.func,
+          },
+
+          ['@keyword.operator'] = {
+            fg = c.syntax.keyword,
           },
         }
       end,
@@ -75,9 +87,9 @@ M.pallettes = {
   },
 }
 
-M.variant = 'dark'
-M.name = 'catppuccin'
-M.colorscheme = 'catppuccin-frappe'
+M.variant = 'light'
+M.name = 'github_theme'
+M.colorscheme = 'github_light'
 
 M.current = M.pallettes[M.variant]
 
