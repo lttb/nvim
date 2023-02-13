@@ -1,4 +1,5 @@
 local utils = require('lttb.utils')
+local theme = require('lttb.theme')
 
 if utils.is_vscode() then
   return {}
@@ -33,7 +34,7 @@ return {
     event = 'LspAttach',
     opts = {
       alpha = 0.5,
-      blend_color = '#2a2c3c',
+      blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
     },
   },
 
