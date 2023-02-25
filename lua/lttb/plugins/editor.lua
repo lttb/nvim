@@ -198,10 +198,12 @@ return {
 
   {
     'smjonas/live-command.nvim',
-    opts = {
-      commands = {
-        Norm = { cmd = 'norm' },
-      },
-    },
+    config = function()
+      require('live-command').setup({
+        commands = {
+          Norm = { cmd = 'norm' },
+        },
+      })
+    end,
   },
 }
