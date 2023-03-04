@@ -7,7 +7,7 @@ local theme = require('lttb.theme')
 --   -- ':#h-full',
 -- }
 
-vim.opt.guifont = 'FiraCode Nerd Font:h15:#e-subpixelantialias:#h-none'
+vim.opt.guifont = 'Fira Code:h15:#e-subpixelantialias:#h-none'
 
 if theme.colorscheme == 'github_dark' then
   vim.g.neovide_background_color = '#23292f'
@@ -31,6 +31,8 @@ vim.g.neovide_input_use_logo = true
 vim.g.neovide_padding_top = 24
 vim.g.neovide_padding_left = 24
 vim.g.neovide_padding_right = 24
+
+-- vim.opt.linespace = 2
 
 -- vim.g.neovide_profiler = true
 vim.g.neovide_refresh_rate = 144
