@@ -13,6 +13,8 @@ function config()
     filesystem = {
       follow_current_file = true,
       group_empty_dirs = true,
+
+      use_libuv_file_watcher = true,
     },
   })
 

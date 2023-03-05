@@ -87,6 +87,7 @@ local themes = {
           noice = true,
           treesitter_context = true,
           treesitter = true,
+          neotree = true,
 
           indent_blankline = {
             enabled = true,
