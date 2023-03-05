@@ -45,4 +45,33 @@ function M.nkeymap(mode, keys, command, opts)
   M.keymap(mode, keys, command, opts, '<C-\\><C-n>')
 end
 
+-- @see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
+function M.should_open_sidebar(data)
+  local IGNORED_FT = {
+    'gitcommit',
+    'gitrebase',
+  }
+
+  -- buffer is a real file on the disk
+  local real_file = vim.fn.filereadable(data.file) == 1
+
+  -- buffer is a [No Name]
+  local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
+
+  -- &ft
+  local filetype = vim.bo[data.buf].ft
+
+  -- only files please
+  -- if not real_file and not no_name then
+  --   return
+  -- end
+
+  -- skip ignored filetypes
+  if vim.tbl_contains(IGNORED_FT, filetype) then
+    return false
+  end
+
+  return true
+end
+
 return M

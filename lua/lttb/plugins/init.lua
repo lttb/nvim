@@ -187,7 +187,7 @@ return vim.list_extend(
     { 'tpope/vim-sleuth' },
 
     {
-      'kyazdani42/nvim-web-devicons',
+      'nvim-tree/nvim-web-devicons',
     },
 
     { 'JoosepAlviste/nvim-ts-context-commentstring' },

@@ -69,37 +69,16 @@ local function config()
     nt_api.tree.focus()
   end)
 
-  -- @see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
-  local function open_nvim_tree(data)
-    local IGNORED_FT = {
-      'gitcommit',
-      'gitrebase',
-    }
+  vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+    callback = function(data)
+      if not utils.should_open_sidebar(data) then
+        return
+      end
 
-    -- buffer is a real file on the disk
-    local real_file = vim.fn.filereadable(data.file) == 1
-
-    -- buffer is a [No Name]
-    local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
-
-    -- &ft
-    local filetype = vim.bo[data.buf].ft
-
-    -- only files please
-    -- if not real_file and not no_name then
-    --   return
-    -- end
-
-    -- skip ignored filetypes
-    if vim.tbl_contains(IGNORED_FT, filetype) then
-      return
-    end
-
-    -- open the tree but don't focus it
-    require('nvim-tree.api').tree.toggle({ focus = false })
-  end
-
-  vim.api.nvim_create_autocmd({ 'VimEnter' }, { callback = open_nvim_tree })
+      -- open the tree but don't focus it
+      vim.api.nvim_create_autocmd({ 'VimEnter' }, { callback = open_nvim_tree })
+    end,
+  })
 end
 
 if utils.is_vscode() then
@@ -110,5 +89,6 @@ return {
   {
     'kyazdani42/nvim-tree.lua',
     config = config,
+    enabled = false,
   },
 }

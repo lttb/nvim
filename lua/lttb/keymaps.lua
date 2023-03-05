@@ -20,7 +20,7 @@ utils.keymap('x', '<leader>x', 'lttb-substiture-visual', {
 vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').operator()<cr>", { noremap = true })
 
 -- cut into system clipboard in visual mode
-vim.keymap.set('v', 'x', '"*x')
+vim.keymap.set({'n', 'x'}, 'd', '"*d')
 
 vim.keymap.set('n', '<C-O>', '<C-O>zv', { remap = true })
 vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
