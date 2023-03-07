@@ -286,10 +286,6 @@ return {
   { 'williamboman/mason-lspconfig.nvim' },
   { 'neovim/nvim-lspconfig' },
   {
-    'L3MON4D3/LuaSnip',
-    dependencies = { 'saadparwaiz1/cmp_luasnip' },
-  },
-  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'neovim/nvim-lspconfig',
@@ -299,7 +295,10 @@ return {
       'hrsh7th/cmp-cmdline',
 
       'onsails/lspkind.nvim',
-      'L3MON4D3/LuaSnip',
+      {
+        'L3MON4D3/LuaSnip',
+        dependencies = { 'saadparwaiz1/cmp_luasnip' },
+      },
 
       'lukas-reineke/cmp-rg',
     },
