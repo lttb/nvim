@@ -20,7 +20,7 @@ utils.keymap('x', '<leader>x', 'lttb-substiture-visual', {
 vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').operator()<cr>", { noremap = true })
 
 -- cut into system clipboard in visual mode
-vim.keymap.set({'n', 'x'}, 'd', '"*d')
+vim.keymap.set({ 'n', 'x' }, 'd', '"*d')
 
 vim.keymap.set('n', '<C-O>', '<C-O>zv', { remap = true })
 vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
@@ -53,8 +53,8 @@ local function native_nav(key, ncmd, icmd, xcmd)
   end
 end
 
-native_nav('<M-BS>', ',bda,w', 'i')
-native_nav('<M-DEL>', 'da,w', 'i')
+native_nav('<M-BS>', 'db', 'i')
+native_nav('<M-DEL>', ',eda,w', 'i')
 
 native_nav('<S-Left>', 'vh', '', 'h')
 native_nav('<S-Right>', 'vl', '', 'l')
@@ -62,10 +62,10 @@ native_nav('<S-Up>', 'vk', '', 'k')
 native_nav('<S-Down>', 'vj', '', 'j')
 
 native_nav('<M-Left>', ',b', 'i')
-native_nav('<M-Right>', ',e,w', 'i')
+native_nav('<M-Right>', ',e', 'a')
 
 native_nav('<M-S-Left>', ',ev,b', '', ',b')
-native_nav('<M-S-Right>', 'vi,w', '', ',w')
+native_nav('<M-S-Right>', 'vi,e', '', ',w')
 -- }}}
 
 -- {{{ Global mappings
