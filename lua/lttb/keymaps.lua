@@ -53,7 +53,7 @@ local function native_nav(key, ncmd, icmd, xcmd)
   end
 end
 
-native_nav('<M-BS>', 'db', 'i')
+native_nav('<M-BS>', 'ldb', 'i')
 native_nav('<M-DEL>', ',eda,w', 'i')
 
 native_nav('<S-Left>', 'vh', '', 'h')
