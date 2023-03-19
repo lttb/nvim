@@ -79,6 +79,8 @@ local config = function()
 
   utils.keyplug('lttb-search-grep', function()
     builtin.live_grep({
+      dynamic_preview_title = true,
+
       glob_pattern = {
         '!lazy-lock.json',
         '!.lock',
