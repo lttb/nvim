@@ -82,16 +82,16 @@ local function config()
   -- CMP {{{
   local cmp = require('cmp')
   local lspkind = require('lspkind')
-  -- local luasnip = require('luasnip')
+  local luasnip = require('luasnip')
   local cmp_buffer = require('cmp_buffer')
   local compare = cmp.config.compare
 
   cmp.setup({
-    -- snippet = {
-    --   expand = function(args)
-    --     luasnip.lsp_expand(args.body)
-    --   end,
-    -- },
+    snippet = {
+      expand = function(args)
+        luasnip.lsp_expand(args.body)
+      end,
+    },
 
     mapping = cmp.mapping.preset.insert({
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -108,8 +108,8 @@ local function config()
           require('copilot.suggestion').accept()
         elseif cmp.visible() then
           cmp.select_next_item()
-        -- elseif luasnip.expand_or_jumpable() then
-        --   luasnip.expand_or_jump()
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
         else
           fallback()
         end
@@ -117,8 +117,8 @@ local function config()
       ['<S-Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
-        -- elseif luasnip.jumpable(-1) then
-        --   luasnip.jump(-1)
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
         else
           fallback()
         end
@@ -135,9 +135,9 @@ local function config()
           return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
         end,
       },
-      -- {
-      --   name = 'luasnip',
-      -- },
+      {
+        name = 'luasnip',
+      },
       {
         name = 'path',
       },
@@ -295,10 +295,10 @@ return {
       'hrsh7th/cmp-cmdline',
 
       'onsails/lspkind.nvim',
-      -- {
-      --   'L3MON4D3/LuaSnip',
-      --   dependencies = { 'saadparwaiz1/cmp_luasnip' },
-      -- },
+      {
+        'L3MON4D3/LuaSnip',
+        dependencies = { 'saadparwaiz1/cmp_luasnip' },
+      },
 
       'lukas-reineke/cmp-rg',
     },
