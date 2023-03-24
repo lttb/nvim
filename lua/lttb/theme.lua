@@ -3,7 +3,7 @@ local M = {}
 
 M.pallettes = {
   light = {
-    github_theme = {
+    github = {
       theme_style = 'light',
 
       colors = {
@@ -61,7 +61,7 @@ M.pallettes = {
   },
 
   dark = {
-    github_theme = {
+    github = {
       theme_style = 'dark',
 
       colors = {},
@@ -87,9 +87,9 @@ M.pallettes = {
   },
 }
 
-M.variant = 'dark'
-M.name = 'catppuccin'
-M.colorscheme = 'catppuccin-frappe'
+M.variant = 'light'
+M.name = 'github'
+M.colorscheme = 'github_light'
 
 M.current = M.pallettes[M.variant]
 

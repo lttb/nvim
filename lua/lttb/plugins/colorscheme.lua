@@ -2,13 +2,13 @@ local utils = require('lttb.utils')
 local theme = require('lttb.theme')
 
 local themes = {
-  github_theme = {
+  github = {
     'projekt0n/github-nvim-theme',
     config = function()
       require('github-theme').setup({
-        theme_style = theme.current.github_theme.theme_style,
-        colors = theme.current.github_theme.colors,
-        overrides = theme.current.github_theme.overrides,
+        theme_style = theme.current.github.theme_style,
+        colors = theme.current.github.colors,
+        overrides = theme.current.github.overrides,
 
         -- dark_float = not utils.is_neovide(),
         -- dark_sidebar = not utils.is_neovide(),
