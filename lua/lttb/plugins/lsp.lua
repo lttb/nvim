@@ -295,10 +295,9 @@ return {
       'hrsh7th/cmp-cmdline',
 
       'onsails/lspkind.nvim',
-      {
-        'L3MON4D3/LuaSnip',
-        dependencies = { 'saadparwaiz1/cmp_luasnip' },
-      },
+
+      'saadparwaiz1/cmp_luasnip',
+      'L3MON4D3/LuaSnip',
 
       'lukas-reineke/cmp-rg',
     },
