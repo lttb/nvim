@@ -103,17 +103,10 @@ local function config()
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete({}),
-      ['<CR>'] = cmp.mapping({
-        i = function(fallback)
-          if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-          else
-            fallback()
-          end
-        end,
-        s = cmp.mapping.confirm({ select = true }),
-        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+      ['<CR>'] = cmp.mapping.confirm({
+        select = true,
       }),
+
       ['<Tab>'] = cmp.mapping(function(fallback)
         -- support copilot
         -- @see https://github.com/zbirenbaum/copilot.lua/issues/91#issuecomment-1345190310
