@@ -309,7 +309,7 @@ return {
       {
         'L3MON4D3/LuaSnip',
         -- follow latest release.
-        version = '<CurrentMajor>.*',
+        version = 'v1.*',
         -- install jsregexp (optional!).
         build = 'make install_jsregexp',
         dependencies = {
