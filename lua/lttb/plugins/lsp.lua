@@ -292,33 +292,43 @@ if utils.is_vscode() then
 end
 
 return {
-  { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
-  { 'neovim/nvim-lspconfig' },
+  -- snippets
+  -- @see https://github.com/LazyVim/LazyVim/blob/7ce1b1519a45f48aa4b5f35b7b7a886b42fe56d8/lua/lazyvim/plugins/coding.lua#L3
+  {
+    'L3MON4D3/LuaSnip',
+    build = (not jit.os:find('Windows'))
+        and "echo -e 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
+      or nil,
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      config = function()
+        require('luasnip.loaders.from_vscode').lazy_load()
+      end,
+    },
+    opts = {
+      history = true,
+      delete_check_events = 'TextChanged',
+    },
+  },
+
   {
     'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
     dependencies = {
       'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-
-      'onsails/lspkind.nvim',
-
-      {
-        'L3MON4D3/LuaSnip',
-        -- follow latest release.
-        version = 'v1.*',
-        -- install jsregexp (optional!).
-        build = 'make install_jsregexp',
-        dependencies = {
-          'saadparwaiz1/cmp_luasnip',
-        },
-      },
+      'saadparwaiz1/cmp_luasnip',
       'lukas-reineke/cmp-rg',
+      'onsails/lspkind.nvim',
     },
     config = config,
   },
   { 'b0o/schemastore.nvim' },
+
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  { 'neovim/nvim-lspconfig' },
 }
