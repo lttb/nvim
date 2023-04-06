@@ -5,6 +5,7 @@ local themes = {
   github = {
     'projekt0n/github-nvim-theme',
     tag = 'v0.0.7',
+    lazy = true,
     config = function()
       require('github-theme').setup({
         theme_style = theme.current.github.theme_style,
@@ -24,6 +25,7 @@ local themes = {
 
   edge = {
     'sainnhe/edge',
+    lazy = true,
     config = function()
       vim.g.edge_style = 'neon'
       vim.g.edge_transparent_background = 0
@@ -35,6 +37,7 @@ local themes = {
 
   catppuccin = {
     'catppuccin/nvim',
+    lazy = true,
     as = 'catppuccin',
     config = function()
       require('catppuccin').setup({
@@ -105,6 +108,7 @@ local themes = {
 
   onenord = {
     'rmehri01/onenord.nvim',
+    lazy = true,
     opts = {
       borders = false,
       fade_nc = false,
@@ -119,6 +123,7 @@ local themes = {
 
   tokyonight = {
     'folke/tokyonight.nvim',
+    lazy = true,
     opts = {
       styles = {
         keywords = { italic = false },
