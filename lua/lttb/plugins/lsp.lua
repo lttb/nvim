@@ -225,7 +225,7 @@ local function config()
   capabilities.offsetEncoding = { 'utf-8' }
 
   for _, name in ipairs(servers) do
-    opts = {}
+    local opts = {}
 
     if name == 'jsonls' then
       opts = {

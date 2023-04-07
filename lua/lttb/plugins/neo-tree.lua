@@ -4,7 +4,7 @@ if utils.is_vscode() then
   return {}
 end
 
-function config()
+local function config()
   require('neo-tree').setup({
     window = {
       width = 50,
