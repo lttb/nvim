@@ -4,7 +4,7 @@ local theme = require('lttb.theme')
 local themes = {
   github = {
     'projekt0n/github-nvim-theme',
-    tag = 'v0.0.7',
+    -- tag = 'v0.0.7',
     lazy = true,
     config = function()
       require('github-theme').setup({

@@ -58,13 +58,17 @@ if theme.name == 'github' then
 end
 
 if theme.colorscheme == 'github_light' then
-  -- NOTE: for some reason nvim_set_hl didn't override
-  vim.api.nvim_set_hl(0, 'TreesitterContext', {
-    link = 'CursorLineFold',
-    default = false,
-    nocombine = true,
+  vim.api.nvim_create_autocmd('VimEnter', {
+    callback = function()
+      -- NOTE: for some reason nvim_set_hl didn't override
+      vim.api.nvim_set_hl(0, 'TreesitterContext', {
+        link = 'CursorLineFold',
+        default = false,
+        nocombine = true,
+      })
+      -- vim.cmd('hi! link TreesitterContext CursorLineFold')
+    end,
   })
-  -- vim.cmd('hi! link TreesitterContext CursorLineFold')
 end
 
 if theme.colorscheme == 'edge' then

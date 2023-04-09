@@ -184,7 +184,7 @@ return vim.list_extend(
     },
   },
   map_plugins_config({
-    { 'tpope/vim-sleuth' },
+    -- { 'tpope/vim-sleuth' },
 
     {
       'nvim-tree/nvim-web-devicons',
@@ -250,7 +250,8 @@ return vim.list_extend(
           separator = ' ',
         })
       end,
-      enabled = vim.fn.has('nvim-0.9.0') == 1,
+      enabled = false,
+      -- enabled = vim.fn.has('nvim-0.9.0') == 1,
     },
 
     {

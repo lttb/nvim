@@ -112,7 +112,6 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     config = function()
-      local utils = require('lttb.utils')
       local indent_char = false and utils.is_neovide() and '·' or '┊'
 
       require('indent_blankline').setup({
