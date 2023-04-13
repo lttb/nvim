@@ -8,15 +8,16 @@ local themes = {
     lazy = true,
     config = function()
       require('github-theme').setup({
-        theme_style = theme.current.github.theme_style,
         colors = theme.current.github.colors,
         overrides = theme.current.github.overrides,
+        styles = {
+          keywords = 'NONE',
+        },
 
         -- dark_float = not utils.is_neovide(),
         -- dark_sidebar = not utils.is_neovide(),
         dark_float = true,
         dark_sidebar = false,
-        keyword_style = 'NONE',
         transparent = false,
         sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
       })
