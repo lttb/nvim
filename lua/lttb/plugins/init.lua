@@ -184,7 +184,7 @@ return vim.list_extend(
     },
   },
   map_plugins_config({
-    -- { 'tpope/vim-sleuth' },
+    { 'tpope/vim-sleuth' },
 
     {
       'nvim-tree/nvim-web-devicons',
