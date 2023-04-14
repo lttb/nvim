@@ -14,12 +14,19 @@ local themes = {
           keywords = 'NONE',
         },
 
-        -- dark_float = not utils.is_neovide(),
-        -- dark_sidebar = not utils.is_neovide(),
-        dark_float = true,
-        dark_sidebar = false,
-        transparent = false,
-        sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
+        options = {
+          transparent = false,
+
+          -- dark_float = not utils.is_neovide(),
+          -- dark_sidebar = not utils.is_neovide(),
+          darken = {
+            floats = true,
+            sidebars = {
+              enable = true,
+              list = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
+            },
+          },
+        },
       })
     end,
   },

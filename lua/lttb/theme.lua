@@ -4,8 +4,6 @@ local M = {}
 M.pallettes = {
   light = {
     github = {
-      theme_style = 'light',
-
       colors = {
         bg_highlight = '#f6f8fa',
       },
@@ -62,8 +60,6 @@ M.pallettes = {
 
   dark = {
     github = {
-      theme_style = 'dark',
-
       colors = {},
 
       overrides = function(c)
