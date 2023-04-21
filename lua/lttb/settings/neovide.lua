@@ -35,7 +35,7 @@ vim.g.neovide_padding_right = 24
 -- vim.opt.linespace = 2
 
 -- vim.g.neovide_profiler = true
-vim.g.neovide_refresh_rate = 144
+-- vim.g.neovide_refresh_rate = 144
 
 vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true })
