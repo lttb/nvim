@@ -12,7 +12,7 @@ local function config()
       -- component_separators = '|',
       -- section_separators = '',
 
-      disabled_filetypes = { 'NvimTree' },
+      disabled_filetypes = { 'NvimTree', 'neo-tree' },
     },
 
     -- sections = {

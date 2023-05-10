@@ -26,6 +26,15 @@ vim.cmd([[
   highlight! link NoiceCursor Cursor
 ]])
 
+local miniMapNormalHL = vim.api.nvim_get_hl_by_name('MiniMapNormal', true)
+vim.api.nvim_set_hl(0, 'WinSeparator', {
+  bg = miniMapNormalHL.background,
+  fg = miniMapNormalHL.background,
+})
+vim.api.nvim_set_hl(0, 'StatusLineNC', {
+  bg = miniMapNormalHL.background,
+})
+
 vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', {
   link = 'DiagnosticVirtualTextError',
   underline = false,
