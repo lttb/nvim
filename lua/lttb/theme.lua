@@ -85,7 +85,7 @@ M.pallettes = {
 
 M.variant = 'dark'
 M.name = 'catppuccin'
-M.colorscheme = 'catppuccin-frappe'
+M.colorscheme = 'catppuccin-macchiato'
 
 M.current = M.pallettes[M.variant]
 
