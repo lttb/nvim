@@ -46,7 +46,6 @@ local themes = {
   {
     'catppuccin/nvim',
     lazy = true,
-    as = 'catppuccin',
     config = function()
       require('catppuccin').setup({
         -- transparent_background = true,
