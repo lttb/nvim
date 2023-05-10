@@ -101,7 +101,7 @@ return vim.list_extend(
     {
       'chaoren/vim-wordmotion',
       init = function()
-        vim.g.wordmotion_prefix = ','
+        vim.g.wordmotion_prefix = ';'
       end,
     },
 
