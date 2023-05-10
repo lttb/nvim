@@ -69,7 +69,7 @@ local function config()
             'InsertEnter',
             'FocusLost',
           },
-          border = 'rounded',
+          -- border = 'rounded',
           source = 'always',
           prefix = ' ',
           scope = 'cursor',
