@@ -29,15 +29,15 @@ return {
     end,
   },
 
-  {
-    'zbirenbaum/neodim',
-    event = 'LspAttach',
-    opts = {
-      alpha = 0.5,
-      blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
-    },
-    enabled = theme.name ~= 'github',
-  },
+  -- {
+  --   'zbirenbaum/neodim',
+  --   event = 'LspAttach',
+  --   opts = {
+  --     alpha = 0.5,
+  --     blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
+  --   },
+  --   enabled = theme.name ~= 'github',
+  -- },
 
   {
     'weilbith/nvim-code-action-menu',
