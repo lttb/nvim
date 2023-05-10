@@ -2,14 +2,14 @@ local utils = require('lttb.utils')
 local theme = require('lttb.theme')
 
 local themes = {
-  github = {
+  {
     'projekt0n/github-nvim-theme',
     -- tag = 'v0.0.7',
     lazy = true,
     config = function()
       require('github-theme').setup({
-        colors = theme.current.github.colors,
-        overrides = theme.current.github.overrides,
+        -- colors = theme.current.github.colors,
+        -- overrides = theme.current.github.overrides,
         styles = {
           keywords = 'NONE',
         },
@@ -31,7 +31,7 @@ local themes = {
     end,
   },
 
-  edge = {
+  {
     'sainnhe/edge',
     lazy = true,
     config = function()
@@ -43,7 +43,7 @@ local themes = {
     end,
   },
 
-  catppuccin = {
+  {
     'catppuccin/nvim',
     lazy = true,
     as = 'catppuccin',
@@ -114,7 +114,7 @@ local themes = {
     end,
   },
 
-  onenord = {
+  {
     'rmehri01/onenord.nvim',
     lazy = true,
     opts = {
@@ -129,7 +129,7 @@ local themes = {
     },
   },
 
-  tokyonight = {
+  {
     'folke/tokyonight.nvim',
     lazy = true,
     opts = {
@@ -144,4 +144,4 @@ if utils.is_vscode() then
   return {}
 end
 
-return themes[theme.name]
+return themes
