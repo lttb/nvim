@@ -42,13 +42,13 @@ vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', {
   -- nocombine = true,
 })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', {
-  link = 'DiagnosticVirtualTextWarning',
+  link = 'DiagnosticVirtualTextWarn',
   underline = false,
   default = false,
   -- nocombine = true,
 })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInfo', {
-  link = 'DiagnosticVirtualTextInformation',
+  link = 'DiagnosticVirtualTextInfo',
   underline = false,
   default = false,
   -- nocombine = true,
