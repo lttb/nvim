@@ -49,7 +49,7 @@
   "package-info.nvim": { "branch": "master", "commit": "4d98c8cc90d970d87c472c04bf7ca712336cc753" },
   "playground": { "branch": "master", "commit": "2b81a018a49f8e476341dfcb228b7b808baba68b" },
   "plenary.nvim": { "branch": "master", "commit": "9ac3e9541bbabd9d73663d757e4fe48a675bb054" },
-  "schemastore.nvim": { "branch": "main", "commit": "b8e6c7d966857e8ff14d9b6a23eec9214d99db32" },
+  "schemastore.nvim": { "branch": "main", "commit": "301471a8611494ceb7255003bc9d3c6fb8584009" },
   "smart-open.nvim": { "branch": "main", "commit": "f9d51ad69b0ab3a01b61d3d5176367e540407f6e" },
   "smartyank.nvim": { "branch": "master", "commit": "7e3905578f646503525b2f7018b8afd17861018c" },
   "sqlite.lua": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
