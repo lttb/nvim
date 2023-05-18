@@ -10,9 +10,9 @@ vim.cmd.colorscheme(theme.colorscheme)
 
 -- add treesitter support for some themes
 -- @see https://github.com/projekt0n/github-nvim-theme/issues/220
-if theme.name == 'github' then
-  -- require('lttb.utils.treesitter-hl')
-end
+-- if theme.name == 'github' then
+--   require('lttb.utils.treesitter-hl')
+-- end
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
