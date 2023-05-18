@@ -120,11 +120,13 @@ if utils.is_kitty() then
     callback = function()
       -- defer title setting to avoid flickering
       vim.defer_fn(function()
-        local filepath = vim.fn.expand('%:~:.')
+        local bufname = vim.fn.bufname()
 
-        if filepath == 'NvimTree_1' then
+        if bufname == '' or bufname == nil or bufname:find('^term://') ~= nil then
           return
         end
+
+        local filepath = vim.fn.expand('%:~:.')
 
         vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title --temporary ' .. filepath)
       end, 100)
