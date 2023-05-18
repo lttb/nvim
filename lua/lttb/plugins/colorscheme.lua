@@ -5,7 +5,7 @@ local themes = {
   {
     'projekt0n/github-nvim-theme',
     -- tag = 'v0.0.7',
-    lazy = true,
+    -- lazy = true,
     config = function()
       require('github-theme').setup({
         palettes = {
