@@ -18,11 +18,11 @@ vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
     if theme.colorscheme == 'github_light' then
       -- NOTE: for some reason nvim_set_hl didn't override
-      vim.api.nvim_set_hl(0, 'TreesitterContext', {
-        link = 'CursorLineFold',
-        default = false,
-        nocombine = true,
-      })
+      -- vim.api.nvim_set_hl(0, 'TreesitterContext', {
+      --   link = 'CursorLineFold',
+      --   default = false,
+      --   nocombine = true,
+      -- })
       -- vim.cmd('hi! link TreesitterContext CursorLineFold')
     end
 
@@ -60,30 +60,29 @@ vim.api.nvim_create_autocmd('VimEnter', {
       default = false,
     })
 
-    vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', {
-      link = 'DiagnosticVirtualTextError',
-      underline = false,
-      default = false,
-      -- nocombine = true,
-    })
-    vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', {
-      link = 'DiagnosticVirtualTextWarn',
-      underline = false,
-      default = false,
-      -- nocombine = true,
-    })
-    vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInfo', {
-      link = 'DiagnosticVirtualTextInfo',
-      underline = false,
-      default = false,
-      -- nocombine = true,
-    })
-    vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', {
-      link = 'DiagnosticVirtualTextHint',
-      underline = false,
-      default = false,
-      -- nocombine = true,
-    })
+    local C = require('github-theme.lib.color')
+
+    local normalHL = vim.api.nvim_get_hl_by_name('Normal', true)
+
+    local function number_to_hex(color)
+      return string.format('%06x', color)
+    end
+    local function alpha(color, a)
+      return C.from_hex(number_to_hex(normalHL.background)):blend(C.from_hex(number_to_hex(color)), a):to_hex()
+    end
+    local function extend_alpha_bg(hl_extend, color_name, hl, a)
+      local hlExtendHL = vim.api.nvim_get_hl_by_name(hl_extend, true)
+      vim.api.nvim_set_hl(0, hl, {
+        bg = alpha(hlExtendHL[color_name], a),
+        underline = false,
+        default = false,
+      })
+    end
+
+    extend_alpha_bg('DiagnosticError', 'foreground', 'DiagnosticUnderlineError', 0.1)
+    extend_alpha_bg('DiagnosticWarn', 'foreground', 'DiagnosticUnderlineWarn', 0.1)
+    extend_alpha_bg('DiagnosticInfo', 'foreground', 'DiagnosticUnderlineInfo', 0.1)
+    extend_alpha_bg('DiagnosticHint', 'foreground', 'DiagnosticUnderlineHint', 0.1)
   end,
 })
 
