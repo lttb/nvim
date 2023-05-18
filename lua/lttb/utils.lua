@@ -5,7 +5,7 @@ function M.hl_create(group)
 end
 
 function M.is_kitty()
-  return vim.env.KITTY_WINDOW_ID ~= nil
+  return vim.env.KITTY_WINDOW_ID ~= nil and (not M.is_neovide())
 end
 
 function M.is_vscode()
