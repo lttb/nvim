@@ -55,6 +55,11 @@ vim.api.nvim_create_autocmd('VimEnter', {
       fg = splitLineHL.background,
       default = false,
     })
+    vim.api.nvim_set_hl(0, 'StatusLine', {
+      bg = splitLineHL.background,
+      fg = splitLineHL.background,
+      default = false,
+    })
     vim.api.nvim_set_hl(0, 'StatusLineNC', {
       bg = splitLineHL.background,
       default = false,
