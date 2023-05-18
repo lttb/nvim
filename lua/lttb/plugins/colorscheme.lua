@@ -8,19 +8,26 @@ local themes = {
     lazy = true,
     config = function()
       require('github-theme').setup({
+        palettes = {
+          all = {
+            magenta = {
+              base = '#6944ba',
+            },
+          },
+        },
         specs = {
           all = {
             syntax = {
-              type = 'magenta.base',
+              type = 'magenta',
             },
           },
         },
 
-        styles = {
-          keywords = 'NONE',
-        },
-
         options = {
+          styles = {
+            keywords = 'NONE',
+          },
+
           transparent = false,
 
           -- dark_float = not utils.is_neovide(),
