@@ -223,10 +223,36 @@ return vim.list_extend(
       config = function()
         require('FTerm').setup({
           auto_close = true,
+          border = { { ' ', 'WinSeparator' } },
+          blend = 10,
+          hl = 'NeoTreeNormal',
         })
 
         utils.keyplug('lttb-toggle-term', function()
           require('FTerm').toggle()
+        end)
+      end,
+      enabled = false,
+    },
+
+    {
+      'akinsho/toggleterm.nvim',
+      config = function()
+        require('toggleterm').setup()
+
+        local Terminal = require('toggleterm.terminal').Terminal
+        local term = Terminal:new({
+          hidden = true,
+          dir = 'git_dir',
+          direction = 'float',
+          float_opts = {
+            border = { { ' ', 'WinSeparator' } },
+            bend = 10,
+          },
+        })
+
+        utils.keyplug('lttb-toggle-term', function()
+          term:toggle()
         end)
       end,
     },
