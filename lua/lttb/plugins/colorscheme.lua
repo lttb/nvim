@@ -8,8 +8,14 @@ local themes = {
     lazy = true,
     config = function()
       require('github-theme').setup({
-        -- colors = theme.current.github.colors,
-        -- overrides = theme.current.github.overrides,
+        specs = {
+          all = {
+            syntax = {
+              type = 'magenta.base',
+            },
+          },
+        },
+
         styles = {
           keywords = 'NONE',
         },
