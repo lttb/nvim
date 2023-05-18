@@ -23,6 +23,14 @@ local themes = {
           },
         },
 
+        groups = {
+          github_light = {
+            CursorLine = {
+              bg = '#f6f8fa',
+            },
+          },
+        },
+
         options = {
           styles = {
             keywords = 'NONE',
@@ -30,12 +38,10 @@ local themes = {
 
           transparent = false,
 
-          -- dark_float = not utils.is_neovide(),
-          -- dark_sidebar = not utils.is_neovide(),
           darken = {
             floats = true,
             sidebars = {
-              enable = true,
+              enable = false,
               list = { 'qf', 'vista_kind', 'terminal', 'packer', 'cmdline' },
             },
           },
