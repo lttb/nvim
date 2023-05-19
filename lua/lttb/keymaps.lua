@@ -54,18 +54,18 @@ local function native_nav(key, ncmd, icmd, xcmd)
 end
 
 native_nav('<M-BS>', 'ldb', 'i')
-native_nav('<M-DEL>', ',eda,w', 'i')
+native_nav('<M-DEL>', ';eda;w', 'i')
 
 native_nav('<S-Left>', 'vh', '', 'h')
 native_nav('<S-Right>', 'vl', '', 'l')
 native_nav('<S-Up>', 'vk', '', 'k')
 native_nav('<S-Down>', 'vj', '', 'j')
 
-native_nav('<M-Left>', ',b', 'i')
-native_nav('<M-Right>', ',e', 'a')
+native_nav('<M-Left>', ';b', 'i')
+native_nav('<M-Right>', ';e', 'a')
 
-native_nav('<M-S-Left>', ',ev,b', '', ',b')
-native_nav('<M-S-Right>', 'vi,e', '', ',w')
+native_nav('<M-S-Left>', ';ev;b', '', ',b')
+native_nav('<M-S-Right>', 'vi;e', '', ',w')
 -- }}}
 
 -- {{{ Global mappings
