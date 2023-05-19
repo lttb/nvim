@@ -247,7 +247,7 @@ return vim.list_extend(
           direction = 'float',
           float_opts = {
             border = { { ' ', 'WinSeparator' } },
-            bend = 10,
+            winblend = 5,
           },
         })
 
