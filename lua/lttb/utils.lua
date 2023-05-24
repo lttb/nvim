@@ -37,7 +37,11 @@ function M.keymap(mode, keys, command, opts, precmd)
   end
 
   for _, value in pairs(keys) do
-    vim.keymap.set(mode, value, (precmd or '') .. '<Plug>(' .. command .. ')', options)
+    if command:find('^lttb-') then
+      vim.keymap.set(mode, value, (precmd or '') .. '<Plug>(' .. command .. ')', options)
+    else
+      vim.keymap.set(mode, value, command, options)
+    end
   end
 end
 
