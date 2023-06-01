@@ -210,7 +210,7 @@ return vim.list_extend(
           extended_keymaps = true,
 
           hide_cursor = true,
-          max_length = 150,
+          max_length = 50,
           scroll_limit = 150,
           always_scroll = true,
         })
