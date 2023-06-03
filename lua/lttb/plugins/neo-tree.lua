@@ -11,6 +11,10 @@ local function config()
     },
 
     filesystem = {
+      filtered_items = {
+        visible = true,
+      },
+
       follow_current_file = true,
       group_empty_dirs = false,
 
