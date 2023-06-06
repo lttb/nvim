@@ -16,6 +16,10 @@ function M.is_neovide()
   return vim.g.neovide ~= nil
 end
 
+function M.is_goneovim()
+  return vim.g.goneovim ~= nil
+end
+
 function M.log(v)
   print(vim.inspect(v))
   return v
