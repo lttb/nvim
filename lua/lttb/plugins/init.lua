@@ -47,8 +47,9 @@ return vim.list_extend(
           silent = true,
         })
       end,
+      enabled = false,
     },
-    { 'ggandor/leap-spooky.nvim', config = true },
+    { 'ggandor/leap-spooky.nvim', config = true, enabled = false },
     {
       'ggandor/flit.nvim',
       config = function()
@@ -83,6 +84,42 @@ return vim.list_extend(
           })
         end)
       end,
+
+      enabled = false,
+    },
+
+    {
+      'folke/flash.nvim',
+      event = 'VeryLazy',
+      ---@type Flash.Config
+      opts = {},
+      keys = {
+        {
+          's',
+          mode = { 'n', 'x', 'o' },
+          function()
+            -- default options: exact mode, multi window, all directions, with a backdrop
+            require('flash').jump()
+          end,
+          desc = 'Flash',
+        },
+        {
+          'S',
+          mode = { 'n', 'o', 'x' },
+          function()
+            require('flash').treesitter()
+          end,
+          desc = 'Flash Treesitter',
+        },
+        {
+          'r',
+          mode = 'o',
+          function()
+            require('flash').remote()
+          end,
+          desc = 'Remote Flash',
+        },
+      },
     },
 
     {
