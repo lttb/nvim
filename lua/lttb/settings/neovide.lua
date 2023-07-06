@@ -34,7 +34,7 @@ vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_right = 0
 -- vim.g.neovide_padding_left = 1
 
--- vim.opt.linespace = 2
+vim.opt.linespace = 6
 
 -- vim.g.neovide_profiler = true
 -- vim.g.neovide_refresh_rate = 144
