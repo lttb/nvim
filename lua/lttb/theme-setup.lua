@@ -77,8 +77,10 @@ vim.api.nvim_create_autocmd('VimEnter', {
     end
     local function extend_alpha_bg(hl_extend, color_name, hl, a)
       local hlExtendHL = vim.api.nvim_get_hl_by_name(hl_extend, true)
+      local currentHL = vim.api.nvim_get_hl_by_name(hl, true)
       vim.api.nvim_set_hl(0, hl, {
         bg = alpha(hlExtendHL[color_name], a),
+        fg = currentHL.foreground,
         underline = false,
         default = false,
       })
@@ -88,6 +90,11 @@ vim.api.nvim_create_autocmd('VimEnter', {
     extend_alpha_bg('DiagnosticWarn', 'foreground', 'DiagnosticUnderlineWarn', 0.1)
     extend_alpha_bg('DiagnosticInfo', 'foreground', 'DiagnosticUnderlineInfo', 0.1)
     extend_alpha_bg('DiagnosticHint', 'foreground', 'DiagnosticUnderlineHint', 0.1)
+
+    if theme.name == 'kanagawa' then
+      extend_alpha_bg('Normal', 'background', 'SignColumn', 1)
+      extend_alpha_bg('Normal', 'background', 'LineNr', 1)
+    end
   end,
 })
 

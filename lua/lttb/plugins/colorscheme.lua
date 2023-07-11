@@ -156,6 +156,16 @@ local themes = {
       },
     },
   },
+
+  {
+    'rebelot/kanagawa.nvim',
+    lazy = true,
+    opts = {
+      compile = true,
+      keywordStyle = { italic = false },
+      dimInactive = true,
+    },
+  },
 }
 
 if utils.is_vscode() then
