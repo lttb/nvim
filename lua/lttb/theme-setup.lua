@@ -44,6 +44,10 @@ vim.api.nvim_create_autocmd('VimEnter', {
       highlight! link NoiceCursor Cursor
     ]])
 
+    vim.cmd([[
+      hi NonText guifg=bg
+    ]])
+
     local splitLineHL = vim.api.nvim_get_hl_by_name('CursorLine', true)
     vim.api.nvim_set_hl(0, 'VertSplit', {
       bg = splitLineHL.background,
@@ -75,9 +79,11 @@ vim.api.nvim_create_autocmd('VimEnter', {
     local function number_to_hex(color)
       return string.format('%06x', color)
     end
+
     local function alpha(color, a)
       return C.from_hex(number_to_hex(normalHL.background)):blend(C.from_hex(number_to_hex(color)), a):to_hex()
     end
+
     local function extend_alpha_bg(hl_extend, color_name, hl, a)
       local hlExtendHL = vim.api.nvim_get_hl_by_name(hl_extend, true)
       local currentHL = vim.api.nvim_get_hl_by_name(hl, true)
@@ -97,7 +103,9 @@ vim.api.nvim_create_autocmd('VimEnter', {
     if theme.name == 'kanagawa' then
       extend_alpha_bg('Normal', 'background', 'SignColumn', 1)
       extend_alpha_bg('Normal', 'background', 'LineNr', 1)
+    end
 
+    if theme.name == 'kanagawa' or theme.name == 'zenbones' then
       extend_alpha_bg('Visual', 'background', 'MiniCursorword', 0.8)
     end
   end,

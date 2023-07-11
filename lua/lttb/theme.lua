@@ -1,7 +1,7 @@
 local M = {}
 
 M.variant = 'dark'
-M.name = 'kanagawa'
-M.colorscheme = 'kanagawa'
+M.name = 'zenbones'
+M.colorscheme = 'zenwritten'
 
 return M

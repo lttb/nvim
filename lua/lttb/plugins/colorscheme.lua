@@ -166,6 +166,12 @@ local themes = {
       dimInactive = true,
     },
   },
+
+  {
+    'mcchrish/zenbones.nvim',
+    lazy = true,
+    dependencies = { 'rktjmp/lush.nvim' },
+  },
 }
 
 if utils.is_vscode() then

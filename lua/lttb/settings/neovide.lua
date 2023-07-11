@@ -18,6 +18,8 @@ elseif theme.colorscheme == 'catppuccin-frappe' then
   vim.g.neovide_background_color = '#2f3446'
 elseif theme.colorscheme == 'kanagawa' then
   vim.g.neovide_background_color = '#1b1b1b'
+elseif theme.colorscheme == 'zenbones' then
+  vim.g.neovide_background_color = '#1c1c1c'
 end
 
 vim.g.neovide_floating_blur_amount_x = 2.0
