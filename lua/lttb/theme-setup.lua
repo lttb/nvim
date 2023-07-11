@@ -94,6 +94,8 @@ vim.api.nvim_create_autocmd('VimEnter', {
     if theme.name == 'kanagawa' then
       extend_alpha_bg('Normal', 'background', 'SignColumn', 1)
       extend_alpha_bg('Normal', 'background', 'LineNr', 1)
+
+      extend_alpha_bg('Visual', 'background', 'MiniCursorword', 0.8)
     end
   end,
 })
