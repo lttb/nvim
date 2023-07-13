@@ -47,7 +47,7 @@
   "onenord.nvim": { "branch": "main", "commit": "222839e392a79c48ce0f52d754cccbc79322c01f" },
   "package-info.nvim": { "branch": "master", "commit": "4d98c8cc90d970d87c472c04bf7ca712336cc753" },
   "playground": { "branch": "master", "commit": "2b81a018a49f8e476341dfcb228b7b808baba68b" },
-  "plenary.nvim": { "branch": "master", "commit": "bda256fab0eb66a15e8190937e417e6a14ee5d72" },
+  "plenary.nvim": { "branch": "master", "commit": "1a6a7c929628566cf406aa7da1d048a1ddc7e9a8" },
   "schemastore.nvim": { "branch": "main", "commit": "cd5c2a0db954011fcbeac7bbbc0c7ae9e23626e3" },
   "smart-open.nvim": { "branch": "main", "commit": "3f1a35e2fa47b2f2b68a894c32023f8950e26ead" },
   "smartyank.nvim": { "branch": "master", "commit": "7e3905578f646503525b2f7018b8afd17861018c" },
