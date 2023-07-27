@@ -104,6 +104,7 @@ return {
         })
       end, 100)
     end,
+    enabled = false,
     -- NOTE: error "client quit with exit code 0 and signal"
     -- TODO: investigate and raise an issue
     -- enabled = not utils.is_neovide(),

@@ -110,9 +110,9 @@ local function config()
       ['<Tab>'] = cmp.mapping(function(fallback)
         -- support copilot
         -- @see https://github.com/zbirenbaum/copilot.lua/issues/91#issuecomment-1345190310
-        if require('copilot.suggestion').is_visible() then
-          require('copilot.suggestion').accept()
-        elseif cmp.visible() then
+        -- if require('copilot.suggestion').is_visible() then
+        --   require('copilot.suggestion').accept()
+        if cmp.visible() then
           cmp.select_next_item()
         -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
         -- they way you will only jump inside the snippet region
