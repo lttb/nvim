@@ -304,7 +304,7 @@ return vim.list_extend(
       dependencies = {
         'MunifTanjim/nui.nvim',
       },
-      enabled = not utils.is_neovide() and not utils.is_goneovim(),
+      enabled = not utils.is_goneovim(),
     },
 
     {
