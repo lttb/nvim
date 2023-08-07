@@ -25,7 +25,20 @@ if bg == 'light' then
     muted = hsluv('#636c76'),
   }, bg)
 else
-  palette = util.palette_extend({}, bg)
+  palette = util.palette_extend({
+    bg = hsluv('#0d1117'),
+    fg = hsluv('#e6edf3'),
+    rose = hsluv('#d1242f'),
+    leaf = hsluv('#1a7f37'),
+    wood = hsluv('#bf3989'),
+    water = hsluv('#2f81f7'),
+    blossom = hsluv('#8250df'),
+    sky = hsluv('#7d8590'),
+
+    gold = hsluv('#9a6700'),
+    gold_muted = hsluv('#ad8c45'),
+    muted = hsluv('#636c76'),
+  }, bg)
 end
 
 -- Generate the lush specs using the generator util
