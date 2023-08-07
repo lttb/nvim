@@ -77,6 +77,9 @@ vim.api.nvim_create_autocmd('VimEnter', {
     local normalHL = vim.api.nvim_get_hl_by_name('Normal', true)
 
     local function number_to_hex(color)
+      if color == nil then
+        return string.format('%06x', 0)
+      end
       return string.format('%06x', color)
     end
 
@@ -105,9 +108,16 @@ vim.api.nvim_create_autocmd('VimEnter', {
       extend_alpha_bg('Normal', 'background', 'LineNr', 1)
     end
 
-    if theme.name == 'kanagawa' or theme.name == 'zenbones' then
+    if theme.name == 'kanagawa' or theme.name == 'zenbones' or theme.name == 'aomi-grayscale' then
       extend_alpha_bg('Visual', 'background', 'MiniCursorword', 0.8)
     end
+
+    -- fix gitsigns virtual text colour
+    vim.api.nvim_set_hl(0, 'GitSignsCurrentLineBlame', {
+      fg = alpha(normalHL.foreground, 0.4),
+      underline = false,
+      default = false,
+    })
   end,
 })
 
