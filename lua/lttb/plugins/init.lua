@@ -217,7 +217,7 @@ return vim.list_extend(
         line_opacity = 0.05,
       },
       -- NOTE: something's wrong with the colours
-      enabled = false,
+      -- enabled = true,
     },
   },
   map_plugins_config({
