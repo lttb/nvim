@@ -20,6 +20,8 @@ elseif theme.colorscheme == 'kanagawa' then
   vim.g.neovide_background_color = '#1b1b1b'
 elseif theme.colorscheme == 'zenwritten' then
   vim.g.neovide_background_color = '#191919'
+elseif theme.variant == 'light' then
+  vim.g.neovide_background_color = '#ffffff'
 end
 
 vim.g.neovide_floating_blur_amount_x = 2.0
@@ -33,8 +35,13 @@ vim.g.neovide_fullscreen = false
 vim.g.neovide_input_macos_alt_is_meta = true
 vim.g.neovide_input_use_logo = true
 
+vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true })
+
 -- in case of buttonless frame
-vim.g.neovide_padding_top = 24
+-- vim.g.neovide_padding_top = 24
 
 vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_right = 0
@@ -44,8 +51,3 @@ vim.opt.linespace = 6
 
 -- vim.g.neovide_profiler = true
 -- vim.g.neovide_refresh_rate = 144
-
--- vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true })
