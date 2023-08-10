@@ -216,8 +216,7 @@ return vim.list_extend(
       opts = {
         line_opacity = 0.05,
       },
-      -- NOTE: something's wrong with the colours
-      -- enabled = true,
+      enabled = not utils.is_vscode(),
     },
   },
   map_plugins_config({
