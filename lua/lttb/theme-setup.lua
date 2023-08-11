@@ -40,12 +40,18 @@ vim.api.nvim_create_autocmd('VimEnter', {
       highlight WarningText gui=NONE
       highlight InfoText gui=NONE
       highlight HintText gui=NONE
+    ]])
 
+    vim.cmd([[
       highlight! link NoiceCursor Cursor
     ]])
 
     vim.cmd([[
       hi NonText guifg=bg
+    ]])
+
+    vim.cmd([[
+      hi NeoTreeFileNameOpened gui=bold
     ]])
 
     local splitLineHL = vim.api.nvim_get_hl_by_name('CursorLine', true)
