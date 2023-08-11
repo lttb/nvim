@@ -15,19 +15,28 @@ local function config()
         visible = true,
       },
 
-      follow_current_file = true,
+      follow_current_file = {
+        enabled = true,
+        leave_dirs_open = true,
+      },
       group_empty_dirs = false,
 
       use_libuv_file_watcher = true,
     },
+
+    default_component_configs = {
+      name = {
+        highlight_opened_files = true,
+      },
+    },
   })
 
   utils.keyplug('lttb-sidebar-toggle', function()
-    vim.cmd('NeoTreeShow')
+    vim.cmd('Neotree show')
   end)
 
   utils.keyplug('lttb-sidebar-focus', function()
-    vim.cmd('NeoTreeReveal')
+    vim.cmd('Neotree reveal')
   end)
 
   vim.api.nvim_create_autocmd({ 'VimEnter' }, {
@@ -37,7 +46,7 @@ local function config()
       end
 
       -- open the tree but don't focus it
-      vim.cmd('NeoTreeShow')
+      vim.cmd('Neotree show')
     end,
   })
 end
@@ -45,7 +54,7 @@ end
 return {
   {
     'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v2.x',
+    branch = 'v3.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
