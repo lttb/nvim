@@ -66,6 +66,8 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
     sym('@property')({ fg = palette.fg, gui = 'NONE' }),
     sym('@label')({ fg = palette.fg, gui = 'NONE' }),
     sym('@method')({ gui = 'bold' }),
+    sym('@tag')({ fg = palette.gold, gui = 'NONE' }),
+    sym('@constructor')({ fg = gold.wood, gui = 'NONE' }),
 
     sym('@string')({ fg = palette.sky, gui = 'NONE' }),
     sym('@number')({ fg = palette.sky, gui = 'NONE' }),
