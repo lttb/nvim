@@ -207,4 +207,6 @@ return {
       })
     end,
   },
+
+  { 'NvChad/nvim-colorizer.lua', config = true },
 }
