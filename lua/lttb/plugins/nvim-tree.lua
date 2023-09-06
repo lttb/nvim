@@ -76,7 +76,7 @@ local function config()
       end
 
       -- open the tree but don't focus it
-      vim.api.nvim_create_autocmd({ 'VimEnter' }, { callback = open_nvim_tree })
+      -- vim.api.nvim_create_autocmd({ 'VimEnter' }, { callback = open_nvim_tree })
     end,
   })
 end

@@ -91,7 +91,6 @@ return vim.list_extend(
     {
       'folke/flash.nvim',
       event = 'VeryLazy',
-      ---@type Flash.Config
       opts = {},
       keys = {
         {
