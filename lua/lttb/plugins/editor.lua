@@ -70,6 +70,15 @@ return {
       local cmp = require('cmp')
       cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
+    -- TODO: decide on 'altermo/ultimate-autopair.nvim'
+    enabled = false,
+  },
+
+  {
+    'altermo/ultimate-autopair.nvim',
+    event = { 'InsertEnter', 'CmdlineEnter' },
+    branch = 'v0.6',
+    config = true,
   },
 
   {
