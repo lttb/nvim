@@ -2,25 +2,18 @@
 
 local utils = require('lttb.utils')
 
+local servers = {
+  'lua_ls',
+  'tsserver',
+  'cssls',
+  'eslint',
+  'graphql',
+  'html',
+  'jsonls',
+  'prismals',
+}
+
 local function config()
-  local servers = {
-    'lua_ls',
-    'tsserver',
-    'cssls',
-    'eslint',
-    'graphql',
-    'html',
-    'jsonls',
-    'prismals',
-  }
-
-  require('mason').setup()
-  require('mason-lspconfig').setup({
-    ensure_installed = servers,
-
-    automatic_installation = true,
-  })
-
   -- LSP settings.
   --  This function gets run when an LSP connects to a particular buffer.
   local on_attach = function(_, bufnr)
@@ -328,7 +321,15 @@ return {
   },
   { 'b0o/schemastore.nvim' },
 
-  { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
+  { 'williamboman/mason.nvim', config = true },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    opts = {
+
+      ensure_installed = servers,
+
+      automatic_installation = true,
+    },
+  },
   { 'neovim/nvim-lspconfig' },
 }
