@@ -70,8 +70,6 @@ return {
       local cmp = require('cmp')
       cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
-    -- TODO: decide on 'altermo/ultimate-autopair.nvim'
-    enabled = false,
   },
 
   {
@@ -79,6 +77,8 @@ return {
     event = { 'InsertEnter', 'CmdlineEnter' },
     branch = 'v0.6',
     config = true,
+    -- TODO: check the config - so far it's not really convinient to insert/delete pairs to wrap expressions
+    enabled = false,
   },
 
   {
