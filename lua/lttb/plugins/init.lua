@@ -18,7 +18,11 @@ return vim.list_extend(
 
     {
       'kylechui/nvim-surround',
-      config = true,
+      config = {
+        keymaps = {
+          visual = '<C-S>',
+        },
+      },
     },
 
     {

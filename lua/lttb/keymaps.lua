@@ -155,9 +155,8 @@ utils.nkeymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
 
 -- Spectre
 
-utils.keymap('n', 'S', 'lttb-spectre')
 utils.keymap('n', '<leader>srw', 'lttb-spectre-search-word')
-utils.keymap('n', '<leader>sr', 'lttb-spectre-open-visual')
+-- utils.keymap('n', '<leader>sr', 'lttb-spectre-open-visual')
 utils.keymap('n', '<leader>srf', 'lttb-spectre-search-in-file')
 
 -- Commands
