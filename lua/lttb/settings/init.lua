@@ -22,7 +22,7 @@ vim.opt.mouse        = 'a'      -- Enable mouse
 vim.opt.backup       = false    -- Don't store backup
 vim.opt.writebackup  = false    -- Don't store backup
 vim.opt.timeoutlen   = 1000
-vim.opt.updatetime   = 300      -- Faster CursorHold
+vim.opt.updatetime   = 200      -- Faster CursorHold
 vim.opt.switchbuf    = 'usetab' -- Use already opened buffers when switching
 vim.opt.modeline     = true     -- Allow modeline
 
