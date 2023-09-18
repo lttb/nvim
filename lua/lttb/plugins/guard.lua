@@ -9,7 +9,8 @@ local function config()
 
   ft('lua'):fmt('lsp'):append('stylua')
 
-  ft('typescript,javascript,typescriptreact'):fmt('prettier'):lint('eslint')
+  ft('typescript,javascript,typescriptreact'):fmt('prettier')
+  ft('json'):fmt('prettier')
 
   require('guard').setup({
     fmt_on_save = true,
@@ -19,12 +20,9 @@ end
 
 return {
   'nvimdev/guard.nvim',
+  enabled = true,
   config = config,
   dependencies = {
-    {
-      -- TODO: switch to 'nvim/guard-collection' after https://github.com/nvimdev/guard-collection/pull/7
-      'sirreal/guard-collection',
-      branch = 'add-eslint-linter'
-    },
+    'nvimdev/guard-collection',
   },
 }
