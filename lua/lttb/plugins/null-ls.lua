@@ -91,5 +91,6 @@ return {
   {
     'jose-elias-alvarez/null-ls.nvim',
     config = config,
+    enabled = false,
   },
 }
