@@ -20,7 +20,7 @@ end
 
 return {
   'nvimdev/guard.nvim',
-  enabled = true,
+  enabled = false,
   config = config,
   dependencies = {
     'nvimdev/guard-collection',
