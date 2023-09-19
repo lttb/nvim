@@ -254,7 +254,8 @@ return vim.list_extend(
           always_scroll = true,
         })
       end,
-      enabled = not utils.is_neovide(),
+      -- enabled = not utils.is_neovide(),
+      enabled = false,
     },
 
     {
