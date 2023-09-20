@@ -109,9 +109,9 @@ if vim.fn.has('nvim-0.9.0') == 1 then
 end
 
 -- buffers
-vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
-vim.keymap.set('n', '<leader>bw', '<cmd>bprevious | bd! #<cr>', { silent = true, desc = 'Delete Buffer' })
-vim.keymap.set('n', '<leader>ww', '<leader>bw', { remap = true })
+-- vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
+-- vim.keymap.set('n', '<leader>bw', '<cmd>bprevious | bd! #<cr>', { silent = true, desc = 'Delete Buffer' })
+-- vim.keymap.set('n', '<leader>ww', '<leader>bw', { remap = true })
 
 -- }}}
 
@@ -134,7 +134,8 @@ vim.keymap.set('n', '<leader>l', ':Norm ', { desc = 'Live Command' })
 
 -- Alt commands {{{
 
-vim.keymap.set('n', '<M-w>', '<leader>bw', { remap = true })
+-- TODO: automatically close split if the last buffer in the split was closed
+vim.keymap.set('n', '<D-w>', '<cmd>bprevious | bd! #<cr>')
 
 -- Sidebar
 utils.keymap('n', { '<M-b>', '<D-b>' }, 'lttb-sidebar-toggle', {
