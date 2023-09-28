@@ -121,6 +121,7 @@ return {
 
   {
     'lukas-reineke/indent-blankline.nvim',
+    tag = 'v2.20.8',
     config = function()
       local indent_char = false and utils.is_neovide() and '·' or '┊'
 
