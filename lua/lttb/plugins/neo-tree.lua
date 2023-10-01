@@ -32,7 +32,7 @@ local function config()
   })
 
   utils.keyplug('lttb-sidebar-toggle', function()
-    vim.cmd('Neotree show')
+    vim.cmd('Neotree toggle')
   end)
 
   utils.keyplug('lttb-sidebar-focus', function()
