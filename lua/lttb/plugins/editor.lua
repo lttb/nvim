@@ -121,18 +121,65 @@ return {
 
   {
     'lukas-reineke/indent-blankline.nvim',
-    tag = 'v2.20.8',
-    config = function()
-      local indent_char = false and utils.is_neovide() and '·' or '┊'
+    main = 'ibl',
+    opts = {
+      indent = {
+        char = false and utils.is_neovide() and '·' or '┊',
+      },
 
-      require('indent_blankline').setup({
-        char = indent_char,
-        context_char = indent_char,
-        show_trailing_blankline_indent = false,
-        show_current_context = true,
-        show_first_indent_level = false,
-      })
-    end,
+      scope = {
+        show_start = false,
+        show_end = false,
+
+        -- @see https://github.com/lukas-reineke/indent-blankline.nvim/issues/632#issuecomment-1732366788
+        include = {
+          node_type = {
+            lua = {
+              'chunk',
+              'do_statement',
+              'while_statement',
+              'repeat_statement',
+              'if_statement',
+              'for_statement',
+              'function_declaration',
+              'function_definition',
+              'table_constructor',
+              'assignment_statement',
+            },
+            typescript = {
+              'statement_block',
+              'function',
+              'arrow_function',
+              'function_declaration',
+              'method_definition',
+              'for_statement',
+              'for_in_statement',
+              'catch_clause',
+              'object_pattern',
+              'arguments',
+              'switch_case',
+              'switch_statement',
+              'switch_default',
+              'object',
+              'object_type',
+              'ternary_expression',
+            },
+          },
+        },
+      },
+    },
+    -- tag = 'v2.20.8',
+    -- config = function()
+    --   local indent_char = false and utils.is_neovide() and '·' or '┊'
+
+    --   require('indent_blankline').setup({
+    --     char = indent_char,
+    --     context_char = indent_char,
+    --     show_trailing_blankline_indent = false,
+    --     show_current_context = true,
+    --     show_first_indent_level = false,
+    --   })
+    -- end,
   },
 
   {
