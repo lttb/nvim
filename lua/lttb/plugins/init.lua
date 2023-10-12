@@ -215,7 +215,6 @@ return vim.list_extend(
 
     {
       'mvllow/modes.nvim',
-      tag = 'v0.2.1',
       opts = {
         line_opacity = 0.05,
       },
