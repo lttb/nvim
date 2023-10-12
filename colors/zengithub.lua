@@ -11,7 +11,7 @@ local bg = vim.o.background
 local palette
 if bg == 'light' then
   palette = util.palette_extend({
-    bg = hsluv('#EFF1F5'),
+    bg = hsluv('#ffffff'),
     fg = hsluv('#1f2328'),
     rose = hsluv('#d1242f'),
     leaf = hsluv('#1a7f37'),
@@ -27,7 +27,7 @@ if bg == 'light' then
 else
   palette = util.palette_extend({
     bg = hsluv('#0d1117'),
-    fg = hsluv('#e6edf3'),
+    fg = hsluv('#EEEEEE'),
     rose = hsluv('#d1242f'),
     leaf = hsluv('#1a7f37'),
     wood = hsluv('#bf3989'),
