@@ -158,6 +158,8 @@ return vim.list_extend(
           return
         end
 
+        -- require('mini.tabline').setup({})
+
         require('mini.cursorword').setup({})
 
         local MiniMap = require('mini.map')

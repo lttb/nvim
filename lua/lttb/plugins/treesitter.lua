@@ -120,6 +120,7 @@ return {
     config = function()
       require('treesitter-context').setup()
     end,
-    enabled = not utils.is_vscode(),
+    enabled = false,
+    -- enabled = not utils.is_vscode(),
   },
 }

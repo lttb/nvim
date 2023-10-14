@@ -279,4 +279,67 @@ return {
       show_modified = true,
     },
   },
+
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+    },
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    opts = {
+      auto_hide = false,
+
+      highlight_alternate = true,
+      highlight_inactive_file_icons = true,
+
+      icons = {
+        separator = { left = '', right = '' },
+      },
+
+      sidebar_filetypes = {
+        ['neo-tree'] = true,
+      },
+    },
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+
+    enabled = false,
+  },
+
+  {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    opts = function()
+      local bufferline = require('bufferline')
+
+      return {
+        options = {
+          themable = true,
+
+          offsets = {
+            {
+              filetype = 'neo-tree',
+              text = 'File Explorer',
+              highlight = 'Directory',
+              separator = true, -- use a "true" to enable the default, or set your own character
+            },
+          },
+        },
+
+        highlights = {
+          fill = {
+            bg = {
+              attribute = 'bg',
+              highlight = 'CursorLine',
+            },
+          },
+        },
+      }
+    end,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+
+    -- enabled = false,
+  },
 }
