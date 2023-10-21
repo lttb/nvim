@@ -8,13 +8,6 @@ end
 
 return {
   {
-    {
-      'mvllow/modes.nvim',
-      opts = {
-        line_opacity = 0.05,
-      },
-    },
-
     -- { 'tpope/vim-sleuth' },
 
     {

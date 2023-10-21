@@ -7,6 +7,14 @@ end
 
 return {
   {
+    'mvllow/modes.nvim',
+    opts = {
+      line_opacity = 0.05,
+    },
+    enabled = theme.variant == 'light',
+  },
+
+  {
     'lewis6991/hover.nvim',
     config = function()
       require('hover').setup({
@@ -328,7 +336,7 @@ return {
           },
         },
 
-        highlights = {
+        highlights = theme.variant == 'light' and {
           fill = {
             bg = {
               attribute = 'bg',
