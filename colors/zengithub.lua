@@ -26,13 +26,13 @@ if bg == 'light' then
   }, bg)
 else
   palette = util.palette_extend({
-    bg = hsluv('#0d1117'),
-    fg = hsluv('#EEEEEE'),
-    rose = hsluv('#d1242f'),
-    leaf = hsluv('#1a7f37'),
-    wood = hsluv('#bf3989'),
-    water = hsluv('#2f81f7'),
-    blossom = hsluv('#8250df'),
+    bg = hsluv(0, 0, 9),
+    fg = hsluv(0, 0, 76),
+    -- rose = hsluv('#d1242f'),
+    -- leaf = hsluv('#1a7f37'),
+    -- wood = hsluv('#bf3989'),
+    -- water = hsluv('#2f81f7'),
+    -- blossom = hsluv('#8250df'),
     sky = hsluv('#7d8590'),
 
     gold = hsluv('#9a6700'),
