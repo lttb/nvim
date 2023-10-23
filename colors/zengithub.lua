@@ -21,7 +21,8 @@ if bg == 'light' then
     sky = hsluv('#6e7781'),
 
     gold = hsluv('#9a6700'),
-    gold_muted = hsluv('#ad8c45'),
+    -- gold = hsluv('#9a6700'),
+    -- gold_muted = hsluv('#ad8c45'),
     muted = hsluv('#636c76'),
   }, bg)
 else
@@ -35,8 +36,8 @@ else
     -- blossom = hsluv('#8250df'),
     sky = hsluv('#7d8590'),
 
-    gold = hsluv('#9a6700'),
-    gold_muted = hsluv('#ad8c45'),
+    gold = hsluv('#ad8c45'),
+    -- gold_muted = hsluv('#ad8c45'),
     muted = hsluv('#636c76'),
   }, bg)
 end
@@ -54,7 +55,7 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
     -- Special({ fg = palette.water, gui = 'NONE' }),
 
     Type({ fg = palette.gold }),
-    sym('@type.builtin')({ fg = palette.gold_muted }),
+    sym('@type.builtin')({ fg = palette.gold.desaturate(80) }),
 
     -- Constant({ fg = palette.muted, gui = 'NONE' }),
     -- sym('@constant')({ fg = palette.muted, gui = 'NONE' }),
