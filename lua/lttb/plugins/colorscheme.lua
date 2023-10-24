@@ -8,20 +8,20 @@ local themes = {
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup({
-        palettes = {
-          all = {
-            magenta = {
-              base = '#6944ba',
-            },
-          },
-        },
-        specs = {
-          all = {
-            syntax = {
-              type = 'magenta',
-            },
-          },
-        },
+        -- palettes = {
+        --   all = {
+        --     magenta = {
+        --       base = '#6944ba',
+        --     },
+        --   },
+        -- },
+        -- specs = {
+        --   all = {
+        --     syntax = {
+        --       type = 'magenta',
+        --     },
+        --   },
+        -- },
 
         groups = {
           github_light = {
