@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-global
+
 local colors_name = 'zengithub'
 vim.g.colors_name = colors_name -- Required when defining a colorscheme
 
@@ -67,7 +69,7 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
     -- sym('@keyword')({ fg = palette.wood, gui = 'NONE' }),
     sym('@property')({ fg = palette.fg, gui = 'NONE' }),
     sym('@label')({ fg = palette.fg, gui = 'NONE' }),
-    sym('@method')({ gui = 'bold' }),
+    sym('@method')({ gui = 'NONE' }),
     sym('@tag')({ fg = palette.gold, gui = 'NONE' }),
     sym('@constructor')({ fg = gold.wood, gui = 'NONE' }),
 
