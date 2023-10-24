@@ -27,7 +27,8 @@ if bg == 'light' then
   }, bg)
 else
   palette = util.palette_extend({
-    bg = hsluv(0, 0, 9),
+    -- bg = hsluv(0, 0, 9),
+    bg = hsluv('#22272e'),
     fg = hsluv(0, 0, 76),
     -- rose = hsluv('#d1242f'),
     -- leaf = hsluv('#1a7f37'),
