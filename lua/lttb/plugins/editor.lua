@@ -37,15 +37,16 @@ return {
     end,
   },
 
-  -- {
-  --   'zbirenbaum/neodim',
-  --   event = 'LspAttach',
-  --   opts = {
-  --     alpha = 0.5,
-  --     blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
-  --   },
-  --   enabled = theme.name ~= 'github',
-  -- },
+  {
+    'zbirenbaum/neodim',
+    event = 'LspAttach',
+    config = true,
+    opts = {
+      alpha = 0.5,
+      -- blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
+    },
+    -- enabled = theme.name ~= 'github',
+  },
 
   {
     'weilbith/nvim-code-action-menu',
@@ -331,9 +332,11 @@ return {
               filetype = 'neo-tree',
               text = 'File Explorer',
               highlight = 'Directory',
-              separator = true, -- use a "true" to enable the default, or set your own character
+              separator = false, -- use a "true" to enable the default, or set your own character
             },
           },
+
+          separator_style = 'thin',
         },
 
         highlights = theme.variant == 'light' and {
