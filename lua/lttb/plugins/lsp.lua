@@ -262,6 +262,8 @@ return {
       'onsails/lspkind.nvim',
 
       'L3MON4D3/LuaSnip',
+
+      { 'hinell/lsp-timeout.nvim', dependencies = { 'neovim/nvim-lspconfig' } },
     },
   },
 }
