@@ -186,11 +186,11 @@ utils.keymap('n', '<leader>?', 'lttb-find-recent-files', {
   desc = '[?] Find recently opened files',
 })
 
-utils.keymap('n', { '<leader><leader>', '<D-p>' }, 'lttb-smart-open', {
+utils.keymap('n', { '<leader><leader>' }, 'lttb-smart-open', {
   desc = '[ ] Smart Open',
 })
 
-utils.keymap('n', '<leader>ss', 'lttb-find-buffers', {
+utils.keymap('n', { '<leader>ss', '<D-o>' }, 'lttb-find-buffers', {
   desc = '[S]earch [B]uffers',
 })
 
@@ -198,7 +198,7 @@ utils.keymap('n', '<leader>sa', 'lttb-find-all-files', {
   desc = '[S]earch [A]ll files',
 })
 
-utils.keymap('n', '<leader>sf', 'lttb-find-files', {
+utils.keymap('n', { '<leader>sf', '<D-p>' }, 'lttb-find-files', {
   desc = '[S]earch [F]iles',
 })
 
