@@ -4,7 +4,7 @@ if utils.is_vscode() then
   return {}
 end
 
-local js = { 'eslint', { 'prettier' } }
+local js = { 'eslint_d', { 'prettier' } }
 
 return {
   'stevearc/conform.nvim',
@@ -16,6 +16,7 @@ return {
       typescript = js,
       typescriptreact = js,
       json = js,
+      markdown = js,
 
       -- Use the "_" filetype to run formatters on filetypes that don't
       -- have other formatters configured.

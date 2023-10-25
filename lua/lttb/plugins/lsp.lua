@@ -104,7 +104,7 @@ local function config()
 
   vim.diagnostic.config({
     virtual_text = {
-      severity = { min = vim.diagnostic.severity.WARN },
+      severity = { min = vim.diagnostic.severity.ERROR },
     },
   })
 
