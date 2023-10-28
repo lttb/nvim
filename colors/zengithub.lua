@@ -77,8 +77,8 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
     Statement({ fg = palette.sky, gui = 'NONE' }),
     -- Special({ fg = palette.water, gui = 'NONE' }),
 
-    Type({ fg = palette.muted }),
-    sym('@type.builtin')({ fg = palette.muted.desaturate(80) }),
+    Type({ fg = palette.rose.desaturate(60) }),
+    sym('@type.builtin')({ fg = palette.rose.desaturate(90) }),
 
     -- Constant({ fg = palette.muted, gui = 'NONE' }),
     -- sym('@constant')({ fg = palette.muted, gui = 'NONE' }),
