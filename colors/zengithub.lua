@@ -13,56 +13,56 @@ local bg = vim.o.background
 local palette
 
 if bg == 'light' then
-  palette = util.palette_extend({
-    bg = hsluv('#EDEEEB'),
-    fg = hsluv('#1f2328'),
-    rose = hsluv('#d1242f'),
-    leaf = hsluv('#1a7f37'),
-    wood = hsluv('#bf3989'),
-    water = hsluv('#0969da'),
-    blossom = hsluv('#8250df'),
-    sky = hsluv('#6e7781'),
+	palette = util.palette_extend({
+		bg = hsluv('#EDEEEB'),
+		fg = hsluv('#1f2328'),
+		rose = hsluv('#d1242f'),
+		leaf = hsluv('#1a7f37'),
+		wood = hsluv('#bf3989'),
+		water = hsluv('#0969da'),
+		blossom = hsluv('#8250df'),
+		sky = hsluv('#6e7781'),
 
-    gold = hsluv('#9a6700'),
-    -- gold = hsluv('#9a6700'),
-    -- gold_muted = hsluv('#ad8c45'),
-    muted = hsluv('#636c76'),
-  }, bg)
+		gold = hsluv('#9a6700'),
+		-- gold = hsluv('#9a6700'),
+		-- gold_muted = hsluv('#ad8c45'),
+		muted = hsluv('#636c76'),
+	}, bg)
 else
-  palette = util.palette_extend({
-    -- bg = hsluv(0, 0, 9),
-    bg = hsluv('#22272e'),
-    fg = hsluv(0, 0, 76),
-    -- rose = hsluv('#d1242f'),
-    -- leaf = hsluv('#1a7f37'),
-    -- wood = hsluv('#bf3989'),
-    -- water = hsluv('#2f81f7'),
-    -- blossom = hsluv('#8250df'),
-    sky = hsluv('#7d8590'),
+	palette = util.palette_extend({
+		-- bg = hsluv(0, 0, 9),
+		bg = hsluv('#22272e'),
+		fg = hsluv(0, 0, 76),
+		-- rose = hsluv('#d1242f'),
+		-- leaf = hsluv('#1a7f37'),
+		-- wood = hsluv('#bf3989'),
+		-- water = hsluv('#2f81f7'),
+		-- blossom = hsluv('#8250df'),
+		sky = hsluv('#7d8590'),
 
-    gold = hsluv('#ad8c45'),
-    -- gold_muted = hsluv('#ad8c45'),
-    muted = hsluv('#636c76'),
-  }, bg)
+		gold = hsluv('#ad8c45'),
+		-- gold_muted = hsluv('#ad8c45'),
+		muted = hsluv('#636c76'),
+	}, bg)
 end
 
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    vim.api.nvim_set_hl(0, 'NeoTreeDirectoryIcon', {
-      fg = palette.sky.hex,
-      default = false,
-    })
+vim.api.nvim_create_autocmd('ColorScheme', {
+	callback = function()
+		vim.api.nvim_set_hl(0, 'NeoTreeDirectoryIcon', {
+			fg = palette.sky.hex,
+			default = false,
+		})
 
-    vim.api.nvim_set_hl(0, 'NeoTreeDirectoryName', {
-      fg = palette.sky.hex,
-      default = false,
-    })
+		vim.api.nvim_set_hl(0, 'NeoTreeDirectoryName', {
+			fg = palette.sky.hex,
+			default = false,
+		})
 
-    vim.api.nvim_set_hl(0, 'NeoTreeFileName', {
-      fg = palette.sky.hex,
-      default = false,
-    })
-  end,
+		vim.api.nvim_set_hl(0, 'NeoTreeFileName', {
+			fg = palette.sky.hex,
+			default = false,
+		})
+	end,
 })
 
 -- Generate the lush specs using the generator util
@@ -71,32 +71,34 @@ local base_specs = generator.generate(palette, bg, generator.get_global_config(c
 
 -- Optionally extend specs using Lush
 local specs = lush.extends({ base_specs }).with(function(injected_functions)
-  local sym = injected_functions.sym
+	local sym = injected_functions.sym
 
-  return {
-    Statement({ fg = palette.sky, gui = 'NONE' }),
-    -- Special({ fg = palette.water, gui = 'NONE' }),
+	return {
+		Statement({ fg = palette.sky, gui = 'NONE' }),
+		-- Special({ fg = palette.water, gui = 'NONE' }),
 
-    Type({ fg = palette.rose.desaturate(60) }),
-    sym('@type.builtin')({ fg = palette.rose.desaturate(90) }),
+		Type({ fg = palette.rose.desaturate(60) }),
+		sym('@type.builtin')({ fg = palette.rose.desaturate(90) }),
 
-    -- Constant({ fg = palette.muted, gui = 'NONE' }),
-    -- sym('@constant')({ fg = palette.muted, gui = 'NONE' }),
+		-- Constant({ fg = palette.muted, gui = 'NONE' }),
+		-- sym('@constant')({ fg = palette.muted, gui = 'NONE' }),
 
-    Function({ fg = palette.fg, gui = 'bold' }),
+		Function({ fg = palette.fg, gui = 'bold' }),
 
-    -- sym('@include')({ fg = palette.wood, gui = 'NONE' }),
-    -- sym('@keyword')({ fg = palette.wood, gui = 'NONE' }),
-    sym('@property')({ fg = palette.fg, gui = 'NONE' }),
-    sym('@label')({ fg = palette.fg, gui = 'NONE' }),
-    sym('@method')({ gui = 'NONE' }),
-    sym('@tag')({ fg = palette.wood, gui = 'NONE' }),
-    sym('@constructor')({ fg = palette.wood, gui = 'NONE' }),
+		-- sym('@include')({ fg = palette.wood, gui = 'NONE' }),
+		-- sym('@keyword')({ fg = palette.wood, gui = 'NONE' }),
+		sym('@property')({ fg = palette.fg, gui = 'NONE' }),
+		sym('@label')({ fg = palette.fg, gui = 'NONE' }),
+		sym('@method')({ gui = 'NONE' }),
+		sym('@tag')({ fg = palette.wood, gui = 'NONE' }),
+		sym('@constructor')({ fg = palette.wood, gui = 'NONE' }),
 
-    sym('@string')({ fg = palette.sky, gui = 'NONE' }),
-    sym('@number')({ fg = palette.sky, gui = 'NONE' }),
-    sym('@boolean')({ fg = palette.sky, gui = 'NONE' }),
-  }
+		sym('@string')({ fg = palette.sky, gui = 'NONE' }),
+		sym('@number')({ fg = palette.sky, gui = 'NONE' }),
+		sym('@boolean')({ fg = palette.sky, gui = 'NONE' }),
+
+		-- Visual({ bg = palette.gold.darken(10) }),
+	}
 end)
 
 -- Pass the specs to lush to apply
