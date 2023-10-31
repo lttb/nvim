@@ -382,4 +382,10 @@ return {
   --   lazy = false,
   --   priority = 100,
   -- },
+
+  {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {},
+  },
 }
