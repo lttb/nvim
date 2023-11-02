@@ -163,20 +163,16 @@ return {
       }
     end,
 
-    opts = function()
-      local actions = require('telescope.actions')
-
-      return {
-        defaults = {
-          mappings = {
-            i = {
-              ['<esc>'] = 'close',
-              ['<D-BS>'] = { '<esc>ddi', type = 'command' },
-            },
+    opts = {
+      defaults = {
+        mappings = {
+          i = {
+            ['<esc>'] = 'close',
+            ['<D-BS>'] = { '<esc>ddi', type = 'command' },
           },
         },
-      }
-    end,
+      },
+    },
 
     config = true,
     dependencies = {
