@@ -40,7 +40,7 @@ return {
         })
       end,
       -- enabled = not utils.is_neovide(),
-      enabled = false,
+      enabled = true,
     },
 
     {
@@ -93,7 +93,7 @@ return {
         'MunifTanjim/nui.nvim',
       },
       -- enabled = not utils.is_goneovim(),
-      enabled = false,
+      enabled = true,
     },
 
     {

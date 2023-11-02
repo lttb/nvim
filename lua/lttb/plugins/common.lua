@@ -1,7 +1,6 @@
 local utils = require('lttb.utils')
 
 return {
-  -- 'lewis6991/impatient.nvim',
   'nvim-lua/plenary.nvim',
 
   {

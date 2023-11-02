@@ -57,6 +57,7 @@ vim.opt.linebreak     = true    -- Wrap long lines at 'breakat' (if 'wrap' is se
 vim.opt.shortmess     = 'aoOFc' -- Disable certain messages from |ins-completion-menu|
 -- TODO: check if needed
 vim.opt.showmode      = false   -- Don't show mode in command line
+vim.opt.showcmd       = false
 
 vim.opt.textwidth = 120
 vim.opt.scrolloff = 80

@@ -14,7 +14,7 @@ local function config()
       theme = 'auto',
 
       component_separators = '|',
-      section_separators = utils.is_neovide() and {} or { left = '', right = '' },
+      section_separators = utils.is_neovide() and '' or { left = '', right = '' },
 
       -- component_separators = '|',
       -- section_separators = '',
@@ -24,14 +24,22 @@ local function config()
 
     sections = {
       lualine_a = {
-        { 'mode', separator = { left = '', right = '' }, right_padding = 2 },
+        {
+          'mode',
+          separator = utils.is_neovide() and '' or { left = '', right = '' },
+          right_padding = 2,
+        },
       },
       lualine_b = { { color = 'CursorLine' } },
       lualine_c = { { color = 'CursorLine' } },
       lualine_x = { { color = 'CursorLine' } },
       lualine_y = { 'branch', 'diff', 'diagnostics', 'filetype', 'progress' },
       lualine_z = {
-        { 'location', separator = { right = '' }, left_padding = 2 },
+        {
+          'location',
+          separator = utils.is_neovide() and '' or { right = '' },
+          left_padding = 2,
+        },
       },
     },
     inactive_sections = {

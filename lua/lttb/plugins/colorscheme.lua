@@ -1,28 +1,18 @@
 local utils = require('lttb.utils')
+
+if utils.is_vscode() then
+  return {}
+end
+
 local theme = require('lttb.theme')
 
-local themes = {
+return {
   {
     'projekt0n/github-nvim-theme',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup({
-        -- palettes = {
-        --   all = {
-        --     magenta = {
-        --       base = '#6944ba',
-        --     },
-        --   },
-        -- },
-        -- specs = {
-        --   all = {
-        --     syntax = {
-        --       type = 'magenta',
-        --     },
-        --   },
-        -- },
-
         groups = {
           github_light = {
             CursorLine = {
@@ -55,6 +45,7 @@ local themes = {
   {
     'sainnhe/edge',
     lazy = true,
+    priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       vim.g.edge_style = 'neon'
       vim.g.edge_transparent_background = 0
@@ -67,6 +58,7 @@ local themes = {
   {
     'catppuccin/nvim',
     lazy = true,
+    priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('catppuccin').setup({
         -- transparent_background = true,
@@ -137,6 +129,7 @@ local themes = {
   {
     'rmehri01/onenord.nvim',
     lazy = true,
+    priority = 1000, -- make sure to load this before all the other start plugins
     opts = {
       borders = false,
       fade_nc = false,
@@ -152,6 +145,7 @@ local themes = {
   {
     'folke/tokyonight.nvim',
     lazy = true,
+    priority = 1000, -- make sure to load this before all the other start plugins
     opts = {
       styles = {
         keywords = { italic = false },
@@ -162,6 +156,7 @@ local themes = {
   {
     'rebelot/kanagawa.nvim',
     lazy = true,
+    priority = 1000, -- make sure to load this before all the other start plugins
     opts = {
       compile = true,
       keywordStyle = { italic = false },
@@ -172,12 +167,7 @@ local themes = {
   {
     'mcchrish/zenbones.nvim',
     lazy = true,
+    priority = 1000, -- make sure to load this before all the other start plugins
     dependencies = { 'rktjmp/lush.nvim' },
   },
 }
-
-if utils.is_vscode() then
-  return {}
-end
-
-return themes

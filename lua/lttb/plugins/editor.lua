@@ -45,7 +45,7 @@ return {
       alpha = 0.5,
       -- blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
     },
-    -- enabled = theme.name ~= 'github',
+    enabled = false,
   },
 
   {
@@ -319,6 +319,7 @@ return {
 
   {
     'akinsho/bufferline.nvim',
+    enabled = false,
     version = '*',
     opts = function()
       local bufferline = require('bufferline')

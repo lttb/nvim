@@ -7,7 +7,7 @@ end
 local function config()
   require('neo-tree').setup({
     window = {
-      width = '25%',
+      width = utils.is_neovide() and 50 or '25%',
 
       min_width = 40,
     },

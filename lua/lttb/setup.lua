@@ -1,5 +1,7 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 
+vim.loader.enable()
+
 require('lttb.settings')
 require('lttb.autocmd')
 
@@ -19,6 +21,8 @@ vim.opt.runtimepath:prepend(lazypath)
 -- }}}
 
 require('lazy').setup('lttb.plugins')
+
+require('lttb.keymaps')
 
 local utils = require('lttb.utils')
 

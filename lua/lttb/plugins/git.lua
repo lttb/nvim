@@ -7,11 +7,13 @@ end
 return {
   {
     'tpope/vim-fugitive',
+    enabled = false,
     event = 'VimEnter',
   },
 
   {
     'tpope/vim-rhubarb',
+    enabled = false,
     event = 'VimEnter',
   },
 

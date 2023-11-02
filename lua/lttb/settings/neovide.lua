@@ -49,7 +49,7 @@ vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true 
 
 vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_right = 0
--- vim.g.neovide_padding_left = 1
+vim.g.neovide_padding_left = 5
 
 vim.opt.linespace = 6
 
