@@ -5,8 +5,8 @@ if utils.is_vscode() then
   return
 end
 
-vim.opt.background = theme.variant
-vim.cmd.colorscheme(theme.colorscheme)
+-- vim.opt.background = theme.variant
+-- vim.cmd.colorscheme(theme.colorscheme)
 
 -- add treesitter support for some themes
 -- @see https://github.com/projekt0n/github-nvim-theme/issues/220
@@ -197,4 +197,4 @@ if utils.is_kitty() then
   })
 end
 
-vim.api.nvim_exec_autocmds('ColorScheme', {})
+-- vim.api.nvim_exec_autocmds('ColorScheme', {})

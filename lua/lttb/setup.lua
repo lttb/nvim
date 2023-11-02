@@ -1,6 +1,7 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 
 require('lttb.settings')
+require('lttb.autocmd')
 
 -- {{{ Bootstrap lazy
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -19,8 +20,6 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup('lttb.plugins')
 
-require('lttb.theme-setup')
-
 local utils = require('lttb.utils')
 
 if utils.is_vscode() then
@@ -28,6 +27,11 @@ if utils.is_vscode() then
 
   return
 end
+
+local theme = require('lttb.theme')
+
+vim.opt.background = theme.variant
+vim.cmd.colorscheme(theme.colorscheme)
 
 if utils.is_neovide() then
   require('lttb.settings.neovide')
