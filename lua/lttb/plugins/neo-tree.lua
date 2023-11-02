@@ -7,7 +7,7 @@ end
 local function config()
   require('neo-tree').setup({
     window = {
-      width = 50,
+      width = 40,
     },
 
     filesystem = {
