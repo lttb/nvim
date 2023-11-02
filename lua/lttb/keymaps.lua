@@ -8,26 +8,11 @@ vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 -- Fix gx, avoid netrw
 vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
 
--- Substitute remaps
-utils.keymap('n', '<leader>x', 'lttb-substiture-operator', {
-  desc = 'Substitute',
-  noremap = true,
-})
-utils.keymap('x', '<leader>x', 'lttb-substiture-visual', {
-  desc = 'Substitute visual selection',
-  noremap = true,
-})
-vim.keymap.set('n', '<leader>xx', "<cmd>lua require('substitute.exchange').operator()<cr>", { noremap = true })
-
 -- cut into system clipboard in visual mode
 vim.keymap.set({ 'n', 'x' }, 'd', '"*d')
 
 vim.keymap.set('n', '<C-O>', '<C-O>zv', { remap = true })
 vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
-
--- Char motions
-utils.keymap('', 'f', 'lttb-hop-on', { remap = true })
-utils.keymap('', 't', 'lttb-hop-pre', { remap = true })
 
 -- Simplify switch no normal mode
 vim.keymap.set({ 'i', 'c', 'v', 't' }, '<M-Space>', '<C-\\><C-n>')
@@ -54,18 +39,18 @@ local function native_nav(key, ncmd, icmd, xcmd)
 end
 
 native_nav('<M-BS>', 'ldb', 'i')
-native_nav('<M-DEL>', ';eda;w', 'i')
+native_nav('<M-DEL>', 'edaw', 'i')
 
 native_nav('<S-Left>', 'vh', '', 'h')
 native_nav('<S-Right>', 'vl', '', 'l')
 native_nav('<S-Up>', 'vk', '', 'k')
 native_nav('<S-Down>', 'vj', '', 'j')
 
-native_nav('<M-Left>', ';b', 'i')
-native_nav('<M-Right>', ';e', 'a')
+native_nav('<M-Left>', 'b', 'i')
+native_nav('<M-Right>', 'e', 'a')
 
-native_nav('<M-S-Left>', ';ev;b', '', ',b')
-native_nav('<M-S-Right>', 'vi;e', '', ',w')
+native_nav('<M-S-Left>', 'evb', '', ',b')
+native_nav('<M-S-Right>', 'vie', '', ',w')
 -- }}}
 
 -- {{{ Global mappings
@@ -91,22 +76,13 @@ vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increa
 -- Clear search with <esc>
 vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
-vim.keymap.set('n', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
-vim.keymap.set('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
-vim.keymap.set('o', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
-vim.keymap.set('n', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
-vim.keymap.set('x', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
-vim.keymap.set('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
-
 -- better indenting
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
+-- vim.keymap.set('v', '<', '<gv')
+-- vim.keymap.set('v', '>', '>gv')
 
 -- highlights under cursor
-if vim.fn.has('nvim-0.9.0') == 1 then
-  vim.keymap.set('n', '<leader>sH', vim.show_pos, { desc = 'Highlight Groups at cursor' })
-end
+
+-- vim.keymap.set('n', '<leader>sH', vim.show_pos, { desc = 'Highlight Groups at cursor' })
 
 -- buffers
 -- vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
@@ -116,152 +92,7 @@ end
 -- }}}
 
 -- Quick Save shortcut
--- utils.keyplug('lttb-quick-save', '<esc><cmd>Format<cmd>update<cr>')
-utils.keyplug('lttb-quick-save', function()
-  if vim.fn.exists(':Format') > 0 then
-    vim.cmd('Format')
-  end
-
-  vim.cmd('update')
-end)
-utils.nkeymap({ 'i', 'n' }, { '<M-s>', '<D-s>' }, 'lttb-quick-save')
-
--- Copilot remap
--- vim.keymap.set('i', '<D-l>', '<C-l>', { remap = true })
-
--- live-command.nvim
-vim.keymap.set('n', '<leader>l', ':Norm ', { desc = 'Live Command' })
-
--- Alt commands {{{
+vim.keymap.set({ 'i', 'n' }, '<D-s>', '<cmd>update<cr>', { desc = 'Quick Save' })
 
 -- TODO: automatically close split if the last buffer in the split was closed
 vim.keymap.set('n', '<D-w>', '<cmd>bprevious | bd! #<cr>')
-
--- Sidebar
-utils.keymap('n', { '<M-b>', '<D-b>' }, 'lttb-sidebar-toggle', {
-  desc = 'Toggle sidebar',
-})
-
-utils.keymap('n', { '<M-e>', '<D-e>' }, 'lttb-sidebar-focus', {
-  desc = 'Focus sidebar',
-})
-
--- Terminal
-
-utils.nkeymap({ 'n', 't', 'i' }, { '<M-j>', '<D-j>' }, 'lttb-toggle-term', {
-  desc = 'Toggle terminal',
-})
-
--- }}}
-
--- Spectre
-
-utils.keymap('n', '<leader>srw', 'lttb-spectre-search-word')
--- utils.keymap('n', '<leader>sr', 'lttb-spectre-open-visual')
-utils.keymap('n', '<leader>srf', 'lttb-spectre-search-in-file')
-
--- Commands
-utils.keymap('n', '<S-D-p>', 'lttb-telescope')
-
-vim.keymap.set('n', '<leader>/', '/', {
-  noremap = true,
-})
-
-utils.keymap('n', { '/', '<D-f>' }, 'lttb-search-buffer', {
-  desc = '[/] Fuzzily search in current buffer',
-  noremap = true,
-})
-
-utils.keymap('n', '<leader>gt', 'lttb-search-grep-by-type', {
-  desc = '[S]earch by [G]rep by [T]ype',
-})
-utils.keymap('n', '<leader>gf', 'lttb-search-grep-by-glob', {
-  desc = '[S]earch by [G]rep by [F]ile glob',
-})
-utils.keymap('n', { '<leader>gg', '<S-D-f>' }, 'lttb-search-grep', {
-  desc = '[S]earch by [G]rep',
-})
-
-utils.keymap('n', '<leader>?', 'lttb-find-recent-files', {
-  desc = '[?] Find recently opened files',
-})
-
-utils.keymap('n', { '<leader><leader>' }, 'lttb-smart-open', {
-  desc = '[ ] Smart Open',
-})
-
-utils.keymap('n', { '<leader>ss', '<D-o>' }, 'lttb-find-buffers', {
-  desc = '[S]earch [B]uffers',
-})
-
-utils.keymap('n', '<leader>sa', 'lttb-find-all-files', {
-  desc = '[S]earch [A]ll files',
-})
-
-utils.keymap('n', { '<leader>sf', '<D-p>' }, 'lttb-find-files', {
-  desc = '[S]earch [F]iles',
-})
-
-utils.keymap('n', '<leader>se', 'lttb-find-files-submodules', {
-  desc = '[S]earch [F]iles Recurse Submodules',
-})
-
-utils.keymap('n', '<leader>sh', 'lttb-search-help', {
-  desc = '[S]earch [H]elp',
-})
-
-utils.keymap('n', '<leader>sw', 'lttb-search-current-word', {
-  desc = '[S]earch current [W]ord',
-})
-
-utils.keymap('n', '<leader>sd', 'lttb-search-diagnostics', {
-  desc = '[S]earch [D]iagnostics',
-})
-
--- LSP
-
-utils.keymap('n', { '<leader>ca', '<D-.>', '<C-.>' }, 'lttb-lsp-code-action', {
-  desc = 'LSP: [C]ode [A]ction',
-})
-
-utils.keymap('n', '<leader>cn', 'lttb-lsp-rename', {
-  desc = 'LSP: [C]hange [n]ame',
-})
-
-utils.keymap('n', '<leader>ds', 'lttb-lsp-document-symbols', {
-  desc = 'LSP: [D]ocument [S]ymbols',
-})
-
-utils.keymap('n', { 'K' }, 'lttb-lsp-hover', {
-  desc = 'LSP: Hover Documentation',
-})
-utils.keymap('n', { 'gK' }, 'lttb-lsp-hover-select', {
-  desc = 'LSP: Hover Documentation Select',
-})
-utils.keymap('n', { 'gh' }, 'lttb-lsp-hover-native', {
-  desc = 'LSP: Hover Documentation Native',
-})
-
-utils.keymap('n', 'gd', 'lttb-lsp-definition', {
-  desc = 'LSP: [G]oto [D]efinition',
-})
-
-utils.keymap('n', 'gi', 'lttb-lsp-implementation', {
-  desc = 'LSP: [G]oto [I]mplementation',
-})
-
-utils.keymap('n', 'gr', 'lttb-lsp-references', {
-  desc = 'LSP: [G]oto [R]eferences',
-})
-
-utils.keymap('n', '<leader>D', 'lttb-lsp-type-definition', {
-  desc = 'LSP: Type [D]efinition',
-})
-
-utils.keymap('n', 'gD', 'lttb-lsp-declaration', {
-  desc = 'LSP: [G]oto [D]eclaration',
-})
-
-utils.keymap('n', '<C-k>', 'lttb-lsp-signature-help', {
-  desc = 'LSP: Signature Documentation',
-})

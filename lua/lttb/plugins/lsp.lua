@@ -49,35 +49,6 @@ local function config()
     -- to learn the available actions
     lsp_zero.default_keymaps({ buffer = bufnr })
 
-    -- utils.keyplug('lttb-lsp-code-action', vim.lsp.buf.code_action)
-    utils.keyplug('lttb-lsp-code-action', '<cmd>CodeActionMenu<cr>')
-
-    utils.keyplug('lttb-lsp-rename', vim.lsp.buf.rename)
-
-    utils.keyplug('lttb-lsp-definition-native', vim.lsp.buf.definition)
-    utils.keyplug('lttb-lsp-type-definition-native', vim.lsp.buf.type_definition)
-
-    utils.keyplug('lttb-lsp-declaration-native', vim.lsp.buf.declaration)
-
-    utils.keyplug('lttb-lsp-implementation-native', vim.lsp.buf.implementation)
-
-    utils.keyplug('lttb-lsp-references-native', vim.lsp.buf.references)
-
-    -- use hover.nvim instead
-    utils.keyplug('lttb-lsp-hover-native', vim.lsp.buf.hover)
-
-    utils.keyplug('lttb-lsp-signature-help', vim.lsp.buf.signature_help)
-
-    -- Lesser used LSP functionality
-
-    utils.keyplug('lttb-lsp-add-workspace-folder', vim.lsp.buf.add_workspace_folder)
-
-    utils.keyplug('lttb-lsp-remove-workspace-folder', vim.lsp.buf.remove_workspace_folder)
-
-    utils.keyplug('lttb-lsp-list-workspace-folders', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end)
-
     -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-line-diagnostics-automatically-in-hover-window
     vim.api.nvim_create_autocmd('CursorHold', {
       buffer = bufnr,
@@ -246,6 +217,11 @@ return {
 
   {
     'VonHeikemen/lsp-zero.nvim',
+    lazy = false,
+    keys = {
+      { '<D-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
+      -- { '<F-2>', vim.lsp.buf.rename, desc = 'Rename Symbol' },
+    },
     branch = 'v3.x',
     config = config,
     dependencies = {

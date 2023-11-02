@@ -13,102 +13,18 @@ return {
   },
 
   {
-    'ggandor/leap.nvim',
-    config = function()
-      local leap = require('leap')
-
-      leap.set_default_keymaps()
-
-      vim.keymap.set('', 's', function()
-        leap.leap({
-          target_windows = { vim.fn.win_getid() },
-
-          opts = {
-            max_phase_one_targets = 2,
-
-            equivalence_classes = {
-              '\t\r\n',
-              ')]}>',
-              '([{<',
-              { '"', "'", '`' },
-            },
-          },
-        })
-      end, {
-        silent = true,
-      })
-    end,
-    enabled = false,
-  },
-  { 'ggandor/leap-spooky.nvim', config = true, enabled = false },
-  {
-    'ggandor/flit.nvim',
-    config = function()
-      require('flit').setup({
-        labeled_modes = 'nv',
-      })
-    end,
-    -- NOTE: use hop
-    enabled = false,
-  },
-
-  {
-    'phaazon/hop.nvim',
-    branch = 'v2',
-    config = function()
-      local hop = require('hop')
-
-      hop.setup({
-        jump_on_sole_occurrence = true,
-      })
-
-      utils.keyplug('lttb-hop-on', function()
-        hop.hint_char1({
-          current_line_only = false,
-        })
-      end)
-
-      utils.keyplug('lttb-hop-pre', function()
-        hop.hint_char1({
-          current_line_only = false,
-          hint_offset = -1,
-        })
-      end)
-    end,
-
-    enabled = false,
-  },
-
-  {
     'folke/flash.nvim',
     event = 'VeryLazy',
+    ---@type Flash.Config
     opts = {},
     keys = {
-      {
-        's',
-        mode = { 'n', 'x', 'o' },
-        function()
-          -- default options: exact mode, multi window, all directions, with a backdrop
-          require('flash').jump()
-        end,
-        desc = 'Flash',
-      },
-      {
-        'S',
-        mode = { 'n', 'o', 'x' },
-        function()
-          require('flash').treesitter()
-        end,
-        desc = 'Flash Treesitter',
-      },
-      {
-        'r',
-        mode = 'o',
-        function()
-          require('flash').remote()
-        end,
-        desc = 'Remote Flash',
-      },
+      -- stylua: ignore start
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      -- stylua: ignore end
     },
   },
 
@@ -144,8 +60,6 @@ return {
       if utils.is_vscode() then
         return
       end
-
-      -- require('mini.tabline').setup({})
 
       require('mini.cursorword').setup({})
 

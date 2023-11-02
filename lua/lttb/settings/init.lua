@@ -9,9 +9,6 @@ vim.g.maplocalleader = ' '
 -- full-width status line
 vim.o.laststatus = 3
 
-
-
-
 -- General {{{
 -- NOTE: it's breaking vim-rhubarb (:Gbrowse) if set to true
 -- vim.g.loaded_netrw = 1
@@ -35,9 +32,6 @@ vim.opt.undodir  = vim.fn.expand('$HOME/.config/nvim/misc/undodir') -- Set direc
 vim.opt.shell = 'zsh' -- Use zsh as shell
 
 -- }}}
-
-
-
 
 -- UI {{{
 
@@ -80,9 +74,6 @@ end
 
 -- }}}
 
-
-
-
 -- Editing {{{
 
 vim.opt.expandtab   = true    -- Convert tabs to spaces
@@ -123,18 +114,12 @@ vim.opt.foldopen = 'block,hor,insert,jump,mark,percent,quickfix,search,tag,undo'
 
 -- }}}
 
-
-
-
 -- Filetype plugins and indentation {{{
 
 -- Don't defer it because it might break `FileType` related autocommands
 vim.cmd([[filetype plugin indent on]])
 
 -- }}}
-
-
-
 
 -- Custom commands {{{
 
@@ -147,7 +132,7 @@ vim.cmd([[augroup CustomSettings]])
   vim.cmd([[autocmd FileType * setlocal formatoptions+=r formatoptions+=n]])
 
   -- Start integrated terminal already in insert mode
-  vim.cmd([[autocmd TermOpen * startinsert]])
+  -- vim.cmd([[autocmd TermOpen * startinsert]])
 vim.cmd([[augroup END]])
 
 -- }}}

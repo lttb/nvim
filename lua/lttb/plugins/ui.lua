@@ -27,6 +27,7 @@ return {
 
     {
       'declancm/cinnamon.nvim',
+      enabled = false,
       config = function()
         require('cinnamon').setup({
           default_keymaps = true,
@@ -40,11 +41,11 @@ return {
         })
       end,
       -- enabled = not utils.is_neovide(),
-      enabled = true,
     },
 
     {
       'numToStr/FTerm.nvim',
+      enabled = false,
       config = function()
         require('FTerm').setup({
           auto_close = true,
@@ -57,14 +58,11 @@ return {
           require('FTerm').toggle()
         end)
       end,
-      enabled = false,
     },
 
     {
       'akinsho/toggleterm.nvim',
-      config = function()
-        require('toggleterm').setup()
-
+      keys = function()
         local Terminal = require('toggleterm.terminal').Terminal
         local term = Terminal:new({
           hidden = true,
@@ -76,10 +74,18 @@ return {
           },
         })
 
-        utils.keyplug('lttb-toggle-term', function()
-          term:toggle()
-        end)
+        return {
+          {
+            '<D-j>',
+            function()
+              term:toggle()
+            end,
+            desc = 'Toggle Terminal',
+            mode = { 'n', 't', 'i' },
+          },
+        }
       end,
+      config = true,
     },
 
     {

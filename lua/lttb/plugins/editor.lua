@@ -8,10 +8,20 @@ end
 return {
   {
     'mvllow/modes.nvim',
+    enabled = false,
     opts = {
       line_opacity = 0.05,
     },
-    enabled = false,
+  },
+
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {},
   },
 
   {
@@ -39,17 +49,18 @@ return {
 
   {
     'zbirenbaum/neodim',
+    enabled = false,
     event = 'LspAttach',
     config = true,
     opts = {
       alpha = 0.5,
       -- blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
     },
-    enabled = false,
   },
 
   {
     'weilbith/nvim-code-action-menu',
+    enalbed = false,
     cmd = 'CodeActionMenu',
     config = function()
       vim.g.code_action_menu_show_diff = true
@@ -133,7 +144,7 @@ return {
     main = 'ibl',
     opts = {
       indent = {
-        char = false and utils.is_neovide() and '·' or '┊',
+        char = utils.is_neovide() and '·' or '┊',
       },
 
       scope = {
@@ -141,40 +152,40 @@ return {
         show_end = false,
 
         -- @see https://github.com/lukas-reineke/indent-blankline.nvim/issues/632#issuecomment-1732366788
-        -- include = {
-        --   node_type = {
-        --     lua = {
-        --       'chunk',
-        --       'do_statement',
-        --       'while_statement',
-        --       'repeat_statement',
-        --       'if_statement',
-        --       'for_statement',
-        --       'function_declaration',
-        --       'function_definition',
-        --       'table_constructor',
-        --       'assignment_statement',
-        --     },
-        --     typescript = {
-        --       'statement_block',
-        --       'function',
-        --       'arrow_function',
-        --       'function_declaration',
-        --       'method_definition',
-        --       'for_statement',
-        --       'for_in_statement',
-        --       'catch_clause',
-        --       'object_pattern',
-        --       'arguments',
-        --       'switch_case',
-        --       'switch_statement',
-        --       'switch_default',
-        --       'object',
-        --       'object_type',
-        --       'ternary_expression',
-        --     },
-        --   },
-        -- },
+        include = {
+          node_type = {
+            lua = {
+              'chunk',
+              'do_statement',
+              'while_statement',
+              'repeat_statement',
+              'if_statement',
+              'for_statement',
+              'function_declaration',
+              'function_definition',
+              'table_constructor',
+              'assignment_statement',
+            },
+            typescript = {
+              'statement_block',
+              'function',
+              'arrow_function',
+              'function_declaration',
+              'method_definition',
+              'for_statement',
+              'for_in_statement',
+              'catch_clause',
+              'object_pattern',
+              'arguments',
+              'switch_case',
+              'switch_statement',
+              'switch_default',
+              'object',
+              'object_type',
+              'ternary_expression',
+            },
+          },
+        },
       },
     },
     -- tag = 'v2.20.8',
@@ -265,6 +276,10 @@ return {
 
   {
     'smjonas/live-command.nvim',
+    enabled = false,
+    keys = {
+      { '<leader>l', ':Norm', desc = 'Live Command' },
+    },
     config = function()
       require('live-command').setup({
         commands = {
@@ -387,6 +402,8 @@ return {
   {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {},
+    opts = {
+      signs = false,
+    },
   },
 }
