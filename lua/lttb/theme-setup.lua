@@ -14,7 +14,7 @@ vim.cmd.colorscheme(theme.colorscheme)
 --   require('lttb.utils.treesitter-hl')
 -- end
 
-vim.api.nvim_create_autocmd('VimEnter', {
+vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     if theme.colorscheme == 'github_light' then
       -- NOTE: for some reason nvim_set_hl didn't override
@@ -54,6 +54,8 @@ vim.api.nvim_create_autocmd('VimEnter', {
       hi NeoTreeFileNameOpened gui=bold
     ]])
 
+    local normalHL = vim.api.nvim_get_hl_by_name('Normal', true)
+
     local splitLineHL = vim.api.nvim_get_hl_by_name('CursorLine', true)
     vim.api.nvim_set_hl(0, 'VertSplit', {
       bg = splitLineHL.background,
@@ -67,20 +69,35 @@ vim.api.nvim_create_autocmd('VimEnter', {
     })
 
     local statusLineHL = vim.api.nvim_get_hl_by_name('StatusLine', true)
-    -- vim.api.nvim_set_hl(0, 'StatusLine', {
-    --   bg = splitLineHL.background,
-    --   fg = statusLineHL.foreground,
+    vim.api.nvim_set_hl(0, 'StatusLine', {
+      bg = normalHL.background,
+      default = false,
+    })
+    -- vim.api.nvim_set_hl(0, 'StatusLineNC', {
+    --   bg = normalHL.background,
+    --   fg = normalHL.background,
     --   default = false,
     -- })
-    vim.api.nvim_set_hl(0, 'StatusLineNC', {
-      bg = splitLineHL.background,
-      fg = statusLineHL.foreground,
+
+    -- vim.api.nvim_set_hl(0, 'lualine_a_normal', {
+    --   bg = splitLineHL.background,
+    --   default = false,
+    -- })
+    -- vim.api.nvim_set_hl(0, 'lualine_b_normal', {
+    --   bg = splitLineHL.background,
+    --   default = false,
+    -- })
+    -- vim.api.nvim_set_hl(0, 'lualine_c_normal', {
+    --   bg = normalHL.background,
+    --   default = false,
+    -- })
+
+    vim.api.nvim_set_hl(0, 'MiniMapNormal', {
+      bg = normalHL.background,
       default = false,
     })
 
     local C = require('github-theme.lib.color')
-
-    local normalHL = vim.api.nvim_get_hl_by_name('Normal', true)
 
     local function number_to_hex(color)
       if color == nil then
@@ -179,3 +196,5 @@ if utils.is_kitty() then
     end,
   })
 end
+
+vim.api.nvim_exec_autocmds('ColorScheme', {})

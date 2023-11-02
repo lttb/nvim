@@ -6,6 +6,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- full-width status line
+vim.o.laststatus = 3
+
 
 
 

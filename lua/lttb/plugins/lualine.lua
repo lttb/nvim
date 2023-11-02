@@ -24,14 +24,14 @@ local function config()
 
     sections = {
       lualine_a = {
-        { 'mode', right_padding = 2 },
+        { 'mode', separator = { left = '', right = '' }, right_padding = 2 },
       },
-      lualine_b = { 'filename', 'branch', 'diff', 'diagnostics' },
-      lualine_c = {},
-      lualine_x = {},
-      lualine_y = { 'filetype', 'progress' },
+      lualine_b = { { color = 'CursorLine' } },
+      lualine_c = { { color = 'CursorLine' } },
+      lualine_x = { { color = 'CursorLine' } },
+      lualine_y = { 'branch', 'diff', 'diagnostics', 'filetype', 'progress' },
       lualine_z = {
-        { 'location', left_padding = 2 },
+        { 'location', separator = { right = '' }, left_padding = 2 },
       },
     },
     inactive_sections = {
