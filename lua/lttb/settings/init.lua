@@ -60,11 +60,11 @@ vim.opt.sidescrolloff = 20
 -- vim.opt.pumblend = 10
 -- vim.opt.winblend = 10
 
-if vim.fn.has('nvim-0.9') == 1
-  -- Don't show "Scanning..." messages (improves 'mini.completion')
-  then vim.cmd('set shortmess+=C')
-end
+-- Don't show "Scanning..." messages (improves 'mini.completion')
+vim.cmd('set shortmess+=C')
 
+-- Ignore swap warnings
+vim.cmd('set shortmess+=A')
 
 -- Enable syntax highlighing if it wasn't already (as it is time consuming)
 -- Don't use defer it because it affects start screen appearance
