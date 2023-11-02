@@ -74,6 +74,8 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
   local sym = injected_functions.sym
 
   return {
+    Visual({ bg = palette.sky.darken(90).mix(palette.bg, bg == 'light' and 95 or 80) }),
+
     Statement({ fg = palette.sky, gui = 'NONE' }),
     -- Special({ fg = palette.water, gui = 'NONE' }),
 
