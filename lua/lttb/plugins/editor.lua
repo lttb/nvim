@@ -11,7 +11,7 @@ return {
     opts = {
       line_opacity = 0.05,
     },
-    enabled = theme.variant == 'light',
+    enabled = false,
   },
 
   {
@@ -347,11 +347,11 @@ return {
           diagnostics = 'nvim_lsp',
         },
 
-        highlights = theme.variant == 'light' and {
+        highlights = {
           fill = {
             bg = {
               attribute = 'bg',
-              highlight = 'CursorLine',
+              highlight = 'Normal',
             },
           },
         },

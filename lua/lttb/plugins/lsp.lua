@@ -91,6 +91,7 @@ local function config()
             'CursorMoved',
             'InsertEnter',
             'FocusLost',
+            'WinNew',
           },
           source = 'always',
           prefix = ' ',
