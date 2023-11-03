@@ -5,6 +5,8 @@ local config = function()
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'lua', 'typescript', 'rust', 'go', 'python' },
 
+    auto_install = true,
+
     context_commentstring = {
       enable = true,
     },
@@ -120,6 +122,10 @@ end
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    init = function(plugin)
+      require('nvim-treesitter.query_predicates')
+    end,
     config = config,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-refactor',
