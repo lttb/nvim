@@ -1,5 +1,4 @@
 local utils = require('lttb.utils')
-local theme = require('lttb.theme')
 
 if utils.is_vscode() then
   return {}
@@ -16,12 +15,13 @@ return {
 
   {
     'folke/which-key.nvim',
-    event = 'VeryLazy',
+    cmd = 'WhichKey',
     init = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
     end,
     opts = {},
+    priority = 1,
   },
 
   {
@@ -300,12 +300,15 @@ return {
       'nvim-tree/nvim-web-devicons', -- optional dependency
     },
     opts = {
+      create_autocmd = false,
+
       show_modified = true,
     },
   },
 
   {
     'romgrk/barbar.nvim',
+    enabled = false,
     dependencies = {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
@@ -328,8 +331,6 @@ return {
       },
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
-
-    enabled = false,
   },
 
   {
@@ -404,6 +405,20 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
       signs = false,
+
+      highlight = {
+        keyword = 'fg',
+      },
+    },
+  },
+
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    keys = {
+      { '<S-D-m>', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
+      -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
+      { '<S-M-m>', '<S-D-m>', remap = true },
     },
   },
 }

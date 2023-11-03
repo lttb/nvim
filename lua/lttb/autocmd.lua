@@ -197,4 +197,21 @@ if utils.is_kitty() then
   })
 end
 
+-- Gain better performance when moving the cursor around
+-- @see https://github.com/utilyre/barbecue.nvim#-recipes
+vim.api.nvim_create_autocmd({
+  'WinScrolled', -- or WinResized on NVIM-v0.9 and higher
+  'BufWinEnter',
+  'CursorHold',
+  'InsertLeave',
+
+  -- include this if you have set `show_modified` to `true`
+  'BufModifiedSet',
+}, {
+  group = vim.api.nvim_create_augroup('barbecue.updater', {}),
+  callback = function()
+    require('barbecue.ui').update()
+  end,
+})
+
 -- vim.api.nvim_exec_autocmds('ColorScheme', {})
