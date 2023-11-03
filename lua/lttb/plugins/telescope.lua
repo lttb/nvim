@@ -119,46 +119,46 @@ return {
 
         -- {{{ LSP
 
-        -- Covered by LSP keymaps (from lsp-zero)
-        -- {
-        --   'gd',
-        --   function()
-        --     builtin.lsp_definitions(telescope_themes.get_ivy({
-        --       show_line = false,
-        --     }))
-        --   end,
-        --   desc = 'LSP: [G]oto [D]efinition',
-        -- },
+        {
+          'gd',
+          function()
+            builtin.lsp_definitions(telescope_themes.get_ivy({
+              show_line = false,
+            }))
+          end,
+          desc = 'LSP: [G]oto [D]efinition',
+        },
 
-        -- {
-        --   'gD',
-        --   function()
-        --     builtin.lsp_type_definitions(telescope_themes.get_ivy({
-        --       show_line = false,
-        --     }))
-        --   end,
-        --   desc = 'LSP: Type [D]efinition',
-        -- },
+        {
+          'gD',
+          function()
+            builtin.lsp_type_definitions(telescope_themes.get_ivy({
+              show_line = false,
+            }))
+          end,
+          desc = 'LSP: Type [D]efinition',
+        },
 
-        -- {
-        --   'gi',
-        --   function()
-        --     builtin.lsp_implementations(telescope_themes.get_ivy({
-        --       show_line = false,
-        --     }))
-        --   end,
-        --   desc = 'LSP: [G]oto [I]mplementation',
-        -- },
+        {
+          'gi',
+          function()
+            builtin.lsp_implementations(telescope_themes.get_ivy({
+              show_line = false,
+            }))
+          end,
+          desc = 'LSP: [G]oto [I]mplementation',
+        },
 
-        -- {
-        --   'gr',
-        --   function()
-        --     builtin.lsp_references(telescope_themes.get_ivy({
-        --       show_line = false,
-        --     }))
-        --   end,
-        --   desc = 'LSP: [G]oto [R]eferences',
-        -- },
+        {
+          'gr',
+          function()
+            builtin.lsp_references(telescope_themes.get_ivy({
+              show_line = false,
+            }))
+          end,
+          desc = 'LSP: [G]oto [R]eferences',
+        },
+
         -- }}}
       }
     end,
