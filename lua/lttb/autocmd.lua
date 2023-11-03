@@ -131,9 +131,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       extend_alpha_bg('Normal', 'background', 'LineNr', 1)
     end
 
-    if theme.name == 'kanagawa' or theme.name == 'zenbones' or theme.name == 'aomi-grayscale' then
-      extend_alpha_bg('Visual', 'background', 'MiniCursorword', 0.8)
-    end
+    extend_alpha_bg('Visual', 'background', 'MiniCursorword', 0.8)
 
     -- fix gitsigns virtual text colour
     vim.api.nvim_set_hl(0, 'GitSignsCurrentLineBlame', {

@@ -46,7 +46,7 @@ else
   }, bg)
 end
 
-vim.api.nvim_create_autocmd('VimEnter', {
+vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     vim.api.nvim_set_hl(0, 'NeoTreeDirectoryIcon', {
       fg = palette.sky.hex,
@@ -62,6 +62,17 @@ vim.api.nvim_create_autocmd('VimEnter', {
       fg = palette.sky.hex,
       default = false,
     })
+
+    vim.api.nvim_set_hl(0, 'NormalFloat', {
+      link = 'Normal',
+    })
+
+    -- vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {
+    --   fg = palette.bg.hex,
+    --   bg = palette.bg.li(38).de(24).hex,
+    --   reverse = true,
+    --   nocombine = true,
+    -- })
   end,
 })
 
