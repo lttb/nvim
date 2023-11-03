@@ -79,12 +79,12 @@ end
 vim.opt.expandtab   = true    -- Convert tabs to spaces
 
 -- "vim-sleuth" should detect it
-vim.opt.tabstop     = 2       -- Insert 2 spaces for a tab
-vim.opt.shiftwidth  = 2       -- Use this number of spaces for indentation
+-- vim.opt.tabstop     = 2       -- Insert 2 spaces for a tab
+-- vim.opt.shiftwidth  = 2       -- Use this number of spaces for indentation
 
-vim.opt.smarttab    = true    -- Make tabbing smarter (will realize you have 2 vs 4)
-vim.opt.smartindent = true    -- Make indenting smart
-vim.opt.autoindent  = true    -- Use auto indent
+-- vim.opt.smarttab    = true    -- Make tabbing smarter (will realize you have 2 vs 4)
+-- vim.opt.smartindent = true    -- Make indenting smart
+-- vim.opt.autoindent  = true    -- Use auto indent
 vim.opt.iskeyword:append('-') -- Treat dash separated words as a word text object
 vim.opt.virtualedit = 'onemore' -- Allow going past the end of line in visual block mode
 vim.opt.startofline = false   -- Don't position cursor on line start after certain operations
@@ -117,7 +117,7 @@ vim.opt.foldopen = 'block,hor,insert,jump,mark,percent,quickfix,search,tag,undo'
 -- Filetype plugins and indentation {{{
 
 -- Don't defer it because it might break `FileType` related autocommands
-vim.cmd([[filetype plugin indent on]])
+-- vim.cmd([[filetype plugin indent on]])
 
 -- }}}
 
