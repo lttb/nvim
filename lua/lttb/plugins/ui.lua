@@ -68,9 +68,23 @@ return {
           hidden = true,
           dir = 'git_dir',
           direction = 'float',
+          highlights = {
+            NormalFloat = {
+              link = 'Normal',
+            },
+            FloatBorder = {
+              link = 'FloatBorder',
+            },
+          },
           float_opts = {
             border = 'curved',
             winblend = 5,
+          },
+          winbar = {
+            enabled = false,
+            name_formatter = function(term) --  term: Terminal
+              return term.name
+            end,
           },
         })
 
