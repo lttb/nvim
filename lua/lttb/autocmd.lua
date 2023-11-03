@@ -14,7 +14,7 @@ end
 --   require('lttb.utils.treesitter-hl')
 -- end
 
-vim.api.nvim_create_autocmd('ColorScheme', {
+vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
     if theme.colorscheme == 'github_light' then
       -- NOTE: for some reason nvim_set_hl didn't override
