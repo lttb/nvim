@@ -52,26 +52,26 @@ local function config()
     })
 
     -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-line-diagnostics-automatically-in-hover-window
-    vim.api.nvim_create_autocmd('CursorHold', {
-      buffer = bufnr,
-      callback = function()
-        vim.diagnostic.open_float(nil, {
-          focusable = false,
-          wrap = true,
-          border = 'rounded',
-          close_events = {
-            'BufLeave',
-            'CursorMoved',
-            'InsertEnter',
-            'FocusLost',
-            'WinNew',
-          },
-          source = 'always',
-          prefix = ' ',
-          scope = 'cursor',
-        })
-      end,
-    })
+    -- vim.api.nvim_create_autocmd('CursorHold', {
+    --   buffer = bufnr,
+    --   callback = function()
+    --     vim.diagnostic.open_float(nil, {
+    --       focusable = false,
+    --       wrap = true,
+    --       border = 'rounded',
+    --       close_events = {
+    --         'BufLeave',
+    --         'CursorMoved',
+    --         'InsertEnter',
+    --         'FocusLost',
+    --         'WinNew',
+    --       },
+    --       source = 'always',
+    --       prefix = ' ',
+    --       scope = 'cursor',
+    --     })
+    --   end,
+    -- })
   end)
 
   lsp_zero.setup()
@@ -106,6 +106,7 @@ local function config()
   local cmp = require('cmp')
   local compare = cmp.config.compare
   local lspkind = require('lspkind')
+  local luasnip = require('luasnip')
 
   cmp.setup({
     mapping = {
@@ -122,6 +123,10 @@ local function config()
         --   require('copilot.suggestion').accept()
         if cmp.visible() then
           cmp.select_next_item()
+        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+        -- they way you will only jump inside the snippet region
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
         elseif has_words_before() then
           cmp.complete()
         else
@@ -139,10 +144,6 @@ local function config()
       {
         name = 'nvim_lsp',
         keyword_length = 1,
-        entry_filter = function(entry)
-          -- from cmp docs :h cmp-config.sources[n].entry_filter
-          return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
-        end,
       },
       {
         name = 'luasnip',
@@ -158,7 +159,7 @@ local function config()
       },
       {
         name = 'rg',
-        keyword_length = 3,
+        keyword_length = 1,
       },
     }),
 
@@ -222,6 +223,7 @@ return {
   {
     'VonHeikemen/lsp-zero.nvim',
     lazy = false,
+    priority = 10,
     keys = {
       { '<D-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
       -- { '<F-2>', vim.lsp.buf.rename, desc = 'Rename Symbol' },

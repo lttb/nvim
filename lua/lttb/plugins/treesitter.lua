@@ -9,6 +9,16 @@ local config = function()
       enable = true,
     },
 
+    refactor = {
+      highlight_definitions = {
+        enable = true,
+        -- Set to false if you have an `updatetime` of ~100.
+        clear_on_cursor_move = true,
+      },
+
+      highlight_current_scope = { enable = false },
+    },
+
     highlight = {
       enable = not utils.is_vscode(),
 
@@ -111,16 +121,19 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     config = config,
-  },
-  'nvim-treesitter/nvim-treesitter-textobjects',
-  'RRethy/nvim-treesitter-textsubjects',
-  { 'nvim-treesitter/playground', enabled = not utils.is_vscode() },
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    enabled = false,
-    config = function()
-      require('treesitter-context').setup()
-    end,
-    -- enabled = not utils.is_vscode(),
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-refactor',
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'RRethy/nvim-treesitter-textsubjects',
+      { 'nvim-treesitter/playground', enabled = not utils.is_vscode() },
+      {
+        'nvim-treesitter/nvim-treesitter-context',
+        enabled = false,
+        -- enabled = not utils.is_vscode(),
+        config = function()
+          require('treesitter-context').setup()
+        end,
+      },
+    },
   },
 }

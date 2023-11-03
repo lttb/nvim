@@ -13,6 +13,9 @@ return {
 
       return {
         { '<S-D-p>', '<cmd>Telescope<cr>', desc = 'Telescope' },
+        -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
+        { '<S-M-p>', '<S-D-p>', remap = true },
+
         {
           '<D-f>',
           function()
@@ -37,6 +40,9 @@ return {
           end,
           desc = '[Search] by [G]rep',
         },
+        -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
+        { '<S-M-f>', '<S-D-f>', remap = true },
+
         {
           '<D-o>',
           function()
