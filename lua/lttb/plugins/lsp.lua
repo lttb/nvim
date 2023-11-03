@@ -47,7 +47,9 @@ local function config()
   lsp_zero.on_attach(function(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
-    lsp_zero.default_keymaps({ buffer = bufnr })
+    lsp_zero.default_keymaps({
+      buffer = bufnr,
+    })
 
     -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-line-diagnostics-automatically-in-hover-window
     vim.api.nvim_create_autocmd('CursorHold', {
@@ -144,17 +146,19 @@ local function config()
       },
       {
         name = 'luasnip',
+        keyword_length = 3,
       },
       {
         name = 'path',
+        keyword_length = 3,
       },
       {
         name = 'buffer',
-        -- keyword_length = 3,
+        keyword_length = 3,
       },
       {
         name = 'rg',
-        -- keyword_length = 3,
+        keyword_length = 3,
       },
     }),
 
