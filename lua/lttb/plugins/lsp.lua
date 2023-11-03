@@ -85,7 +85,6 @@ local function config()
   require('mason').setup({})
   require('mason-lspconfig').setup({
     ensure_installed = {
-      'tsserver',
       'rust_analyzer',
       'lua_ls',
       'cssls',
@@ -95,6 +94,7 @@ local function config()
     },
     handlers = {
       lsp_zero.default_setup,
+      tsserver = lsp_zero.noop,
     },
   })
 
@@ -247,6 +247,60 @@ return {
       'L3MON4D3/LuaSnip',
 
       { 'hinell/lsp-timeout.nvim', dependencies = { 'neovim/nvim-lspconfig' } },
+
+      {
+        'pmizio/typescript-tools.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+        opts = {
+          settings = {
+            complete_function_calls = true,
+          },
+        },
+      },
+
+      {
+        'nvimdev/lspsaga.nvim',
+        keys = {
+          { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
+          { 'K', '<cmd>Lspsaga hover_doc<cr>' },
+          { '<F2>', '<cmd>Lspsaga rename<cr>' },
+        },
+        config = function()
+          require('lspsaga').setup({
+            ui = {
+              code_action = '',
+            },
+            lightbulb = {
+              enable = false,
+            },
+            hover = {
+              max_width = 0.4,
+            },
+            rename = {
+              keys = {
+                quit = '<ESC>',
+              },
+            },
+          })
+        end,
+      },
+
+      {
+        'aznhe21/actions-preview.nvim',
+        enabled = false,
+        config = function()
+          vim.keymap.set({ 'v', 'n' }, '<D-.>', require('actions-preview').code_actions)
+        end,
+      },
+
+      {
+        'weilbith/nvim-code-action-menu',
+        enabled = false,
+        cmd = 'CodeActionMenu',
+        config = function()
+          vim.g.code_action_menu_show_diff = true
+        end,
+      },
     },
   },
 }
