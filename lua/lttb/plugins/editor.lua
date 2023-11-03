@@ -26,6 +26,15 @@ return {
 
   {
     'lewis6991/hover.nvim',
+    enabled = false,
+    keys = function()
+      local hover = require('hover')
+
+      return {
+        { 'K', hover.hover, desc = 'hover.nvim' },
+        { 'gK', hover.hover_select, desc = 'hover.nvim select' },
+      }
+    end,
     config = function()
       require('hover').setup({
         init = function()
@@ -37,34 +46,17 @@ return {
           require('hover.providers.dictionary')
         end,
       })
-
-      utils.keyplug('lttb-lsp-hover', require('hover').hover, {
-        desc = 'hover.nvim',
-      })
-      utils.keyplug('lttb-lsp-hover-select', require('hover').hover_select, {
-        desc = 'hover.nvim (select)',
-      })
     end,
   },
 
   {
     'zbirenbaum/neodim',
-    enabled = false,
     event = 'LspAttach',
     config = true,
     opts = {
-      alpha = 0.5,
+      alpha = 0.3,
       -- blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
     },
-  },
-
-  {
-    'weilbith/nvim-code-action-menu',
-    enalbed = false,
-    cmd = 'CodeActionMenu',
-    config = function()
-      vim.g.code_action_menu_show_diff = true
-    end,
   },
 
   {
@@ -75,6 +67,7 @@ return {
 
   {
     'windwp/nvim-autopairs',
+    enabled = false,
     event = 'VimEnter',
     dependencies = {
       'hrsh7th/nvim-cmp',
@@ -94,11 +87,11 @@ return {
 
   {
     'altermo/ultimate-autopair.nvim',
+    -- TODO: check the config - so far it's not really convinient to insert/delete pairs to wrap expressions
+    enabled = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
     branch = 'v0.6',
     config = true,
-    -- TODO: check the config - so far it's not really convinient to insert/delete pairs to wrap expressions
-    enabled = false,
   },
 
   {
