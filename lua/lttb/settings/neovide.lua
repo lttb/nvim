@@ -48,11 +48,11 @@ vim.keymap.set('x', '<D-v>', '"+P') -- paste (visual)
 vim.keymap.set('c', '<D-v>', '<C-r>+') -- paste (command)
 
 -- in case of buttonless frame
--- vim.g.neovide_padding_top = 24
 
-vim.g.neovide_padding_bottom = 0
-vim.g.neovide_padding_right = 0
-vim.g.neovide_padding_left = 5
+vim.g.neovide_padding_top = 20
+vim.g.neovide_padding_bottom = 20
+vim.g.neovide_padding_right = 20
+vim.g.neovide_padding_left = 20
 
 -- vim.g.neovide_profiler = true
 -- @see https://github.com/neovide/neovide/issues/2093

@@ -109,6 +109,10 @@ return {
 
   {
     'zbirenbaum/copilot.lua',
+    enabled = false,
+    -- NOTE: error "client quit with exit code 0 and signal"
+    -- TODO: investigate and raise an issue
+    -- enabled = not utils.is_neovide(),
     event = 'VimEnter',
     config = function()
       vim.defer_fn(function()
@@ -133,10 +137,6 @@ return {
         })
       end, 100)
     end,
-    enabled = false,
-    -- NOTE: error "client quit with exit code 0 and signal"
-    -- TODO: investigate and raise an issue
-    -- enabled = not utils.is_neovide(),
   },
 
   {
