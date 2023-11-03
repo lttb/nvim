@@ -144,7 +144,7 @@ return {
     main = 'ibl',
     opts = {
       indent = {
-        char = utils.is_neovide() and '·' or '┊',
+        char = utils.is_neovide() and '┊' or '┊',
       },
 
       scope = {

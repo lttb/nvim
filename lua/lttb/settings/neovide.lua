@@ -7,7 +7,8 @@ local theme = require('lttb.theme')
 --   -- ':#h-full',
 -- }
 
-vim.opt.guifont = 'Fira Code:h15:#e-subpixelantialias:#h-none'
+vim.opt.guifont = 'Fira Code:h15:w1:#e-subpixelantialias:#h-slight'
+vim.opt.linespace = 6
 
 if theme.colorscheme == 'github_dark' then
   vim.g.neovide_background_color = '#23292f'
@@ -39,10 +40,12 @@ vim.g.neovide_fullscreen = false
 vim.g.neovide_input_macos_alt_is_meta = true
 vim.g.neovide_input_use_logo = true
 
-vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true })
+vim.keymap.set('x', '<D-x>', '"+d') -- cut
+vim.keymap.set('x', '<D-c>', '"+y') -- copy
+vim.keymap.set('i', '<D-v>', '<C-r><C-o>+') -- paste (insert)
+vim.keymap.set('n', '<D-v>', 'i<C-r><C-o>+<ESC>l') -- paste (normal)
+vim.keymap.set('x', '<D-v>', '"+P') -- paste (visual)
+vim.keymap.set('c', '<D-v>', '<C-r>+') -- paste (command)
 
 -- in case of buttonless frame
 -- vim.g.neovide_padding_top = 24
@@ -51,7 +54,8 @@ vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_right = 0
 vim.g.neovide_padding_left = 5
 
-vim.opt.linespace = 6
-
 -- vim.g.neovide_profiler = true
--- vim.g.neovide_refresh_rate = 144
+-- @see https://github.com/neovide/neovide/issues/2093
+vim.g.neovide_refresh_rate = 144
+
+vim.g.neovide_cursor_vfx_mode = 'pixiedust'
