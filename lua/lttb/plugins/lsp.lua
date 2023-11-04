@@ -8,6 +8,13 @@ end
 
 local function config()
   local lsp_zero = require('lsp-zero')
+  lsp_zero.extend_lspconfig({
+    settings = {
+      complete_function_calls = true,
+    },
+  })
+
+  require('typescript-tools').setup({})
 
   -- {{{ LUA
   local runtime_path = vim.split(package.path, ';')
@@ -246,16 +253,12 @@ return {
 
       'L3MON4D3/LuaSnip',
 
-      { 'hinell/lsp-timeout.nvim', dependencies = { 'neovim/nvim-lspconfig' } },
+      { 'hinell/lsp-timeout.nvim', enalbed = false, dependencies = { 'neovim/nvim-lspconfig' } },
 
       {
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-        opts = {
-          settings = {
-            complete_function_calls = true,
-          },
-        },
+        config = false,
       },
 
       {

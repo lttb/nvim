@@ -23,7 +23,7 @@ if bg == 'light' then
     blossom = hsluv('#8250df'),
     sky = hsluv('#6e7781'),
 
-    gold = hsluv('#9a6700'),
+    -- gold = hsluv('#9a6700'),
     -- gold = hsluv('#9a6700'),
     -- gold_muted = hsluv('#ad8c45'),
     muted = hsluv('#636c76'),
@@ -33,20 +33,13 @@ else
     -- bg = hsluv(0, 0, 9),
     bg = hsluv('#22272e'),
     fg = hsluv(0, 0, 76),
-    -- rose = hsluv('#d1242f'),
-    -- leaf = hsluv('#1a7f37'),
-    -- wood = hsluv('#bf3989'),
-    -- water = hsluv('#2f81f7'),
-    -- blossom = hsluv('#8250df'),
     sky = hsluv('#7d8590'),
 
-    gold = hsluv('#ad8c45'),
-    -- gold_muted = hsluv('#ad8c45'),
     muted = hsluv('#636c76'),
   }, bg)
 end
 
-vim.api.nvim_create_autocmd('VimEnter', {
+vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     vim.api.nvim_set_hl(0, 'NeoTreeDirectoryIcon', {
       fg = palette.sky.hex,
@@ -71,12 +64,12 @@ vim.api.nvim_create_autocmd('VimEnter', {
       underline = false,
     })
 
-    -- vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {
-    --   fg = palette.bg.hex,
-    --   bg = palette.bg.li(38).de(24).hex,
-    --   reverse = true,
-    --   nocombine = true,
-    -- })
+    vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {
+      bg = 'NONE',
+      fg = palette.fg.mix(palette.bg, 70).hex,
+      underline = false,
+      reverse = false,
+    })
   end,
 })
 
@@ -104,7 +97,9 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
 
     -- sym('@include')({ fg = palette.wood, gui = 'NONE' }),
     -- sym('@keyword')({ fg = palette.wood, gui = 'NONE' }),
-    sym('@property')({ fg = palette.fg, gui = 'NONE' }),
+
+    -- sym('@property')({ fg = palette.fg, gui = 'NONE' }),
+
     sym('@label')({ fg = palette.fg, gui = 'NONE' }),
     sym('@method')({ gui = 'NONE' }),
     sym('@tag')({ fg = palette.wood, gui = 'NONE' }),
