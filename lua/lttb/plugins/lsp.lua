@@ -253,7 +253,7 @@ return {
 
       'L3MON4D3/LuaSnip',
 
-      { 'hinell/lsp-timeout.nvim', dependencies = { 'neovim/nvim-lspconfig' } },
+      { 'hinell/lsp-timeout.nvim', enalbed = false, dependencies = { 'neovim/nvim-lspconfig' } },
 
       {
         'pmizio/typescript-tools.nvim',
