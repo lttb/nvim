@@ -5,7 +5,7 @@ return {
 
   {
     'kylechui/nvim-surround',
-    config = {
+    opts = {
       keymaps = {
         visual = '<C-S>',
       },

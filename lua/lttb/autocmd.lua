@@ -14,7 +14,7 @@ end
 --   require('lttb.utils.treesitter-hl')
 -- end
 
-vim.api.nvim_create_autocmd('VimEnter', {
+vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     if theme.colorscheme == 'github_light' then
       -- NOTE: for some reason nvim_set_hl didn't override
@@ -54,88 +54,109 @@ vim.api.nvim_create_autocmd('VimEnter', {
       hi NeoTreeFileNameOpened gui=bold
     ]])
 
-    local normalHL = vim.api.nvim_get_hl_by_name('Normal', true)
+    local normalHL = vim.api.nvim_get_hl(0, { name = 'Normal' })
+    local splitLineHL = vim.api.nvim_get_hl(0, { name = 'CursorLine' })
 
-    local splitLineHL = vim.api.nvim_get_hl_by_name('CursorLine', true)
     vim.api.nvim_set_hl(0, 'VertSplit', {
-      bg = splitLineHL.background,
-      fg = splitLineHL.background,
+      bg = splitLineHL.bg,
+      fg = splitLineHL.bg,
       default = false,
     })
     vim.api.nvim_set_hl(0, 'WinSeparator', {
-      bg = splitLineHL.background,
-      fg = splitLineHL.background,
+      bg = splitLineHL.bg,
+      fg = splitLineHL.bg,
       default = false,
     })
 
-    local statusLineHL = vim.api.nvim_get_hl_by_name('StatusLine', true)
     vim.api.nvim_set_hl(0, 'StatusLine', {
-      bg = normalHL.background,
+      bg = normalHL.bg,
       default = false,
     })
-    -- vim.api.nvim_set_hl(0, 'StatusLineNC', {
-    --   bg = normalHL.background,
-    --   fg = normalHL.background,
-    --   default = false,
-    -- })
-
-    -- vim.api.nvim_set_hl(0, 'lualine_a_normal', {
-    --   bg = splitLineHL.background,
-    --   default = false,
-    -- })
-    -- vim.api.nvim_set_hl(0, 'lualine_b_normal', {
-    --   bg = splitLineHL.background,
-    --   default = false,
-    -- })
-    -- vim.api.nvim_set_hl(0, 'lualine_c_normal', {
-    --   bg = normalHL.background,
-    --   default = false,
-    -- })
 
     vim.api.nvim_set_hl(0, 'MiniMapNormal', {
-      bg = normalHL.background,
+      bg = normalHL.bg,
       default = false,
     })
 
-    local C = require('github-theme.lib.color')
+    local lush = require('lush')
+    local hsluv = lush.hsluv -- Human-friendly hsl
 
     local function number_to_hex(color)
-      if color == nil then
-        return string.format('%06x', 0)
-      end
-      return string.format('%06x', color)
+      -- if color == nil then
+      --   return '#' .. string.format('%06x', 0)
+      -- end
+      return '#' .. string.format('%06x', color)
     end
 
     local function alpha(color, a)
-      return C.from_hex(number_to_hex(normalHL.background)):blend(C.from_hex(number_to_hex(color)), a):to_hex()
+      print(color, normalHL.bg)
+
+      return hsluv(number_to_hex(color)).mix(hsluv(number_to_hex(normalHL.bg)), 100 * (1 - a)).hex
     end
 
-    local function extend_alpha_bg(hl_extend, color_name, hl, a)
-      local hlExtendHL = vim.api.nvim_get_hl_by_name(hl_extend, true)
-      local currentHL = vim.api.nvim_get_hl_by_name(hl, true)
+    -- local function extend_alpha_bg(hl, hl_extend, color_name, a)
+    --   local hlExtendHL = vim.api.nvim_get_hl_by_name(hl_extend, true)
+    --   local currentHL = vim.api.nvim_get_hl_by_name(hl, true)
+    --   vim.api.nvim_set_hl(0, hl, {
+    --     bg = alpha(hlExtendHL[color_name], a),
+    --     fg = currentHL.foreground,
+    --     underline = false,
+    --     default = false,
+    --     blend = 100,
+    --   })
+    -- end
+
+    local function extend_bg_alpha(hl, hl_extend, color_name, a)
+      local hlExtendHL = vim.api.nvim_get_hl(0, { name = hl_extend })
+      local currentHL = vim.api.nvim_get_hl(0, { name = hl })
+
       vim.api.nvim_set_hl(0, hl, {
         bg = alpha(hlExtendHL[color_name], a),
-        fg = currentHL.foreground,
+        fg = currentHL.fg,
         underline = false,
         default = false,
       })
     end
 
-    extend_alpha_bg('DiagnosticError', 'foreground', 'DiagnosticUnderlineError', 0.1)
-    extend_alpha_bg('DiagnosticWarn', 'foreground', 'DiagnosticUnderlineWarn', 0.1)
-    extend_alpha_bg('DiagnosticInfo', 'foreground', 'DiagnosticUnderlineInfo', 0.1)
-    extend_alpha_bg('DiagnosticHint', 'foreground', 'DiagnosticUnderlineHint', 0.1)
+    -- extend_bg('DiagnosticUnderlineError', 'DiagnosticVirtualTextError', 'background')
+    -- extend_bg('DiagnosticUnderlineWarn', 'DiagnosticVirtualTextWarn', 'background')
+    -- extend_bg('DiagnosticUnderlineInfo', 'DiagnosticVirtualTextInfo', 'background')
+    -- extend_bg('DiagnosticUnderlineHint', 'DiagnosticVirtualTextHint', 'background')
 
-    if theme.name == 'kanagawa' then
-      extend_alpha_bg('Normal', 'background', 'SignColumn', 1)
-      extend_alpha_bg('Normal', 'background', 'LineNr', 1)
-    end
+    -- if theme.name == 'kanagawa' then
+    --   extend_alpha_bg('SignColumn', 'Normal', 'background', 1)
+    --   extend_alpha_bg('LineNr', 'Normal', 'background', 1)
+    -- end
 
-    extend_alpha_bg('Visual', 'background', 'MiniCursorword', 0.8)
+    extend_bg_alpha('MiniCursorword', 'DiagnosticVirtualTextInfo', 'fg', 0.2)
+
+    -- local function extend_bg(hl, hl_extend, color_name, a)
+    --   local hlExtendHL = vim.api.nvim_get_hl_by_name(hl_extend, true)
+    --   local currentHL = vim.api.nvim_get_hl_by_name(hl, true)
+    --   vim.api.nvim_set_hl(0, hl, {
+    --     bg = hlExtendHL[color_name],
+    --     fg = currentHL.foreground,
+    --     underline = false,
+    --     default = false,
+    --     blend = 100,
+    --   })
+    -- end
+
+    extend_bg_alpha('DiagnosticUnderlineError', 'DiagnosticVirtualTextError', 'fg', 0.3)
+    extend_bg_alpha('DiagnosticUnderlineWarn', 'DiagnosticVirtualTextWarn', 'fg', 0.3)
+    extend_bg_alpha('DiagnosticUnderlineInfo', 'DiagnosticVirtualTextInfo', 'fg', 0.3)
+    extend_bg_alpha('DiagnosticUnderlineHint', 'DiagnosticVirtualTextHint', 'fg', 0.3)
+
+    -- -- if theme.name == 'kanagawa' then
+    -- --   extend_alpha_bg('SignColumn', 'Normal', 'background', 1)
+    -- --   extend_alpha_bg('LineNr', 'Normal', 'background', 1)
+    -- -- end
+
+    -- extend_bg('MiniCursorword', 'DiagnosticVirtualTextInfo', 'background')
 
     -- fix gitsigns virtual text colour
     vim.api.nvim_set_hl(0, 'GitSignsCurrentLineBlame', {
-      fg = alpha(normalHL.foreground, 0.4),
+      fg = alpha(normalHL.fg, 0.4),
       underline = false,
       default = false,
     })

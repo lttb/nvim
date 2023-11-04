@@ -8,6 +8,13 @@ end
 
 local function config()
   local lsp_zero = require('lsp-zero')
+  lsp_zero.extend_lspconfig({
+    settings = {
+      complete_function_calls = true,
+    },
+  })
+
+  require('typescript-tools').setup({})
 
   -- {{{ LUA
   local runtime_path = vim.split(package.path, ';')
@@ -251,11 +258,7 @@ return {
       {
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-        opts = {
-          settings = {
-            complete_function_calls = true,
-          },
-        },
+        config = false,
       },
 
       {

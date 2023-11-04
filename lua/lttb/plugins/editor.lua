@@ -51,6 +51,7 @@ return {
 
   {
     'zbirenbaum/neodim',
+    enabled = false,
     event = 'LspAttach',
     config = true,
     opts = {
@@ -67,7 +68,6 @@ return {
 
   {
     'windwp/nvim-autopairs',
-    enabled = false,
     event = 'VimEnter',
     dependencies = {
       'hrsh7th/nvim-cmp',
@@ -88,7 +88,6 @@ return {
   {
     'altermo/ultimate-autopair.nvim',
     -- TODO: check the config - so far it's not really convinient to insert/delete pairs to wrap expressions
-    enabled = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
     branch = 'v0.6',
     config = true,
