@@ -58,7 +58,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     })
 
     color.extend_hl('MiniCursorword', {
-      bg = color.alpha_hl('DiagnosticVirtualTextInfo', 'fg', 0.2),
+      bg = color.alpha_hl('DiagnosticInfo', 'fg', 0.2),
     })
 
     color.extend_hl('DiagnosticUnderlineWarn', {
