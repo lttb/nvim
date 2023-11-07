@@ -1,0 +1,24 @@
+{
+  "allowCompoundWords": true,
+  "words": [
+    "bufnr",
+    "nvim",
+    "autocmd",
+    "keymaps",
+    "foldmethod",
+    "fileencoding",
+    "lspconfig",
+    "neovide"
+  ],
+  "import": [
+    "~/.cspell.json"
+  ],
+  "languageSettings": [
+    {
+      "languageId": "lua",
+      "ignoreRegExpList": [
+        "/'.*\\/.*'/g"
+      ]
+    }
+  ]
+}

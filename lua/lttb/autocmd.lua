@@ -70,6 +70,11 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       underdouble = true,
     })
 
+    color.extend_hl('DiagnosticUnderlineInfo', {
+      sp = color.alpha_hl('DiagnosticInfo', 'fg', 0.5),
+      undercurl = true,
+    })
+
     color.extend_hl('GitSignsCurrentLineBlame', {
       fg = color.alpha(normalHL.fg, 0.25),
     })

@@ -6,7 +6,7 @@ end
 
 return {
   { 'nmac427/guess-indent.nvim', opts = {} },
-  { 'vidocqh/auto-indent.nvim', opts = {} },
+  { 'vidocqh/auto-indent.nvim',  opts = {} },
 
   {
     'windwp/nvim-ts-autotag',
@@ -136,7 +136,7 @@ return {
     end,
   },
 
-  { 'NvChad/nvim-colorizer.lua', config = true },
+  { 'NvChad/nvim-colorizer.lua',                  config = true },
 
   -- {
   --   'coffebar/neovim-project',

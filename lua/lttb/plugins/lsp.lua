@@ -1,4 +1,5 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
+-- cSpell:words cssls jsonls lspsaga
 
 local utils = require('lttb.utils')
 
@@ -130,14 +131,14 @@ local function config()
       local node_type = current_node:type()
       -- Adjust the node types according to the Treesitter grammar
       if
-        node_type == 'object'
-        or node_type == 'object_type'
-        or node_type == 'type_literal'
-        or node_type == 'type_annotation'
-        or node_type == 'jsx_element'
-        or node_type == 'jsx_self_closing_element'
-        or node_type == 'jsx_attribute'
-        or node_type == 'jsx_expression'
+          node_type == 'object'
+          or node_type == 'object_type'
+          or node_type == 'type_literal'
+          or node_type == 'type_annotation'
+          or node_type == 'jsx_element'
+          or node_type == 'jsx_self_closing_element'
+          or node_type == 'jsx_attribute'
+          or node_type == 'jsx_expression'
       then
         return true
       end
@@ -234,8 +235,8 @@ local function config()
         --   require('copilot.suggestion').accept()
         if cmp.visible() then
           cmp.select_next_item()
-        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-        -- they way you will only jump inside the snippet region
+          -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+          -- they way you will only jump inside the snippet region
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         elseif has_words_before() then
@@ -334,7 +335,6 @@ local function config()
 end
 
 return {
-
   {
     'VonHeikemen/lsp-zero.nvim',
     lazy = false,
@@ -361,7 +361,7 @@ return {
 
       'L3MON4D3/LuaSnip',
 
-      { 'hinell/lsp-timeout.nvim', enalbed = false, dependencies = { 'neovim/nvim-lspconfig' } },
+      { 'hinell/lsp-timeout.nvim', enabled = false, dependencies = { 'neovim/nvim-lspconfig' } },
 
       {
         'pmizio/typescript-tools.nvim',
@@ -373,8 +373,8 @@ return {
         'nvimdev/lspsaga.nvim',
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K', '<cmd>Lspsaga hover_doc<cr>' },
-          { '<F2>', '<cmd>Lspsaga rename<cr>' },
+          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
+          { '<F2>',  '<cmd>Lspsaga rename<cr>' },
         },
         config = function()
           require('lspsaga').setup({

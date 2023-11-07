@@ -1,4 +1,5 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
+-- cSpell:words bprevious netrw
 
 local utils = require('lttb.utils')
 
@@ -96,7 +97,7 @@ vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and 
 -- Auto indent on empty line.
 vim.keymap.set('n', 'i', function()
   return string.match(vim.api.nvim_get_current_line(), '%g') == nil and 'cc' or 'i'
-end, { expr = true, noremap = true })
+end, { expr = true, remap = false })
 
 -- More granular undo in insert mode
 vim.keymap.set('i', '<C-u>', '<C-g>u<C-u>', { remap = false })

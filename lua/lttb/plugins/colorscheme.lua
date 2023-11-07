@@ -8,11 +8,11 @@ local theme = require('lttb.theme')
 
 return {
   -- lush is used for color calculations
-  { 'rktjmp/lush.nvim', priority = 1000 },
+  { 'rktjmp/lush.nvim',          priority = 1000 },
 
   {
     'projekt0n/github-nvim-theme',
-    lazy = true, -- make sure we load this during startup if it is your main colorscheme
+    lazy = true,     -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup({

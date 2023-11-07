@@ -92,13 +92,21 @@ return {
     {
       'folke/noice.nvim',
       opts = {
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+            ['vim.lsp.util.stylize_markdown'] = true,
+            ['cmp.entry.get_documentation'] = true,
+          },
+        },
         -- you can enable a preset for easier configuration
         presets = {
-          bottom_search = true, -- use a classic bottom cmdline for search
-          command_palette = true, -- position the cmdline and popupmenu together
+          bottom_search = true,         -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true, -- add a border to hover docs and signature help
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true,        -- add a border to hover docs and signature help
         },
       },
       dependencies = {
@@ -136,7 +144,7 @@ return {
       'romgrk/barbar.nvim',
       enabled = false,
       dependencies = {
-        'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+        'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
         'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
       },
       init = function()
@@ -321,7 +329,7 @@ return {
         local hover = require('hover')
 
         return {
-          { 'K', hover.hover, desc = 'hover.nvim' },
+          { 'K',  hover.hover,        desc = 'hover.nvim' },
           { 'gK', hover.hover_select, desc = 'hover.nvim select' },
         }
       end,
@@ -375,7 +383,7 @@ return {
       keys = {
         { '<S-D-m>', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
         -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        { '<S-M-m>', '<S-D-m>', remap = true },
+        { '<S-M-m>', '<S-D-m>',                remap = true },
       },
     },
   },

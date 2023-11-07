@@ -14,7 +14,7 @@ return {
       return {
         { '<S-D-p>', '<cmd>Telescope<cr>', desc = 'Telescope' },
         -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        { '<S-M-p>', '<S-D-p>', remap = true },
+        { '<S-M-p>', '<S-D-p>',            remap = true },
 
         {
           '<D-f>',
@@ -38,10 +38,10 @@ return {
               },
             })
           end,
-          desc = '[Search] by [G]rep',
+          desc = 'Search by Grep',
         },
         -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        { '<S-M-f>', '<S-D-f>', remap = true },
+        { '<S-M-f>', '<S-D-f>',                   remap = true },
 
         {
           '<D-o>',
@@ -51,7 +51,7 @@ return {
               ignore_current_buffer = true,
             })
           end,
-          desc = '[S]earch [B]uffers',
+          desc = 'Search Buffers',
         },
 
         {
@@ -67,10 +67,10 @@ return {
               builtin.find_files({})
             end
           end,
-          desc = '[S]earch [F]iles',
+          desc = 'Search Files',
         },
 
-        { '<D-r>', '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' },
+        { '<D-r>',   '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' },
 
         {
           '<leader>sgt',
@@ -81,7 +81,7 @@ return {
               type_filter = type_filter,
             })
           end,
-          desc = '[S]earch by [G]rep by [T]ype',
+          desc = 'Search by Grep by Type',
         },
         {
 
@@ -93,7 +93,7 @@ return {
               glob_pattern = glob_pattern,
             })
           end,
-          desc = '[S]earch by [G]rep by [F]ile glob',
+          desc = 'Search by Grep by File glob',
         },
 
         {
@@ -104,7 +104,7 @@ return {
               no_ignore = true,
             })
           end,
-          desc = '[S]earch [All] files',
+          desc = 'Search All files',
         },
 
         {
@@ -114,14 +114,13 @@ return {
               recurse_submodules = true,
             })
           end,
-          desc = '[S]earch [S]ubmodules',
+          desc = 'Search Submodules',
         },
 
-        { '<leader>sh', builtin.help_tags, desc = '[S]earch [H]elp' },
-        { '<leader>sd', builtin.diagnostics, desc = '[S]earch [D]iagnostics' },
-        { '<leader>sw', builtin.grep_string, desc = '[S]earch [W]word' },
-
-        { 'gs', builtin.lsp_document_symbols, desc = 'LSP: [G]oto [S]ymbols' },
+        { '<leader>sh', builtin.help_tags,            desc = 'Search Help' },
+        { '<leader>sd', builtin.diagnostics,          desc = 'Search Diagnostics' },
+        { '<leader>sw', builtin.grep_string,          desc = 'Search Word' },
+        { 'gs',         builtin.lsp_document_symbols, desc = 'LSP: Goto Symbols' },
 
         -- {{{ LSP
 
@@ -132,7 +131,7 @@ return {
               show_line = false,
             }))
           end,
-          desc = 'LSP: [G]oto [D]efinition',
+          desc = 'LSP: Goto Definition',
         },
 
         {
@@ -142,7 +141,7 @@ return {
               show_line = false,
             }))
           end,
-          desc = 'LSP: Type [D]efinition',
+          desc = 'LSP: Type Definition',
         },
 
         {
@@ -152,7 +151,7 @@ return {
               show_line = false,
             }))
           end,
-          desc = 'LSP: [G]oto [I]mplementation',
+          desc = 'LSP: Goto Implementation',
         },
 
         {
@@ -162,7 +161,7 @@ return {
               show_line = false,
             }))
           end,
-          desc = 'LSP: [G]oto [R]eferences',
+          desc = 'LSP: Goto References',
         },
 
         -- }}}
