@@ -158,14 +158,17 @@ local function config()
     {
       name = 'path',
       keyword_length = 3,
+      max_item_count = 3,
     },
     {
       name = 'buffer',
-      keyword_length = 3,
+      keyword_length = 2,
+      max_item_count = 3,
     },
     {
       name = 'rg',
-      keyword_length = 2,
+      keyword_length = 1,
+      max_item_count = 3,
     },
   }
 
@@ -190,6 +193,11 @@ local function config()
     },
 
     enabled = function()
+      -- local buftype = vim.api.nvim_buf_get_option(0, 'buftype')
+      -- if buftype == 'prompt' then
+      --   return false
+      -- end
+
       -- Set of commands where cmp will be disabled
       local disabled = {
         IncRename = true,
@@ -201,17 +209,40 @@ local function config()
       return not disabled[cmd] or cmp.close()
     end,
 
+    event = {
+      -- Add this event handler to your cmp setup to reset the variable when the completion menu is closed
+      on_popup_close = function()
+        vim.b.cmp_tab_complete = nil
+      end,
+    },
+
     mapping = {
       -- `Enter` key to confirm completion
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<Esc>'] = cmp.mapping(function(fallback)
+      ['<CR>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
-          cmp.abort()
-        else
-          fallback()
+          local entry = cmp.get_selected_entry()
+          local is_snippet = entry and entry.completion_item.kind == 'Snippet'
+
+          if vim.b.cmp_tab_complete and not is_snippet then
+            vim.b.cmp_tab_complete = nil
+            fallback()
+
+            return
+          end
+
+          cmp.confirm({ select = true }) -- If no item is selected, select the first one and confirm
         end
+
+        fallback()
       end, { 'i', 's' }),
+      ['<C-e>'] = cmp.mapping.abort(),
+      -- ['<Esc>'] = cmp.mapping(function(fallback)
+      --   if cmp.visible() then
+      --     cmp.abort()
+      --   else
+      --     fallback()
+      --   end
+      -- end),
 
       -- Ctrl+Space to trigger completion menu
       ['<C-Space>'] = cmp.mapping.complete(),
@@ -222,6 +253,7 @@ local function config()
         -- if require('copilot.suggestion').is_visible() then
         --   require('copilot.suggestion').accept()
         if cmp.visible() then
+          vim.b.cmp_tab_complete = true
           cmp.select_next_item()
         -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
         -- they way you will only jump inside the snippet region
