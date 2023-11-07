@@ -5,60 +5,8 @@ if utils.is_vscode() then
 end
 
 return {
-  {
-    'mvllow/modes.nvim',
-    enabled = false,
-    opts = {
-      line_opacity = 0.05,
-    },
-  },
-
-  {
-    'folke/which-key.nvim',
-    cmd = 'WhichKey',
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-    end,
-    opts = {},
-    priority = 1,
-  },
-
-  {
-    'lewis6991/hover.nvim',
-    enabled = false,
-    keys = function()
-      local hover = require('hover')
-
-      return {
-        { 'K', hover.hover, desc = 'hover.nvim' },
-        { 'gK', hover.hover_select, desc = 'hover.nvim select' },
-      }
-    end,
-    config = function()
-      require('hover').setup({
-        init = function()
-          require('hover.providers.lsp')
-          require('hover.providers.gh')
-          require('hover.providers.gh_user')
-          require('hover.providers.jira')
-          require('hover.providers.man')
-          require('hover.providers.dictionary')
-        end,
-      })
-    end,
-  },
-
-  {
-    'zbirenbaum/neodim',
-    enabled = false,
-    event = 'LspAttach',
-    config = true,
-    opts = {
-      alpha = 0.3,
-      -- blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
-    },
-  },
+  { 'nmac427/guess-indent.nvim', opts = {} },
+  { 'vidocqh/auto-indent.nvim', opts = {} },
 
   {
     'windwp/nvim-ts-autotag',
@@ -68,6 +16,7 @@ return {
 
   {
     'windwp/nvim-autopairs',
+    enabled = false,
     event = 'VimEnter',
     dependencies = {
       'hrsh7th/nvim-cmp',
@@ -132,69 +81,6 @@ return {
   },
 
   {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {
-      indent = {
-        char = utils.is_neovide() and '┊' or '┊',
-      },
-
-      scope = {
-        show_start = false,
-        show_end = false,
-
-        -- @see https://github.com/lukas-reineke/indent-blankline.nvim/issues/632#issuecomment-1732366788
-        include = {
-          node_type = {
-            lua = {
-              'chunk',
-              'do_statement',
-              'while_statement',
-              'repeat_statement',
-              'if_statement',
-              'for_statement',
-              'function_declaration',
-              'function_definition',
-              'table_constructor',
-              'assignment_statement',
-            },
-            typescript = {
-              'statement_block',
-              'function',
-              'arrow_function',
-              'function_declaration',
-              'method_definition',
-              'for_statement',
-              'for_in_statement',
-              'catch_clause',
-              'object_pattern',
-              'arguments',
-              'switch_case',
-              'switch_statement',
-              'switch_default',
-              'object',
-              'object_type',
-              'ternary_expression',
-            },
-          },
-        },
-      },
-    },
-    -- tag = 'v2.20.8',
-    -- config = function()
-    --   local indent_char = false and utils.is_neovide() and '·' or '┊'
-
-    --   require('indent_blankline').setup({
-    --     char = indent_char,
-    --     context_char = indent_char,
-    --     show_trailing_blankline_indent = false,
-    --     show_current_context = true,
-    --     show_first_indent_level = false,
-    --   })
-    -- end,
-  },
-
-  {
     -- TODO: review this plugin, not sure I'll keep it
     'vuki656/package-info.nvim',
     dependencies = { 'MunifTanjim/nui.nvim' },
@@ -232,41 +118,6 @@ return {
   },
 
   {
-    'windwp/nvim-spectre',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    config = function()
-      local spectre = require('spectre')
-
-      spectre.setup({
-        live_update = true,
-        is_insert_mode = true,
-      })
-
-      utils.keyplug('lttb-spectre', spectre.open, {
-        desc = 'spectre.nvim',
-      })
-
-      utils.keyplug('lttb-spectre-search-in-file', spectre.open_file_search, {
-        desc = 'spectre.nvim | search in file',
-      })
-
-      utils.keyplug('lttb-spectre-search-word', function()
-        spectre.open_visual({ select_word = true })
-      end, {
-        desc = 'spectre.nvim | search word',
-      })
-
-      utils.keyplug('lttb-spectre-open-visual', function()
-        spectre.open_visual({ select_word = true })
-      end, {
-        desc = 'spectre.nvim | open visual',
-      })
-    end,
-  },
-
-  {
     'smjonas/live-command.nvim',
     enabled = false,
     keys = {
@@ -282,94 +133,6 @@ return {
   },
 
   { 'NvChad/nvim-colorizer.lua', config = true },
-
-  {
-    'utilyre/barbecue.nvim',
-    name = 'barbecue',
-    version = '*',
-    dependencies = {
-      'SmiteshP/nvim-navic',
-      'nvim-tree/nvim-web-devicons', -- optional dependency
-    },
-    opts = {
-      create_autocmd = false,
-
-      show_modified = true,
-    },
-  },
-
-  {
-    'romgrk/barbar.nvim',
-    enabled = false,
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    init = function()
-      vim.g.barbar_auto_setup = false
-    end,
-    opts = {
-      auto_hide = false,
-
-      highlight_alternate = true,
-      highlight_inactive_file_icons = true,
-
-      icons = {
-        separator = { left = '', right = '' },
-      },
-
-      sidebar_filetypes = {
-        ['neo-tree'] = true,
-      },
-    },
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  },
-
-  {
-    'akinsho/bufferline.nvim',
-    enabled = false,
-    version = '*',
-    opts = function()
-      local bufferline = require('bufferline')
-
-      return {
-        options = {
-          themable = true,
-
-          offsets = {
-            {
-              filetype = 'neo-tree',
-              text = 'File Explorer',
-              highlight = 'Directory',
-              separator = false, -- use a "true" to enable the default, or set your own character
-            },
-          },
-
-          separator_style = 'thin',
-
-          hover = {
-            enabled = true,
-            delay = 200,
-            reveal = { 'close' },
-          },
-
-          diagnostics = 'nvim_lsp',
-        },
-
-        highlights = {
-          fill = {
-            bg = {
-              attribute = 'bg',
-              highlight = 'Normal',
-            },
-          },
-        },
-      }
-    end,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-
-    -- enabled = false,
-  },
 
   -- {
   --   'coffebar/neovim-project',
@@ -392,25 +155,48 @@ return {
   --   priority = 100,
   -- },
 
+  { 'JoosepAlviste/nvim-ts-context-commentstring' },
   {
-    'folke/todo-comments.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {
-      signs = false,
-
-      highlight = {
-        keyword = 'fg',
-      },
-    },
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup({
+        ignore = '^$',
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      })
+    end,
   },
 
   {
-    'folke/trouble.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    keys = {
-      { '<S-D-m>', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
-      -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-      { '<S-M-m>', '<S-D-m>', remap = true },
+    'gaoDean/autolist.nvim',
+    ft = {
+      'markdown',
+      'text',
+      'tex',
+      'plaintex',
     },
+    config = function()
+      local autolist = require('autolist')
+      autolist.setup()
+      autolist.create_mapping_hook('i', '<CR>', autolist.new)
+      autolist.create_mapping_hook('i', '<Tab>', autolist.indent)
+      autolist.create_mapping_hook('i', '<S-Tab>', autolist.indent, '<C-D>')
+      autolist.create_mapping_hook('n', 'o', autolist.new)
+      autolist.create_mapping_hook('n', 'O', autolist.new_before)
+      autolist.create_mapping_hook('n', '>>', autolist.indent)
+      autolist.create_mapping_hook('n', '<<', autolist.indent)
+      autolist.create_mapping_hook('n', '<C-r>', autolist.force_recalculate)
+      autolist.create_mapping_hook('n', '<leader>x', autolist.invert_entry, '')
+      vim.api.nvim_create_autocmd('TextChanged', {
+        pattern = '*',
+        callback = function()
+          vim.cmd.normal({
+            autolist.force_recalculate(nil, nil),
+            bang = false,
+          })
+        end,
+      })
+    end,
+    -- feels quite buggy, disable for now
+    enabled = false,
   },
 }
