@@ -150,6 +150,9 @@ local function config()
     -- { name = 'copilot', group_index = 2 },
     {
       name = 'nvim_lsp',
+      entry_filter = function(entry, ctx)
+        return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+      end,
     },
     {
       name = 'luasnip',
@@ -193,10 +196,10 @@ local function config()
     },
 
     enabled = function()
-      -- local buftype = vim.api.nvim_buf_get_option(0, 'buftype')
-      -- if buftype == 'prompt' then
-      --   return false
-      -- end
+      local buftype = vim.api.nvim_buf_get_option(0, 'buftype')
+      if buftype == 'prompt' then
+        return false
+      end
 
       -- Set of commands where cmp will be disabled
       local disabled = {
@@ -209,32 +212,9 @@ local function config()
       return not disabled[cmd] or cmp.close()
     end,
 
-    event = {
-      -- Add this event handler to your cmp setup to reset the variable when the completion menu is closed
-      on_popup_close = function()
-        vim.b.cmp_tab_complete = nil
-      end,
-    },
-
     mapping = {
       -- `Enter` key to confirm completion
-      ['<CR>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          local entry = cmp.get_selected_entry()
-          local is_snippet = entry and entry.completion_item.kind == 'Snippet'
-
-          if vim.b.cmp_tab_complete and not is_snippet then
-            vim.b.cmp_tab_complete = nil
-            fallback()
-
-            return
-          end
-
-          cmp.confirm({ select = true }) -- If no item is selected, select the first one and confirm
-        end
-
-        fallback()
-      end, { 'i', 's' }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
       ['<C-e>'] = cmp.mapping.abort(),
       -- ['<Esc>'] = cmp.mapping(function(fallback)
       --   if cmp.visible() then
@@ -253,7 +233,6 @@ local function config()
         -- if require('copilot.suggestion').is_visible() then
         --   require('copilot.suggestion').accept()
         if cmp.visible() then
-          vim.b.cmp_tab_complete = true
           cmp.select_next_item()
         -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
         -- they way you will only jump inside the snippet region
@@ -275,6 +254,30 @@ local function config()
 
     sorting = {
       comparators = {
+        -- Add this custom comparator at the beginning of the comparator list
+        function(entry1, entry2)
+          local item1 = entry1.completion_item
+          local item2 = entry2.completion_item
+          local word = require('cmp.utils.str').get_word(vim.api.nvim_get_current_line(), vim.fn.col('.'))
+
+          -- If both are exact matches, fallback to the default sorting
+          if item1.label == word and item2.label == word then
+            return nil
+          end
+
+          -- If entry1 is an exact match, demote it
+          if item1.label == word then
+            return false
+          end
+
+          -- If entry2 is an exact match, demote it
+          if item2.label == word then
+            return true
+          end
+
+          -- Fallback to the next comparators
+          return nil
+        end,
         compare.offset,
         compare.score,
         compare.recently_used,
