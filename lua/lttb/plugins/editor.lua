@@ -16,7 +16,7 @@ return {
 
   {
     'windwp/nvim-autopairs',
-    enabled = false,
+    enabled = true,
     event = 'VimEnter',
     dependencies = {
       'hrsh7th/nvim-cmp',
@@ -26,6 +26,9 @@ return {
 
       npairs.setup({
         check_ts = true,
+        break_undo = true,
+        map_c_h = true,
+        map_c_w = true,
       })
 
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -37,9 +40,10 @@ return {
   {
     'altermo/ultimate-autopair.nvim',
     -- TODO: check the config - so far it's not really convinient to insert/delete pairs to wrap expressions
+    enabled = false,
     event = { 'InsertEnter', 'CmdlineEnter' },
     branch = 'v0.6',
-    config = true,
+    opts = {},
   },
 
   {

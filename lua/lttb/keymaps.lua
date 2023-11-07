@@ -93,6 +93,16 @@ vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and 
 
 -- }}}
 
+-- Auto indent on empty line.
+vim.keymap.set('n', 'i', function()
+  return string.match(vim.api.nvim_get_current_line(), '%g') == nil and 'cc' or 'i'
+end, { expr = true, noremap = true })
+
+-- More granular undo in insert mode
+vim.keymap.set('i', '<C-u>', '<C-g>u<C-u>', { remap = false })
+vim.keymap.set('i', '<C-w>', '<C-g>u<C-w>')
+vim.keymap.set('i', '<D-z>', '<C-w>')
+
 -- Quick Save shortcut
 vim.keymap.set({ 'i', 'n' }, '<D-s>', '<cmd>update<cr>', { desc = 'Quick Save' })
 

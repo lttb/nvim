@@ -42,8 +42,8 @@ vim.g.neovide_input_use_logo = true
 
 vim.keymap.set('x', '<D-x>', '"+d') -- cut
 vim.keymap.set('x', '<D-c>', '"+y') -- copy
-vim.keymap.set('i', '<D-v>', '<C-r><C-o>+') -- paste (insert)
-vim.keymap.set('n', '<D-v>', 'i<C-r><C-o>+<ESC>l') -- paste (normal)
+vim.keymap.set('i', '<D-v>', '<C-r><C-p>+') -- paste (insert)
+vim.keymap.set('n', '<D-v>', 'i<C-r><C-p>+<ESC>l') -- paste (normal)
 vim.keymap.set('x', '<D-v>', '"+P') -- paste (visual)
 vim.keymap.set('c', '<D-v>', '<C-r>+') -- paste (command)
 
