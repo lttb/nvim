@@ -53,6 +53,8 @@ vim.opt.shortmess     = 'aoOFc' -- Disable certain messages from |ins-completion
 vim.opt.showmode      = false   -- Don't show mode in command line
 vim.opt.showcmd       = false
 
+vim.opt.pumheight     = 10
+
 vim.opt.textwidth     = 120
 vim.opt.scrolloff     = 80
 vim.opt.sidescrolloff = 20
@@ -68,7 +70,7 @@ vim.cmd('set shortmess+=A')
 
 -- Enable syntax highlighing if it wasn't already (as it is time consuming)
 -- Don't use defer it because it affects start screen appearance
-if vim.fn.exists("syntax_on") ~= 1 then
+if vim.fn.exists('syntax_on') ~= 1 then
   vim.cmd([[syntax enable]])
 end
 
