@@ -1,4 +1,8 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
+
+-- @see https://github.com/hrsh7th/nvim-cmp/pull/1723
+---@diagnostic disable: missing-fields
+
 -- cSpell:words cssls jsonls lspsaga
 
 local utils = require('lttb.utils')
@@ -9,37 +13,25 @@ end
 
 local function config()
   local lsp_zero = require('lsp-zero')
-  lsp_zero.extend_lspconfig({
-    settings = {
-      complete_function_calls = true,
-    },
-  })
 
+  lsp_zero.extend_lspconfig()
+
+  require('neoconf').setup({})
   require('typescript-tools').setup({})
-
-  -- {{{ LUA
-  local runtime_path = vim.split(package.path, ';')
-  table.insert(runtime_path, 'lua/?.lua')
-  table.insert(runtime_path, 'lua/?/init.lua')
 
   lsp_zero.configure('lua_ls', {
     settings = {
       Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT)
-          version = 'LuaJIT',
-          -- Setup your lua path
-          path = runtime_path,
+        format = {
+          enable = true,
         },
         diagnostics = {
-          globals = { 'vim' },
-        },
-        workspace = {
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-            [vim.fn.stdpath('config')] = true,
+          neededFileStatus = {
+            ['codestyle-check'] = 'Any',
           },
+        },
+        completion = {
+          callSnippet = 'Replace',
         },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
@@ -48,7 +40,7 @@ local function config()
       },
     },
   })
-  -- }}}
+
 
   lsp_zero.preset('recommended')
 
@@ -131,14 +123,14 @@ local function config()
       local node_type = current_node:type()
       -- Adjust the node types according to the Treesitter grammar
       if
-        node_type == 'object'
-        or node_type == 'object_type'
-        or node_type == 'type_literal'
-        or node_type == 'type_annotation'
-        or node_type == 'jsx_element'
-        or node_type == 'jsx_self_closing_element'
-        or node_type == 'jsx_attribute'
-        or node_type == 'jsx_expression'
+          node_type == 'object'
+          or node_type == 'object_type'
+          or node_type == 'type_literal'
+          or node_type == 'type_annotation'
+          or node_type == 'jsx_element'
+          or node_type == 'jsx_self_closing_element'
+          or node_type == 'jsx_attribute'
+          or node_type == 'jsx_expression'
       then
         return true
       end
@@ -222,8 +214,8 @@ local function config()
 
     mapping = {
       -- `Enter` key to confirm completion
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>']      = cmp.mapping.confirm({ select = true }),
+      ['<C-e>']     = cmp.mapping.abort(),
       -- ['<Esc>'] = cmp.mapping(function(fallback)
       --   if cmp.visible() then
       --     cmp.abort()
@@ -235,7 +227,7 @@ local function config()
       -- Ctrl+Space to trigger completion menu
       ['<C-Space>'] = cmp.mapping.complete(),
 
-      ['<Tab>'] = cmp.mapping(function(fallback)
+      ['<Tab>']     = cmp.mapping(function(fallback)
         -- support copilot
         -- @see https://github.com/zbirenbaum/copilot.lua/issues/91#issuecomment-1345190310
         -- if require('copilot.suggestion').is_visible() then
@@ -299,8 +291,6 @@ local function config()
 
     formatting = {
       format = function(entry, vim_item)
-        vim_item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
-
         if vim.tbl_contains({ 'path' }, entry.source.name) then
           local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
           if icon then
@@ -342,6 +332,9 @@ local function config()
 end
 
 return {
+  { 'folke/neodev.nvim', opts = {} },
+  { 'folke/neoconf.nvim' },
+
   {
     'VonHeikemen/lsp-zero.nvim',
     lazy = false,
@@ -380,8 +373,8 @@ return {
         'nvimdev/lspsaga.nvim',
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K', '<cmd>Lspsaga hover_doc<cr>' },
-          { '<F2>', '<cmd>Lspsaga rename<cr>' },
+          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
+          { '<F2>',  '<cmd>Lspsaga rename<cr>' },
         },
         config = function()
           require('lspsaga').setup({
