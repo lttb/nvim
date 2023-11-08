@@ -22,21 +22,11 @@ local function config()
   lsp_zero.configure('lua_ls', {
     settings = {
       Lua = {
-        format = {
-          enable = true,
-        },
-        diagnostics = {
-          neededFileStatus = {
-            ['codestyle-check'] = 'Any',
-          },
-        },
-        completion = {
-          callSnippet = 'Replace',
-        },
+        format = { enable = true },
+        diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
+        completion = { callSnippet = 'Replace' },
         -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
-        },
+        telemetry = { enable = false },
       },
     },
   })
@@ -47,9 +37,7 @@ local function config()
   lsp_zero.on_attach(function(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
-    lsp_zero.default_keymaps({
-      buffer = bufnr,
-    })
+    lsp_zero.default_keymaps({ buffer = bufnr })
 
     -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-line-diagnostics-automatically-in-hover-window
     -- vim.api.nvim_create_autocmd('CursorHold', {
@@ -76,26 +64,12 @@ local function config()
 
   lsp_zero.setup()
 
-  vim.diagnostic.config({
-    virtual_text = {
-      severity = { min = vim.diagnostic.severity.ERROR },
-    },
-  })
+  vim.diagnostic.config({ virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } } })
 
   require('mason').setup({})
   require('mason-lspconfig').setup({
-    ensure_installed = {
-      'rust_analyzer',
-      'lua_ls',
-      'cssls',
-      'eslint',
-      'html',
-      'jsonls',
-    },
-    handlers = {
-      lsp_zero.default_setup,
-      tsserver = lsp_zero.noop,
-    },
+    ensure_installed = { 'rust_analyzer', 'lua_ls', 'cssls', 'eslint', 'html', 'jsonls' },
+    handlers = { lsp_zero.default_setup, tsserver = lsp_zero.noop },
   })
 
   -- {{{ CMP
@@ -140,7 +114,6 @@ local function config()
   end
 
   local source_nvim_lsp = {
-
     name = 'nvim_lsp',
     entry_filter = function(entry, ctx)
       return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
@@ -151,39 +124,19 @@ local function config()
     -- { name = 'copilot', group_index = 2 },
     source_nvim_lsp,
 
-    {
-      name = 'luasnip',
-    },
-    {
-      name = 'path',
-      keyword_length = 3,
-      max_item_count = 3,
-    },
-    {
-      name = 'buffer',
-      keyword_length = 2,
-      max_item_count = 3,
-    },
-    {
-      name = 'rg',
-      keyword_length = 1,
-      max_item_count = 3,
-    },
+    { name = 'luasnip' },
+    { name = 'path',   keyword_length = 3, max_item_count = 3 },
+    { name = 'buffer', keyword_length = 2, max_item_count = 3 },
+    { name = 'rg',     keyword_length = 1, max_item_count = 3 },
   }
 
   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
     pattern = { '*.ts', '*.tsx' },
     callback = function()
       if is_in_typescript_context() then
-        cmp.setup.buffer({
-          sources = {
-            source_nvim_lsp,
-          },
-        })
+        cmp.setup.buffer({ sources = { source_nvim_lsp } })
       else
-        cmp.setup.buffer({
-          sources = default_sources,
-        })
+        cmp.setup.buffer({ sources = default_sources })
       end
     end,
   })
@@ -192,7 +145,7 @@ local function config()
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
-      end,
+      end
     },
 
     enabled = function()
@@ -202,9 +155,7 @@ local function config()
       end
 
       -- Set of commands where cmp will be disabled
-      local disabled = {
-        IncRename = true,
-      }
+      local disabled = { IncRename = true }
       -- Get first word of cmdline
       local cmd = vim.fn.getcmdline():match('%S+')
       -- Return true if cmd isn't disabled
@@ -246,8 +197,7 @@ local function config()
       end, { 'i', 's', 'c' }),
     },
 
-    experimental = {
-      ghost_text = true, -- this feature conflict with copilot.vim's preview.
+    experimental = { ghost_text = true, -- this feature conflict with copilot.vim's preview.
     },
 
     sources = cmp.config.sources(default_sources),
@@ -306,26 +256,13 @@ local function config()
   })
 
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' },
-    },
-  })
+  cmp.setup.cmdline({ '/', '?' }, { mapping = cmp.mapping.preset.cmdline(), sources = { { name = 'buffer' } } })
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' },
-    }, {
-      {
-        name = 'cmdline',
-        option = {
-          ignore_cmds = { 'Man', '!' },
-        },
-      },
-    }),
+    sources = cmp.config.sources({ { name = 'path' } },
+      { { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } } }),
   })
 
   -- }}}
@@ -362,13 +299,11 @@ return {
       'L3MON4D3/LuaSnip',
 
       { 'hinell/lsp-timeout.nvim', enabled = false, dependencies = { 'neovim/nvim-lspconfig' } },
-
       {
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-        config = false,
+        config = false
       },
-
       {
         'nvimdev/lspsaga.nvim',
         keys = {
@@ -378,20 +313,10 @@ return {
         },
         config = function()
           require('lspsaga').setup({
-            ui = {
-              code_action = '',
-            },
-            lightbulb = {
-              enable = false,
-            },
-            hover = {
-              max_width = 0.4,
-            },
-            rename = {
-              keys = {
-                quit = '<ESC>',
-              },
-            },
+            ui = { code_action = '' },
+            lightbulb = { enable = false },
+            hover = { max_width = 0.4 },
+            rename = { keys = { quit = '<ESC>' } },
           })
         end,
       },

@@ -16,3 +16,4 @@ trim_trailing_whitespace = false
 # @see https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/lua.template.editorconfig
 quote_style = single
 trailing_table_separator = smart
+break_table_list = smart

@@ -3,61 +3,24 @@ local utils = require('lttb.utils')
 return {
   'nvim-lua/plenary.nvim',
 
-  {
-    'kylechui/nvim-surround',
-    opts = {
-      keymaps = {
-        visual = '<C-S>',
-      },
-    },
-  },
+  { 'kylechui/nvim-surround', opts = { keymaps = { visual = '<C-S>' } } },
 
   {
     'folke/flash.nvim',
     event = 'VeryLazy',
+    ---@type Flash.Config
     opts = {},
-    keys = {
-      {
-        's',
-        mode = { 'n', 'x', 'o' },
-        function()
-          require('flash').jump()
-        end,
-        desc = 'Flash',
-      },
-      {
-        'S',
-        mode = { 'n', 'x', 'o' },
-        function()
-          require('flash').treesitter()
-        end,
-        desc = 'Flash Treesitter',
-      },
-      {
-        'r',
-        mode = 'o',
-        function()
-          require('flash').remote()
-        end,
-        desc = 'Remote Flash',
-      },
-      {
-        'R',
-        mode = { 'o', 'x' },
-        function()
-          require('flash').treesitter_search()
-        end,
-        desc = 'Treesitter Search',
-      },
-      {
-        '<c-s>',
-        mode = { 'c' },
-        function()
-          require('flash').toggle()
-        end,
-        desc = 'Toggle Flash Search',
-      },
-    },
+    keys = function()
+      local flash = require('flash')
+
+      return {
+        { 's', mode = { 'n', 'x', 'o' }, flash.jump,   desc = 'Flash' },
+        { 'S', mode = { 'n', 'x', 'o' }, flash.treesitter, desc = 'Flash Treesitter', },
+        { 'r', mode = 'o',               flash.remote, desc = 'Remote Flash' },
+        { 'R', mode = { 'o', 'x' }, flash.treesitter_search, desc = 'Treesitter Search', },
+        { '<c-s>', mode = { 'c' }, flash.toggle, desc = 'Toggle Flash Search' },
+      }
+    end,
   },
 
   {
@@ -74,19 +37,14 @@ return {
     end,
   },
 
-  {
-    'chaoren/vim-wordmotion',
-    init = function()
-      vim.g.wordmotion_prefix = ';'
-    end,
-  },
+  { 'chaoren/vim-wordmotion', init = function()
+    vim.g.wordmotion_prefix = ';'
+  end },
 
   {
     'echasnovski/mini.nvim',
     config = function()
-      require('mini.ai').setup({
-        search_method = 'cover_or_nearest',
-      })
+      require('mini.ai').setup({ search_method = 'cover_or_nearest' })
 
       require('mini.align').setup({})
 
@@ -99,19 +57,10 @@ return {
       local MiniMap = require('mini.map')
 
       MiniMap.setup({
-        integrations = {
-          MiniMap.gen_integration.builtin_search(),
-          MiniMap.gen_integration.gitsigns(),
-        },
-        symbols = {
-          encode = MiniMap.gen_encode_symbols.dot('3x2'),
-          scroll_line = '▶ ',
-          scroll_view = '┃ ',
-        },
+        integrations = { MiniMap.gen_integration.builtin_search(), MiniMap.gen_integration.gitsigns() },
+        symbols = { encode = MiniMap.gen_encode_symbols.dot('3x2'), scroll_line = '▶ ', scroll_view = '┃ ' },
 
-        window = {
-          show_integration_count = false,
-        },
+        window = { show_integration_count = false },
       })
 
       vim.api.nvim_create_autocmd('BufEnter', {
@@ -132,13 +81,11 @@ return {
     config = function()
       require('smartyank').setup({
         highlight = {
-          enabled = true, -- highlight yanked text
+          enabled = true,     -- highlight yanked text
           higroup = 'Search', -- highlight group of yanked text
-          timeout = 200, -- timeout for clearing the highlight
+          timeout = 200,      -- timeout for clearing the highlight
         },
-        clipboard = {
-          enabled = true,
-        },
+        clipboard = { enabled = true },
         tmux = {
           enabled = true,
           -- remove `-w` to disable copy to host client's clipboard
@@ -146,8 +93,8 @@ return {
         },
         osc52 = {
           enabled = true,
-          ssh_only = true, -- false to OSC52 yank also in local sessions
-          silent = false, -- true to disable the "n chars copied" echo
+          ssh_only = true,       -- false to OSC52 yank also in local sessions
+          silent = false,        -- true to disable the "n chars copied" echo
           echo_hl = 'Directory', -- highlight group of the OSC52 echo message
         },
       })

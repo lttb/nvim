@@ -22,9 +22,6 @@ return {
       ['_'] = { 'trim_whitespace' },
     },
 
-    format_on_save = {
-      lsp_fallback = true,
-      timeout_ms = 500,
-    },
+    format_on_save = { lsp_fallback = true, timeout_ms = 500 },
   },
 }
