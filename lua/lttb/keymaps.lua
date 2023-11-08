@@ -42,7 +42,7 @@ end
 local wm = ';'
 
 native_nav('<M-BS>', 'ldb', 'i')
-native_nav('<M-DEL>', wm .. 'eda' .. wm .. 'w', 'i')
+native_nav('<M-DEL>', wm .. 'exa' .. wm .. 'w', 'i')
 
 native_nav('<S-Left>', 'vh', '', 'h')
 native_nav('<S-Right>', 'vl', '', 'l')
