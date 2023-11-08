@@ -17,3 +17,4 @@ trim_trailing_whitespace = false
 quote_style = single
 trailing_table_separator = smart
 break_table_list = smart
+break_all_list_when_line_exceed = true
