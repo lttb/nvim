@@ -131,14 +131,14 @@ local function config()
       local node_type = current_node:type()
       -- Adjust the node types according to the Treesitter grammar
       if
-          node_type == 'object'
-          or node_type == 'object_type'
-          or node_type == 'type_literal'
-          or node_type == 'type_annotation'
-          or node_type == 'jsx_element'
-          or node_type == 'jsx_self_closing_element'
-          or node_type == 'jsx_attribute'
-          or node_type == 'jsx_expression'
+        node_type == 'object'
+        or node_type == 'object_type'
+        or node_type == 'type_literal'
+        or node_type == 'type_annotation'
+        or node_type == 'jsx_element'
+        or node_type == 'jsx_self_closing_element'
+        or node_type == 'jsx_attribute'
+        or node_type == 'jsx_expression'
       then
         return true
       end
@@ -147,17 +147,20 @@ local function config()
     return false
   end
 
+  local source_nvim_lsp = {
+
+    name = 'nvim_lsp',
+    entry_filter = function(entry, ctx)
+      return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+    end,
+  }
+
   local default_sources = {
     -- { name = 'copilot', group_index = 2 },
-    {
-      name = 'nvim_lsp',
-      entry_filter = function(entry, ctx)
-        return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
-      end,
-    },
+    source_nvim_lsp,
+
     {
       name = 'luasnip',
-      keyword_length = 3,
     },
     {
       name = 'path',
@@ -180,7 +183,11 @@ local function config()
     pattern = { '*.ts', '*.tsx' },
     callback = function()
       if is_in_typescript_context() then
-        cmp.setup.buffer({ sources = { { name = 'nvim_lsp' } } })
+        cmp.setup.buffer({
+          sources = {
+            source_nvim_lsp,
+          },
+        })
       else
         cmp.setup.buffer({
           sources = default_sources,
@@ -373,8 +380,8 @@ return {
         'nvimdev/lspsaga.nvim',
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
-          { '<F2>',  '<cmd>Lspsaga rename<cr>' },
+          { 'K', '<cmd>Lspsaga hover_doc<cr>' },
+          { '<F2>', '<cmd>Lspsaga rename<cr>' },
         },
         config = function()
           require('lspsaga').setup({
