@@ -11,10 +11,10 @@ local function config()
   require('lualine').setup({
     options = {
       icons_enabled = true,
-      theme = 'auto',
+      theme = require('lttb.themes.zengithub_lualine'),
 
       component_separators = '|',
-      section_separators = utils.is_neovide() and '' or { left = '', right = '' },
+      section_separators = '',
 
       -- component_separators = '|',
       -- section_separators = '',
@@ -23,13 +23,7 @@ local function config()
     },
 
     sections = {
-      lualine_a = {
-        {
-          'mode',
-          separator = utils.is_neovide() and '' or { left = '', right = '' },
-          right_padding = 2,
-        },
-      },
+      lualine_a = { { 'mode' } },
       lualine_b = { { color = 'CursorLine' } },
       lualine_c = { { color = 'CursorLine' } },
       lualine_x = { { color = 'CursorLine' } },
@@ -37,8 +31,6 @@ local function config()
       lualine_z = {
         {
           'location',
-          separator = utils.is_neovide() and '' or { right = '' },
-          left_padding = 2,
         },
       },
     },
@@ -73,9 +65,6 @@ return {
   {
     'nvim-lualine/lualine.nvim',
     config = config,
-    dependencies = {
-      { 'nvim-tree/nvim-web-devicons' },
-      { 'arkav/lualine-lsp-progress' },
-    },
+    dependencies = { { 'nvim-tree/nvim-web-devicons' }, { 'arkav/lualine-lsp-progress' } },
   },
 }
