@@ -56,8 +56,6 @@ native_nav('<M-S-Left>', wm .. 'ev' .. wm .. 'b', '', ',b')
 native_nav('<M-S-Right>', 'vi' .. wm .. 'e', '', ',w')
 -- }}}
 
--- {{{ Global mappings
-
 -- @see https://github.com/LazyVim/LazyVim/blob/30b7215de80a215c9bc72640505ea76431ff515c/lua/lazyvim/config/keymaps.lua
 
 -- better up/down
@@ -92,8 +90,6 @@ vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and 
 -- vim.keymap.set('n', '<leader>bw', '<cmd>bprevious | bd! #<cr>', { silent = true, desc = 'Delete Buffer' })
 -- vim.keymap.set('n', '<leader>ww', '<leader>bw', { remap = true })
 
--- }}}
-
 -- Auto indent on empty line.
 vim.keymap.set('n', 'i', function()
   return string.match(vim.api.nvim_get_current_line(), '%g') == nil and 'cc' or 'i'
@@ -109,3 +105,21 @@ vim.keymap.set({ 'i', 'n' }, '<D-s>', '<cmd>update<cr>', { desc = 'Quick Save' }
 
 -- TODO: automatically close split if the last buffer in the split was closed
 vim.keymap.set('n', '<D-w>', '<cmd>bprevious | bd! #<cr>')
+
+function FormatPasted()
+  -- Get the lines where the last paste occurred
+  local from_row, from_col = unpack(vim.api.nvim_buf_get_mark(0, '['))
+  local to_row, to_col = unpack(vim.api.nvim_buf_get_mark(0, ']'))
+
+  vim.lsp.buf.format({
+    async = false,
+    range = {
+      start = { from_row, from_col },
+      ['end'] = { to_row, to_col },
+    },
+  })
+end
+vim.keymap.set('i', '<S-D-v>', '<C-r><C-p>"<cmd>lua FormatPasted()<CR>', { noremap = true, silent = true })
+
+-- more refined paste
+-- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
