@@ -27,7 +27,7 @@ local function config()
           defaultConfig = {
             indent_style = 'space',
             indent_size = '2',
-          }
+          },
         },
         diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
         completion = { callSnippet = 'Replace' },
@@ -171,7 +171,18 @@ local function config()
 
     mapping = {
       -- `Enter` key to confirm completion
-      ['<CR>']      = cmp.mapping.confirm({ select = true }),
+      ['<CR>']      = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.confirm({ select = true })
+
+          if #cmp.get_entries() == 1 then
+            fallback()
+            return
+          end
+        end
+
+        fallback()
+      end),
       ['<C-e>']     = cmp.mapping.abort(),
       -- ['<Esc>'] = cmp.mapping(function(fallback)
       --   if cmp.visible() then
@@ -247,6 +258,9 @@ local function config()
 
     formatting = {
       format = function(entry, vim_item)
+        vim_item.dup = 0
+        vim_item.abbr = string.gsub(vim_item.abbr, '^%s+', '')
+
         if vim.tbl_contains({ 'path' }, entry.source.name) then
           local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
           if icon then
