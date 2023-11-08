@@ -22,7 +22,13 @@ local function config()
   lsp_zero.configure('lua_ls', {
     settings = {
       Lua = {
-        format = { enable = true },
+        format = {
+          enable = true,
+          defaultConfig = {
+            indent_style = 'space',
+            indent_size = '2',
+          }
+        },
         diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
         completion = { callSnippet = 'Replace' },
         -- Do not send telemetry data containing a randomized but unique identifier
@@ -145,7 +151,7 @@ local function config()
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
-      end
+      end,
     },
 
     enabled = function()
@@ -302,7 +308,7 @@ return {
       {
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-        config = false
+        config = false,
       },
       {
         'nvimdev/lspsaga.nvim',
