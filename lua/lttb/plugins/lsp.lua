@@ -53,6 +53,8 @@ local function config()
   lsp_zero.setup()
 
   vim.diagnostic.config({
+    update_in_insert = false,
+
     virtual_text = {
       severity = { min = vim.diagnostic.severity.ERROR },
       source = false,
@@ -85,7 +87,7 @@ local function config()
     show = function(namespace, bufnr, diagnostics, opts)
       orig_underline_handler.show(namespace, bufnr, filter_diagnostics(diagnostics), opts)
     end,
-    hide = orig_virtual_text_handler.hide,
+    hide = orig_underline_handler.hide,
   }
 
 
