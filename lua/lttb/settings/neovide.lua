@@ -22,7 +22,7 @@ elseif theme.colorscheme == 'kanagawa' then
 elseif theme.colorscheme == 'zenwritten' then
   vim.g.neovide_background_color = '#191919'
 elseif theme.colorscheme == 'zengithub' and theme.variant == 'light' then
-  vim.g.neovide_background_color = '#EFF1F5'
+  vim.g.neovide_background_color = '#EDEEEB'
 elseif theme.colorscheme == 'zengithub' and theme.variant == 'dark' then
   vim.g.neovide_background_color = '#22272e'
 elseif theme.variant == 'light' then
