@@ -18,9 +18,9 @@ return {
           null_ls.builtins.code_actions.cspell,
 
           -- null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.eslint_d,
-          null_ls.builtins.formatting.markdownlint,
-          null_ls.builtins.formatting.prettierd,
+          -- null_ls.builtins.formatting.eslint_d,
+          -- null_ls.builtins.formatting.markdownlint,
+          -- null_ls.builtins.formatting.prettierd,
 
           -- not needed as `typescript-tools` provides it
           -- null_ls.builtins.diagnostics.eslint_d,
@@ -35,5 +35,5 @@ return {
         },
       }
     end,
-  }
+  },
 }

@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local utils = require('lttb.utils')
 
 local config = function()
@@ -117,6 +118,16 @@ local config = function()
       },
     },
   })
+
+  -- @see https://phelipetls.github.io/posts/mdx-syntax-highlight-treesitter-nvim/
+
+  vim.filetype.add({
+    extension = {
+      mdx = 'mdx',
+    },
+  })
+
+  vim.treesitter.language.register('markdown', 'mdx')
 end
 
 return {
