@@ -22,6 +22,9 @@ local function config()
   lsp_zero.configure('lua_ls', {
     settings = {
       Lua = {
+        workspace = {
+          checkThirdParty = 'Disable',
+        },
         format = {
           enable = true,
           defaultConfig = {
@@ -66,7 +69,7 @@ local function config()
   local function filter_diagnostics(diagnostics)
     local filtered = {}
     for k, d in pairs(diagnostics) do
-      local code = d.code or (d.user_data.lsp and d.user_data.lsp.code)
+      local code = d.code or (d.user_data and d.user_data.lsp and d.user_data.lsp.code) or ''
 
       if not string.find(code, 'prettier') then
         filtered[k] = d
