@@ -29,7 +29,7 @@ local config = function()
     },
 
     indent = {
-      enable = true,
+      enable = false,
     },
 
     incremental_selection = {

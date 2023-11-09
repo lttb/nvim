@@ -5,8 +5,23 @@ if utils.is_vscode() then
 end
 
 return {
-  { 'nmac427/guess-indent.nvim', opts = {} },
-  { 'vidocqh/auto-indent.nvim',  opts = {} },
+  {
+    enabled = true,
+    'nmac427/guess-indent.nvim',
+    opts = {},
+  },
+  {
+    enabled = true,
+    'vidocqh/auto-indent.nvim',
+    opts = {
+      lightmode = false,
+      ---@param lnum: number
+      ---@return number
+      indentexpr = function(lnum)
+        return require('nvim-treesitter.indent').get_indent(lnum)
+      end,
+    },
+  },
 
   {
     'windwp/nvim-ts-autotag',
