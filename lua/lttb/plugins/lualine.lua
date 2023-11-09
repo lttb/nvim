@@ -24,21 +24,9 @@ local function config()
 
     sections = {
       lualine_a = { { 'mode' } },
-      lualine_b = {
-        {
-          -- color = 'CursorLine'
-        },
-      },
-      lualine_c = {
-        {
-          -- color = 'CursorLine'
-        },
-      },
-      lualine_x = {
-        {
-          -- color = 'CursorLine'
-        },
-      },
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
       lualine_y = { 'branch', 'diff', 'diagnostics', 'filetype', 'progress' },
       lualine_z = {
         {
@@ -71,6 +59,18 @@ local function config()
     --   -- },
     -- },
   })
+
+  vim.schedule(function()
+    local color = require('lttb.utils.color')
+    local function patch(mode)
+      local hl = 'lualine_a_' .. mode
+      color.extend_hl(hl, { bg = 'NONE', fg = color.alpha_hl(hl, 'bg', 1), default = false })
+    end
+
+    patch('normal')
+    patch('insert')
+    patch('visual')
+  end)
 end
 
 return {
