@@ -14,7 +14,7 @@ return {
       return {
         { '<S-D-p>', '<cmd>Telescope<cr>', desc = 'Telescope' },
         -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        { '<S-M-p>', '<S-D-p>', remap = true },
+        { '<S-M-p>', '<S-D-p>',            remap = true },
 
         {
           '<D-f>',
@@ -41,7 +41,7 @@ return {
           desc = 'Search by Grep',
         },
         -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        { '<S-M-f>', '<S-D-f>', remap = true },
+        { '<S-M-f>', '<S-D-f>',                   remap = true },
 
         {
           '<D-o>',
@@ -70,7 +70,7 @@ return {
           desc = 'Search Files',
         },
 
-        { '<D-r>', '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' },
+        { '<D-r>',   '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' },
 
         {
           '<leader>sgt',
@@ -117,10 +117,10 @@ return {
           desc = 'Search Submodules',
         },
 
-        { '<leader>sh', builtin.help_tags, desc = 'Search Help' },
-        { '<leader>sd', builtin.diagnostics, desc = 'Search Diagnostics' },
-        { '<leader>sw', builtin.grep_string, desc = 'Search Word' },
-        { 'gs', builtin.lsp_document_symbols, desc = 'LSP: Goto Symbols' },
+        { '<leader>sh', builtin.help_tags,            desc = 'Search Help' },
+        { '<leader>sd', builtin.diagnostics,          desc = 'Search Diagnostics' },
+        { '<leader>sw', builtin.grep_string,          desc = 'Search Word' },
+        { 'gs',         builtin.lsp_document_symbols, desc = 'LSP: Goto Symbols' },
 
         -- {{{ LSP
 
@@ -170,6 +170,8 @@ return {
 
     opts = {
       defaults = {
+        winblend = 10,
+
         mappings = {
           i = {
             ['<esc>'] = 'close',
