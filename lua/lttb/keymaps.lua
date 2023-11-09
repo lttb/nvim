@@ -16,7 +16,7 @@ vim.keymap.set('n', '<C-O>', '<C-O>zv', { remap = true })
 vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
 
 -- Simplify switch no normal mode
-vim.keymap.set({ 'i', 'c', 'v', 't' }, '<M-Space>', '<C-\\><C-n>')
+vim.keymap.set({ 'i', 'c', 'v', 't' }, '<M-ESC>', '<C-\\><C-n>')
 
 if utils.is_vscode() then
   return
