@@ -7,7 +7,7 @@ local theme = require('lttb.theme')
 --   -- ':#h-full',
 -- }
 
-vim.opt.guifont = 'Fira Code:h15:w0:#e-subpixelantialias:#h-slight'
+vim.opt.guifont = 'Fira Code:h14:w0.5:#h-slight'
 vim.opt.linespace = 6
 
 if theme.colorscheme == 'github_dark' then
@@ -25,6 +25,8 @@ elseif theme.colorscheme == 'zengithub' and theme.variant == 'light' then
   vim.g.neovide_background_color = '#EDEEEB'
 elseif theme.colorscheme == 'zengithub' and theme.variant == 'dark' then
   vim.g.neovide_background_color = '#22272e'
+elseif theme.variant == 'light' and theme.name == 'rose-pine' then
+  vim.g.neovide_background_color = '#faf4ed'
 elseif theme.variant == 'light' then
   vim.g.neovide_background_color = '#ffffff'
 end

@@ -35,7 +35,7 @@ return {
     },
     opts = {
       window = {
-        width = utils.is_neovide() and 50 or '25%',
+        width = utils.is_neovide() and 60 or '25%',
 
         min_width = 40,
 
