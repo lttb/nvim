@@ -88,6 +88,29 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     })
     color.extend_hl('IblScope', {
       fg = color.alpha(normalHL.fg, 0.25),
+      link = 'IblScope',
+    })
+
+    color.extend_hl('FloatBorder', {
+      -- bg = normalHL.bg,
+      bg = 'NONE',
+    })
+    color.extend_hl('NormalFloat', {
+      bg = normalHL.bg,
+    })
+    -- color.extend_hl('HoverBorder', {
+    --   bg = 'NONE',
+    --   default = 'false',
+    --   -- link = 'HoverNormal',
+    -- })
+    color.extend_hl('TelescopeBorder', {
+      bg = normalHL.bg,
+    })
+    color.extend_hl('TelescopeNormal', {
+      bg = normalHL.bg,
+    })
+    color.extend_hl('TelescopePromptNormal', {
+      bg = normalHL.bg,
     })
   end,
 })
