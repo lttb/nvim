@@ -38,39 +38,56 @@ local function config()
   })
 
 
-  lsp_zero.preset('recommended')
+  lsp_zero.preset({
+    name = 'recommended',
+  })
 
   lsp_zero.on_attach(function(client, bufnr)
+    client.server_capabilities.semanticTokensProvider = nil
+
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
     lsp_zero.default_keymaps({ buffer = bufnr })
-
-    -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-line-diagnostics-automatically-in-hover-window
-    -- vim.api.nvim_create_autocmd('CursorHold', {
-    --   buffer = bufnr,
-    --   callback = function()
-    --     vim.diagnostic.open_float(nil, {
-    --       focusable = false,
-    --       wrap = true,
-    --       border = 'rounded',
-    --       close_events = {
-    --         'BufLeave',
-    --         'CursorMoved',
-    --         'InsertEnter',
-    --         'FocusLost',
-    --         'WinNew',
-    --       },
-    --       source = 'always',
-    --       prefix = ' ',
-    --       scope = 'cursor',
-    --     })
-    --   end,
-    -- })
   end)
 
   lsp_zero.setup()
 
-  vim.diagnostic.config({ virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } } })
+  vim.diagnostic.config({
+    virtual_text = {
+      severity = { min = vim.diagnostic.severity.ERROR },
+      source = false,
+      spacing = 1,
+    },
+  })
+
+  local orig_virtual_text_handler = vim.diagnostic.handlers.virtual_text
+  local orig_underline_handler = vim.diagnostic.handlers.underline
+
+  local function filter_diagnostics(diagnostics)
+    local filtered = {}
+    for k, d in pairs(diagnostics) do
+      local code = d.code or (d.user_data.lsp and d.user_data.lsp.code)
+
+      if not string.find(code, 'prettier') then
+        filtered[k] = d
+      end
+    end
+
+    return filtered
+  end
+  vim.diagnostic.handlers.virtual_text = {
+    show = function(namespace, bufnr, diagnostics, opts)
+      orig_virtual_text_handler.show(namespace, bufnr, filter_diagnostics(diagnostics), opts)
+    end,
+    hide = orig_virtual_text_handler.hide,
+  }
+  vim.diagnostic.handlers.underline = {
+    show = function(namespace, bufnr, diagnostics, opts)
+      orig_underline_handler.show(namespace, bufnr, filter_diagnostics(diagnostics), opts)
+    end,
+    hide = orig_virtual_text_handler.hide,
+  }
+
 
   require('mason').setup({})
   require('mason-lspconfig').setup({
@@ -173,9 +190,10 @@ local function config()
       -- `Enter` key to confirm completion
       ['<CR>']      = cmp.mapping(function(fallback)
         if cmp.visible() then
+          local entries_count = #cmp.get_entries()
           cmp.confirm({ select = true })
 
-          if #cmp.get_entries() == 1 then
+          if entries_count == 1 then
             fallback()
             return
           end
