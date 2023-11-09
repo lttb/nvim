@@ -22,9 +22,6 @@ local function config()
   lsp_zero.configure('lua_ls', {
     settings = {
       Lua = {
-        workspace = {
-          checkThirdParty = 'Disable',
-        },
         format = {
           enable = true,
           defaultConfig = {
@@ -32,7 +29,8 @@ local function config()
             indent_size = '2',
           },
         },
-        diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
+        -- NOTE: it seems a bit slow
+        -- diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
         completion = { callSnippet = 'Replace' },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = { enable = false },
@@ -47,7 +45,6 @@ local function config()
 
   lsp_zero.on_attach(function(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
-
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
     lsp_zero.default_keymaps({ buffer = bufnr })
@@ -354,7 +351,7 @@ return {
         },
         config = function()
           require('lspsaga').setup({
-            ui = { code_action = '' },
+            ui = { code_action = '', border = 'rounded' },
             lightbulb = { enable = false },
             hover = { max_width = 0.4 },
             rename = { keys = { quit = '<ESC>' } },
