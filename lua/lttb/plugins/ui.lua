@@ -106,7 +106,7 @@ return {
           command_palette       = true,  -- position the cmdline and popupmenu together
           long_message_to_split = true,  -- long messages will be sent to a split
           inc_rename            = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border        = true,  -- add a border to hover docs and signature help
+          lsp_doc_border        = false, -- add a border to hover docs and signature help
         },
 
         messages = {
@@ -114,11 +114,43 @@ return {
           view_warn  = 'mini',
           view       = 'mini',
         },
+
+        -- @see https://github.com/LazyVim/LazyVim/discussions/830
+        routes = {
+          filter = {
+            event = 'notify',
+            find = 'No information available',
+          },
+          opts = { skip = true },
+        },
+
+        notify = {
+          enabled = false,
+        },
       },
       dependencies = {
         'MunifTanjim/nui.nvim',
         'rcarriga/nvim-notify',
       },
+    },
+
+    {
+      'rcarriga/nvim-notify',
+      init = function()
+        vim.schedule(function()
+          -- See https://github.com/neovim/nvim-lspconfig/issues/1931#issuecomment-1297599534
+          -- An alternative solution: https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
+          local banned_messages = { 'No information available' }
+          vim.notify = function(msg, ...)
+            for _, banned in ipairs(banned_messages) do
+              if msg == banned then
+                return
+              end
+            end
+            return require('notify')(msg, ...)
+          end
+        end, 100)
+      end,
     },
 
     {
