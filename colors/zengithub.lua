@@ -16,11 +16,11 @@ if bg == 'light' then
   palette = util.palette_extend({
     bg = hsluv('#EDEEEB'),
     fg = hsluv('#1f2328'),
-    rose = hsluv('#d1242f'),
-    leaf = hsluv('#1a7f37'),
-    wood = hsluv('#bf3989'),
-    water = hsluv('#0969da'),
-    blossom = hsluv('#8250df'),
+    -- rose = hsluv('#d1242f'),
+    -- leaf = hsluv('#1a7f37'),
+    -- wood = hsluv('#bf3989'),
+    -- water = hsluv('#0969da'),
+    -- blossom = hsluv('#8250df'),
     sky = hsluv('#6e7781'),
 
     -- gold = hsluv('#9a6700'),
@@ -104,6 +104,9 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
     sym('@method')({ gui = 'NONE' }),
     sym('@tag')({ fg = palette.wood, gui = 'NONE' }),
     sym('@constructor')({ fg = palette.wood, gui = 'NONE' }),
+
+    sym('@constant')({ fg = palette.wood, gui = 'NONE' }),
+
 
     sym('@string')({ fg = palette.sky, gui = 'NONE' }),
     sym('@number')({ fg = palette.sky, gui = 'NONE' }),

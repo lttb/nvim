@@ -1,5 +1,13 @@
+local theme = require('lttb.theme')
+
 local common_fg = '#636c76'
 local inactive_bg = '#22272e'
+
+if theme.variant == 'light' then
+  common_fg = '#1f2328'
+  inactive_bg = '#EDEEEB'
+end
+
 local inactive_fg = common_fg
 
 return {
