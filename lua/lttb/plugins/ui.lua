@@ -356,6 +356,7 @@ return {
 
     {
       'mvllow/modes.nvim',
+      event = 'BufEnter',
       opts = {
         line_opacity = 0.1,
 

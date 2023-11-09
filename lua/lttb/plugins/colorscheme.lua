@@ -174,5 +174,16 @@ return {
     dependencies = { 'rktjmp/lush.nvim' },
   },
 
-  { 'wadackel/vim-dogrun', lazy = true, priority = 1000 },
+  {
+    'wadackel/vim-dogrun',
+    lazy = true,
+    priority = 1000,
+  },
+
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    lazy = true,
+    priority = 1000
+  },
 }

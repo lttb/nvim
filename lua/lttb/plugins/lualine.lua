@@ -11,7 +11,7 @@ local function config()
   require('lualine').setup({
     options = {
       icons_enabled = true,
-      theme = require('lttb.themes.zengithub_lualine'),
+      theme = theme.name == 'zengithub' and require('lttb.themes.zengithub_lualine') or 'auto',
 
       component_separators = '|',
       section_separators = '',
@@ -24,9 +24,21 @@ local function config()
 
     sections = {
       lualine_a = { { 'mode' } },
-      lualine_b = { { color = 'CursorLine' } },
-      lualine_c = { { color = 'CursorLine' } },
-      lualine_x = { { color = 'CursorLine' } },
+      lualine_b = {
+        {
+          -- color = 'CursorLine'
+        },
+      },
+      lualine_c = {
+        {
+          -- color = 'CursorLine'
+        },
+      },
+      lualine_x = {
+        {
+          -- color = 'CursorLine'
+        },
+      },
       lualine_y = { 'branch', 'diff', 'diagnostics', 'filetype', 'progress' },
       lualine_z = {
         {

@@ -36,6 +36,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       hi NeoTreeFileNameOpened gui=bold
     ]])
 
+
     local normalHL = vim.api.nvim_get_hl(0, { name = 'Normal' })
     local splitLineHL = vim.api.nvim_get_hl(0, { name = 'CursorLine' })
 
@@ -59,6 +60,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
     color.extend_hl('MiniCursorword', {
       bg = color.alpha_hl('DiagnosticInfo', 'fg', 0.2),
+      underline = false,
+      default = false,
     })
 
     color.extend_hl('DiagnosticUnderlineWarn', {
@@ -76,6 +79,14 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     })
 
     color.extend_hl('GitSignsCurrentLineBlame', {
+      fg = color.alpha(normalHL.fg, 0.25),
+    })
+
+    color.extend_hl('IblIndent', {
+      fg = color.alpha(normalHL.fg, 0.1),
+      link = 'IblIndent',
+    })
+    color.extend_hl('IblScope', {
       fg = color.alpha(normalHL.fg, 0.25),
     })
   end,
