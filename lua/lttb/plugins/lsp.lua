@@ -354,7 +354,7 @@ return {
         },
         config = function()
           require('lspsaga').setup({
-            ui = { code_action = '', border = 'rounded' },
+            ui = { code_action = '', border = 'solid' },
             lightbulb = { enable = false },
             hover = { max_width = 0.4 },
             rename = { keys = { quit = '<ESC>' } },

@@ -54,9 +54,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       bg = normalHL.bg,
     })
 
-    color.extend_hl('MiniMapNormal', {
-      bg = normalHL.bg,
-    })
+    -- color.extend_hl('MiniMapNormal', {
+    --   bg = normalHL.bg,
+    -- })
 
     color.extend_hl('MiniCursorword', {
       bg = color.alpha_hl('DiagnosticInfo', 'fg', 0.2),
@@ -91,13 +91,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       link = 'IblScope',
     })
 
-    color.extend_hl('FloatBorder', {
-      -- bg = normalHL.bg,
-      bg = 'NONE',
-    })
-    color.extend_hl('NormalFloat', {
-      bg = normalHL.bg,
-    })
     -- color.extend_hl('HoverBorder', {
     --   bg = 'NONE',
     --   default = 'false',
@@ -112,6 +105,47 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     color.extend_hl('TelescopePromptNormal', {
       bg = normalHL.bg,
     })
+
+    vim.schedule(function()
+      local function patch(mode)
+        local hl = 'lualine_a_' .. mode
+        color.extend_hl(hl, { bg = 'NONE', fg = color.alpha_hl(hl, 'bg', 1), default = false })
+      end
+
+      patch('normal')
+      patch('insert')
+      patch('visual')
+
+      -- color.extend_hl('NormalFloat', {
+      --   bg = normalHL.bg,
+      --   blend = 1,
+      --   link = 'NormalFloat',
+      -- })
+
+      -- color.extend_hl('FloatBorder', {
+      --   bg = normalHL.bg,
+      --   blend = 1,
+      --   link = 'NormalFloat',
+      -- })
+
+      -- color.extend_hl('NoiceCmdlinePopup', {
+      --   bg = normalHL.bg,
+      --   blend = 1,
+      --   link = 'NormalFloat',
+      -- })
+
+      -- color.extend_hl('NoiceCmdlinePopupBorder', {
+      --   sp = normalHL.bg,
+      --   fg = 'NONE',
+      --   bg = 'NONE',
+      --   blend = 1,
+      --   link = 'NormalFloat',
+      -- })
+
+      color.extend_hl('Normal', {
+        bg = 'NONE',
+      })
+    end)
   end,
 })
 

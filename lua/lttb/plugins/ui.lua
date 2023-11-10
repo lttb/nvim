@@ -127,6 +127,12 @@ return {
         notify = {
           enabled = false,
         },
+
+        views = {
+          cmdline_popup = {
+            border = { style = 'solid' },
+          },
+        },
       },
       dependencies = {
         'MunifTanjim/nui.nvim',
