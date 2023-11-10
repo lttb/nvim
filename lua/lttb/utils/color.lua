@@ -20,8 +20,11 @@ end
 
 function M.alpha(from, level)
   local normalHL = vim.api.nvim_get_hl(0, { name = 'Normal' })
+  local floatHL = vim.api.nvim_get_hl(0, { name = 'CursorLine' })
 
-  return M.blend_hex(from, normalHL.bg, level)
+  print('hl', normalHL.bg, floatHL.bg)
+
+  return M.blend_hex(from, normalHL.bg or floatHL.bg, level)
 end
 
 function M.alpha_hl(hl_name, color_name, level)

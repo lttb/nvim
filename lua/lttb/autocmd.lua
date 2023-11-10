@@ -129,29 +129,19 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       link = 'NoiceCmdlinePopupBorder',
     })
 
+    color.extend_hl('NormalFloat', {
+      bg = normalHL.bg,
+      blend = 1,
+      link = 'NormalFloat',
+    })
+
+    color.extend_hl('FloatBorder', {
+      bg = normalHL.bg,
+      blend = 1,
+      link = 'NormalFloat',
+    })
+
     vim.schedule(function()
-      local function patch(mode)
-        local hl = 'lualine_a_' .. mode
-        color.extend_hl(hl, { bg = 'NONE', fg = color.alpha_hl(hl, 'bg', 1), default = false })
-      end
-
-      patch('normal')
-      patch('visual')
-      patch('insert')
-      patch('command')
-
-      color.extend_hl('NormalFloat', {
-        bg = normalHL.bg,
-        blend = 1,
-        link = 'NormalFloat',
-      })
-
-      color.extend_hl('FloatBorder', {
-        bg = normalHL.bg,
-        blend = 1,
-        link = 'NormalFloat',
-      })
-
       -- TODO: automatically detect transparency mode
       if utils.is_kitty() then
         color.extend_hl('Normal', {

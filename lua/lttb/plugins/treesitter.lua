@@ -12,15 +12,15 @@ local config = function()
       enable = true,
     },
 
-    refactor = {
-      highlight_definitions = {
-        enable = false,
-        -- Set to false if you have an `updatetime` of ~100.
-        clear_on_cursor_move = true,
-      },
+    -- refactor = {
+    --   highlight_definitions = {
+    --     enable = false,
+    --     -- Set to false if you have an `updatetime` of ~100.
+    --     clear_on_cursor_move = true,
+    --   },
 
-      highlight_current_scope = { enable = false },
-    },
+    --   highlight_current_scope = { enable = false },
+    -- },
 
     highlight = {
       enable = not utils.is_vscode(),
@@ -139,7 +139,7 @@ return {
     end,
     config = config,
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-refactor',
+      -- 'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
       'RRethy/nvim-treesitter-textsubjects',
       { 'nvim-treesitter/playground', enabled = not utils.is_vscode() },

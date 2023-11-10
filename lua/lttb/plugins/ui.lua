@@ -96,23 +96,23 @@ return {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
             ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-            ['vim.lsp.util.stylize_markdown']                = true,
-            ['cmp.entry.get_documentation']                  = true,
+            ['vim.lsp.util.stylize_markdown'] = true,
+            ['cmp.entry.get_documentation'] = true,
           },
         },
         -- you can enable a preset for easier configuration
         presets = {
-          bottom_search         = true,  -- use a classic bottom cmdline for search
-          command_palette       = true,  -- position the cmdline and popupmenu together
-          long_message_to_split = true,  -- long messages will be sent to a split
-          inc_rename            = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border        = false, -- add a border to hover docs and signature help
+          bottom_search = true,         -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false,       -- add a border to hover docs and signature help
         },
 
         messages = {
           view_error = 'mini',
-          view_warn  = 'mini',
-          view       = 'mini',
+          view_warn = 'mini',
+          view = 'mini',
         },
 
         -- @see https://github.com/LazyVim/LazyVim/discussions/830
@@ -130,7 +130,7 @@ return {
 
         views = {
           cmdline_popup = {
-            border = { style = 'solid' },
+            border = { style = 'none', padding = { 1, 1 } },
           },
         },
       },
@@ -172,6 +172,8 @@ return {
 
     {
       'utilyre/barbecue.nvim',
+      -- lags in neovide
+      enabled = false,
       name = 'barbecue',
       version = '*',
       dependencies = {
@@ -179,7 +181,7 @@ return {
         'nvim-tree/nvim-web-devicons', -- optional dependency
       },
       opts = {
-        create_autocmd = false,
+        create_autocmd = true,
 
         show_modified = true,
       },
@@ -445,5 +447,7 @@ return {
         },
       },
     },
+
+    { 'xiyaowong/transparent.nvim' },
   },
 }
