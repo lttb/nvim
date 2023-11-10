@@ -167,6 +167,7 @@ return {
     {
       'utilyre/barbecue.nvim',
       name = 'barbecue',
+      cond = not utils.is_neovide(),
       version = '*',
       dependencies = {
         'SmiteshP/nvim-navic',
@@ -177,6 +178,34 @@ return {
 
         show_modified = true,
       },
+      init = function()
+        -- Gain better performance when moving the cursor around
+        -- @see https://github.com/utilyre/barbecue.nvim#-recipes
+        vim.api.nvim_create_autocmd({
+          'WinScrolled', -- or WinResized on NVIM-v0.9 and higher
+          'BufWinEnter',
+          'CursorHold',
+          'InsertLeave',
+
+          -- include this if you have set `show_modified` to `true`
+          'BufModifiedSet',
+        }, {
+          group = vim.api.nvim_create_augroup('barbecue.updater', {}),
+          callback = function()
+            require('barbecue.ui').update()
+          end,
+        })
+      end,
+    },
+
+    {
+      'Bekaboo/dropbar.nvim',
+      enabled = false,
+      -- optional, but required for fuzzy finder support
+      dependencies = {
+        'nvim-telescope/telescope-fzf-native.nvim',
+      },
+      opts = {},
     },
 
     {
