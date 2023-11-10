@@ -69,8 +69,9 @@ local function config()
     local filtered = {}
     for k, d in pairs(diagnostics) do
       local code = d.code or (d.user_data and d.user_data.lsp and d.user_data.lsp.code) or ''
+      local is_ignored = string.find(code, 'prettier') or string.find(code, 'no%-unused%-vars')
 
-      if not string.find(code, 'prettier') then
+      if not is_ignored then
         filtered[k] = d
       end
     end
