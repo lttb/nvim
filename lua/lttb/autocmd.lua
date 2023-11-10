@@ -36,7 +36,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       hi NeoTreeFileNameOpened gui=bold
     ]])
 
-
     local normalHL = vim.api.nvim_get_hl(0, { name = 'Normal' })
     local splitLineHL = vim.api.nvim_get_hl(0, { name = 'CursorLine' })
 
@@ -91,6 +90,17 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       link = 'IblScope',
     })
 
+    vim.api.nvim_set_hl(0, 'Todo', {
+      underline = false,
+    })
+
+    vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {
+      bg = 'NONE',
+      fg = color.alpha_hl('Normal', 'fg', 0.3),
+      underline = false,
+      reverse = false,
+    })
+
     -- color.extend_hl('HoverBorder', {
     --   bg = 'NONE',
     --   default = 'false',
@@ -106,6 +116,19 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       bg = normalHL.bg,
     })
 
+    color.extend_hl('NoiceCmdlinePopup', {
+      bg = splitLineHL.bg,
+      -- blend = 90,
+      default = false,
+    })
+
+    color.extend_hl('NoiceCmdlinePopupBorder', {
+      fg = normalHL.bg,
+      bg = 'NONE',
+      default = false,
+      link = 'NoiceCmdlinePopupBorder',
+    })
+
     vim.schedule(function()
       local function patch(mode)
         local hl = 'lualine_a_' .. mode
@@ -113,38 +136,28 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       end
 
       patch('normal')
-      patch('insert')
       patch('visual')
+      patch('insert')
+      patch('command')
 
-      -- color.extend_hl('NormalFloat', {
-      --   bg = normalHL.bg,
-      --   blend = 1,
-      --   link = 'NormalFloat',
-      -- })
-
-      -- color.extend_hl('FloatBorder', {
-      --   bg = normalHL.bg,
-      --   blend = 1,
-      --   link = 'NormalFloat',
-      -- })
-
-      -- color.extend_hl('NoiceCmdlinePopup', {
-      --   bg = normalHL.bg,
-      --   blend = 1,
-      --   link = 'NormalFloat',
-      -- })
-
-      -- color.extend_hl('NoiceCmdlinePopupBorder', {
-      --   sp = normalHL.bg,
-      --   fg = 'NONE',
-      --   bg = 'NONE',
-      --   blend = 1,
-      --   link = 'NormalFloat',
-      -- })
-
-      color.extend_hl('Normal', {
-        bg = 'NONE',
+      color.extend_hl('NormalFloat', {
+        bg = normalHL.bg,
+        blend = 1,
+        link = 'NormalFloat',
       })
+
+      color.extend_hl('FloatBorder', {
+        bg = normalHL.bg,
+        blend = 1,
+        link = 'NormalFloat',
+      })
+
+      -- TODO: automatically detect transparency mode
+      if utils.is_kitty() then
+        color.extend_hl('Normal', {
+          bg = 'NONE',
+        })
+      end
     end)
   end,
 })
@@ -175,17 +188,17 @@ end
 
 -- Gain better performance when moving the cursor around
 -- @see https://github.com/utilyre/barbecue.nvim#-recipes
-vim.api.nvim_create_autocmd({
-  'WinScrolled', -- or WinResized on NVIM-v0.9 and higher
-  'BufWinEnter',
-  'CursorHold',
-  'InsertLeave',
+-- vim.api.nvim_create_autocmd({
+--   'WinScrolled', -- or WinResized on NVIM-v0.9 and higher
+--   'BufWinEnter',
+--   'CursorHold',
+--   'InsertLeave',
 
-  -- include this if you have set `show_modified` to `true`
-  'BufModifiedSet',
-}, {
-  group = vim.api.nvim_create_augroup('barbecue.updater', {}),
-  callback = function()
-    require('barbecue.ui').update()
-  end,
-})
+--   -- include this if you have set `show_modified` to `true`
+--   'BufModifiedSet',
+-- }, {
+--   group = vim.api.nvim_create_augroup('barbecue.updater', {}),
+--   callback = function()
+--     require('barbecue.ui').update()
+--   end,
+-- })

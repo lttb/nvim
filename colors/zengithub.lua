@@ -55,21 +55,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       fg = palette.sky.hex,
       default = false,
     })
-
-    vim.api.nvim_set_hl(0, 'NormalFloat', {
-      link = 'Normal',
-    })
-
-    vim.api.nvim_set_hl(0, 'Todo', {
-      underline = false,
-    })
-
-    vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {
-      bg = 'NONE',
-      fg = palette.fg.mix(palette.bg, 70).hex,
-      underline = false,
-      reverse = false,
-    })
   end,
 })
 
