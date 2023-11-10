@@ -355,9 +355,13 @@ return {
         config = function()
           require('lspsaga').setup({
             ui = { code_action = '', border = 'rounded' },
-            lightbulb = { enable = false },
             hover = { max_width = 0.4 },
             rename = { keys = { quit = '<ESC>' } },
+
+            lightbulb = { enable = false },
+            symbol_in_winbar = { enable = false },
+            implement = { enable = false },
+            beacon = { enable = false },
           })
         end,
       },
