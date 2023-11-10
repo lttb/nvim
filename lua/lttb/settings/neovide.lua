@@ -31,8 +31,8 @@ elseif theme.variant == 'light' then
   vim.g.neovide_background_color = '#ffffff'
 end
 
-vim.g.neovide_floating_blur_amount_x = 2.0
-vim.g.neovide_floating_blur_amount_y = 2.0
+vim.g.neovide_floating_blur_amount_x = 10.0
+vim.g.neovide_floating_blur_amount_y = 10.0
 
 vim.g.neovide_fullscreen = false
 
@@ -45,7 +45,7 @@ vim.g.neovide_input_use_logo = true
 vim.keymap.set('x', '<D-x>', '"+d') -- cut
 vim.keymap.set('x', '<D-c>', '"+y') -- copy
 vim.keymap.set('i', '<D-v>',
-  '<C-r><C-p>+<cmd>lua FormatPasted()<CR>',
+  '<C-r><C-p>+',
   { noremap = true, silent = true })
 vim.keymap.set('n', '<D-v>',
   'i<C-r><C-p>+<cmd>lua FormatPasted()<CR><ESC>l',
@@ -67,3 +67,5 @@ vim.g.neovide_refresh_rate    = 144
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 
 vim.g.neovide_floating_shadow = false
+
+vim.g.neovide_transparency    = 0.5
