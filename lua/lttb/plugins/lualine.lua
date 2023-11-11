@@ -38,7 +38,9 @@ local function config()
                 if #client_messages > 0 then
                   return sign .. ' ' .. table.concat(client_messages, ' ')
                 end
-                if #vim.lsp.get_clients() > 0 then
+
+                local clients = (vim.lsp and vim.lsp.get_clients and vim.lsp.get_clients()) or nil
+                if clients ~= nil and #clients > 0 then
                   return sign
                 end
                 return ''
