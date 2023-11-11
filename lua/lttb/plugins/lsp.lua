@@ -19,6 +19,16 @@ local function config()
   require('neoconf').setup({})
   require('typescript-tools').setup({})
 
+  vim.diagnostic.config({
+    update_in_insert = false,
+
+    virtual_text = {
+      severity = { min = vim.diagnostic.severity.ERROR },
+      source = false,
+      spacing = 1,
+    },
+  })
+
   lsp_zero.configure('lua_ls', {
     settings = {
       Lua = {
@@ -38,11 +48,6 @@ local function config()
     },
   })
 
-
-  lsp_zero.preset({
-    name = 'recommended',
-  })
-
   lsp_zero.on_attach(function(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
     -- see :help lsp-zero-keybindings
@@ -51,16 +56,6 @@ local function config()
   end)
 
   lsp_zero.setup()
-
-  vim.diagnostic.config({
-    update_in_insert = false,
-
-    virtual_text = {
-      severity = { min = vim.diagnostic.severity.ERROR },
-      source = false,
-      spacing = 1,
-    },
-  })
 
   local orig_virtual_text_handler = vim.diagnostic.handlers.virtual_text
   local orig_underline_handler = vim.diagnostic.handlers.underline
@@ -339,7 +334,6 @@ return {
 
       'L3MON4D3/LuaSnip',
 
-      { 'hinell/lsp-timeout.nvim', enabled = false, dependencies = { 'neovim/nvim-lspconfig' } },
       {
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
@@ -347,6 +341,7 @@ return {
       },
       {
         'nvimdev/lspsaga.nvim',
+        enabled = false,
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
           { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
@@ -365,6 +360,8 @@ return {
           })
         end,
       },
+
+      { 'hinell/lsp-timeout.nvim', enabled = false, dependencies = { 'neovim/nvim-lspconfig' } },
 
       {
         'aznhe21/actions-preview.nvim',
