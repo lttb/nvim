@@ -9,7 +9,19 @@ return {
     'folke/flash.nvim',
     event = 'VeryLazy',
     ---@type Flash.Config
-    opts = {},
+    opts = {
+      search = {
+        incremental = true,
+        mode = 'fuzzy',
+      },
+
+      continue = true,
+
+      remote_op = {
+        restore = true,
+        motion = true,
+      },
+    },
     keys = function()
       local flash = require('flash')
 
@@ -39,6 +51,7 @@ return {
 
   {
     'chaoren/vim-wordmotion',
+    enabled = false,
     init = function()
       vim.g.wordmotion_prefix = ';'
     end,
@@ -54,6 +67,8 @@ return {
       if utils.is_vscode() then
         return
       end
+
+      require('mini.bufremove').setup({})
 
       require('mini.cursorword').setup({})
 
@@ -102,5 +117,42 @@ return {
         },
       })
     end,
+  },
+
+  {
+    'chrisgrieser/nvim-spider',
+    opts = {},
+    keys = {
+      {
+        'e',
+        "<cmd>lua require('spider').motion('e')<CR>",
+        desc = 'Spider-e',
+        mode = { 'n', 'o', 'x' },
+      },
+      {
+        'w',
+        "<cmd>lua require('spider').motion('w')<CR>",
+        desc = 'Spider-w',
+        mode = { 'n', 'o', 'x' },
+      },
+      {
+        'b',
+        "<cmd>lua require('spider').motion('b')<CR>",
+        desc = 'Spider-b',
+        mode = { 'n', 'o', 'x' },
+      },
+      {
+        'ge',
+        "<cmd>lua require('spider').motion('ge')<CR>",
+        desc = 'Spider-ge',
+        mode = { 'n', 'o', 'x' },
+      },
+    },
+  },
+
+  {
+    'chrisgrieser/nvim-various-textobjs',
+    lazy = false,
+    opts = { useDefaultKeymaps = true },
   },
 }
