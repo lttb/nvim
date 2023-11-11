@@ -184,6 +184,10 @@ return {
     'rose-pine/neovim',
     name = 'rose-pine',
     lazy = true,
-    priority = 1000
+    priority = 1000,
   },
+
+  { 'ronisbr/nano-theme.nvim', lazy = true, priority = 1000 },
+
+  { 'kvrohit/rasmus.nvim',     lazy = true, priority = 1000 },
 }
