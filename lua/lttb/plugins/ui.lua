@@ -15,20 +15,19 @@ return {
     {
       'declancm/cinnamon.nvim',
       enabled = false,
-      config = function()
-        require('cinnamon').setup({
-          default_keymaps = true,
-          extra_keymaps = true,
-          extended_keymaps = true,
+      opts = {
+        default_keymaps = true,
+        extra_keymaps = true,
+        extended_keymaps = true,
 
-          hide_cursor = true,
-          max_length = 50,
-          scroll_limit = 150,
-          always_scroll = true,
-        })
-      end,
-      -- enabled = not utils.is_neovide(),
+        hide_cursor = true,
+        max_length = 50,
+        scroll_limit = 150,
+        always_scroll = true,
+      },
     },
+
+    -- { 'karb94/neoscroll.nvim', opts = {} },
 
     {
       'numToStr/FTerm.nvim',
@@ -99,6 +98,18 @@ return {
             ['vim.lsp.util.stylize_markdown']                = true,
             ['cmp.entry.get_documentation']                  = true,
           },
+
+          progress = {
+            enabled = false,
+          },
+
+          signature = {
+            enabled = false,
+          },
+
+          message = {
+            view = 'mini',
+          },
         },
         -- you can enable a preset for easier configuration
         presets = {
@@ -106,7 +117,7 @@ return {
           command_palette       = true,  -- position the cmdline and popupmenu together
           long_message_to_split = true,  -- long messages will be sent to a split
           inc_rename            = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border        = false, -- add a border to hover docs and signature help
+          lsp_doc_border        = true,  -- add a border to hover docs and signature help
         },
 
         messages = {
@@ -127,6 +138,7 @@ return {
         notify = {
           enabled = false,
         },
+
       },
       dependencies = {
         'MunifTanjim/nui.nvim',
@@ -149,7 +161,7 @@ return {
             end
             return require('notify')(msg, ...)
           end
-        end, 100)
+        end)
       end,
     },
 
