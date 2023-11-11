@@ -21,6 +21,12 @@ return {
         restore = true,
         motion = true,
       },
+
+      modes = {
+        search = {
+          enabled = true,
+        },
+      },
     },
     keys = function()
       local flash = require('flash')
