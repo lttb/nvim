@@ -126,3 +126,52 @@ vim.keymap.set('i', '<S-D-v>', '<C-r><C-p>+<cmd>lua FormatPasted()<CR>', { norem
 
 -- more refined paste
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
+
+local function trim_and_yank(start_line, end_line)
+  -- Get the lines in the range
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+  -- Find the minimum indentation
+  local min_indent = nil
+  for _, line in ipairs(lines) do
+    local indent = line:match('^%s*')
+    if min_indent == nil or #indent < #min_indent then
+      min_indent = indent
+    end
+  end
+
+  -- Remove the minimum indentation and join lines
+  local trimmed_text = table.concat(vim.tbl_map(function(line)
+    return line:sub(#min_indent + 1)
+  end, lines), '\n')
+
+  -- Yank the trimmed text into the unnamed register
+  vim.fn.setreg('"', trimmed_text)
+  vim.fn.setreg('+', trimmed_text)
+
+  -- Manually trigger TextYankPost event
+  vim.api.nvim_exec('silent! doautocmd <nomodeline> TextYankPost', false)
+end
+
+function visual_trim_and_yank()
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+  trim_and_yank(start_line, end_line)
+end
+
+function normal_trim_and_yank()
+  local current_line = vim.fn.line('.')
+  trim_and_yank(current_line, current_line)
+end
+
+-- Command for visual mode
+vim.api.nvim_create_user_command('VisualTrimYank', visual_trim_and_yank, {})
+
+-- Map this command for visual mode
+vim.api.nvim_set_keymap('x', 'Y', ':lua visual_trim_and_yank()<CR>', { noremap = true, silent = true })
+
+-- Command for normal mode
+vim.api.nvim_create_user_command('NormalTrimYank', normal_trim_and_yank, {})
+
+-- Map for normal mode 'YY'
+vim.api.nvim_set_keymap('n', 'YY', ':NormalTrimYank<CR>', { noremap = true, silent = true })
