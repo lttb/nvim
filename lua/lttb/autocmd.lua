@@ -138,3 +138,20 @@ if utils.is_kitty() then
     end,
   })
 end
+
+-- @see https://github.com/VonHeikemen/lsp-zero.nvim/issues/299#issuecomment-1670150930
+local group = vim.api.nvim_create_augroup('diagnostic_cmds', { clear = true })
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+  group = group,
+  pattern = { 'n:i', 'v:s' },
+  desc = 'Disable diagnostics while typing',
+  callback = function() vim.diagnostic.disable(0) end,
+})
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+  group = group,
+  pattern = 'i:n',
+  desc = 'Enable diagnostics when leaving insert mode',
+  callback = function() vim.diagnostic.enable(0) end,
+})
