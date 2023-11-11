@@ -231,14 +231,16 @@ return {
       },
 
       {
-        'danielfalk/smart-open.nvim',
-        enabled = false,
+        'lttb/smart-open.nvim',
+        -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
+        branch = 'feature/result-limit',
         keys = {
           {
             '<leader><leader>',
             function()
               require('telescope').extensions.smart_open.smart_open({
                 cwd_only = true,
+                filename_first = false,
               })
             end,
             desc = 'Smart Open',
@@ -252,6 +254,7 @@ return {
 
       {
         'nvim-telescope/telescope-frecency.nvim',
+        enabled = false,
         config = function()
           require('telescope').load_extension('frecency')
         end,
