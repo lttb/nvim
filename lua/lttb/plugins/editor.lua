@@ -226,4 +226,17 @@ return {
     -- feels quite buggy, disable for now
     enabled = false,
   },
+
+  -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
+  { 'axkirillov/hbac.nvim', opts = {} },
+
+  {
+    'folke/zen-mode.nvim',
+    cmd = 'ZenMode',
+    opts = {
+      window = {
+        backdrop = 0.97,
+      },
+    },
+  },
 }
