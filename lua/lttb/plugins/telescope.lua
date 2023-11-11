@@ -179,6 +179,18 @@ return {
           },
         },
       },
+
+      extensions = {
+        helpgrep = {
+          ignore_paths = {
+            vim.fn.stdpath('state') .. '/lazy/readme',
+          },
+        },
+
+        smart_open = {
+          match_algorithm = 'fzf',
+        },
+      },
     },
 
     config = true,
@@ -194,13 +206,6 @@ return {
       },
 
       {
-        'nvim-telescope/telescope-fzy-native.nvim',
-        config = function()
-          require('telescope').load_extension('fzy_native')
-        end,
-      },
-
-      {
         'nvim-telescope/telescope-file-browser.nvim',
         config = function()
           require('telescope').load_extension('file_browser')
@@ -208,7 +213,26 @@ return {
       },
 
       {
+        'dawsers/telescope-file-history.nvim',
+        -- NOTE: nice plugin, but spams notifications on changs, need to investigate
+        enabled = false,
+        config = function()
+          require('file_history').setup()
+
+          require('telescope').load_extension('file_history')
+        end,
+      },
+
+      {
+        'catgoose/telescope-helpgrep.nvim',
+        config = function()
+          require('telescope').load_extension('helpgrep')
+        end,
+      },
+
+      {
         'danielfalk/smart-open.nvim',
+        enabled = false,
         keys = {
           {
             '<leader><leader>',
@@ -224,6 +248,21 @@ return {
           require('telescope').load_extension('smart_open')
         end,
         dependencies = { 'kkharji/sqlite.lua' },
+      },
+
+      {
+        'nvim-telescope/telescope-frecency.nvim',
+        config = function()
+          require('telescope').load_extension('frecency')
+        end,
+        keys = {
+          {
+            '<leader><leader>',
+            '<Cmd>Telescope frecency workspace=CWD<CR>',
+            desc = 'Smart Open',
+          },
+        },
+
       },
     },
   },
