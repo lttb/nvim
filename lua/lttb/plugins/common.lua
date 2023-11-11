@@ -121,6 +121,11 @@ return {
           silent = false,        -- true to disable the "n chars copied" echo
           echo_hl = 'Directory', -- highlight group of the OSC52 echo message
         },
+
+        validate_yank = function()
+          return vim.v.operator == 'y'
+              or vim.v.operator == 'g@' -- support `yanka`
+        end,
       })
     end,
   },

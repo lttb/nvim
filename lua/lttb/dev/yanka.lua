@@ -25,21 +25,40 @@ local function trim_and_yank_text(start_line, end_line, start_col, end_col)
   end, lines), '\n')
 
   vim.fn.setreg('"', trimmed_text)
-  vim.fn.setreg('+', trimmed_text)
-  vim.api.nvim_exec('silent! doautocmd <nomodeline> TextYankPost', false)
+  -- vim.fn.setreg('+', trimmed_text)
+
+  vim.api.nvim_exec_autocmds('TextYankPost', {
+    pattern = '*',
+    modeline = false,
+    data = {
+      operator = 'y',
+      regcontents = { trimmed_text },
+      regname = '"',
+      regtype = 'v',
+    },
+  })
+
+  -- vim.api.nvim_exec('silent! doautocmd <nomodeline> TextYankPost', false)
+
+  -- vim.v.event = {
+  --   operator = 'y',
+  --   regcontents = { trimmed_text },
+  --   -- Add any other fields if necessary
+  -- }
+  -- vim.api.nvim_exec('silent! doautocmd <nomodeline> TextYankPost', false)
 end
 
-function visual_trim_and_yank()
+function Visual_trim_and_yank()
   local start_line, end_line = vim.fn.line("'<"), vim.fn.line("'>")
   trim_and_yank_text(start_line, end_line)
 end
 
-function normal_trim_and_yank()
+function Normal_trim_and_yank()
   local current_line = vim.fn.line('.')
   trim_and_yank_text(current_line, current_line)
 end
 
-function operator_trim_and_yank()
+function Operator_trim_and_yank()
   local start_mark, end_mark = vim.fn.getpos("'["), vim.fn.getpos("']")
   local start_line, end_line = start_mark[2], end_mark[2]
   local start_col, end_col = start_mark[3], end_mark[3]
@@ -52,7 +71,7 @@ function operator_trim_and_yank()
   trim_and_yank_text(start_line, end_line, start_col, end_col)
 end
 
-vim.api.nvim_create_user_command('VisualTrimYank', visual_trim_and_yank, {})
-vim.api.nvim_set_keymap('x', 'Y', ':lua visual_trim_and_yank()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'Y', ':set opfunc=v:lua.operator_trim_and_yank<CR>g@', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'YY', ':lua normal_trim_and_yank()<CR>', { noremap = true, silent = true })
+vim.api.nvim_create_user_command('VisualTrimYank', Visual_trim_and_yank, {})
+vim.api.nvim_set_keymap('x', 'Y', ':lua Visual_trim_and_yank()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'Y', ':set opfunc=v:lua.Operator_trim_and_yank<CR>g@', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'YY', ':lua Normal_trim_and_yank()<CR>', { noremap = true, silent = true })
