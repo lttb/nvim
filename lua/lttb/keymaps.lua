@@ -128,10 +128,8 @@ vim.keymap.set('i', '<S-D-v>', '<C-r><C-p>+<cmd>lua FormatPasted()<CR>', { norem
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
 
 local function trim_and_yank(start_line, end_line)
-  -- Get the lines in the range
   local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
 
-  -- Find the minimum indentation
   local min_indent = nil
   for _, line in ipairs(lines) do
     local indent = line:match('^%s*')
@@ -140,16 +138,12 @@ local function trim_and_yank(start_line, end_line)
     end
   end
 
-  -- Remove the minimum indentation and join lines
   local trimmed_text = table.concat(vim.tbl_map(function(line)
     return line:sub(#min_indent + 1)
   end, lines), '\n')
 
-  -- Yank the trimmed text into the unnamed register
   vim.fn.setreg('"', trimmed_text)
   vim.fn.setreg('+', trimmed_text)
-
-  -- Manually trigger TextYankPost event
   vim.api.nvim_exec('silent! doautocmd <nomodeline> TextYankPost', false)
 end
 
@@ -164,14 +158,52 @@ function normal_trim_and_yank()
   trim_and_yank(current_line, current_line)
 end
 
--- Command for visual mode
+function operator_trim_and_yank()
+  local start_mark = vim.fn.getpos("'[")
+  local end_mark = vim.fn.getpos("']")
+
+  -- Convert marks to 1-based indices (line and column)
+  local start_line, start_col = start_mark[2], start_mark[3]
+  local end_line, end_col = end_mark[2], end_mark[3]
+
+  -- Adjust the end position for character-wise operation
+  if vim.v.operator ~= 'line' and end_col > 0 then
+    end_col = end_col + 1
+  end
+
+  -- Retrieve the lines in the range
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+  if #lines == 0 then return end
+
+  -- If operation is on the same line, extract the specific part
+  if start_line == end_line then
+    lines[1] = lines[1]:sub(start_col, end_col - 1)
+  end
+
+  -- Find minimum indentation and trim
+  local min_indent = nil
+  for _, line in ipairs(lines) do
+    local indent = line:match('^%s*')
+    if not min_indent or #indent < #min_indent then
+      min_indent = indent
+    end
+  end
+
+  local trimmed_text = table.concat(vim.tbl_map(function(line)
+    return line:sub(#min_indent + 1)
+  end, lines), '\n')
+
+  -- Yank the trimmed text
+  vim.fn.setreg('"', trimmed_text)
+  vim.fn.setreg('+', trimmed_text)
+
+  -- Trigger TextYankPost event
+  vim.api.nvim_exec('silent! doautocmd <nomodeline> TextYankPost', false)
+end
+
 vim.api.nvim_create_user_command('VisualTrimYank', visual_trim_and_yank, {})
-
--- Map this command for visual mode
-vim.api.nvim_set_keymap('x', 'Y', ':lua visual_trim_and_yank()<CR>', { noremap = true, silent = true })
-
--- Command for normal mode
 vim.api.nvim_create_user_command('NormalTrimYank', normal_trim_and_yank, {})
 
--- Map for normal mode 'YY'
+vim.api.nvim_set_keymap('x', 'Y', ':lua visual_trim_and_yank()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'Y', ':set opfunc=v:lua.operator_trim_and_yank<CR>g@', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'YY', ':NormalTrimYank<CR>', { noremap = true, silent = true })
