@@ -9,8 +9,10 @@ vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 -- Fix gx, avoid netrw
 vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
 
--- cut into system clipboard in visual mode
-vim.keymap.set({ 'n', 'x' }, 'd', '"*d')
+-- cut into system clipboard
+vim.keymap.set({ 'n', 'x' }, 'd', '"_d')
+vim.keymap.set({ 'n', 'x' }, 'x', '"*d', { remap = false })
+vim.keymap.set({ 'n' }, 'xx', '"*dd')
 
 vim.keymap.set('n', '<C-O>', '<C-O>zv', { remap = true })
 vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
@@ -39,7 +41,7 @@ local function native_nav(key, ncmd, icmd, xcmd)
   end
 end
 
-local wm = ';'
+local wm = ''
 
 native_nav('<M-BS>', 'ldb', 'i')
 native_nav('<M-DEL>', wm .. 'exa' .. wm .. 'w', 'i')
@@ -104,7 +106,7 @@ vim.keymap.set('i', '<D-z>', '<C-w>')
 vim.keymap.set({ 'i', 'n' }, '<D-s>', '<cmd>update<cr>', { desc = 'Quick Save' })
 
 -- TODO: automatically close split if the last buffer in the split was closed
-vim.keymap.set('n', '<D-w>', '<cmd>bprevious | bd! #<cr>')
+vim.keymap.set('n', '<D-w>', '<cmd>lua MiniBufremove.delete()<cr>')
 
 function FormatPasted()
   -- Get the lines where the last paste occurred
