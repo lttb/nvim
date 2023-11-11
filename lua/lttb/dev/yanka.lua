@@ -1,12 +1,15 @@
 local function find_minimum_indentation(lines)
   local min_indent = nil
   for _, line in ipairs(lines) do
-    local indent = line:match('^%s*')
-    if not min_indent or #indent < #min_indent then
-      min_indent = indent
+    -- Ignore lines that are blank or only contain whitespace
+    if line:match('%S') then
+      local indent = line:match('^%s*')
+      if not min_indent or #indent < #min_indent then
+        min_indent = indent
+      end
     end
   end
-  return min_indent
+  return min_indent or ''
 end
 
 local function trim_and_yank_text(start_line, end_line, start_col, end_col)
