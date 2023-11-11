@@ -63,6 +63,12 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       underline = false,
       default = false,
     })
+    color.extend_hl('MiniCursorwordCurrent', {
+      bg = color.alpha_hl('DiagnosticInfo', 'fg', 0.2),
+      underline = false,
+      default = false,
+    })
+
 
     color.extend_hl('DiagnosticUnderlineWarn', {
       underdouble = true,

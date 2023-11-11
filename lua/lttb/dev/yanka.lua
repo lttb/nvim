@@ -1,3 +1,8 @@
+-- TODO: work on the hl for yankayanked text
+vim.api.nvim_set_hl(0, 'YankaYanked', {
+  bg = '#FFFFFF',
+})
+
 local function find_minimum_indentation(lines)
   local min_indent = nil
   for _, line in ipairs(lines) do

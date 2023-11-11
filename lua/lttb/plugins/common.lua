@@ -131,7 +131,26 @@ return {
   },
 
   {
+    'gbprod/yanky.nvim',
+    enabled = false,
+    lazy = false,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+    keys = {
+      { 'y',  '<Plug>(YankyYank)',       mode = { 'n', 'x' }, desc = 'Yank text' },
+      { 'p',  '<Plug>(YankyPutAfter)',   mode = { 'n', 'x' }, desc = 'Put yanked text after cursor' },
+      { 'P',  '<Plug>(YankyPutBefore)',  mode = { 'n', 'x' }, desc = 'Put yanked text before cursor' },
+      { 'gp', '<Plug>(YankyGPutAfter)',  mode = { 'n', 'x' }, desc = 'Put yanked text after selection' },
+      { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, desc = 'Put yanked text before selection' },
+    },
+  },
+
+  {
     'chrisgrieser/nvim-spider',
+    enabled = false,
     opts = {},
     keys = {
       {
@@ -164,6 +183,6 @@ return {
   {
     'chrisgrieser/nvim-various-textobjs',
     lazy = false,
-    opts = { useDefaultKeymaps = true },
+    opts = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } },
   },
 }
