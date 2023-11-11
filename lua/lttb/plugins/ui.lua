@@ -50,7 +50,7 @@ return {
       'akinsho/toggleterm.nvim',
       keys = function()
         local Terminal = require('toggleterm.terminal').Terminal
-        local term = Terminal:new({
+        local term_options = {
           hidden = true,
           dir = 'git_dir',
           direction = 'float',
@@ -72,7 +72,9 @@ return {
               return term.name
             end,
           },
-        })
+        }
+        local term = Terminal:new(term_options)
+        local lazygit = Terminal:new(vim.tbl_extend('keep', { cmd = 'lazygit' }, term_options))
 
         return {
           {
@@ -81,6 +83,14 @@ return {
               term:toggle()
             end,
             desc = 'Toggle Terminal',
+            mode = { 'n', 't', 'i' },
+          },
+          {
+            '<D-g>',
+            function()
+              lazygit:toggle()
+            end,
+            desc = 'Toggle lazy Git',
             mode = { 'n', 't', 'i' },
           },
         }
