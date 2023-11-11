@@ -25,7 +25,29 @@ local function config()
     sections = {
       lualine_a = { { 'mode' } },
       lualine_b = {},
-      lualine_c = {},
+      lualine_c = {
+        {
+          function()
+            return require('lsp-progress').progress({
+              --- @param client_messages string[]|table[]
+              ---     Client messages array.
+              --- @return string
+              ---     The returned value will be returned as the result of `progress` API.
+              format = function(client_messages)
+                local sign = '' -- nf-fa-gear \uf013
+                if #client_messages > 0 then
+                  return sign .. ' ' .. table.concat(client_messages, ' ')
+                end
+                if #vim.lsp.get_clients() > 0 then
+                  return sign
+                end
+                return ''
+              end,
+            })
+          end,
+          color = 'GitSignsCurrentLineBlame',
+        },
+      },
       lualine_x = {},
       lualine_y = { 'branch', 'diff', 'diagnostics', 'filetype', 'progress' },
       lualine_z = {
@@ -68,15 +90,32 @@ local function config()
     end
 
     patch('normal')
-    patch('insert')
     patch('visual')
+    patch('insert')
+    patch('command')
   end)
+
+  -- listen lsp-progress event and refresh lualine
+  vim.api.nvim_create_augroup('lualine_augroup', { clear = true })
+  vim.api.nvim_create_autocmd('User', {
+    group = 'lualine_augroup',
+    pattern = 'LspProgressStatusUpdated',
+    callback = require('lualine').refresh,
+  })
 end
 
 return {
   {
     'nvim-lualine/lualine.nvim',
     config = config,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' }, { 'arkav/lualine-lsp-progress' } },
+    dependencies = {
+      { 'nvim-tree/nvim-web-devicons' },
+      { 'arkav/lualine-lsp-progress', enabled = false },
+      {
+        'linrongbin16/lsp-progress.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        opts = {},
+      },
+    },
   },
 }
