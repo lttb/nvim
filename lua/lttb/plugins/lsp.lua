@@ -86,7 +86,6 @@ local function config()
     hide = orig_underline_handler.hide,
   }
 
-
   require('mason').setup({})
   require('mason-lspconfig').setup({
     ensure_installed = { 'rust_analyzer', 'lua_ls', 'cssls', 'eslint', 'html', 'jsonls' },
@@ -118,14 +117,14 @@ local function config()
       local node_type = current_node:type()
       -- Adjust the node types according to the Treesitter grammar
       if
-          node_type == 'object'
-          or node_type == 'object_type'
-          or node_type == 'type_literal'
-          or node_type == 'type_annotation'
-          or node_type == 'jsx_element'
-          or node_type == 'jsx_self_closing_element'
-          or node_type == 'jsx_attribute'
-          or node_type == 'jsx_expression'
+        node_type == 'object'
+        or node_type == 'object_type'
+        or node_type == 'type_literal'
+        or node_type == 'type_annotation'
+        or node_type == 'jsx_element'
+        or node_type == 'jsx_self_closing_element'
+        or node_type == 'jsx_attribute'
+        or node_type == 'jsx_expression'
       then
         return true
       end
@@ -146,9 +145,9 @@ local function config()
     source_nvim_lsp,
 
     { name = 'luasnip' },
-    { name = 'path',   keyword_length = 3, max_item_count = 3 },
+    { name = 'path', keyword_length = 3, max_item_count = 3 },
     { name = 'buffer', keyword_length = 2, max_item_count = 3 },
-    { name = 'rg',     keyword_length = 1, max_item_count = 3 },
+    { name = 'rg', keyword_length = 1, max_item_count = 3 },
   }
 
   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
@@ -186,20 +185,17 @@ local function config()
 
     mapping = {
       -- `Enter` key to confirm completion
-      ['<CR>']      = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          local entries_count = #cmp.get_entries()
-          cmp.confirm({ select = true })
+      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+      -- ['<CR>']      = cmp.mapping(function(fallback)
+      --   if cmp.visible() then
+      --     cmp.select_next_item()
+      --     cmp.abort()
+      --     return
+      --   end
 
-          if entries_count == 1 then
-            fallback()
-            return
-          end
-        end
-
-        fallback()
-      end),
-      ['<C-e>']     = cmp.mapping.abort(),
+      --   fallback()
+      -- end),
+      ['<C-e>'] = cmp.mapping.abort(),
       -- ['<Esc>'] = cmp.mapping(function(fallback)
       --   if cmp.visible() then
       --     cmp.abort()
@@ -211,7 +207,7 @@ local function config()
       -- Ctrl+Space to trigger completion menu
       ['<C-Space>'] = cmp.mapping.complete(),
 
-      ['<Tab>']     = cmp.mapping(function(fallback)
+      ['<Tab>'] = cmp.mapping(function(fallback)
         -- support copilot
         -- @see https://github.com/zbirenbaum/copilot.lua/issues/91#issuecomment-1345190310
         -- if require('copilot.suggestion').is_visible() then
@@ -230,7 +226,8 @@ local function config()
       end, { 'i', 's', 'c' }),
     },
 
-    experimental = { ghost_text = true, -- this feature conflict with copilot.vim's preview.
+    experimental = {
+      ghost_text = true, -- this feature conflict with copilot.vim's preview.
     },
 
     sources = cmp.config.sources(default_sources),
@@ -297,8 +294,10 @@ local function config()
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({ { name = 'path' } },
-      { { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } } }),
+    sources = cmp.config.sources(
+      { { name = 'path' } },
+      { { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } } }
+    ),
   })
 
   -- }}}
@@ -344,8 +343,8 @@ return {
         enabled = false,
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
-          { '<F2>',  '<cmd>Lspsaga rename<cr>' },
+          { 'K', '<cmd>Lspsaga hover_doc<cr>' },
+          { '<F2>', '<cmd>Lspsaga rename<cr>' },
         },
         config = function()
           require('lspsaga').setup({
