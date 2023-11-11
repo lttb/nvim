@@ -20,14 +20,20 @@ end
 
 function M.alpha(from, level)
   local normalHL = vim.api.nvim_get_hl(0, { name = 'Normal' })
+  -- support transparent background
+  local floatHL = vim.api.nvim_get_hl(0, { name = 'CursorLine' })
 
-  return M.blend_hex(from, normalHL.bg, level)
+  return M.blend_hex(from, normalHL.bg or floatHL.bg, level)
 end
 
-function M.alpha_hl(hl_name, color_name, level)
+function M.get_hl(hl_name, color_name)
+  return vim.api.nvim_get_hl(0, { name = hl_name })[color_name]
+end
+
+function M.alpha_hl(hl_name, color_name, level, fallback)
   local hl = vim.api.nvim_get_hl(0, { name = hl_name })
 
-  return M.alpha(hl[color_name], level)
+  return M.alpha(hl[color_name] or fallback, level)
 end
 
 function M.extend_hl(hl_name, opts)
