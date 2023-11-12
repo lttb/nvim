@@ -129,3 +129,5 @@ end
 
 -- require('lttb.dev.yanka')
 require('lttb.dev.yanka2')
+
+vim.keymap.set('n', '/', 'zR/', { remap = false })
