@@ -10,15 +10,21 @@ vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
 
 -- cut into system clipboard
-vim.keymap.set({ 'n', 'x' }, 'd', '"_d')
-vim.keymap.set({ 'n', 'x' }, 'x', '"*d', { remap = false })
-vim.keymap.set({ 'n' }, 'xx', '"*dd')
+-- vim.keymap.set({ 'n', 'x' }, 'd', '"_d')
+-- vim.keymap.set({ 'n', 'x' }, 'x', '"*d', { remap = false })
+-- vim.keymap.set({ 'n' }, 'xx', '"*dd')
 
 vim.keymap.set('n', '<C-O>', '<C-O>zv', { remap = true })
 vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
 
 -- Simplify switch no normal mode
 vim.keymap.set({ 'i', 'c', 'v', 't' }, '<M-ESC>', '<C-\\><C-n>')
+
+-- require('lttb.dev.yanka')
+local yanka = require('lttb.dev.yanka2')
+
+vim.keymap.set('n', 'p', 'o<C-O>p<esc>')
+vim.keymap.set('n', 'P', 'O<C-O>p<esc>')
 
 if utils.is_vscode() then
   return
@@ -129,11 +135,11 @@ vim.keymap.set('n', '/', 'zR/', { remap = false })
 -- more refined paste
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
 
--- require('lttb.dev.yanka')
-local yanka = require('lttb.dev.yanka2')
 
-vim.keymap.set('x', '<D-x>', '"+x') -- cut
-vim.keymap.set('x', '<D-c>', '"+y') -- copy
+vim.keymap.set('x', '<D-x>', 'x')
+vim.keymap.set('n', '<D-x>', 'xx')
+vim.keymap.set('x', '<D-c>', 'y')
+vim.keymap.set('n', '<D-c>', 'yy')
 vim.keymap.set({ 'i', 'n', 't', 'x' },
   '<D-v>',
   yanka.put_with_autoindent,
