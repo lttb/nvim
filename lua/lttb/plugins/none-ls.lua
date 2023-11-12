@@ -17,7 +17,7 @@ return {
           null_ls.builtins.code_actions.eslint_d,
           null_ls.builtins.code_actions.cspell,
 
-          null_ls.builtins.formatting.stylua,
+          -- null_ls.builtins.formatting.stylua,
           -- null_ls.builtins.formatting.eslint_d,
           -- null_ls.builtins.formatting.markdownlint,
           -- null_ls.builtins.formatting.prettierd,
@@ -30,6 +30,7 @@ return {
             end,
           }),
           null_ls.builtins.diagnostics.markdownlint,
+          null_ls.builtins.diagnostics.ruff,
 
           null_ls.builtins.completion.spell,
         },

@@ -18,6 +18,7 @@ return {
       json = { prettier },
       markdown = { prettier, 'markdownlint' },
       mdx = { prettier, 'markdownlint' },
+      py = { 'ruff_fix', 'ruff_format' },
 
       -- Use the "_" filetype to run formatters on filetypes that don't
       -- have other formatters configured.
