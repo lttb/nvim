@@ -49,7 +49,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
       return
     end
 
-    local trimmed_text = trim_text(yank_data)
+    -- NOTE: reconcat to force to drop the trailing \n
+    local trimmed_text = table.concat(trim_text(yank_data), '\n')
 
     vim.fn.setreg('"', trimmed_text)
 
@@ -59,7 +60,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
       data = {
         _yanka = true,
         operator = 'y',
-        regcontents = { trimmed_text },
+        regcontents = trimmed_text,
         regname = '"',
         regtype = 'v',
       },
