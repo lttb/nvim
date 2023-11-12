@@ -127,4 +127,5 @@ vim.keymap.set('i', '<S-D-v>', '<C-r><C-p>+<cmd>lua FormatPasted()<CR>', { norem
 -- more refined paste
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
 
-require('lttb.dev.yanka')
+-- require('lttb.dev.yanka')
+require('lttb.dev.yanka2')
