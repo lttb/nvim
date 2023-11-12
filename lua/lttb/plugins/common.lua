@@ -128,7 +128,7 @@ return {
           return vim.v.operator == 'y'
               -- TODO: yanka needs to be improved
               or vim.v.operator == 'g@' -- support `yanka` operator
-              or vim.v.operator == ':'  -- support `yanka` visual
+              or vim.v.operator == ':' -- support `yanka` visual
         end,
       })
     end,
@@ -188,5 +188,16 @@ return {
     'chrisgrieser/nvim-various-textobjs',
     lazy = false,
     opts = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } },
+  },
+
+  {
+    'fedepujol/move.nvim',
+    enabled = false,
+    keys = {
+      { '<M-j>', ':MoveLine(1)<CR>',   desc = 'Move: line down',  mode = { 'n' }, silent = true },
+      { '<M-j>', ':MoveBlock(1)<CR>',  desc = 'Move: block down', mode = { 'v' }, silent = true },
+      { '<M-k>', ':MoveLine(-1)<CR>',  desc = 'Move: line up',    mode = { 'n' }, silent = true },
+      { '<M-k>', ':MoveBlock(-1)<CR>', desc = 'Move: block up',   mode = { 'v' }, silent = true },
+    },
   },
 }
