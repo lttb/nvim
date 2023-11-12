@@ -18,20 +18,14 @@ local function find_minimum_indentation(lines)
 end
 
 local function trim_text(text)
-  local lines = vim.split(text, '\n')
+  local lines = vim.split(trim_string(text), '\n')
   local min_indent = find_minimum_indentation(lines)
-  local text_indented = table.concat(
-    vim.tbl_map(function(line)
-      return line:sub(#min_indent + 1)
-    end, lines),
-    '\n'
-  )
+  local new_lines = vim.tbl_map(function(line)
+    return line:sub(#min_indent + 1)
+  end, lines)
 
-  local trimmed_text = trim_string(text_indented)
-
-  return trimmed_text
+  return new_lines
 end
-
 
 local g = vim.api.nvim_create_augroup('Yanka_AUG', { clear = true })
 
@@ -87,19 +81,16 @@ local function put_with_autoindent()
   local clipboard_content = vim.fn.getreg('+')
 
   -- Create an iterator for the lines in clipboard content
-  local line_iterator = trim_text(clipboard_content):gmatch('[^\r\n]+')
+  local lines = trim_text(clipboard_content)
+  local new_lines = {}
 
-  -- Get the first line from the iterator
-  local first_line = line_iterator() or ''
-
-  -- Prepare the rest of the lines, applying indentation
-  local lines = { first_line }
-  for line in line_iterator do
-    table.insert(lines, indent_string .. line)
+  for i, v in ipairs(lines) do
+    print('i', i)
+    table.insert(new_lines, (i == 1 and '' or indent_string) .. v)
   end
 
   -- Paste the modified content
-  vim.api.nvim_put(lines, '', 'c', true)
+  vim.api.nvim_put(new_lines, '', '', true)
 end
 
 vim.keymap.set('i', '<S-D-v>', put_with_autoindent, { noremap = true, silent = true })
