@@ -117,14 +117,14 @@ local function config()
       local node_type = current_node:type()
       -- Adjust the node types according to the Treesitter grammar
       if
-        node_type == 'object'
-        or node_type == 'object_type'
-        or node_type == 'type_literal'
-        or node_type == 'type_annotation'
-        or node_type == 'jsx_element'
-        or node_type == 'jsx_self_closing_element'
-        or node_type == 'jsx_attribute'
-        or node_type == 'jsx_expression'
+          node_type == 'object'
+          or node_type == 'object_type'
+          or node_type == 'type_literal'
+          or node_type == 'type_annotation'
+          or node_type == 'jsx_element'
+          or node_type == 'jsx_self_closing_element'
+          or node_type == 'jsx_attribute'
+          or node_type == 'jsx_expression'
       then
         return true
       end
@@ -135,6 +135,7 @@ local function config()
 
   local source_nvim_lsp = {
     name = 'nvim_lsp',
+    keyword_length = 3,
     entry_filter = function(entry, ctx)
       return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
     end,
@@ -145,16 +146,16 @@ local function config()
     source_nvim_lsp,
 
     { name = 'luasnip' },
-    { name = 'path', keyword_length = 3, max_item_count = 3 },
+    { name = 'path',   keyword_length = 3, max_item_count = 3 },
     { name = 'buffer', keyword_length = 2, max_item_count = 3 },
-    { name = 'rg', keyword_length = 1, max_item_count = 3 },
+    { name = 'rg',     keyword_length = 1, max_item_count = 3 },
   }
 
   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
     pattern = { '*.ts', '*.tsx' },
     callback = function()
       if is_in_typescript_context() then
-        cmp.setup.buffer({ sources = { source_nvim_lsp } })
+        cmp.setup.buffer({ sources = { vim.tbl_extend('keep', { keyword_length = 0 }, source_nvim_lsp) } })
       else
         cmp.setup.buffer({ sources = default_sources })
       end
@@ -343,8 +344,8 @@ return {
         enabled = false,
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K', '<cmd>Lspsaga hover_doc<cr>' },
-          { '<F2>', '<cmd>Lspsaga rename<cr>' },
+          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
+          { '<F2>',  '<cmd>Lspsaga rename<cr>' },
         },
         config = function()
           require('lspsaga').setup({
