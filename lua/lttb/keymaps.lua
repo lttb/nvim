@@ -49,8 +49,8 @@ end
 
 local wm = ''
 
-native_nav('<M-BS>', 'ldb', 'i')
-native_nav('<M-DEL>', wm .. 'exa' .. wm .. 'w', 'i')
+native_nav('<M-BS>', 'l"_db', 'i')
+native_nav('<M-DEL>', wm .. 'e"_da' .. wm .. 'w', 'i')
 
 native_nav('<S-Left>', 'vh', '', 'h')
 native_nav('<S-Right>', 'vl', '', 'l')
@@ -136,8 +136,8 @@ vim.keymap.set('n', '/', 'zR/', { remap = false })
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
 
 
-vim.keymap.set('x', '<D-x>', 'x')
-vim.keymap.set('n', '<D-x>', 'xx')
+vim.keymap.set('x', '<D-x>', 'd')
+vim.keymap.set('n', '<D-x>', 'dd')
 vim.keymap.set('x', '<D-c>', 'y')
 vim.keymap.set('n', '<D-c>', 'yy')
 vim.keymap.set({ 'i', 'n', 't', 'x' },
