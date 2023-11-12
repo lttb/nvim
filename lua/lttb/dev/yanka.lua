@@ -3,6 +3,13 @@ vim.api.nvim_set_hl(0, 'YankaYanked', {
   bg = '#FFFFFF',
 })
 
+local yanka_ns = vim.api.nvim_create_namespace('Yanka_NS')
+
+function trim_string(str)
+  -- Use Lua pattern matching to remove leading and trailing spaces, newlines, and tabs
+  return str:match('^%s*(.-)%s*$')
+end
+
 local function find_minimum_indentation(lines)
   local min_indent = nil
   for _, line in ipairs(lines) do
@@ -18,16 +25,19 @@ local function find_minimum_indentation(lines)
 end
 
 local function trim_and_yank_text(start_line, end_line, start_col, end_col)
-  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
-
-  if start_line == end_line and #lines > 0 and start_col and end_col then
-    lines[1] = lines[1]:sub(start_col, end_col - 1)
-  end
+  local lines = vim.api.nvim_buf_get_text(0, start_line, start_col, end_line, end_col, {})
 
   local min_indent = find_minimum_indentation(lines)
-  local trimmed_text = table.concat(vim.tbl_map(function(line)
-    return line:sub(#min_indent + 1)
-  end, lines), '\n')
+  local text_indented = table.concat(
+    vim.tbl_map(function(line)
+      return line:sub(#min_indent + 1)
+    end, lines),
+    '\n'
+  )
+
+  local trimmed_text = trim_string(text_indented)
+
+  -- print('yy', text_indented, trimmed_text)
 
   vim.fn.setreg('"', trimmed_text)
   -- vim.fn.setreg('+', trimmed_text)
@@ -43,34 +53,38 @@ local function trim_and_yank_text(start_line, end_line, start_col, end_col)
     },
   })
 
-  -- vim.api.nvim_exec('silent! doautocmd <nomodeline> TextYankPost', false)
+  vim.highlight.range(0, yanka_ns, 'YankaYanked', { start_line, start_col }, { end_line, end_col },
+    {
+      inclusive = false,
+      priority = 10000,
+    })
 
-  -- vim.v.event = {
-  --   operator = 'y',
-  --   regcontents = { trimmed_text },
-  --   -- Add any other fields if necessary
-  -- }
-  -- vim.api.nvim_exec('silent! doautocmd <nomodeline> TextYankPost', false)
+  vim.defer_fn(function()
+    vim.api.nvim_buf_clear_namespace(0, yanka_ns, 0, -1)
+  end, 300)
 end
 
 function Visual_trim_and_yank()
-  local start_line, end_line = vim.fn.line("'<"), vim.fn.line("'>")
-  trim_and_yank_text(start_line, end_line)
+  local start_mark, end_mark = vim.fn.getpos("'<"), vim.fn.getpos("'>")
+  local start_line, end_line = start_mark[2] - 1, end_mark[2] - 1
+  local start_col, end_col = start_mark[3] - 1, end_mark[3] - 1
+
+  trim_and_yank_text(start_line, end_line, start_col, end_col)
 end
 
 function Normal_trim_and_yank()
-  local current_line = vim.fn.line('.')
-  trim_and_yank_text(current_line, current_line)
+  local current_line = vim.fn.line('.') - 1
+  trim_and_yank_text(current_line, current_line, 0, -1)
 end
 
 function Operator_trim_and_yank()
   local start_mark, end_mark = vim.fn.getpos("'["), vim.fn.getpos("']")
-  local start_line, end_line = start_mark[2], end_mark[2]
-  local start_col, end_col = start_mark[3], end_mark[3]
+  local start_line, end_line = start_mark[2] - 1, end_mark[2] - 1
+  local start_col, end_col = start_mark[3] - 1, end_mark[3] - 1
 
-  -- Adjust the end position for character-wise operation
-  if vim.v.operator ~= 'line' and end_col > 0 then
-    end_col = end_col + 1
+  -- some weird stuff
+  if start_line ~= end_line then
+    end_line = end_line + 1
   end
 
   trim_and_yank_text(start_line, end_line, start_col, end_col)

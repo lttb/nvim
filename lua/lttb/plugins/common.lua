@@ -122,9 +122,13 @@ return {
           echo_hl = 'Directory', -- highlight group of the OSC52 echo message
         },
 
+        -- validate_yank = false,
+
         validate_yank = function()
           return vim.v.operator == 'y'
-              or vim.v.operator == 'g@' -- support `yanka`
+              -- TODO: yanka needs to be improved
+              or vim.v.operator == 'g@' -- support `yanka` operator
+              or vim.v.operator == ':'  -- support `yanka` visual
         end,
       })
     end,
