@@ -122,7 +122,7 @@ function FormatPasted()
   })
 end
 
-vim.keymap.set('i', '<S-D-v>', '<C-r><C-p>+<cmd>lua FormatPasted()<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('i', '<S-D-v>', '<C-r><C-p>+<cmd>lua FormatPasted()<CR>', { noremap = true, silent = true })
 
 -- more refined paste
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
