@@ -31,39 +31,28 @@ elseif theme.variant == 'light' then
   vim.g.neovide_background_color = '#ffffff'
 end
 
-vim.g.neovide_floating_blur_amount_x = 2.0
-vim.g.neovide_floating_blur_amount_y = 2.0
+vim.g.neovide_floating_blur_amount_x  = 2.0
+vim.g.neovide_floating_blur_amount_y  = 2.0
 
-vim.g.neovide_fullscreen = false
+vim.g.neovide_fullscreen              = false
 
 -- vim.g.neovide_remember_window_size = true
 -- vim.g.neovide_remember_window_position = true
 
 vim.g.neovide_input_macos_alt_is_meta = true
-vim.g.neovide_input_use_logo = true
-
-vim.keymap.set('x', '<D-x>', '"+d') -- cut
-vim.keymap.set('x', '<D-c>', '"+y') -- copy
-vim.keymap.set('i', '<D-v>',
-  '<C-r><C-p>+<cmd>lua FormatPasted()<CR>',
-  { noremap = true, silent = true })
-vim.keymap.set('n', '<D-v>',
-  'i<C-r><C-p>+<cmd>lua FormatPasted()<CR><ESC>l',
-  { noremap = true, silent = true })
-vim.keymap.set('x', '<D-v>', '"+P')    -- paste (visual)
-vim.keymap.set('c', '<D-v>', '<C-r>+') -- paste (command)
+vim.g.neovide_input_use_logo          = true
 
 -- in case of buttonless frame
 
-vim.g.neovide_padding_top     = 20
-vim.g.neovide_padding_bottom  = 20
-vim.g.neovide_padding_right   = 20
-vim.g.neovide_padding_left    = 20
+vim.g.neovide_padding_top             = 20
+vim.g.neovide_padding_bottom          = 20
+vim.g.neovide_padding_right           = 20
+vim.g.neovide_padding_left            = 20
 
 -- vim.g.neovide_profiler = true
 -- @see https://github.com/neovide/neovide/issues/2093
-vim.g.neovide_refresh_rate    = 144
+vim.g.neovide_refresh_rate            = 144
 
-vim.g.neovide_cursor_vfx_mode = 'pixiedust'
+vim.g.neovide_cursor_vfx_mode         = 'pixiedust'
 
-vim.g.neovide_floating_shadow = false
+vim.g.neovide_floating_shadow         = false

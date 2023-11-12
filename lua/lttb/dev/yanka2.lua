@@ -1,3 +1,5 @@
+local M = {}
+
 local function trim_string(str)
   -- Use Lua pattern matching to remove leading and trailing spaces, newlines, and tabs
   return str:match('(.-)%s*$')
@@ -68,7 +70,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-local function put_with_autoindent()
+function M.put_with_autoindent()
   -- Get current line number and its indentation
   local current_line = vim.api.nvim_win_get_cursor(0)[1]
   local current_indent = vim.fn.indent(current_line)
@@ -86,12 +88,11 @@ local function put_with_autoindent()
   local new_lines = {}
 
   for i, v in ipairs(lines) do
-    print('i', i)
     table.insert(new_lines, (i == 1 and '' or indent_string) .. v)
   end
 
   -- Paste the modified content
-  vim.api.nvim_put(new_lines, '', '', true)
+  vim.api.nvim_put(new_lines, '', false, true)
 end
 
-vim.keymap.set('i', '<S-D-v>', put_with_autoindent, { noremap = true, silent = true })
+return M

@@ -122,12 +122,21 @@ function FormatPasted()
   })
 end
 
+vim.keymap.set('n', '/', 'zR/', { remap = false })
+
 -- vim.keymap.set('i', '<S-D-v>', '<C-r><C-p>+<cmd>lua FormatPasted()<CR>', { noremap = true, silent = true })
 
 -- more refined paste
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
 
 -- require('lttb.dev.yanka')
-require('lttb.dev.yanka2')
+local yanka = require('lttb.dev.yanka2')
 
-vim.keymap.set('n', '/', 'zR/', { remap = false })
+vim.keymap.set('x', '<D-x>', '"+x') -- cut
+vim.keymap.set('x', '<D-c>', '"+y') -- copy
+vim.keymap.set({ 'i', 'n', 't', 'x' },
+  '<D-v>',
+  yanka.put_with_autoindent,
+  { noremap = true, silent = true }
+)
+vim.keymap.set('c', '<D-v>', '<C-r>+')
