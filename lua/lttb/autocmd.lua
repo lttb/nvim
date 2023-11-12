@@ -36,7 +36,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       hi NeoTreeFileNameOpened gui=bold
     ]])
 
-
     local normalHL = vim.api.nvim_get_hl(0, { name = 'Normal' })
     local splitLineHL = vim.api.nvim_get_hl(0, { name = 'CursorLine' })
 
@@ -68,7 +67,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       underline = false,
       default = false,
     })
-
 
     color.extend_hl('DiagnosticUnderlineWarn', {
       underdouble = true,
@@ -152,12 +150,16 @@ vim.api.nvim_create_autocmd('ModeChanged', {
   group = group,
   pattern = { 'n:i', 'v:s' },
   desc = 'Disable diagnostics while typing',
-  callback = function() vim.diagnostic.disable(0) end,
+  callback = function()
+    vim.diagnostic.disable(0)
+  end,
 })
 
 vim.api.nvim_create_autocmd('ModeChanged', {
   group = group,
   pattern = 'i:n',
   desc = 'Enable diagnostics when leaving insert mode',
-  callback = function() vim.diagnostic.enable(0) end,
+  callback = function()
+    vim.diagnostic.enable(0)
+  end,
 })
