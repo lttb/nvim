@@ -1,6 +1,6 @@
 local function trim_string(str)
   -- Use Lua pattern matching to remove leading and trailing spaces, newlines, and tabs
-  return str:match('^%s*(.-)%s*$')
+  return str:match('(.-)%s*$')
 end
 
 local function find_minimum_indentation(lines)
@@ -15,6 +15,21 @@ local function find_minimum_indentation(lines)
     end
   end
   return min_indent or ''
+end
+
+local function trim_text(text)
+  local lines = vim.split(text, '\n')
+  local min_indent = find_minimum_indentation(lines)
+  local text_indented = table.concat(
+    vim.tbl_map(function(line)
+      return line:sub(#min_indent + 1)
+    end, lines),
+    '\n'
+  )
+
+  local trimmed_text = trim_string(text_indented)
+
+  return trimmed_text
 end
 
 
@@ -40,16 +55,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
       return
     end
 
-    local lines = vim.split(yank_data, '\n')
-    local min_indent = find_minimum_indentation(lines)
-    local text_indented = table.concat(
-      vim.tbl_map(function(line)
-        return line:sub(#min_indent + 1)
-      end, lines),
-      '\n'
-    )
-
-    local trimmed_text = trim_string(text_indented)
+    local trimmed_text = trim_text(yank_data)
 
     vim.fn.setreg('"', trimmed_text)
 
@@ -67,7 +73,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-local function pasteWithIndentation()
+local function put_with_autoindent()
   -- Get current line number and its indentation
   local current_line = vim.api.nvim_win_get_cursor(0)[1]
   local current_indent = vim.fn.indent(current_line)
@@ -81,7 +87,7 @@ local function pasteWithIndentation()
   local clipboard_content = vim.fn.getreg('+')
 
   -- Create an iterator for the lines in clipboard content
-  local line_iterator = clipboard_content:gmatch('[^\r\n]+')
+  local line_iterator = trim_text(clipboard_content):gmatch('[^\r\n]+')
 
   -- Get the first line from the iterator
   local first_line = line_iterator() or ''
@@ -96,4 +102,4 @@ local function pasteWithIndentation()
   vim.api.nvim_put(lines, '', 'c', true)
 end
 
-vim.keymap.set('i', '<S-D-v>', pasteWithIndentation, { noremap = true, silent = true })
+vim.keymap.set('i', '<S-D-v>', put_with_autoindent, { noremap = true, silent = true })
