@@ -40,7 +40,6 @@ return {
       local npairs = require('nvim-autopairs')
       local Rule = require('nvim-autopairs.rule')
 
-
       npairs.setup({
         check_ts = true,
         break_undo = true,
@@ -228,7 +227,7 @@ return {
   },
 
   -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
-  { 'axkirillov/hbac.nvim', opts = {} },
+  { 'axkirillov/hbac.nvim',      opts = {} },
 
   {
     'folke/zen-mode.nvim',
@@ -239,4 +238,6 @@ return {
       },
     },
   },
+
+  { 'knubie/vim-kitty-navigator' },
 }
