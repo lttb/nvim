@@ -215,7 +215,6 @@ return {
       {
         'dawsers/telescope-file-history.nvim',
         -- NOTE: nice plugin, but spams notifications on changs, need to investigate
-        enabled = false,
         config = function()
           require('file_history').setup()
 
