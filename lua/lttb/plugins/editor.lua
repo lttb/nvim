@@ -166,6 +166,7 @@ return {
   {
     -- NOTE: it's quite slow on the startup, and blocks neo-tree
     'coffebar/neovim-project',
+    enabled = false,
     lazy = false,
     priority = 100,
     opts = {

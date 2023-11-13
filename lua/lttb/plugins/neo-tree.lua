@@ -14,10 +14,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     end
 
     -- open the tree but don't focus it
-    -- NOTE: scheduled for compatibility with neovim-project
-    vim.schedule(function()
-      vim.cmd('Neotree show')
-    end)
+    vim.cmd('Neotree show')
   end,
 })
 
@@ -35,7 +32,7 @@ return {
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
-      'coffebar/neovim-project',
+      -- 'coffebar/neovim-project',
     },
     opts = {
       window = {
