@@ -23,8 +23,23 @@ vim.keymap.set({ 'i', 'c', 'v', 't' }, '<M-ESC>', '<C-\\><C-n>')
 -- require('lttb.dev.yanka')
 local yanka = require('lttb.dev.yanka2')
 
-vim.keymap.set('n', 'p', 'o<C-O>p<esc>')
-vim.keymap.set('n', 'P', 'O<C-O>p<esc>')
+-- TODO: think about simpler approach
+if true then
+  vim.keymap.set('n', 'p', function()
+    vim.api.nvim_feedkeys('o', 'n', false)
+    vim.schedule(function()
+      yanka.put_with_autoindent()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'i', true)
+    end)
+  end)
+  vim.keymap.set('n', 'P', function()
+    vim.api.nvim_feedkeys('O', 'n', false)
+    vim.schedule(function()
+      yanka.put_with_autoindent()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'i', true)
+    end)
+  end)
+end
 
 if utils.is_vscode() then
   return
@@ -136,8 +151,8 @@ vim.keymap.set('n', '/', 'zR/', { remap = false })
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
 
 
-vim.keymap.set('x', '<D-x>', 'd')
-vim.keymap.set('n', '<D-x>', 'dd')
+vim.keymap.set('x', '<D-x>', '"+d')
+vim.keymap.set('n', '<D-x>', '"+dd')
 vim.keymap.set('x', '<D-c>', 'y')
 vim.keymap.set('n', '<D-c>', 'yy')
 vim.keymap.set({ 'i', 'n', 't', 'x' },

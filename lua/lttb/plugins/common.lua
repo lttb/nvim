@@ -124,12 +124,12 @@ return {
 
         -- validate_yank = false,
 
-        validate_yank = function()
-          return vim.v.operator == 'y'
-              -- TODO: yanka needs to be improved
-              or vim.v.operator == 'g@' -- support `yanka` operator
-              or vim.v.operator == ':' -- support `yanka` visual
-        end,
+        -- validate_yank = function()
+        --   return vim.v.operator == 'y'
+        --       -- TODO: yanka needs to be improved
+        --       or vim.v.operator == 'g@' -- support `yanka` operator
+        --       or vim.v.operator == ':' -- support `yanka` visual
+        -- end,
       })
     end,
   },
