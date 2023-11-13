@@ -11,7 +11,7 @@ return {
   'stevearc/conform.nvim',
   opts = {
     formatters_by_ft = {
-      -- lua = { 'stylua' },
+      lua = { 'stylua' },
       javascript = js,
       typescript = js,
       typescriptreact = js,
@@ -25,6 +25,6 @@ return {
       ['_'] = { 'trim_whitespace' },
     },
 
-    format_on_save = { lsp_fallback = true, timeout_ms = 500 },
+    format_on_save = { lsp_fallback = 'always', timeout_ms = 500 },
   },
 }
