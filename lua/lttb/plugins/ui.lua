@@ -105,8 +105,8 @@ return {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
             ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-            ['vim.lsp.util.stylize_markdown']                = true,
-            ['cmp.entry.get_documentation']                  = true,
+            ['vim.lsp.util.stylize_markdown'] = true,
+            ['cmp.entry.get_documentation'] = true,
           },
 
           progress = {
@@ -123,17 +123,17 @@ return {
         },
         -- you can enable a preset for easier configuration
         presets = {
-          bottom_search         = true,  -- use a classic bottom cmdline for search
-          command_palette       = true,  -- position the cmdline and popupmenu together
-          long_message_to_split = true,  -- long messages will be sent to a split
-          inc_rename            = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border        = true,  -- add a border to hover docs and signature help
+          bottom_search = true,         -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true,        -- add a border to hover docs and signature help
         },
 
         messages = {
           view_error = 'mini',
-          view_warn  = 'mini',
-          view       = 'mini',
+          view_warn = 'mini',
+          view = 'mini',
         },
 
         -- @see https://github.com/LazyVim/LazyVim/discussions/830
@@ -148,7 +148,6 @@ return {
         notify = {
           enabled = false,
         },
-
       },
       dependencies = {
         'MunifTanjim/nui.nvim',
@@ -232,7 +231,7 @@ return {
 
     {
       'romgrk/barbar.nvim',
-      enabled = false,
+      enabled = true,
       dependencies = {
         'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
         'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
@@ -242,13 +241,6 @@ return {
       end,
       opts = {
         auto_hide = false,
-
-        highlight_alternate = true,
-        highlight_inactive_file_icons = true,
-
-        icons = {
-          separator = { left = '', right = '' },
-        },
 
         sidebar_filetypes = {
           ['neo-tree'] = true,
@@ -287,20 +279,9 @@ return {
 
             diagnostics = 'nvim_lsp',
           },
-
-          highlights = {
-            fill = {
-              bg = {
-                attribute = 'bg',
-                highlight = 'Normal',
-              },
-            },
-          },
         }
       end,
       dependencies = { 'nvim-tree/nvim-web-devicons' },
-
-      -- enabled = false,
     },
 
     {
