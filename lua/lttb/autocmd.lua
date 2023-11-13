@@ -143,23 +143,70 @@ if utils.is_kitty() then
   })
 end
 
--- @see https://github.com/VonHeikemen/lsp-zero.nvim/issues/299#issuecomment-1670150930
-local group = vim.api.nvim_create_augroup('diagnostic_cmds', { clear = true })
+if true then
+  -- @see https://github.com/VonHeikemen/lsp-zero.nvim/issues/299#issuecomment-1670150930
+  local group = vim.api.nvim_create_augroup('diagnostic_cmds', { clear = true })
 
-vim.api.nvim_create_autocmd('ModeChanged', {
-  group = group,
-  pattern = { 'n:i', 'v:s' },
-  desc = 'Disable diagnostics while typing',
-  callback = function()
-    vim.diagnostic.disable(0)
-  end,
-})
+  vim.api.nvim_create_autocmd('ModeChanged', {
+    group = group,
+    pattern = { 'n:i', 'v:s' },
+    desc = 'Disable diagnostics while typing',
+    callback = function()
+      vim.diagnostic.disable(0)
+    end,
+  })
 
-vim.api.nvim_create_autocmd('ModeChanged', {
-  group = group,
-  pattern = 'i:n',
-  desc = 'Enable diagnostics when leaving insert mode',
-  callback = function()
-    vim.diagnostic.enable(0)
-  end,
-})
+  vim.api.nvim_create_autocmd('ModeChanged', {
+    group = group,
+    pattern = 'i:n',
+    desc = 'Enable diagnostics when leaving insert mode',
+    callback = function()
+      vim.diagnostic.enable(0)
+    end,
+  })
+end
+
+-- TODO: needs to be improved
+if true then
+  local operator_started = false
+  local function reset()
+    local color = require('lttb.utils.color')
+
+    operator_started = false
+
+    vim.defer_fn(function()
+      color.extend_hl('MiniCursorword', {
+        bg = color.alpha_hl('DiagnosticInfo', 'fg', 0.2),
+        underline = false,
+        default = false,
+      })
+    end, 500)
+  end
+
+  vim.on_key(function(key)
+    local ok, current_mode = pcall(vim.fn.mode)
+    if not ok then
+      return
+    end
+
+    if current_mode == 'n' then
+      -- reset if coming back from operator pending mode
+      if operator_started then
+        reset()
+        return
+      end
+
+      if key == 'y' then
+        operator_started = true
+
+        local color = require('lttb.utils.color')
+
+        color.extend_hl('MiniCursorword', {
+          bg = 'NONE',
+          default = false,
+        })
+        return
+      end
+    end
+  end)
+end
