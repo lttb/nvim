@@ -14,14 +14,17 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
     end
 
     -- open the tree but don't focus it
-    vim.cmd('Neotree show')
+    -- NOTE: scheduled for compatibility with neovim-project
+    vim.schedule(function()
+      vim.cmd('Neotree show')
+    end)
   end,
 })
 
 return {
   {
     'nvim-neo-tree/neo-tree.nvim',
-    lazy = false,
+    cmd = { 'Neotree' },
     keys = {
       { '<D-b>', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Sidebar' } },
       { '<D-e>', '<cmd>Neotree reveal<cr>', { desc = 'Focus Sidebar' } },
@@ -32,6 +35,7 @@ return {
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
+      'coffebar/neovim-project',
     },
     opts = {
       window = {
