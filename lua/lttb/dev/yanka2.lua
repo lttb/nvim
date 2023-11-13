@@ -1,7 +1,7 @@
 local M = {}
 
-local function trim_string(str)
-  -- Use Lua pattern matching to remove leading and trailing spaces, newlines, and tabs
+local function trim_string_r(str)
+  -- Use Lua pattern matching to remove trailing spaces, newlines, and tabs
   return str:match('(.-)%s*$')
 end
 
@@ -19,9 +19,12 @@ local function find_minimum_indentation(lines)
   return min_indent or ''
 end
 
+-- TODO: implement indentation balancing
 local function trim_text(text)
-  local lines = vim.split(trim_string(text), '\n')
+  local lines = vim.split(trim_string_r(text), '\n')
+
   local min_indent = find_minimum_indentation(lines)
+
   local new_lines = vim.tbl_map(function(line)
     return line:sub(#min_indent + 1)
   end, lines)
