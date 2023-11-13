@@ -194,77 +194,81 @@ return {
     },
 
     config = true,
-    dependencies = {
+  },
+
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    -- @see https://github.com/nvim-telescope/telescope-fzf-native.nvim#cmake-windows-linux-macos
+    -- run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+    build = 'make',
+    config = function()
+      require('telescope').load_extension('fzf')
+    end,
+
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+  },
+
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    config = function()
+      require('telescope').load_extension('file_browser')
+    end,
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+  },
+
+  {
+    'dawsers/telescope-file-history.nvim',
+    -- NOTE: nice plugin, but spams notifications on changs, need to investigate
+    config = function()
+      require('file_history').setup()
+
+      require('telescope').load_extension('file_history')
+    end,
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+  },
+
+  {
+    'catgoose/telescope-helpgrep.nvim',
+    config = function()
+      require('telescope').load_extension('helpgrep')
+    end,
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+  },
+
+  {
+    'lttb/smart-open.nvim',
+    -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
+    branch = 'feature/result-limit',
+    keys = {
       {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        -- @see https://github.com/nvim-telescope/telescope-fzf-native.nvim#cmake-windows-linux-macos
-        -- run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-        build = 'make',
-        config = function()
-          require('telescope').load_extension('fzf')
+        '<leader><leader>',
+        function()
+          require('telescope').extensions.smart_open.smart_open({
+            cwd_only = true,
+            filename_first = false,
+          })
         end,
+        desc = 'Smart Open',
       },
+    },
+    config = function()
+      require('telescope').load_extension('smart_open')
+    end,
+    dependencies = { 'nvim-telescope/telescope.nvim', 'kkharji/sqlite.lua' },
+  },
 
+  {
+    'nvim-telescope/telescope-frecency.nvim',
+    enabled = false,
+    config = function()
+      require('telescope').load_extension('frecency')
+    end,
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    keys = {
       {
-        'nvim-telescope/telescope-file-browser.nvim',
-        config = function()
-          require('telescope').load_extension('file_browser')
-        end,
-      },
-
-      {
-        'dawsers/telescope-file-history.nvim',
-        -- NOTE: nice plugin, but spams notifications on changs, need to investigate
-        config = function()
-          require('file_history').setup()
-
-          require('telescope').load_extension('file_history')
-        end,
-      },
-
-      {
-        'catgoose/telescope-helpgrep.nvim',
-        config = function()
-          require('telescope').load_extension('helpgrep')
-        end,
-      },
-
-      {
-        'lttb/smart-open.nvim',
-        -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
-        branch = 'feature/result-limit',
-        keys = {
-          {
-            '<leader><leader>',
-            function()
-              require('telescope').extensions.smart_open.smart_open({
-                cwd_only = true,
-                filename_first = false,
-              })
-            end,
-            desc = 'Smart Open',
-          },
-        },
-        config = function()
-          require('telescope').load_extension('smart_open')
-        end,
-        dependencies = { 'kkharji/sqlite.lua' },
-      },
-
-      {
-        'nvim-telescope/telescope-frecency.nvim',
-        enabled = false,
-        config = function()
-          require('telescope').load_extension('frecency')
-        end,
-        keys = {
-          {
-            '<leader><leader>',
-            '<Cmd>Telescope frecency workspace=CWD<CR>',
-            desc = 'Smart Open',
-          },
-        },
-
+        '<leader><leader>',
+        '<Cmd>Telescope frecency workspace=CWD<CR>',
+        desc = 'Smart Open',
       },
     },
   },
