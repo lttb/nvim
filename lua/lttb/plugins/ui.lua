@@ -123,11 +123,11 @@ return {
         },
         -- you can enable a preset for easier configuration
         presets = {
-          bottom_search = true,         -- use a classic bottom cmdline for search
-          command_palette = true,       -- position the cmdline and popupmenu together
+          bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true,        -- add a border to hover docs and signature help
+          inc_rename = true, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true, -- add a border to hover docs and signature help
         },
 
         messages = {
@@ -231,9 +231,9 @@ return {
 
     {
       'romgrk/barbar.nvim',
-      enabled = true,
+      enabled = false,
       dependencies = {
-        'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+        'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
         'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
       },
       init = function()
@@ -348,41 +348,6 @@ return {
     },
 
     {
-      'windwp/nvim-spectre',
-      dependencies = {
-        'nvim-lua/plenary.nvim',
-      },
-      config = function()
-        local spectre = require('spectre')
-
-        spectre.setup({
-          live_update = true,
-          is_insert_mode = true,
-        })
-
-        utils.keyplug('lttb-spectre', spectre.open, {
-          desc = 'spectre.nvim',
-        })
-
-        utils.keyplug('lttb-spectre-search-in-file', spectre.open_file_search, {
-          desc = 'spectre.nvim | search in file',
-        })
-
-        utils.keyplug('lttb-spectre-search-word', function()
-          spectre.open_visual({ select_word = true })
-        end, {
-          desc = 'spectre.nvim | search word',
-        })
-
-        utils.keyplug('lttb-spectre-open-visual', function()
-          spectre.open_visual({ select_word = true })
-        end, {
-          desc = 'spectre.nvim | open visual',
-        })
-      end,
-    },
-
-    {
       'zbirenbaum/neodim',
       enabled = false,
       event = 'LspAttach',
@@ -400,7 +365,7 @@ return {
         local hover = require('hover')
 
         return {
-          { 'K',  hover.hover,        desc = 'hover.nvim' },
+          { 'K', hover.hover, desc = 'hover.nvim' },
           { 'gK', hover.hover_select, desc = 'hover.nvim select' },
         }
       end,
@@ -459,7 +424,7 @@ return {
       keys = {
         { '<S-D-m>', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
         -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        { '<S-M-m>', '<S-D-m>',                remap = true },
+        { '<S-M-m>', '<S-D-m>', remap = true },
       },
     },
 

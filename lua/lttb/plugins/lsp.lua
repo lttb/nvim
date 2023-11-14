@@ -117,14 +117,14 @@ local function config()
       local node_type = current_node:type()
       -- Adjust the node types according to the Treesitter grammar
       if
-          node_type == 'object'
-          or node_type == 'object_type'
-          or node_type == 'type_literal'
-          or node_type == 'type_annotation'
-          or node_type == 'jsx_element'
-          or node_type == 'jsx_self_closing_element'
-          or node_type == 'jsx_attribute'
-          or node_type == 'jsx_expression'
+        node_type == 'object'
+        or node_type == 'object_type'
+        or node_type == 'type_literal'
+        or node_type == 'type_annotation'
+        or node_type == 'jsx_element'
+        or node_type == 'jsx_self_closing_element'
+        or node_type == 'jsx_attribute'
+        or node_type == 'jsx_expression'
       then
         return true
       end
@@ -146,9 +146,9 @@ local function config()
     source_nvim_lsp,
 
     { name = 'luasnip' },
-    { name = 'path',   keyword_length = 3, max_item_count = 3 },
+    { name = 'path', keyword_length = 3, max_item_count = 3 },
     { name = 'buffer', keyword_length = 2, max_item_count = 3 },
-    { name = 'rg',     keyword_length = 1, max_item_count = 3 },
+    { name = 'rg', keyword_length = 1, max_item_count = 3 },
   }
 
   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
@@ -235,30 +235,6 @@ local function config()
 
     sorting = {
       comparators = {
-        -- Add this custom comparator at the beginning of the comparator list
-        function(entry1, entry2)
-          local item1 = entry1.completion_item
-          local item2 = entry2.completion_item
-          local word = require('cmp.utils.str').get_word(vim.api.nvim_get_current_line(), vim.fn.col('.'))
-
-          -- If both are exact matches, fallback to the default sorting
-          if item1.label == word and item2.label == word then
-            return nil
-          end
-
-          -- If entry1 is an exact match, demote it
-          if item1.label == word then
-            return false
-          end
-
-          -- If entry2 is an exact match, demote it
-          if item2.label == word then
-            return true
-          end
-
-          -- Fallback to the next comparators
-          return nil
-        end,
         compare.offset,
         compare.score,
         compare.recently_used,
@@ -344,8 +320,8 @@ return {
         enabled = false,
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
-          { '<F2>',  '<cmd>Lspsaga rename<cr>' },
+          { 'K', '<cmd>Lspsaga hover_doc<cr>' },
+          -- { '<F2>', '<cmd>Lspsaga rename<cr>' },
         },
         config = function()
           require('lspsaga').setup({
@@ -378,6 +354,27 @@ return {
         config = function()
           vim.g.code_action_menu_show_diff = true
         end,
+      },
+
+      {
+        'antosha417/nvim-lsp-file-operations',
+        dependencies = {
+          'nvim-lua/plenary.nvim',
+          'nvim-neo-tree/neo-tree.nvim',
+        },
+        config = function()
+          require('lsp-file-operations').setup()
+        end,
+      },
+
+      {
+        'smjonas/inc-rename.nvim',
+        config = function()
+          require('inc_rename').setup()
+        end,
+        keys = {
+          { '<F2>', ':IncRename ' },
+        },
       },
     },
   },

@@ -187,6 +187,18 @@ return {
     },
   },
 
+  {
+    'jedrzejboczar/possession.nvim',
+    enabled = false,
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      autosave = {
+        current = true,
+        tmp = true,
+      },
+    },
+  },
+
   { 'JoosepAlviste/nvim-ts-context-commentstring' },
   {
     'numToStr/Comment.nvim',
@@ -233,7 +245,7 @@ return {
   },
 
   -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
-  { 'axkirillov/hbac.nvim',                       opts = {} },
+  { 'axkirillov/hbac.nvim', opts = {} },
 
   {
     'folke/zen-mode.nvim',
