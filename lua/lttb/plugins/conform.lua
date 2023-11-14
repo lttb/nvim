@@ -4,7 +4,7 @@ if utils.is_vscode() then
   return {}
 end
 
-local prettier = { 'prettier' }
+local prettier = { 'prettierd' }
 local js = { 'eslint_d', prettier }
 
 return {
@@ -16,6 +16,7 @@ return {
       typescript = js,
       typescriptreact = js,
       json = { prettier },
+      jsonc = { prettier },
       markdown = { prettier, 'markdownlint' },
       mdx = { prettier, 'markdownlint' },
       py = { 'ruff_fix', 'ruff_format' },
