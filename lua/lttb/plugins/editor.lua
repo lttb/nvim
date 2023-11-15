@@ -258,4 +258,6 @@ return {
   },
 
   { 'knubie/vim-kitty-navigator' },
+
+  { 'kevinhwang91/nvim-bqf' },
 }

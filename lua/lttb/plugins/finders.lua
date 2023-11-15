@@ -339,6 +339,8 @@ return {
     },
     keys = function()
       local fzf = require('fzf-lua')
+      local actions = require('fzf-lua.actions')
+      local path = require('fzf-lua.path')
 
       return {
         -- {
@@ -386,6 +388,42 @@ return {
               },
 
               prompt = '  ',
+
+              actions = {
+                ['ctrl-l'] = {
+                  function(selected, opts)
+                    local entry = path.entry_to_file(selected[1], opts, opts.force_uri)
+                    local fullpath = entry.path or entry.uri and entry.uri:match('^%a+://(.*)')
+                    if not path.starts_with_separator(fullpath) then
+                      fullpath = path.join({ opts.cwd or opts._cwd or vim.loop.cwd(), fullpath })
+                    end
+
+                    require('lttb.dev.toggle_floats').toggle_floats(function()
+                      vim.cmd('e ' .. fullpath)
+
+                      vim.schedule(function()
+                        if entry.line > 1 or entry.col > 1 then
+                          -- make sure we have valid column
+                          -- 'nvim-dap' for example sets columns to 0
+                          entry.col = entry.col and entry.col > 0 and entry.col or 1
+                          vim.api.nvim_win_set_cursor(0, { tonumber(entry.line), tonumber(entry.col) - 1 })
+                        end
+                      end)
+                    end)
+
+                    -- utils.log(selected[1])
+                    -- actions.file_edit(selected, opts)
+                  end,
+                  actions.resume,
+                },
+                -- ['ctrl-l'] = function(selected, opts)
+                --   utils.log(selected)
+
+                --   return false
+
+                --   -- actions.file_open_in_background(selected, opts)
+                -- end,
+              },
             })
           end,
           desc = 'fzf: search',
