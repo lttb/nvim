@@ -32,7 +32,10 @@ function M.toggle_floats(callback)
 
     if last_w then
       vim.api.nvim_set_current_win(last_w)
-      -- vim.api.nvim_feedkeys('i', 'n', false)
+
+      vim.schedule(function()
+        vim.api.nvim_feedkeys('i', 'n', false)
+      end)
     end
 
     hidden_w = {}
