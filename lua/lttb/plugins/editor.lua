@@ -258,4 +258,7 @@ return {
   },
 
   { 'knubie/vim-kitty-navigator' },
+
+  -- better quick fix window
+  { 'kevinhwang91/nvim-bqf' },
 }

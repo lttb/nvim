@@ -44,6 +44,10 @@ local function config()
         completion = { callSnippet = 'Replace' },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = { enable = false },
+
+        workspace = {
+          checkThirdParty = 'Disable',
+        },
       },
     },
   })
@@ -358,6 +362,7 @@ return {
 
       {
         'antosha417/nvim-lsp-file-operations',
+        enabled = false,
         dependencies = {
           'nvim-lua/plenary.nvim',
           'nvim-neo-tree/neo-tree.nvim',

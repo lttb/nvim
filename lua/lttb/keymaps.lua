@@ -153,14 +153,16 @@ vim.keymap.set('n', '/', 'zR/', { remap = false })
 -- more refined paste
 -- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
 
-
 vim.keymap.set('x', '<D-x>', '"+d')
 vim.keymap.set('n', '<D-x>', '"+dd')
 vim.keymap.set('x', '<D-c>', 'y')
 vim.keymap.set('n', '<D-c>', 'yy')
-vim.keymap.set({ 'i', 'n', 't', 'x' },
-  '<D-v>',
-  yanka.put_with_autoindent,
-  { noremap = true, silent = true }
-)
+vim.keymap.set({ 'i', 'n', 't', 'x' }, '<D-v>', yanka.put_with_autoindent, { noremap = true, silent = true })
 vim.keymap.set('c', '<D-v>', '<C-r>+')
+
+vim.keymap.set({ 'n', 'x', 'i', 't' }, '<D-k>', function()
+  vim.opt.eventignore:append('WinLeave,BufLeave')
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, false, true), 'i', true)
+end)
+
+vim.keymap.set({ 'n', 'x', 'i', 't' }, '<D-e>', require('lttb.dev.toggle_floats').toggle_floats)
