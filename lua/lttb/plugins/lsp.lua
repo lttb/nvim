@@ -71,7 +71,7 @@ local function config()
       local is_ignored = string.find(code, 'prettier') or string.find(code, 'no%-unused%-vars')
 
       if not is_ignored then
-        filtered[k] = d
+        table.insert(filtered, d)
       end
     end
 
@@ -79,13 +79,19 @@ local function config()
   end
   vim.diagnostic.handlers.virtual_text = {
     show = function(namespace, bufnr, diagnostics, opts)
-      orig_virtual_text_handler.show(namespace, bufnr, filter_diagnostics(diagnostics), opts)
+      local filtered = filter_diagnostics(diagnostics)
+      if #filtered > 0 then
+        orig_virtual_text_handler.show(namespace, bufnr, filtered, opts)
+      end
     end,
     hide = orig_virtual_text_handler.hide,
   }
   vim.diagnostic.handlers.underline = {
     show = function(namespace, bufnr, diagnostics, opts)
-      orig_underline_handler.show(namespace, bufnr, filter_diagnostics(diagnostics), opts)
+      local filtered = filter_diagnostics(diagnostics)
+      if #filtered > 0 then
+        orig_underline_handler.show(namespace, bufnr, filtered, opts)
+      end
     end,
     hide = orig_underline_handler.hide,
   }

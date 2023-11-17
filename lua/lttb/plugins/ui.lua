@@ -116,10 +116,6 @@ return {
           signature = {
             enabled = false,
           },
-
-          message = {
-            view = 'mini',
-          },
         },
         -- you can enable a preset for easier configuration
         presets = {
