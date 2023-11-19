@@ -8,10 +8,6 @@ local config = function()
 
     auto_install = true,
 
-    context_commentstring = {
-      enable = true,
-    },
-
     refactor = {
       highlight_definitions = {
         enable = false,
