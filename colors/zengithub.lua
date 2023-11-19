@@ -39,40 +39,6 @@ else
   }, bg)
 end
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  callback = function()
-    vim.api.nvim_set_hl(0, 'NeoTreeDirectoryIcon', {
-      fg = palette.sky.hex,
-      default = false,
-    })
-
-    vim.api.nvim_set_hl(0, 'NeoTreeDirectoryName', {
-      fg = palette.sky.hex,
-      default = false,
-    })
-
-    vim.api.nvim_set_hl(0, 'NeoTreeFileName', {
-      fg = palette.sky.hex,
-      default = false,
-    })
-
-    vim.api.nvim_set_hl(0, 'NormalFloat', {
-      link = 'Normal',
-    })
-
-    vim.api.nvim_set_hl(0, 'Todo', {
-      underline = false,
-    })
-
-    vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {
-      bg = 'NONE',
-      fg = palette.fg.mix(palette.bg, 70).hex,
-      underline = false,
-      reverse = false,
-    })
-  end,
-})
-
 -- Generate the lush specs using the generator util
 local generator = require('zenbones.specs')
 local base_specs = generator.generate(palette, bg, generator.get_global_config(colors_name, bg))
@@ -107,10 +73,23 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
 
     sym('@constant')({ fg = palette.wood, gui = 'NONE' }),
 
-
     sym('@string')({ fg = palette.sky, gui = 'NONE' }),
     sym('@number')({ fg = palette.sky, gui = 'NONE' }),
     sym('@boolean')({ fg = palette.sky, gui = 'NONE' }),
+
+    DiagnosticDeprecated({ strikethrough = true }),
+    DiagnosticUnnecessary({
+      bg = 'NONE',
+      fg = palette.fg.mix(palette.bg, 70).hex,
+      underline = false,
+      reverse = false,
+    }),
+
+    NeoTreeDirectoryIcon({ fg = palette.sky.hex }),
+    NeoTreeDirectoryName({ fg = palette.sky.hex }),
+    NeoTreeFileName({ fg = palette.sky.hex }),
+
+    Todo({ underline = false }),
   }
 end)
 

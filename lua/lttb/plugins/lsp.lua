@@ -46,7 +46,7 @@ local function config()
         telemetry = { enable = false },
 
         workspace = {
-          checkThirdParty = 'Disable',
+          checkThirdParty = false,
         },
       },
     },
