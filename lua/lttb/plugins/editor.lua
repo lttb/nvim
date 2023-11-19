@@ -25,6 +25,7 @@ return {
 
   {
     'windwp/nvim-ts-autotag',
+    enabled = false,
     event = 'VimEnter',
     config = true,
   },

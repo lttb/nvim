@@ -27,32 +27,34 @@ elseif theme.colorscheme == 'zengithub' and theme.variant == 'dark' then
   vim.g.neovide_background_color = '#22272e'
 elseif theme.variant == 'light' and theme.name == 'rose-pine' then
   vim.g.neovide_background_color = '#faf4ed'
+elseif theme.variant == 'dark' and theme.name == 'rose-pine' then
+  vim.g.neovide_background_color = '#191724'
 elseif theme.variant == 'light' then
   vim.g.neovide_background_color = '#ffffff'
 end
 
-vim.g.neovide_floating_blur_amount_x  = 2.0
-vim.g.neovide_floating_blur_amount_y  = 2.0
+vim.g.neovide_floating_blur_amount_x = 2.0
+vim.g.neovide_floating_blur_amount_y = 2.0
 
-vim.g.neovide_fullscreen              = false
+vim.g.neovide_fullscreen = false
 
 -- vim.g.neovide_remember_window_size = true
 -- vim.g.neovide_remember_window_position = true
 
 vim.g.neovide_input_macos_alt_is_meta = true
-vim.g.neovide_input_use_logo          = true
+vim.g.neovide_input_use_logo = true
 
 -- in case of buttonless frame
 
-vim.g.neovide_padding_top             = 20
-vim.g.neovide_padding_bottom          = 20
-vim.g.neovide_padding_right           = 20
-vim.g.neovide_padding_left            = 20
+vim.g.neovide_padding_top = 20
+vim.g.neovide_padding_bottom = 20
+vim.g.neovide_padding_right = 20
+vim.g.neovide_padding_left = 20
 
 -- vim.g.neovide_profiler = true
 -- @see https://github.com/neovide/neovide/issues/2093
-vim.g.neovide_refresh_rate            = 144
+vim.g.neovide_refresh_rate = 144
 
-vim.g.neovide_cursor_vfx_mode         = 'pixiedust'
+vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 
-vim.g.neovide_floating_shadow         = false
+vim.g.neovide_floating_shadow = false

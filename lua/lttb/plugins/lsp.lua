@@ -81,7 +81,7 @@ local function config()
     show = function(namespace, bufnr, diagnostics, opts)
       local filtered = filter_diagnostics(diagnostics)
       if #filtered > 0 then
-        orig_virtual_text_handler.show(namespace, bufnr, filtered, opts)
+        pcall(orig_virtual_text_handler.show, namespace, bufnr, filtered, opts)
       end
     end,
     hide = orig_virtual_text_handler.hide,
@@ -90,7 +90,7 @@ local function config()
     show = function(namespace, bufnr, diagnostics, opts)
       local filtered = filter_diagnostics(diagnostics)
       if #filtered > 0 then
-        orig_underline_handler.show(namespace, bufnr, filtered, opts)
+        pcall(orig_underline_handler.show, namespace, bufnr, filtered, opts)
       end
     end,
     hide = orig_underline_handler.hide,
@@ -158,7 +158,7 @@ local function config()
     { name = 'luasnip' },
     { name = 'path', keyword_length = 3, max_item_count = 3 },
     { name = 'buffer', keyword_length = 2, max_item_count = 3 },
-    { name = 'rg', keyword_length = 1, max_item_count = 3 },
+    -- { name = 'rg', keyword_length = 1, max_item_count = 3 },
   }
 
   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
@@ -314,7 +314,8 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      'lukas-reineke/cmp-rg',
+      -- lags on large projects
+      -- 'lukas-reineke/cmp-rg',
 
       'onsails/lspkind.nvim',
 
