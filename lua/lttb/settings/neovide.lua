@@ -24,7 +24,7 @@ elseif theme.colorscheme == 'zenwritten' then
 elseif theme.colorscheme == 'zengithub' and theme.variant == 'light' then
   vim.g.neovide_background_color = '#EDEEEB'
 elseif theme.colorscheme == 'zengithub' and theme.variant == 'dark' then
-  vim.g.neovide_background_color = '#22272e'
+  vim.g.neovide_background_color = '#24282e'
 elseif theme.variant == 'light' and theme.name == 'rose-pine' then
   vim.g.neovide_background_color = '#faf4ed'
 elseif theme.variant == 'dark' and theme.name == 'rose-pine' then
@@ -37,6 +37,17 @@ vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
 
 vim.g.neovide_fullscreen = false
+
+vim.g.neovide_transparency = 0.0
+-- could be more transparent with blur support
+-- @see https://github.com/neovide/neovide/pull/2104
+vim.g.transparency = 1
+
+local alpha = function()
+  return string.format('%x', math.floor(255 * vim.g.transparency or 0.8))
+end
+
+vim.g.neovide_background_color = vim.g.neovide_background_color .. alpha()
 
 -- vim.g.neovide_remember_window_size = true
 -- vim.g.neovide_remember_window_position = true
@@ -53,7 +64,7 @@ vim.g.neovide_padding_left = 20
 
 -- vim.g.neovide_profiler = true
 -- @see https://github.com/neovide/neovide/issues/2093
-vim.g.neovide_refresh_rate = 144
+-- vim.g.neovide_refresh_rate = 144
 
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 
