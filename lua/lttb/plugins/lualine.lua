@@ -88,8 +88,10 @@ local function config()
     local color = require('lttb.utils.color')
     local function patch(mode)
       local hl = 'lualine_a_' .. mode
-      color.extend_hl(hl,
-        { bg = 'NONE', fg = color.alpha_hl(hl, 'bg', 1, color.get_hl('Normal', 'fg')), default = false })
+      color.extend_hl(
+        hl,
+        { bg = 'NONE', fg = color.alpha_hl(hl, 'bg', 1, color.get_hl('Normal', 'fg')), default = false }
+      )
     end
 
     patch('normal')

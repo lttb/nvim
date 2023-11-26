@@ -31,8 +31,8 @@ if bg == 'light' then
 else
   palette = util.palette_extend({
     -- bg = hsluv(0, 0, 9),
-    bg = hsluv('#22272e'),
-    fg = hsluv(0, 0, 76),
+    bg = hsluv('#24282e'),
+    fg = hsluv('#C2C2C2'),
     sky = hsluv('#7d8590'),
 
     muted = hsluv('#636c76'),
