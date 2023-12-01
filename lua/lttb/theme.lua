@@ -1,7 +1,7 @@
 local M = {}
 
-M.variant = 'dark'
-M.name = zengithub
-M.colorscheme = 'zengithub'
+M.variant = 'light'
+M.name = 'rose-pine'
+M.colorscheme = 'rose-pine'
 
 return M
