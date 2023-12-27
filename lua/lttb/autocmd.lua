@@ -47,6 +47,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     color.extend_hl('WinSeparator', {
       bg = splitLineHL.bg,
       fg = splitLineHL.bg,
+      -- nvim 0.10 links WinSeparator to Normal
+      link = 'WinSeparator',
     })
 
     color.extend_hl('StatusLine', {
