@@ -42,3 +42,9 @@ if utils.is_neovide() then
 
   return
 end
+
+if utils.is_goneovim() then
+  require('lttb.settings.goneovim')
+
+  return
+end
