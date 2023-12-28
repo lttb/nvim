@@ -33,8 +33,8 @@ elseif theme.variant == 'light' then
   vim.g.neovide_background_color = '#ffffff'
 end
 
-vim.g.neovide_floating_blur_amount_x = 2.0
-vim.g.neovide_floating_blur_amount_y = 2.0
+vim.g.neovide_floating_blur_amount_x = 50
+vim.g.neovide_floating_blur_amount_y = 50
 
 vim.g.neovide_fullscreen = false
 
@@ -44,7 +44,7 @@ vim.g.neovide_transparency = 0.0
 vim.g.transparency = 1
 
 local alpha = function()
-  return string.format('%x', math.floor(255 * vim.g.transparency or 0.8))
+  return string.format('%x', math.floor(255 * vim.g.transparency or 0.9))
 end
 
 vim.g.neovide_background_color = vim.g.neovide_background_color .. alpha()
