@@ -186,7 +186,26 @@ return {
     lazy = true,
     priority = 1000,
     opts = {
-      disable_italics = true,
+      extend_background_behind_borders = true,
+      styles = {
+        italic = false,
+      },
+      highlight_groups = {
+        -- Normal = { bg = '#FFFFFF' },
+        -- CursorLine = {}
+      },
+
+      before_highlight = function(group, highlight, palette)
+        if theme.variant ~= 'light' then
+          return
+        end
+
+        if highlight.bg == palette.base then
+          highlight.bg = '#ffffff'
+        elseif highlight.bg == palette.overlay then
+          highlight.bg = '#f6f8fa'
+        end
+      end,
     },
   },
 
