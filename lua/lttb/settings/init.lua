@@ -62,6 +62,8 @@ vim.opt.sidescrolloff = 20
 vim.opt.pumblend      = 10
 vim.opt.winblend      = 10
 
+vim.opt.fillchars='eob: '
+
 -- Don't show "Scanning..." messages (improves 'mini.completion')
 vim.cmd('set shortmess+=C')
 
