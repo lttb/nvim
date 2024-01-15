@@ -4,21 +4,23 @@ if utils.is_vscode() then
   return {}
 end
 
-local prettier = { 'prettierd' }
-local js = { 'eslint_d', prettier }
+local js_formatter = { 'prettier' }
+local js = { 'eslint_d', js_formatter }
 
 return {
   'stevearc/conform.nvim',
+  event = { 'BufWritePre' },
+  cmd = { 'ConformInfo' },
   opts = {
     formatters_by_ft = {
       lua = { 'stylua' },
       javascript = js,
       typescript = js,
       typescriptreact = js,
-      json = { prettier },
-      jsonc = { prettier },
-      markdown = { prettier, 'markdownlint' },
-      mdx = { prettier, 'markdownlint' },
+      json = { js_formatter },
+      jsonc = { js_formatter },
+      markdown = { js_formatter, 'markdownlint' },
+      mdx = { js_formatter, 'markdownlint' },
       py = { 'ruff_fix', 'ruff_format' },
 
       -- Use the "_" filetype to run formatters on filetypes that don't
