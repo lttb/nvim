@@ -89,11 +89,11 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     })
 
     color.extend_hl('IblIndent', {
-      fg = color.alpha(normalHL.fg, 0.1),
+      fg = color.alpha(normalHL.fg, utils.is_neovide() and 0.025 or 0.1),
       link = 'IblIndent',
     })
     color.extend_hl('IblScope', {
-      fg = color.alpha(normalHL.fg, 0.25),
+      fg = color.alpha(normalHL.fg, utils.is_neovide() and 0.1 or 0.25),
       link = 'IblScope',
     })
 
