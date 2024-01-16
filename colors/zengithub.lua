@@ -77,6 +77,8 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
     sym('@number')({ fg = palette.sky, gui = 'NONE' }),
     sym('@boolean')({ fg = palette.sky, gui = 'NONE' }),
 
+    Comment({ fg = palette.fg.mix(palette.bg, 65) }),
+
     DiagnosticDeprecated({ strikethrough = true }),
     DiagnosticUnnecessary({
       bg = 'NONE',
