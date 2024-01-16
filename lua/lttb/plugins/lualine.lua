@@ -94,10 +94,10 @@ local function config()
       )
     end
 
-    patch('normal')
-    patch('visual')
-    patch('insert')
-    patch('command')
+    -- patch('normal')
+    -- patch('visual')
+    -- patch('insert')
+    -- patch('command')
   end)
 
   -- listen lsp-progress event and refresh lualine
