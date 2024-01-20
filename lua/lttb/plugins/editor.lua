@@ -10,6 +10,7 @@ return {
     'nmac427/guess-indent.nvim',
     opts = {},
   },
+
   {
     enabled = true,
     'vidocqh/auto-indent.nvim',
@@ -21,6 +22,11 @@ return {
         return require('nvim-treesitter.indent').get_indent(lnum)
       end,
     },
+  },
+
+  {
+    'kawre/neotab.nvim',
+    event = 'InsertEnter',
   },
 
   {
