@@ -11,7 +11,7 @@ return {
     ---@type Flash.Config
     opts = {
       search = {
-        incremental = true,
+        incremental = false,
         mode = 'fuzzy',
       },
 
@@ -22,7 +22,14 @@ return {
         motion = true,
       },
 
+      label = {
+        uppercase = false,
+      },
+
       modes = {
+        char = {
+          jump_labels = true,
+        },
         search = {
           enabled = true,
         },
@@ -56,8 +63,8 @@ return {
   },
 
   {
-    'chaoren/vim-wordmotion',
     enabled = false,
+    'chaoren/vim-wordmotion',
     init = function()
       vim.g.wordmotion_prefix = ';'
     end,
@@ -73,6 +80,8 @@ return {
       if utils.is_vscode() then
         return
       end
+
+      -- require('mini.animate').setup({})
 
       require('mini.bufremove').setup({})
 
@@ -105,9 +114,9 @@ return {
     config = function()
       require('smartyank').setup({
         highlight = {
-          enabled = true,     -- highlight yanked text
+          enabled = true, -- highlight yanked text
           higroup = 'Search', -- highlight group of yanked text
-          timeout = 200,      -- timeout for clearing the highlight
+          timeout = 200, -- timeout for clearing the highlight
         },
         clipboard = { enabled = true },
         tmux = {
@@ -117,8 +126,8 @@ return {
         },
         osc52 = {
           enabled = true,
-          ssh_only = true,       -- false to OSC52 yank also in local sessions
-          silent = false,        -- true to disable the "n chars copied" echo
+          ssh_only = true, -- false to OSC52 yank also in local sessions
+          silent = false, -- true to disable the "n chars copied" echo
           echo_hl = 'Directory', -- highlight group of the OSC52 echo message
         },
 
@@ -154,7 +163,7 @@ return {
 
   {
     'chrisgrieser/nvim-spider',
-    enabled = false,
+    enabled = true,
     opts = {},
     keys = {
       {
@@ -194,10 +203,10 @@ return {
     'fedepujol/move.nvim',
     enabled = false,
     keys = {
-      { '<M-j>', ':MoveLine(1)<CR>',   desc = 'Move: line down',  mode = { 'n' }, silent = true },
-      { '<M-j>', ':MoveBlock(1)<CR>',  desc = 'Move: block down', mode = { 'v' }, silent = true },
-      { '<M-k>', ':MoveLine(-1)<CR>',  desc = 'Move: line up',    mode = { 'n' }, silent = true },
-      { '<M-k>', ':MoveBlock(-1)<CR>', desc = 'Move: block up',   mode = { 'v' }, silent = true },
+      { '<M-j>', ':MoveLine(1)<CR>', desc = 'Move: line down', mode = { 'n' }, silent = true },
+      { '<M-j>', ':MoveBlock(1)<CR>', desc = 'Move: block down', mode = { 'v' }, silent = true },
+      { '<M-k>', ':MoveLine(-1)<CR>', desc = 'Move: line up', mode = { 'n' }, silent = true },
+      { '<M-k>', ':MoveBlock(-1)<CR>', desc = 'Move: block up', mode = { 'v' }, silent = true },
     },
   },
 }
