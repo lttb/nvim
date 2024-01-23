@@ -17,7 +17,15 @@ local function config()
   lsp_zero.extend_lspconfig()
 
   require('neoconf').setup({})
-  require('typescript-tools').setup({})
+  require('typescript-tools').setup({
+    settings = {
+      complete_function_calls = true,
+
+      jsx_close_tag = {
+        enable = true,
+      }
+    }
+  })
 
   vim.diagnostic.config({
     update_in_insert = false,
