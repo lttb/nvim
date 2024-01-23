@@ -9,6 +9,7 @@ local js = { 'eslint_d', js_formatter }
 
 return {
   'stevearc/conform.nvim',
+  enabled = false,
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
   opts = {
