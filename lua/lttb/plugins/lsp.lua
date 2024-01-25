@@ -23,8 +23,8 @@ local function config()
 
       jsx_close_tag = {
         enable = true,
-      }
-    }
+      },
+    },
   })
 
   vim.diagnostic.config({
@@ -89,19 +89,23 @@ local function config()
     show = function(namespace, bufnr, diagnostics, opts)
       local filtered = filter_diagnostics(diagnostics)
       if #filtered > 0 then
-        pcall(orig_virtual_text_handler.show, namespace, bufnr, filtered, opts)
+        orig_virtual_text_handler.show(namespace, bufnr, filtered, opts)
       end
     end,
-    hide = orig_virtual_text_handler.hide,
+    hide = function(ns, bufnr)
+      orig_virtual_text_handler.hide(ns, bufnr)
+    end,
   }
   vim.diagnostic.handlers.underline = {
     show = function(namespace, bufnr, diagnostics, opts)
       local filtered = filter_diagnostics(diagnostics)
       if #filtered > 0 then
-        pcall(orig_underline_handler.show, namespace, bufnr, filtered, opts)
+        orig_underline_handler.show(namespace, bufnr, filtered, opts)
       end
     end,
-    hide = orig_underline_handler.hide,
+    hide = function(ns, bufnr)
+      orig_underline_handler.hide(ns, bufnr)
+    end,
   }
 
   require('mason').setup({})
