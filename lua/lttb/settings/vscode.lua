@@ -5,4 +5,5 @@ vim.api.nvim_set_keymap('n', 'gcc', '<Plug>VSCodeCommentaryLine', {})
 
 vim.api.nvim_set_keymap('n', 'gr', ':call VSCodeNotify("workbench.action.goToReferences")<cr>', {})
 
-vim.api.nvim_set_keymap('n', '<leader><leader>', ':call VSCodeNotify("workbench.action.quickOpen")<cr>', {})
+vim.api.nvim_set_keymap('n', '<leader><leader>', ':call VSCodeNotify("find-it-faster.findFiles")<cr>', {})
+vim.api.nvim_set_keymap('n', '/', ':call VSCodeNotify("go-to-fuzzy.find")<cr>', {})
