@@ -246,4 +246,10 @@ return {
   { 'ronisbr/nano-theme.nvim', lazy = true, priority = 1000 },
 
   { 'kvrohit/rasmus.nvim', lazy = true, priority = 1000 },
+
+  {
+    'RRethy/nvim-base16',
+    lazy = true,
+    priority = 1000,
+  },
 }
