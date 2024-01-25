@@ -91,7 +91,7 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
       reverse = false,
     }),
 
-    NeoTreeNormalNC({ bg = '#FAFAFA' }),
+    -- NeoTreeNormalNC({ bg = '#FAFAFA' }),
     NeoTreeDirectoryIcon({ fg = palette.sky.hex }),
     NeoTreeDirectoryName({ fg = palette.sky.hex }),
     NeoTreeFileName({ fg = palette.sky.hex }),
