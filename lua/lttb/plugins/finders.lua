@@ -12,9 +12,6 @@ return {
       local telescope_themes = require('telescope.themes')
 
       return {
-        { '<S-D-p>', '<cmd>Telescope<cr>', desc = 'Telescope' },
-        -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        { '<S-M-p>', '<S-D-p>', remap = true },
 
         {
           '<D-f>',
@@ -79,8 +76,6 @@ return {
           end,
           desc = 'Search Files',
         },
-
-        { '<S-D-r>', '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' },
 
         -- {
         --   '<leader>sgt',
@@ -173,6 +168,11 @@ return {
           end,
           desc = 'LSP: Goto References',
         },
+
+        utils.cmd_shift({
+          { 'p', '<cmd>Telescope<cr>', desc = 'Telescope' },
+          { 'r', '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' },
+        }),
 
         -- }}}
       }
@@ -364,7 +364,7 @@ return {
         { '<D-r>', fzf.resume, desc = 'fzf: resume' },
 
         {
-          '<S-D-f>',
+          '<M-S-D-f>',
           function()
             fzf.grep_project({
               fzf_opts = {
@@ -428,6 +428,8 @@ return {
           end,
           desc = 'fzf: search',
         },
+
+        { '<C-S-M-D-V>', '<M-S-D-f>', remap = true },
       }
     end,
   },
