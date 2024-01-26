@@ -23,6 +23,7 @@ return {
               callback = function()
                 vim.lsp.buf.format({
                   bufnr = bufnr,
+                  timeout_ms = 2000,
                   filter = function(client)
                     return client.name == 'null-ls'
                   end,
@@ -37,7 +38,7 @@ return {
           null_ls.builtins.code_actions.cspell,
 
           null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.eslint,
+          -- null_ls.builtins.formatting.eslint,
           null_ls.builtins.formatting.markdownlint,
           null_ls.builtins.formatting.prettier,
 
