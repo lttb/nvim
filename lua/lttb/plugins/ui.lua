@@ -419,9 +419,7 @@ return {
       'folke/trouble.nvim',
       dependencies = { 'nvim-tree/nvim-web-devicons' },
       keys = {
-        { '<S-D-m>', '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' },
-        -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        { '<S-M-m>', '<S-D-m>', remap = true },
+        utils.cmd_shift('m', { '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' }),
       },
     },
 

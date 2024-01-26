@@ -82,17 +82,14 @@ function M.should_open_sidebar(data)
   return true
 end
 
-function M.cmd_shift(list)
-  local tbl = {}
-
-  for _, value in ipairs(list) do
-    local key = value[1]
-
-    table.insert(tbl, { '<S-D-' .. string.lower(key) .. '>', unpack(value, 2) })
-    table.insert(tbl, { '<D-' .. string.upper(key) .. '>', unpack(value, 2) })
+-- the cmd+shift mapping behaviour is different in kitty/neovide
+-- @see https://github.com/neovide/neovide/issues/1237#issuecomment-1912243657
+function M.cmd_shift(key, opts)
+  if M.is_kitty() then
+    return { '<S-D-' .. string.lower(key) .. '>', unpack(opts) }
   end
 
-  return unpack(tbl)
+  return { '<D-' .. string.upper(key) .. '>', unpack(opts) }
 end
 
 return M

@@ -47,8 +47,6 @@ return {
         --   end,
         --   desc = 'Search by Grep',
         -- },
-        -- NOTE: support for neovide, @see https://github.com/neovide/neovide/issues/1237
-        -- { '<S-M-f>', '<S-D-f>', remap = true },
 
         {
           '<D-o>',
@@ -169,10 +167,9 @@ return {
           desc = 'LSP: Goto References',
         },
 
-        utils.cmd_shift({
-          { 'p', '<cmd>Telescope<cr>', desc = 'Telescope' },
-          { 'r', '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' },
-        }),
+        utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
+
+        utils.cmd_shift('r', { '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' }),
 
         -- }}}
       }
@@ -363,8 +360,7 @@ return {
 
         { '<D-r>', fzf.resume, desc = 'fzf: resume' },
 
-        {
-          '<M-S-D-f>',
+        utils.cmd_shift('f', {
           function()
             fzf.grep_project({
               fzf_opts = {
@@ -427,9 +423,7 @@ return {
             })
           end,
           desc = 'fzf: search',
-        },
-
-        { '<C-S-M-D-V>', '<M-S-D-f>', remap = true },
+        }),
       }
     end,
   },
