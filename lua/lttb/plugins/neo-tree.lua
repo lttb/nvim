@@ -4,20 +4,6 @@ if utils.is_vscode() then
   return {}
 end
 
-vim.api.nvim_create_autocmd({ 'VimEnter' }, {
-  -- it should be "nested" not to show the number column
-  -- @see https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1106
-  nested = true,
-  callback = function(data)
-    if not utils.should_open_sidebar(data) then
-      return
-    end
-
-    -- open the tree but don't focus it
-    vim.cmd('Neotree show')
-  end,
-})
-
 return {
   {
     'nvim-neo-tree/neo-tree.nvim',
@@ -34,6 +20,21 @@ return {
       'rcarriga/nvim-notify',
       -- 'coffebar/neovim-project',
     },
+    init = function()
+      vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+        -- it should be "nested" not to show the number column
+        -- @see https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1106
+        nested = true,
+        callback = function(data)
+          if not utils.should_open_sidebar(data) then
+            return
+          end
+
+          -- open the tree but don't focus it
+          vim.cmd('Neotree show')
+        end,
+      })
+    end,
     opts = {
       window = {
         width = utils.is_neovide() and 60 or '25%',
