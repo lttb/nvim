@@ -5,11 +5,10 @@ if utils.is_vscode() then
 end
 
 local js_formatter = { 'prettier' }
-local js = { 'eslint_d', js_formatter }
+local js = { 'eslint', js_formatter }
 
 return {
   'stevearc/conform.nvim',
-  enabled = false,
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
   opts = {
@@ -29,6 +28,8 @@ return {
       ['_'] = { 'trim_whitespace' },
     },
 
-    format_on_save = { lsp_fallback = true, timeout_ms = 500 },
+    format_after_save = function(bufnr)
+      return { lsp_fallback = true }
+    end,
   },
 }
