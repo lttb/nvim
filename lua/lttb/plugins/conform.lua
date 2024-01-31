@@ -4,8 +4,8 @@ if utils.is_vscode() then
   return {}
 end
 
-local js_formatter = { 'prettier' }
-local js = { 'eslint', js_formatter }
+local js_formatter = { 'prettierd' }
+local js = { 'eslint_d', js_formatter }
 
 return {
   'stevearc/conform.nvim',
