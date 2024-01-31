@@ -268,4 +268,6 @@ return {
 
   -- better quick fix window
   { 'kevinhwang91/nvim-bqf' },
+
+  { 'LunarVim/bigfile.nvim' },
 }
