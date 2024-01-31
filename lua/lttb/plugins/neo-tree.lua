@@ -59,6 +59,9 @@ return {
         },
       },
 
+      enable_diagnostics = false,
+      enable_git_status = false,
+
       filesystem = {
         filtered_items = {
           visible = true,
