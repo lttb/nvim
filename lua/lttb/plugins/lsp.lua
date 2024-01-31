@@ -17,15 +17,15 @@ local function config()
   lsp_zero.extend_lspconfig()
 
   require('neoconf').setup({})
-  require('typescript-tools').setup({
-    settings = {
-      complete_function_calls = true,
+  -- require('typescript-tools').setup({
+  --   settings = {
+  --     complete_function_calls = true,
 
-      jsx_close_tag = {
-        enable = true,
-      },
-    },
-  })
+  --     jsx_close_tag = {
+  --       enable = true,
+  --     },
+  --   },
+  -- })
 
   vim.diagnostic.config({
     update_in_insert = false,
@@ -87,6 +87,10 @@ local function config()
   end
   vim.diagnostic.handlers.virtual_text = {
     show = function(namespace, bufnr, diagnostics, opts)
+      if namespace == nil then
+        return
+      end
+
       local filtered = filter_diagnostics(diagnostics)
       if #filtered > 0 then
         orig_virtual_text_handler.show(namespace, bufnr, filtered, opts)
@@ -98,6 +102,10 @@ local function config()
   }
   vim.diagnostic.handlers.underline = {
     show = function(namespace, bufnr, diagnostics, opts)
+      if namespace == nil then
+        return
+      end
+
       local filtered = filter_diagnostics(diagnostics)
       if #filtered > 0 then
         orig_underline_handler.show(namespace, bufnr, filtered, opts)
@@ -111,7 +119,10 @@ local function config()
   require('mason').setup({})
   require('mason-lspconfig').setup({
     ensure_installed = { 'rust_analyzer', 'lua_ls', 'cssls', 'eslint', 'html', 'jsonls' },
-    handlers = { lsp_zero.default_setup, tsserver = lsp_zero.noop },
+    handlers = {
+      lsp_zero.default_setup,
+      -- tsserver = lsp_zero.noop,
+    },
   })
 
   -- {{{ CMP
@@ -334,6 +345,7 @@ return {
       'L3MON4D3/LuaSnip',
 
       {
+        enabled = false,
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = false,
