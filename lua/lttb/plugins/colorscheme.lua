@@ -252,4 +252,6 @@ return {
     lazy = true,
     priority = 1000,
   },
+
+  { 'rktjmp/shipwright.nvim' },
 }
