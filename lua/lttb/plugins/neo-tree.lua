@@ -73,7 +73,7 @@ return {
         },
         group_empty_dirs = false,
 
-        use_libuv_file_watcher = false,
+        use_libuv_file_watcher = true,
       },
 
       default_component_configs = {
