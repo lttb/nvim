@@ -17,15 +17,17 @@ local function config()
   lsp_zero.extend_lspconfig()
 
   require('neoconf').setup({})
-  -- require('typescript-tools').setup({
-  --   settings = {
-  --     complete_function_calls = true,
+  require('typescript-tools').setup({
+    settings = {
+      expose_as_code_action = 'all',
 
-  --     jsx_close_tag = {
-  --       enable = true,
-  --     },
-  --   },
-  -- })
+      complete_function_calls = true,
+
+      jsx_close_tag = {
+        enable = true,
+      },
+    },
+  })
 
   vim.diagnostic.config({
     update_in_insert = false,
@@ -37,28 +39,38 @@ local function config()
     },
   })
 
-  lsp_zero.configure('lua_ls', {
-    settings = {
-      Lua = {
-        format = {
-          enable = true,
-          defaultConfig = {
-            indent_style = 'space',
-            indent_size = '2',
-          },
-        },
-        -- NOTE: it seems a bit slow
-        -- diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
-        completion = { callSnippet = 'Replace' },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = { enable = false },
+  -- lsp_zero.configure('lua_ls', {
+  --   settings = {
+  --     Lua = {
+  --       format = {
+  --         enable = true,
+  --         defaultConfig = {
+  --           indent_style = 'space',
+  --           indent_size = '2',
+  --         },
+  --       },
+  --       -- NOTE: it seems a bit slow
+  --       -- diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
+  --       completion = { callSnippet = 'Replace' },
+  --       -- Do not send telemetry data containing a randomized but unique identifier
+  --       telemetry = { enable = false },
 
-        workspace = {
-          checkThirdParty = false,
-        },
-      },
-    },
-  })
+  --       workspace = {
+  --         checkThirdParty = false,
+  --       },
+  --     },
+  --   },
+  -- })
+
+  require('lspconfig').biome.setup({})
+
+  -- lsp_zero.configure('tsserver', {
+  --   on_attach = function(client)
+  --     -- this is important, otherwise tsserver will format ts/js
+  --     -- files which we *really* don't want.
+  --     client.server_capabilities.documentFormattingProvider = false
+  --   end,
+  -- })
 
   lsp_zero.on_attach(function(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
@@ -69,59 +81,16 @@ local function config()
 
   lsp_zero.setup()
 
-  local orig_virtual_text_handler = vim.diagnostic.handlers.virtual_text
-  local orig_underline_handler = vim.diagnostic.handlers.underline
-
-  local function filter_diagnostics(diagnostics)
-    local filtered = {}
-    for k, d in pairs(diagnostics) do
-      local code = d.code or (d.user_data and d.user_data.lsp and d.user_data.lsp.code) or ''
-      local is_ignored = string.find(code, 'prettier') or string.find(code, 'no%-unused%-vars')
-
-      if not is_ignored then
-        table.insert(filtered, d)
-      end
-    end
-
-    return filtered
-  end
-  vim.diagnostic.handlers.virtual_text = {
-    show = function(namespace, bufnr, diagnostics, opts)
-      if namespace == nil then
-        return
-      end
-
-      local filtered = filter_diagnostics(diagnostics)
-      if #filtered > 0 then
-        orig_virtual_text_handler.show(namespace, bufnr, filtered, opts)
-      end
-    end,
-    hide = function(ns, bufnr)
-      orig_virtual_text_handler.hide(ns, bufnr)
-    end,
-  }
-  vim.diagnostic.handlers.underline = {
-    show = function(namespace, bufnr, diagnostics, opts)
-      if namespace == nil then
-        return
-      end
-
-      local filtered = filter_diagnostics(diagnostics)
-      if #filtered > 0 then
-        orig_underline_handler.show(namespace, bufnr, filtered, opts)
-      end
-    end,
-    hide = function(ns, bufnr)
-      orig_underline_handler.hide(ns, bufnr)
-    end,
-  }
-
   require('mason').setup({})
   require('mason-lspconfig').setup({
     ensure_installed = { 'rust_analyzer', 'lua_ls', 'cssls', 'eslint', 'html', 'jsonls' },
     handlers = {
       lsp_zero.default_setup,
-      -- tsserver = lsp_zero.noop,
+      tsserver = lsp_zero.noop,
+      lua_ls = function()
+        local lua_opts = lsp_zero.nvim_lua_ls()
+        require('lspconfig').lua_ls.setup(lua_opts)
+      end,
     },
   })
 
@@ -345,7 +314,6 @@ return {
       'L3MON4D3/LuaSnip',
 
       {
-        enabled = false,
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = false,

@@ -6,6 +6,7 @@ end
 
 return {
   {
+    enabled = false,
     'nvimtools/none-ls.nvim',
     dependencies = { 'mason.nvim' },
     opts = function()
@@ -34,16 +35,18 @@ return {
         end,
 
         sources = {
-          null_ls.builtins.code_actions.eslint_d,
+          -- null_ls.builtins.code_actions.eslint_d,
+          -- null_ls.builtins.code_actions.biome,
           null_ls.builtins.code_actions.cspell,
 
           -- null_ls.builtins.formatting.stylua,
           -- null_ls.builtins.formatting.eslint,
           null_ls.builtins.formatting.markdownlint,
+          -- null_ls.builtins.formatting.biome,
           -- null_ls.builtins.formatting.prettier,
 
           -- not needed as `typescript-tools` provides it
-          null_ls.builtins.diagnostics.eslint_d,
+          -- null_ls.builtins.diagnostics.eslint_d,
 
           null_ls.builtins.diagnostics.cspell.with({
             diagnostics_postprocess = function(diagnostic)
