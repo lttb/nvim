@@ -393,7 +393,6 @@ return {
 
     {
       'folke/which-key.nvim',
-      enabled = false,
       cmd = 'WhichKey',
       init = function()
         vim.o.timeout = true
