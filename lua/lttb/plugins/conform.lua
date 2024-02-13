@@ -38,10 +38,10 @@ return {
       javascript = js_formatter,
       typescript = js_formatter,
       typescriptreact = js_formatter,
-      json = { js_formatter },
-      jsonc = { js_formatter },
-      markdown = { js_formatter, 'markdownlint' },
-      mdx = { js_formatter, 'markdownlint' },
+      json = js_formatter,
+      jsonc = js_formatter,
+      markdown = js_formatter,
+      mdx = js_formatter,
       py = { 'ruff_fix', 'ruff_format' },
 
       -- Use the "_" filetype to run formatters on filetypes that don't
