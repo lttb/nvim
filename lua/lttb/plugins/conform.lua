@@ -4,7 +4,7 @@ if utils.is_vscode() then
   return {}
 end
 
-local js_formatter = function(bufnr)
+local js_formatter_fn = function(bufnr)
   local buf_clients = vim.lsp.buf_get_clients()
 
   local is_biome = false
@@ -23,6 +23,8 @@ local js_formatter = function(bufnr)
     return { 'prettierd' }
   end
 end
+
+local js_formatter = js_formatter_fn
 
 local slow_format_filetypes = {}
 
