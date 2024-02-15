@@ -17,6 +17,7 @@ local function config()
   lsp_zero.extend_lspconfig()
 
   require('neoconf').setup({})
+
   require('typescript-tools').setup({
     settings = {
       expose_as_code_action = 'all',
@@ -80,6 +81,53 @@ local function config()
   end)
 
   lsp_zero.setup()
+
+  local orig_virtual_text_handler = vim.diagnostic.handlers.virtual_text
+  local orig_underline_handler = vim.diagnostic.handlers.underline
+
+  local function filter_diagnostics(diagnostics)
+    local filtered = {}
+    for k, d in pairs(diagnostics) do
+      local code = d.code or (d.user_data and d.user_data.lsp and d.user_data.lsp.code) or ''
+      local is_ignored = string.find(code, 'prettier') or string.find(code, 'no%-unused%-vars')
+
+      if not is_ignored then
+        table.insert(filtered, d)
+      end
+    end
+
+    return filtered
+  end
+  vim.diagnostic.handlers.virtual_text = {
+    show = function(namespace, bufnr, diagnostics, opts)
+      if namespace == nil then
+        return
+      end
+
+      local filtered = filter_diagnostics(diagnostics)
+      if #filtered > 0 then
+        orig_virtual_text_handler.show(namespace, bufnr, filtered, opts)
+      end
+    end,
+    hide = function(ns, bufnr)
+      orig_virtual_text_handler.hide(ns, bufnr)
+    end,
+  }
+  vim.diagnostic.handlers.underline = {
+    show = function(namespace, bufnr, diagnostics, opts)
+      if namespace == nil then
+        return
+      end
+
+      local filtered = filter_diagnostics(diagnostics)
+      if #filtered > 0 then
+        orig_underline_handler.show(namespace, bufnr, filtered, opts)
+      end
+    end,
+    hide = function(ns, bufnr)
+      orig_underline_handler.hide(ns, bufnr)
+    end,
+  }
 
   require('mason').setup({})
   require('mason-lspconfig').setup({
