@@ -29,6 +29,8 @@ if bg == 'light' then
     muted = hsluv('#636c76'),
 
     magenda = hsluv('#AB47BC'),
+
+    cursor_line = hsluv('#f6f8fa'),
   }, bg)
 else
   palette = util.palette_extend({
@@ -40,6 +42,8 @@ else
     muted = hsluv('#636c76'),
 
     magenda = hsluv('#AB47BC'),
+
+    cursor_line = hsluv('#2a2e35'),
   }, bg)
 end
 
@@ -52,6 +56,8 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
   local sym = injected_functions.sym
 
   return {
+    CursorLine({ bg = palette.cursor_line }),
+
     Visual({ bg = palette.fg.mix(palette.bg, bg == 'light' and 95 or 80) }),
 
     Statement({ fg = palette.sky, gui = 'NONE' }),
