@@ -74,7 +74,7 @@ return {
         },
         group_empty_dirs = false,
 
-        use_libuv_file_watcher = true,
+        use_libuv_file_watcher = false,
       },
 
       default_component_configs = {
