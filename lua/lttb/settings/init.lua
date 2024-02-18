@@ -70,6 +70,9 @@ vim.cmd('set shortmess+=C')
 -- Ignore swap warnings
 vim.cmd('set shortmess+=A')
 
+-- Don't show intro message
+vim.cmd('set shortmess+=I')
+
 -- Enable syntax highlighing if it wasn't already (as it is time consuming)
 -- Don't use defer it because it affects start screen appearance
 if vim.fn.exists('syntax_on') ~= 1 then
