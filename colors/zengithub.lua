@@ -31,6 +31,7 @@ if bg == 'light' then
     magenda = hsluv('#AB47BC'),
 
     cursor_line = hsluv('#f6f8fa'),
+    sidebar = hsluv('#fafafa'),
   }, bg)
 else
   palette = util.palette_extend({
@@ -44,6 +45,8 @@ else
     magenda = hsluv('#AB47BC'),
 
     cursor_line = hsluv('#2a2e35'),
+
+    sidebar = hsluv('#22272e'),
   }, bg)
 end
 
@@ -56,6 +59,8 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
   local sym = injected_functions.sym
 
   return {
+    NvimTreeNormal({ bg = palette.sidebar }),
+
     CursorLine({ bg = palette.cursor_line }),
 
     Visual({ bg = palette.fg.mix(palette.bg, bg == 'light' and 95 or 80) }),
