@@ -29,8 +29,6 @@ elseif theme.variant == 'light' and theme.name == 'rose-pine' then
   vim.g.neovide_background_color = '#faf4ed'
 elseif theme.variant == 'dark' and theme.name == 'rose-pine' then
   vim.g.neovide_background_color = '#191724'
-elseif theme.variant == 'light' then
-  vim.g.neovide_background_color = '#ffffff'
 end
 
 vim.g.neovide_floating_blur_amount_x = 30

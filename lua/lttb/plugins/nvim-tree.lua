@@ -21,9 +21,11 @@ return {
           return
         end
 
-        require('nvim-tree.api').tree.toggle({
-          focus = false,
-        })
+        vim.schedule(function()
+          require('nvim-tree.api').tree.toggle({
+            focus = false,
+          })
+        end)
       end,
     })
   end,
@@ -39,6 +41,7 @@ return {
     view = {
       width = {
         min = '25%',
+        max = '30%',
       },
     },
 
