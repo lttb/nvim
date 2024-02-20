@@ -182,6 +182,7 @@ return {
     },
 
     {
+      enabled = false,
       'utilyre/barbecue.nvim',
       name = 'barbecue',
       cond = not utils.is_neovide(),
@@ -199,7 +200,7 @@ return {
         -- Gain better performance when moving the cursor around
         -- @see https://github.com/utilyre/barbecue.nvim#-recipes
         vim.api.nvim_create_autocmd({
-          'WinScrolled', -- or WinResized on NVIM-v0.9 and higher
+          'WinResized', -- or WinResized on NVIM-v0.9 and higher
           'BufWinEnter',
           'CursorHold',
           'InsertLeave',
