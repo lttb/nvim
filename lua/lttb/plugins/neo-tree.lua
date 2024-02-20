@@ -6,6 +6,7 @@ end
 
 return {
   {
+    enabled = true,
     'nvim-neo-tree/neo-tree.nvim',
     cmd = { 'Neotree' },
     keys = {
