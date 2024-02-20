@@ -51,7 +51,14 @@ local function config()
         },
       },
       lualine_x = {},
-      lualine_y = { 'branch', 'diff', 'diagnostics', 'filetype', 'progress' },
+      lualine_y = {
+        'branch',
+        { 'filename', path = 1, symbols = { unnamed = '' } },
+        'diff',
+        'diagnostics',
+        'filetype',
+        'progress',
+      },
       lualine_z = {
         {
           'location',
@@ -59,7 +66,7 @@ local function config()
       },
     },
     inactive_sections = {
-      lualine_a = { 'filename' },
+      lualine_a = {},
       lualine_b = {},
       lualine_c = {},
       lualine_x = {},
