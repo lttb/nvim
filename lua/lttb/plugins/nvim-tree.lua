@@ -5,6 +5,7 @@ if utils.is_vscode() then
 end
 
 return {
+  enabled = false,
   'nvim-tree/nvim-tree.lua',
   version = '*',
   lazy = false,
@@ -41,7 +42,7 @@ return {
     view = {
       width = {
         min = '25%',
-        max = '30%',
+        max = '25%',
       },
     },
 
