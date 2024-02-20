@@ -138,11 +138,13 @@ return {
       'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
       'RRethy/nvim-treesitter-textsubjects',
-      { 'nvim-treesitter/playground', enabled = not utils.is_vscode() },
       {
+        enabled = not utils.is_vscode(),
+        'nvim-treesitter/playground',
+      },
+      {
+        enabled = not utils.is_vscode(),
         'nvim-treesitter/nvim-treesitter-context',
-        enabled = false,
-        -- enabled = not utils.is_vscode(),
         config = function()
           require('treesitter-context').setup()
         end,
