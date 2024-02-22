@@ -93,6 +93,22 @@ local function config()
       end,
     },
   })
+
+  require('lsp-zero').extend_cmp()
+
+  local cmp = require('cmp')
+  local cmp_format = require('lsp-zero').cmp_format()
+  local cmp_action = require('lsp-zero').cmp_action()
+
+  cmp.setup({
+    formatting = cmp_format,
+
+    mapping = cmp.mapping.preset.insert({
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<Tab>'] = cmp_action.luasnip_supertab(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+    }),
+  })
 end
 
 return {
@@ -110,6 +126,23 @@ return {
     branch = 'v3.x',
     config = config,
     dependencies = {
+      {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+          'VonHeikemen/lsp-zero.nvim',
+
+          'hrsh7th/cmp-nvim-lsp',
+          'hrsh7th/nvim-cmp',
+          'hrsh7th/cmp-buffer',
+          'hrsh7th/cmp-path',
+          'hrsh7th/cmp-cmdline',
+          -- lags on large projects
+          -- 'lukas-reineke/cmp-rg',
+          'onsails/lspkind.nvim',
+          'L3MON4D3/LuaSnip',
+        },
+      },
+
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 

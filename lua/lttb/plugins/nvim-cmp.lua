@@ -4,7 +4,11 @@
 local utils = require('lttb.utils')
 
 if utils.is_vscode() then
-  return
+  return {}
+end
+
+if true then
+  return {}
 end
 
 table.unpack = table.unpack or unpack

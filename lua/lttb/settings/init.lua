@@ -104,9 +104,15 @@ vim.opt.smartcase = false
 vim.opt.wildignorecase = true
 vim.opt.wildignore =
 '.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**'
+vim.opt.wildmode = {'longest', 'list:full'}
 
 -- TODO: check if that's fine
-vim.opt.completeopt = { 'menu', 'noinsert', 'noselect' } -- Customize completions
+vim.opt.completeopt = {
+  'menu',
+  'menuone',
+  -- 'noinsert',
+  'noselect'
+} -- Customize completions
 
 -- Define pattern for a start of 'numbered' list. This is responsible for
 -- correct formatting of lists when using `gq`. This basically reads as 'at

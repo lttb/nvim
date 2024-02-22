@@ -6,6 +6,7 @@ end
 
 return {
   {
+    enabled = false,
     'ms-jpq/coq_nvim',
     branch = 'coq',
     init = function()
@@ -15,10 +16,9 @@ return {
       vim.g.coq_settings = {
         auto_start = true,
 
-        keymap = {
-          recommended = true,
-          pre_select = true,
-        },
+        ['keymap.recommended'] = true,
+        ['keymap.pre_select'] = true,
+        ['keymap.jump_to_mark'] = '<s-d-c-p>',
 
         -- clients = {
         --   ['typescript-tools'] = {
@@ -42,12 +42,12 @@ return {
         if vim.fn.pumvisible() ~= 0 then
           if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
             return npairs.esc('<c-y>')
-          else
-            return npairs.esc('<c-e>') .. npairs.autopairs_cr()
           end
-        else
-          return npairs.autopairs_cr()
+
+          return npairs.esc('<c-e>') .. npairs.autopairs_cr()
         end
+
+        return npairs.autopairs_cr()
       end
       remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
 

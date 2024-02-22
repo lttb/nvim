@@ -50,13 +50,13 @@ return {
         map_c_w = true,
 
         -- support coq
-        map_bs = false,
-        map_cr = false,
+        -- map_bs = false,
+        -- map_cr = false,
       })
 
-      -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      -- local cmp = require('cmp')
-      -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      local cmp = require('cmp')
+      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
       npairs.add_rules({
         Rule('**', '**', { 'markdown', 'mdx' }),
