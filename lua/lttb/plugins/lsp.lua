@@ -108,6 +108,19 @@ local function config()
       ['<Tab>'] = cmp_action.luasnip_supertab(),
       ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
     }),
+
+    experimental = {
+      ghost_text = true, -- this feature conflict with copilot.vim's preview.
+    },
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources(
+      { { name = 'path' } },
+      { { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } } }
+    ),
   })
 end
 
