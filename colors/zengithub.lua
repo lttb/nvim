@@ -59,7 +59,7 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
   local sym = injected_functions.sym
 
   return {
-    NvimTreeNormal({ bg = palette.cursor_line }),
+    NvimTreeNormal({ bg = palette.sidebar }),
 
     CursorLine({ bg = palette.cursor_line }),
 
