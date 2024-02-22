@@ -245,7 +245,7 @@ return {
       {
         'danielfalk/smart-open.nvim',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
-        branch = 'feature/result-limit',
+        -- branch = 'feature/result-limit',
         keys = {
           {
             '<leader><leader>',

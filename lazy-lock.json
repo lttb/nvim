@@ -58,6 +58,7 @@
   "rasmus.nvim": { "branch": "main", "commit": "f824de95d446686e479781c0c2b778c177da528f" },
   "rose-pine": { "branch": "main", "commit": "f977eeba34b030b37f93ece2fbd792477606203b" },
   "shipwright.nvim": { "branch": "master", "commit": "ab70e80bb67b7ed3350bec89dd73473539893932" },
+  "smart-open.nvim": { "branch": "main", "commit": "f6febdf198119531baa23c98203ff37aa54f77dc" },
   "smartyank.nvim": { "branch": "master", "commit": "b048fec8c6b7d122adab6f78606057d59975ece7" },
   "sqlite.lua": { "branch": "master", "commit": "40701b6151f8883980c1548647116de39b763540" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "48ffb8de688a22942940f50411d5928631368848" },
