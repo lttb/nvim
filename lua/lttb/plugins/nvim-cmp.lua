@@ -196,7 +196,7 @@ end
 
 return {
   {
-    enabled = true,
+    enabled = false,
     'hrsh7th/nvim-cmp',
     init = init,
     dependencies = {
