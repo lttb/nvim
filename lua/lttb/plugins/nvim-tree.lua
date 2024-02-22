@@ -5,7 +5,6 @@ if utils.is_vscode() then
 end
 
 return {
-  enabled = false,
   'nvim-tree/nvim-tree.lua',
   version = '*',
   lazy = false,
@@ -50,6 +49,10 @@ return {
       icons = {
         git_placement = 'after',
       },
+    },
+
+    filters = {
+      git_ignored = false,
     },
   },
 }
