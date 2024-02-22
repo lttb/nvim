@@ -6,21 +6,26 @@ return {
   branch = 'chad',
   build = 'python3 -m chadtree deps',
   init = function()
-    -- vim.api.nvim_create_autocmd({ 'VimEnter' }, {
-    --   -- it should be "nested" not to show the number column
-    --   -- @see https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1106
-    --   nested = true,
-    --   callback = function(data)
-    --     if not utils.should_open_sidebar(data) then
-    --       return
-    --     end
+    vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+      -- it should be "nested" not to show the number column
+      -- @see https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1106
+      nested = true,
+      callback = function(data)
+        if not utils.should_open_sidebar(data) then
+          return
+        end
 
-    --     -- open the tree but don't focus it
-    --     vim.cmd('CHADopen')
-    --   end,
-    -- })
+        -- open the tree but don't focus it
+        vim.cmd('CHADopen --nofocus')
+      end,
+    })
   end,
   config = function()
+    vim.g.chadtree_settings = {
+      theme = {
+        text_colour_set = 'env',
+      },
+    }
     -- vim.api.nvim_set_var('chadtree_settings', {
     --   view = {
     --     width = '25%',
