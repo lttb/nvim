@@ -54,5 +54,9 @@ return {
     filters = {
       git_ignored = false,
     },
+
+    notify = {
+      threshold = vim.log.levels.ERROR,
+    },
   },
 }
