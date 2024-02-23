@@ -60,6 +60,7 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
 
   return {
     NvimTreeNormal({ bg = palette.sidebar }),
+    NvimTreeExecFile({ link = 'Normal' }),
 
     CursorLine({ bg = palette.cursor_line }),
 
