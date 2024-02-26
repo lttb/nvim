@@ -7,7 +7,7 @@ local theme = require('lttb.theme')
 --   -- ':#h-full',
 -- }
 
-vim.opt.guifont = 'Fira Code:h14:w0.5:#h-slight'
+vim.opt.guifont = 'Fira Code:h15:w0.5:#h-slight'
 vim.opt.linespace = 6
 
 if theme.colorscheme == 'github_dark' then
