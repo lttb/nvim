@@ -11,6 +11,26 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
+  keys = function()
+    local nvim_tree_api = require('nvim-tree.api')
+
+    return {
+      {
+        '<D-e>',
+        '<cmd>NvimTreeFindFile<cr>',
+        desc = 'Focus Sidebar',
+      },
+      {
+        '<D-b>',
+        function()
+          nvim_tree_api.tree.toggle({
+            focus = false,
+          })
+        end,
+        desc = 'Toggle Sidebar',
+      },
+    }
+  end,
   init = function()
     vim.api.nvim_create_autocmd({ 'VimEnter' }, {
       -- it should be "nested" not to show the number column
