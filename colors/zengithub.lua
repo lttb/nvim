@@ -1,5 +1,7 @@
 ---@diagnostic disable: undefined-global
 
+local utils = require('lttb.utils')
+
 local colors_name = 'zengithub'
 vim.g.colors_name = colors_name -- Required when defining a colorscheme
 
@@ -59,7 +61,7 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
   local sym = injected_functions.sym
 
   return {
-    NvimTreeNormal({ bg = palette.sidebar }),
+    NvimTreeNormal({ bg = utils.is_neovide() and palette.bg or palette.sidebar }),
     NvimTreeExecFile({ link = 'Normal' }),
 
     CursorLine({ bg = palette.cursor_line }),
