@@ -20,10 +20,6 @@ end
 
 local function enhanced_show_handler(orig_handler)
   return function(namespace, bufnr, diagnostics, opts)
-    if namespace == nil then
-      return
-    end
-
     local filtered = filter_diagnostics(diagnostics)
     -- This check ensures that we are updating the diagnostics display properly,
     -- even if the filtered list is empty. It helps in clearing out diagnostics that
