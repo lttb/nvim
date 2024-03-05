@@ -198,6 +198,10 @@ return {
           match_algorithm = 'fzf',
         },
 
+        frecency = {
+          default_workspace = 'CWD',
+        },
+
         fzf = {
           fuzzy = true,
           override_generic_sorter = true,
@@ -243,6 +247,7 @@ return {
       },
 
       {
+        enabled = false,
         'danielfalk/smart-open.nvim',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
         -- branch = 'feature/result-limit',
@@ -265,7 +270,7 @@ return {
       },
 
       {
-        enabled = false,
+        enabled = true,
         'nvim-telescope/telescope-frecency.nvim',
         config = function()
           require('telescope').load_extension('frecency')

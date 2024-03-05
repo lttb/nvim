@@ -12,7 +12,7 @@ return {
   },
 
   {
-    enabled = true,
+    enabled = false,
     'vidocqh/auto-indent.nvim',
     opts = {
       lightmode = false,
@@ -25,6 +25,7 @@ return {
   },
 
   {
+    enabled = false,
     'kawre/neotab.nvim',
     event = 'InsertEnter',
   },

@@ -43,6 +43,7 @@ return {
       markdown = js_formatter,
       mdx = js_formatter,
       py = { 'ruff_fix', 'ruff_format' },
+      yaml = { 'prettierd ' },
 
       -- Use the "_" filetype to run formatters on filetypes that don't
       -- have other formatters configured.
