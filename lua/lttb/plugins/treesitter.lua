@@ -146,7 +146,9 @@ return {
         enabled = not utils.is_vscode(),
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
-          require('treesitter-context').setup()
+          require('treesitter-context').setup({
+            separator = '-',
+          })
         end,
       },
     },
