@@ -31,8 +31,8 @@ return {
   },
 
   {
-    'windwp/nvim-ts-autotag',
     enabled = false,
+    'windwp/nvim-ts-autotag',
     event = 'VimEnter',
     config = true,
   },
@@ -68,9 +68,9 @@ return {
   },
 
   {
+    enabled = false,
     'altermo/ultimate-autopair.nvim',
     -- TODO: check the config - so far it's not really convinient to insert/delete pairs to wrap expressions
-    enabled = false,
     event = { 'InsertEnter', 'CmdlineEnter' },
     branch = 'v0.6',
     opts = {},
@@ -83,8 +83,8 @@ return {
   },
 
   {
-    'zbirenbaum/copilot.lua',
     enabled = false,
+    'zbirenbaum/copilot.lua',
     -- NOTE: error "client quit with exit code 0 and signal"
     -- TODO: investigate and raise an issue
     -- enabled = not utils.is_neovide(),
@@ -116,6 +116,7 @@ return {
 
   {
     -- TODO: review this plugin, not sure I'll keep it
+    enabled = false,
     'vuki656/package-info.nvim',
     dependencies = { 'MunifTanjim/nui.nvim' },
     ft = { 'json' },
@@ -152,8 +153,8 @@ return {
   },
 
   {
-    'smjonas/live-command.nvim',
     enabled = false,
+    'smjonas/live-command.nvim',
     keys = {
       { '<leader>l', ':Norm', desc = 'Live Command' },
     },
@@ -173,8 +174,8 @@ return {
 
   {
     -- NOTE: it's quite slow on the startup, and blocks neo-tree
-    'coffebar/neovim-project',
     enabled = false,
+    'coffebar/neovim-project',
     lazy = false,
     priority = 100,
     opts = {
@@ -196,8 +197,8 @@ return {
   },
 
   {
-    'jedrzejboczar/possession.nvim',
     enabled = false,
+    'jedrzejboczar/possession.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
       autosave = {
@@ -207,7 +208,10 @@ return {
     },
   },
 
-  { 'JoosepAlviste/nvim-ts-context-commentstring' },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+  },
+
   {
     'numToStr/Comment.nvim',
     config = function()
@@ -219,6 +223,8 @@ return {
   },
 
   {
+    -- feels quite buggy, disable for now
+    enabled = false,
     'gaoDean/autolist.nvim',
     ft = {
       'markdown',
@@ -248,12 +254,13 @@ return {
         end,
       })
     end,
-    -- feels quite buggy, disable for now
-    enabled = false,
   },
 
   -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
-  { 'axkirillov/hbac.nvim', opts = {} },
+  {
+    'axkirillov/hbac.nvim',
+    opts = {},
+  },
 
   {
     'folke/zen-mode.nvim',

@@ -13,8 +13,8 @@ return {
     },
 
     {
-      'declancm/cinnamon.nvim',
       enabled = false,
+      'declancm/cinnamon.nvim',
       opts = {
         default_keymaps = true,
         extra_keymaps = true,
@@ -27,11 +27,15 @@ return {
       },
     },
 
-    { 'karb94/neoscroll.nvim', opts = {} },
+    {
+      enabled = false,
+      'karb94/neoscroll.nvim',
+      opts = {},
+    },
 
     {
-      'numToStr/FTerm.nvim',
       enabled = false,
+      'numToStr/FTerm.nvim',
       config = function()
         require('FTerm').setup({
           auto_close = true,
@@ -171,13 +175,13 @@ return {
     },
 
     {
+      enabled = false,
       'luukvbaal/statuscol.nvim',
       config = function()
         require('statuscol').setup({
           separator = ' ',
         })
       end,
-      enabled = false,
       -- enabled = vim.fn.has('nvim-0.9.0') == 1,
     },
 
@@ -217,8 +221,8 @@ return {
     },
 
     {
-      'Bekaboo/dropbar.nvim',
       enabled = false,
+      'Bekaboo/dropbar.nvim',
       -- optional, but required for fuzzy finder support
       dependencies = {
         'nvim-telescope/telescope-fzf-native.nvim',
@@ -227,8 +231,8 @@ return {
     },
 
     {
-      'romgrk/barbar.nvim',
       enabled = false,
+      'romgrk/barbar.nvim',
       dependencies = {
         'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
         'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
@@ -247,8 +251,8 @@ return {
     },
 
     {
-      'akinsho/bufferline.nvim',
       enabled = false,
+      'akinsho/bufferline.nvim',
       version = '*',
       opts = function()
         local bufferline = require('bufferline')
@@ -345,8 +349,8 @@ return {
     },
 
     {
-      'zbirenbaum/neodim',
       enabled = false,
+      'zbirenbaum/neodim',
       event = 'LspAttach',
       config = true,
       opts = {
@@ -356,8 +360,8 @@ return {
     },
 
     {
-      'lewis6991/hover.nvim',
       enabled = false,
+      'lewis6991/hover.nvim',
       keys = function()
         local hover = require('hover')
 
