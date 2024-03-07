@@ -61,9 +61,6 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
   local sym = injected_functions.sym
 
   return {
-    NvimTreeNormal({ bg = utils.is_neovide() and palette.bg or palette.sidebar }),
-    NvimTreeExecFile({ link = 'Normal' }),
-
     CursorLine({ bg = palette.cursor_line }),
 
     Visual({ bg = palette.fg.mix(palette.bg, bg == 'light' and 95 or 80) }),
@@ -105,12 +102,19 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
       reverse = false,
     }),
 
+    Todo({ underline = false }),
+
     -- NeoTreeNormalNC({ bg = '#FAFAFA' }),
     NeoTreeDirectoryIcon({ fg = palette.sky.hex }),
     NeoTreeDirectoryName({ fg = palette.sky.hex }),
     NeoTreeFileName({ fg = palette.sky.hex }),
 
-    Todo({ underline = false }),
+    NvimTreeNormal({ bg = utils.is_neovide() and palette.bg or palette.bg }),
+    NvimTreeWinSeparator({ bg = palette.cursor_line, fg = palette.cursor_line, link = 'WinSeparator' }),
+    NvimTreeCursorLine({ bg = palette.cursor_line }),
+    NvimTreeExecFile({ link = 'Normal' }),
+
+    TreesitterContextSeparator({ fg = palette.cursor_line }),
   }
 end)
 
