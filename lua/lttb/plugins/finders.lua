@@ -99,28 +99,28 @@ return {
         --   desc = 'Search by Grep by File glob',
         -- },
 
-        -- {
-        --   '<leader>sa',
-        --   function()
-        --     builtin.find_files({
-        --       hidden = true,
-        --       no_ignore = true,
-        --     })
-        --   end,
-        --   desc = 'Search All files',
-        -- },
+        {
+          '<leader>sa',
+          function()
+            builtin.find_files({
+              hidden = true,
+              no_ignore = true,
+            })
+          end,
+          desc = 'Search All files',
+        },
 
-        -- {
-        --   '<leader>ss',
-        --   function()
-        --     builtin.git_files({
-        --       recurse_submodules = true,
-        --     })
-        --   end,
-        --   desc = 'Search Submodules',
-        -- },
+        {
+          '<leader>ss',
+          function()
+            builtin.git_files({
+              recurse_submodules = true,
+            })
+          end,
+          desc = 'Search Submodules',
+        },
 
-        -- { '<leader>sh', builtin.help_tags, desc = 'Search Help' },
+        { '<leader>sh', builtin.help_tags, desc = 'Search Help' },
         { '<leader>sd', builtin.diagnostics, desc = 'Search Diagnostics' },
         { '<leader>sw', builtin.grep_string, desc = 'Search Word' },
         { 'gs', builtin.lsp_document_symbols, desc = 'LSP: Goto Symbols' },
