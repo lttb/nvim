@@ -196,6 +196,7 @@ return {
 
         smart_open = {
           match_algorithm = 'fzf',
+          result_limit = 200,
         },
 
         frecency = {
@@ -248,9 +249,10 @@ return {
 
       {
         enabled = true,
-        'lttb/smart-open.nvim',
+        'danielfalk/smart-open.nvim',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
-        branch = 'feature/result-bigger-limit',
+        -- branch = 'feature/result-bigger-limit',
+        branch = '0.2.x',
         keys = {
           {
             '<leader><leader>',
