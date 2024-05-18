@@ -87,25 +87,25 @@ return {
 
       require('mini.cursorword').setup({})
 
-      -- local MiniMap = require('mini.map')
+      local MiniMap = require('mini.map')
 
-      -- MiniMap.setup({
-      --   integrations = { MiniMap.gen_integration.builtin_search(), MiniMap.gen_integration.gitsigns() },
-      --   symbols = { encode = MiniMap.gen_encode_symbols.dot('3x2'), scroll_line = '▶ ', scroll_view = '┃ ' },
+      MiniMap.setup({
+        integrations = { MiniMap.gen_integration.builtin_search(), MiniMap.gen_integration.gitsigns() },
+        symbols = { encode = MiniMap.gen_encode_symbols.dot('3x2'), scroll_line = '▶ ', scroll_view = '┃ ' },
 
-      --   window = { show_integration_count = false },
-      -- })
+        window = { show_integration_count = false },
+      })
 
-      -- vim.api.nvim_create_autocmd('BufEnter', {
-      --   callback = function()
-      --     if vim.bo.filetype == 'toggleterm' then
-      --       MiniMap.close()
-      --       return
-      --     end
+      vim.api.nvim_create_autocmd('BufEnter', {
+        callback = function()
+          if vim.bo.filetype == 'toggleterm' then
+            MiniMap.close()
+            return
+          end
 
-      --     MiniMap.open({})
-      --   end,
-      -- })
+          MiniMap.open({})
+        end,
+      })
     end,
   },
 
