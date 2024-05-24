@@ -15,6 +15,10 @@ function M.blend(from, to, level)
 end
 
 function M.blend_hex(from, to, level)
+  if to == nil or from == nil then
+    return from
+  end
+
   return M.blend(rgb_convert.hex_to_rgb(M.number_to_hex(from)), rgb_convert.hex_to_rgb(M.number_to_hex(to)), level)
 end
 

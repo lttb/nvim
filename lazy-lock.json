@@ -31,6 +31,7 @@
   "nano-theme.nvim": { "branch": "main", "commit": "6fb352663e0042e7395fea0100e5686b388c2238" },
   "neoconf.nvim": { "branch": "main", "commit": "9092129e9a42ae26375001bd2e6118f8d57c7f2a" },
   "neodev.nvim": { "branch": "main", "commit": "ce9a2e8eaba5649b553529c5498acb43a6c317cd" },
+  "neofusion.nvim": { "branch": "main", "commit": "d6e8bd7111dd67748a0b2470d834c534802bbf64" },
   "no-neck-pain.nvim": { "branch": "main", "commit": "37ce6377d7c16d3be2efa055bc41cd82a3f3b92c" },
   "noice.nvim": { "branch": "main", "commit": "f119045f38792ad5311e5f9be7a879e4c1a95fe0" },
   "nui.nvim": { "branch": "main", "commit": "b1b3dcd6ed8f355c78bad3d395ff645be5f8b6ae" },
