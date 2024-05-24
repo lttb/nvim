@@ -42,7 +42,7 @@ return {
         end
 
         vim.schedule(function()
-          require('nvim-tree.api').tree.toggle({
+          require('nvim-tree.api').tree.open({
             focus = false,
           })
         end)
