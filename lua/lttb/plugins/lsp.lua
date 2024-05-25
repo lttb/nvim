@@ -15,17 +15,19 @@ local function config()
 
   require('neoconf').setup({})
 
-  require('typescript-tools').setup({
-    settings = {
-      expose_as_code_action = 'all',
+  -- require('typescript-tools').setup({
+  --   settings = {
+  --     expose_as_code_action = 'all',
+  --
+  --     complete_function_calls = true,
+  --
+  --     jsx_close_tag = {
+  --       enable = true,
+  --     },
+  --   },
+  -- })
 
-      complete_function_calls = true,
-
-      jsx_close_tag = {
-        enable = true,
-      },
-    },
-  })
+  require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
   vim.diagnostic.config({
     update_in_insert = false,
@@ -161,7 +163,10 @@ return {
 
       'neovim/nvim-lspconfig',
 
+      { 'yioneko/nvim-vtsls' },
+
       {
+        enabled = false,
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = false,

@@ -385,13 +385,14 @@ return {
     },
 
     {
+      -- enabled = false,
       'mvllow/modes.nvim',
       event = 'BufEnter',
       opts = {
-        line_opacity = 0.1,
+        line_opacity = 0.2,
 
         colors = {
-          visual = '#BBBBBB',
+          -- visual = '#BBBBBB',
         },
       },
     },

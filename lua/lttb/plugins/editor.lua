@@ -31,7 +31,6 @@ return {
   },
 
   {
-    enabled = false,
     'windwp/nvim-ts-autotag',
     event = 'VimEnter',
     config = true,
@@ -208,18 +207,24 @@ return {
     },
   },
 
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',
-  },
+  -- {
+  --   'JoosepAlviste/nvim-ts-context-commentstring',
+  -- },
+
+  -- {
+  --   'numToStr/Comment.nvim',
+  --   config = function()
+  --     require('Comment').setup({
+  --       ignore = '^$',
+  --       pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+  --     })
+  --   end,
+  -- },
 
   {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup({
-        ignore = '^$',
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      })
-    end,
+    'folke/ts-comments.nvim',
+    opts = {},
+    event = 'VeryLazy',
   },
 
   {
@@ -258,6 +263,7 @@ return {
 
   -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
   {
+    enabled = false,
     'axkirillov/hbac.nvim',
     opts = {},
   },
@@ -278,4 +284,19 @@ return {
   { 'kevinhwang91/nvim-bqf' },
 
   { 'LunarVim/bigfile.nvim' },
+
+  {
+    'willothy/flatten.nvim',
+    config = true,
+    -- or pass configuration with
+    -- opts = {  }
+    -- Ensure that it runs first to minimize delay when opening file from terminal
+    lazy = false,
+    priority = 1001,
+    opts = {
+      window = {
+        open = 'alternate',
+      },
+    },
+  },
 }
