@@ -16,7 +16,7 @@ local palette
 
 if bg == 'light' then
   palette = util.palette_extend({
-    bg = hsluv('#FFFFFF'),
+    bg = hsluv('#d4ccb9'),
     fg = hsluv('#1f2328'),
     -- rose = hsluv('#d1242f'),
     -- leaf = hsluv('#1a7f37'),
@@ -32,8 +32,8 @@ if bg == 'light' then
 
     magenda = hsluv('#AB47BC'),
 
-    cursor_line = hsluv('#f6f8fa'),
-    sidebar = hsluv('#fafafa'),
+    cursor_line = hsluv('#bfb8a4'),
+    sidebar = hsluv('#bfb8a4'),
   }, bg)
 else
   palette = util.palette_extend({
@@ -63,7 +63,7 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
   return {
     CursorLine({ bg = palette.cursor_line }),
 
-    Visual({ bg = palette.fg.mix(palette.bg, bg == 'light' and 95 or 80) }),
+    -- Visual({ bg = palette.cursor_line }),
 
     Statement({ fg = palette.sky, gui = 'NONE' }),
     -- Special({ fg = palette.water, gui = 'NONE' }),
