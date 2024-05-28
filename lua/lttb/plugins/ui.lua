@@ -392,7 +392,7 @@ return {
         line_opacity = 0.2,
 
         colors = {
-          -- visual = '#BBBBBB',
+          visual = '#a89984',
         },
       },
     },
