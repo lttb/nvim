@@ -5,7 +5,7 @@ local inactive_bg = '#22272e'
 
 if theme.variant == 'light' then
   common_fg = '#1f2328'
-  inactive_bg = '#d4ccb9'
+  inactive_bg = '#fafafa'
 end
 
 local inactive_fg = common_fg

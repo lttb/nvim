@@ -16,7 +16,7 @@ local palette
 
 if bg == 'light' then
   palette = util.palette_extend({
-    bg = hsluv('#d4ccb9'),
+    bg = hsluv('#ffffff'),
     fg = hsluv('#1f2328'),
     -- rose = hsluv('#d1242f'),
     -- leaf = hsluv('#1a7f37'),
@@ -32,8 +32,8 @@ if bg == 'light' then
 
     magenda = hsluv('#AB47BC'),
 
-    cursor_line = hsluv('#bfb8a4'),
-    sidebar = hsluv('#bfb8a4'),
+    cursor_line = hsluv('#f6f8fa'),
+    sidebar = hsluv('#fafafa'),
   }, bg)
 else
   palette = util.palette_extend({
