@@ -33,13 +33,13 @@ if bg == 'light' then
     magenda = hsluv('#AB47BC'),
 
     cursor_line = hsluv('#f6f8fa'),
-    sidebar = hsluv('#fafafa'),
+    -- sidebar = hsluv('#fafafa'),
   }, bg)
 else
   palette = util.palette_extend({
     -- bg = hsluv(0, 0, 9),
     -- bg = hsluv('#24282e'),
-    bg = hsluv('#282c34'),
+    bg = hsluv('#25282F'),
     fg = hsluv('#C2C2C2'),
     sky = hsluv('#7d8590'),
 
@@ -47,9 +47,9 @@ else
 
     magenda = hsluv('#AB47BC'),
 
-    cursor_line = hsluv('#24282e'),
+    cursor_line = hsluv('#282c34'),
 
-    sidebar = hsluv('#22272e'),
+    -- sidebar = hsluv('#22272e'),
   }, bg)
 end
 
