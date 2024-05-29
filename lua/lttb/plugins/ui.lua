@@ -389,7 +389,7 @@ return {
       'mvllow/modes.nvim',
       event = 'BufEnter',
       opts = {
-        line_opacity = 0.2,
+        line_opacity = 0.15,
 
         colors = {
           visual = '#a89984',

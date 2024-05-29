@@ -11,7 +11,7 @@ local function config()
   require('lualine').setup({
     options = {
       icons_enabled = true,
-      theme = theme.colorscheme == 'zengithub' and require('lttb.themes.zengithub_lualine') or 'auto',
+      theme = theme.colorscheme == 'zengithub' and require('lttb.themes.lualine_zengithub') or 'auto',
 
       component_separators = '|',
       section_separators = '',
