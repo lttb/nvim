@@ -127,7 +127,7 @@ local function config()
 end
 
 return {
-  { 'folke/neodev.nvim', opts = {} },
+  -- { 'folke/neodev.nvim', opts = {} },
   { 'folke/neoconf.nvim' },
 
   {
