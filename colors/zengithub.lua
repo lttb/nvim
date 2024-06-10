@@ -30,7 +30,7 @@ if bg == 'light' then
     -- gold_muted = hsluv('#ad8c45'),
     muted = hsluv('#636c76'),
 
-    magenda = hsluv('#AB47BC'),
+    type = hsluv('#AB47BC'),
 
     cursor_line = hsluv('#f6f8fa'),
     -- sidebar = hsluv('#fafafa'),
@@ -45,7 +45,7 @@ else
 
     muted = hsluv('#636c76'),
 
-    magenda = hsluv('#AB47BC'),
+    type = hsluv('#a07e3b'),
 
     cursor_line = hsluv('#282c34'),
 
@@ -69,8 +69,8 @@ local specs = lush.extends({ base_specs }).with(function(injected_functions)
     Statement({ fg = palette.sky, gui = 'NONE' }),
     -- Special({ fg = palette.water, gui = 'NONE' }),
 
-    Type({ fg = palette.magenda.desaturate(80) }),
-    sym('@type.builtin')({ fg = palette.magenda.desaturate(60) }),
+    Type({ fg = palette.type.desaturate(80) }),
+    sym('@type.builtin')({ fg = palette.type.desaturate(60) }),
 
     -- Constant({ fg = palette.muted, gui = 'NONE' }),
     -- sym('@constant')({ fg = palette.muted, gui = 'NONE' }),
