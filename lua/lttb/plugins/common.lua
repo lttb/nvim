@@ -162,7 +162,6 @@ return {
   },
 
   {
-    enabled = false,
     'chrisgrieser/nvim-spider',
     opts = {},
     keys = {
