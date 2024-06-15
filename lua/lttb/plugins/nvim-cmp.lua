@@ -66,9 +66,9 @@ local function init()
     source_nvim_lsp,
 
     { name = 'luasnip' },
-    { name = 'path', keyword_length = 3, max_item_count = 3 },
-    { name = 'buffer', keyword_length = 2, max_item_count = 3 },
-    -- { name = 'rg', keyword_length = 1, max_item_count = 3 },
+    { name = 'path', keyword_length = 3 },
+    { name = 'buffer', keyword_length = 2 },
+    { name = 'rg', keyword_length = 1, max_item_count = 5 },
   }
 
   vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
