@@ -17,7 +17,7 @@ local js_formatter_fn = function(bufnr)
 
   if is_biome and require('conform').get_formatter_info('biome', bufnr).available then
     return { 'biome' }
-  elseif require('conform').get_formatter_info('eslint', bufnr).available then
+  elseif require('conform').get_formatter_info('eslint_d', bufnr).available then
     return { 'prettierd', 'eslint_d' }
   else
     return { 'prettierd' }
@@ -66,7 +66,7 @@ return {
         end
       end
 
-      return { timeout_ms = 200, lsp_fallback = true }, on_format
+      return { timeout_ms = 1000, lsp_fallback = true }, on_format
     end,
 
     format_after_save = function(bufnr)
