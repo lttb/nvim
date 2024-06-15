@@ -133,4 +133,4 @@ vim.keymap.set({ 'n', 'x', 'i', 't' }, '<D-k>', function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, false, true), 'i', true)
 end)
 
--- vim.keymap.set({ 'n', 'x', 'i', 't' }, '<D-e>', require('lttb.dev.toggle_floats').toggle_floats)
+-- vim.keymap.set({ 'n', 'x', 'i', 't' }, '<D-d>', require('lttb.dev.toggle_floats').toggle_floats)

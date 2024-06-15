@@ -2,16 +2,23 @@ local utils = require('lttb.utils')
 
 local M = {}
 
-local hidden_w = {}
-local last_w = nil
+local registry = {}
 
-function M.toggle_floats(callback)
+function M.is_hidden(name)
+  local reg = registry[name]
+  return reg and #reg.hidden_w > 0
+end
+
+function M.toggle_floats(name, callback)
+  registry[name] = registry[name] or { hidden_w = {}, last_w = nil }
+  local reg = registry[name]
+
   local wins = vim.api.nvim_list_wins()
 
   -- utils.log(wins)
 
-  if #hidden_w > 0 then
-    for _, w in ipairs(hidden_w) do
+  if #reg.hidden_w > 0 then
+    for _, w in ipairs(reg.hidden_w) do
       vim.api.nvim_win_set_config(w, { hide = false })
     end
 
@@ -30,21 +37,21 @@ function M.toggle_floats(callback)
     --   -- end
     -- end
 
-    if last_w then
-      vim.api.nvim_set_current_win(last_w)
+    if reg.last_w then
+      vim.api.nvim_set_current_win(reg.last_w)
 
       vim.schedule(function()
         vim.api.nvim_feedkeys('i', 'n', false)
       end)
     end
 
-    hidden_w = {}
-    last_w = nil
+    reg.hidden_w = {}
+    reg.last_w = nil
 
     return
   end
 
-  last_w = vim.api.nvim_get_current_win()
+  reg.last_w = vim.api.nvim_get_current_win()
 
   for id, w in ipairs(wins) do
     -- print(_, w)
@@ -57,7 +64,7 @@ function M.toggle_floats(callback)
     then
       -- utils.log(win_config)
       vim.api.nvim_win_set_config(w, { hide = true })
-      table.insert(hidden_w, w)
+      table.insert(reg.hidden_w, w)
     end
   end
 

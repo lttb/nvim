@@ -354,7 +354,6 @@ return {
     'ibhagwan/fzf-lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
-      'telescope',
       hls = {
         header_bind = 'DiagnosticWarn',
         header_text = 'DiagnosticInfo',
@@ -384,10 +383,18 @@ return {
         --   silent = true,
         -- },
 
-        { '<D-r>', fzf.resume, desc = 'fzf: resume' },
+        -- { '<D-r>', fzf.resume, desc = 'fzf: resume' },
 
         utils.cmd_shift('f', {
           function()
+            local tf = require('lttb.dev.toggle_floats')
+
+            if tf.is_hidden('fzf') then
+              tf.toggle_floats('fzf')
+
+              return
+            end
+
             fzf.grep_project({
               fzf_opts = {
                 ['--layout'] = 'reverse',
@@ -412,25 +419,10 @@ return {
               prompt = '  ',
 
               actions = {
-                ['ctrl-l'] = {
+                ['enter'] = {
                   function(selected, opts)
-                    local entry = path.entry_to_file(selected[1], opts, opts.force_uri)
-                    local fullpath = entry.path or entry.uri and entry.uri:match('^%a+://(.*)')
-                    if not path.starts_with_separator(fullpath) then
-                      fullpath = path.join({ opts.cwd or opts._cwd or vim.loop.cwd(), fullpath })
-                    end
-
-                    require('lttb.dev.toggle_floats').toggle_floats(function()
-                      vim.cmd('e ' .. fullpath)
-
-                      vim.schedule(function()
-                        if entry.line > 1 or entry.col > 1 then
-                          -- make sure we have valid column
-                          -- 'nvim-dap' for example sets columns to 0
-                          entry.col = entry.col and entry.col > 0 and entry.col or 1
-                          vim.api.nvim_win_set_cursor(0, { tonumber(entry.line), tonumber(entry.col) - 1 })
-                        end
-                      end)
+                    tf.toggle_floats('fzf', function()
+                      actions.file_edit(selected, opts)
                     end)
 
                     -- utils.log(selected[1])
