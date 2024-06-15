@@ -49,7 +49,11 @@ function M.toggle_floats(name, callback)
 
   vim.opt.eventignore:append('WinLeave')
   vim.opt.eventignore:append('BufLeave')
-  vim.api.nvim_set_current_win(1000)
+
+  local prev_win = vim.fn.winnr('#') -- this tab only
+  if prev_win > 0 then
+    vim.api.nvim_set_current_win(vim.fn.win_getid(prev_win))
+  end
 
   vim.schedule(function()
     if callback then
