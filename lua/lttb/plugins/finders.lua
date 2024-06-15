@@ -120,6 +120,25 @@ return {
           desc = 'Search Submodules',
         },
 
+        {
+          '<leader>sf',
+          function()
+            require('telescope').extensions.file_browser.file_browser({})
+          end,
+          desc = 'Search File Browser',
+        },
+
+        {
+          '<leader>sc',
+          function()
+            require('telescope').extensions.file_browser.file_browser({
+              path = '%:p:h',
+              select_buffer = true,
+            })
+          end,
+          desc = 'Search Current File Browser',
+        },
+
         { '<leader>sh', builtin.help_tags, desc = 'Search Help' },
         { '<leader>sd', builtin.diagnostics, desc = 'Search Diagnostics' },
         { '<leader>sw', builtin.grep_string, desc = 'Search Word' },
