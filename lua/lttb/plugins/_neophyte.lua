@@ -1,6 +1,9 @@
+if true then
+  return {}
+end
+
 return {
   'tim-harding/neophyte',
-  enabled = false,
   event = 'VeryLazy',
   opts = {
     fonts = {

@@ -6,14 +6,14 @@ end
 
 return {
   {
-    'tpope/vim-fugitive',
     enabled = false,
+    'tpope/vim-fugitive',
     event = 'VimEnter',
   },
 
   {
-    'tpope/vim-rhubarb',
     enabled = false,
+    'tpope/vim-rhubarb',
     event = 'VimEnter',
   },
 

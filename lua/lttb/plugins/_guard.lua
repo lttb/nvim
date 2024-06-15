@@ -4,6 +4,10 @@ if utils.is_vscode() then
   return {}
 end
 
+if true then
+  return {}
+end
+
 local function config()
   local ft = require('guard.filetype')
 
@@ -20,7 +24,6 @@ end
 
 return {
   'nvimdev/guard.nvim',
-  enabled = false,
   config = config,
   dependencies = {
     'nvimdev/guard-collection',

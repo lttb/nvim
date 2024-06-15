@@ -4,9 +4,12 @@ if utils.is_vscode() then
   return {}
 end
 
+if true then
+  return {}
+end
+
 return {
   {
-    enabled = false,
     'mfussenegger/nvim-lint',
     opts = {
       -- Event to trigger linters

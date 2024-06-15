@@ -6,7 +6,6 @@ end
 
 return {
   {
-    enabled = false,
     'nvimtools/none-ls.nvim',
     dependencies = { 'mason.nvim' },
     opts = function()
@@ -54,7 +53,7 @@ return {
             end,
           }),
           null_ls.builtins.diagnostics.markdownlint,
-          null_ls.builtins.diagnostics.ruff,
+          -- null_ls.builtins.diagnostics.ruff,
 
           null_ls.builtins.completion.spell,
         },

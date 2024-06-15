@@ -144,8 +144,8 @@ return {
   },
 
   {
-    'gbprod/yanky.nvim',
     enabled = true,
+    'gbprod/yanky.nvim',
     lazy = false,
     opts = {
       -- your configuration comes here
@@ -162,8 +162,8 @@ return {
   },
 
   {
+    enabled = false,
     'chrisgrieser/nvim-spider',
-    enabled = true,
     opts = {},
     keys = {
       {
@@ -201,8 +201,8 @@ return {
   },
 
   {
-    'fedepujol/move.nvim',
     enabled = false,
+    'fedepujol/move.nvim',
     keys = {
       { '<M-j>', ':MoveLine(1)<CR>', desc = 'Move: line down', mode = { 'n' }, silent = true },
       { '<M-j>', ':MoveBlock(1)<CR>', desc = 'Move: block down', mode = { 'v' }, silent = true },

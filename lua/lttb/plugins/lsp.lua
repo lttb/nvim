@@ -172,8 +172,8 @@ return {
         config = false,
       },
       {
-        'nvimdev/lspsaga.nvim',
         enabled = false,
+        'nvimdev/lspsaga.nvim',
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
           { 'K', '<cmd>Lspsaga hover_doc<cr>' },
@@ -196,16 +196,16 @@ return {
       { enabled = false, 'hinell/lsp-timeout.nvim', dependencies = { 'neovim/nvim-lspconfig' } },
 
       {
-        'aznhe21/actions-preview.nvim',
         enabled = false,
+        'aznhe21/actions-preview.nvim',
         config = function()
           vim.keymap.set({ 'v', 'n' }, '<D-.>', require('actions-preview').code_actions)
         end,
       },
 
       {
-        'weilbith/nvim-code-action-menu',
         enabled = false,
+        'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',
         config = function()
           vim.g.code_action_menu_show_diff = true
@@ -213,8 +213,8 @@ return {
       },
 
       {
-        'antosha417/nvim-lsp-file-operations',
         enabled = false,
+        'antosha417/nvim-lsp-file-operations',
         dependencies = {
           'nvim-lua/plenary.nvim',
           'nvim-neo-tree/neo-tree.nvim',

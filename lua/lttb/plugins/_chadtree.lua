@@ -1,7 +1,10 @@
 local utils = require('lttb.utils')
 
+if true then
+  return {}
+end
+
 return {
-  enabled = false,
   'ms-jpq/chadtree',
   branch = 'chad',
   build = 'python3 -m chadtree deps',
