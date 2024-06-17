@@ -10,8 +10,13 @@ local theme = require('lttb.theme')
 vim.opt.guifont = 'Fira Code:h15:w0.5:#h-slight'
 vim.opt.linespace = 6
 
+vim.g.neovide_window_blurred = true
+vim.g.neovide_transparency = 0.95
+
 vim.g.neovide_floating_blur_amount_x = 30
 vim.g.neovide_floating_blur_amount_y = 30
+
+vim.g.neovide_underline_stroke_scale = 1.2
 
 vim.g.neovide_fullscreen = false
 
