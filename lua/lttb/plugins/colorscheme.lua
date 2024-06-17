@@ -220,6 +220,7 @@ return {
     lazy = true,
     priority = 1000,
     opts = {
+      dark_variant = 'moon',
       extend_background_behind_borders = true,
       styles = {
         italic = false,
