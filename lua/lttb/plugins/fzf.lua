@@ -9,6 +9,11 @@ return {
     'ibhagwan/fzf-lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
+      lsp = {
+        -- @see https://github.com/nvimtools/none-ls.nvim/wiki/Compatibility-with-other-plugins
+        -- make lsp requests synchronous so they work with null-ls
+        async_or_timeout = 3000,
+      },
       hls = {
         header_bind = 'DiagnosticWarn',
         header_text = 'DiagnosticInfo',
