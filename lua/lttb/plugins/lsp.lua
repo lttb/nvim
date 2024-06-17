@@ -13,7 +13,7 @@ local function config()
 
   lsp_zero.extend_lspconfig()
 
-  require('neoconf').setup({})
+  -- require('neoconf').setup({})
 
   -- require('typescript-tools').setup({
   --   settings = {
@@ -139,7 +139,7 @@ end
 
 return {
   -- { 'folke/neodev.nvim', opts = {} },
-  { 'folke/neoconf.nvim' },
+  -- { 'folke/neoconf.nvim' },
 
   {
     'VonHeikemen/lsp-zero.nvim',
