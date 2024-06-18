@@ -13,7 +13,7 @@
   "flatten.nvim": { "branch": "main", "commit": "e420e531d2ab24aebcf7b3c9fca28e6c5c34964d" },
   "fzf-lua": { "branch": "main", "commit": "b59bb9a205547a4d57987ab939845d9b35833466" },
   "github-nvim-theme": { "branch": "main", "commit": "d832925e77cef27b16011a8dfd8835f49bdcd055" },
-  "gitsigns.nvim": { "branch": "main", "commit": "f846c507242a74d9a458bff2d029bd2eae8c0ca1" },
+  "gitsigns.nvim": { "branch": "main", "commit": "ceaa21f6254b7a7c51dbaca26ebd5bf9f57d2f38" },
   "guess-indent.nvim": { "branch": "main", "commit": "b8ae749fce17aa4c267eec80a6984130b94f80b2" },
   "inc-rename.nvim": { "branch": "main", "commit": "535b508c0cb14d00c1836ad901b3c531cb1152bb" },
   "indent-blankline.nvim": { "branch": "master", "commit": "d98f537c3492e87b6dc6c2e3f66ac517528f406f" },
