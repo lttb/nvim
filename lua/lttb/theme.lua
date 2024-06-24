@@ -1,6 +1,6 @@
 local M = {}
 
-M.variant = 'dark'
+M.variant = 'light'
 M.name = 'zengithub'
 M.colorscheme = 'zengithub'
 
