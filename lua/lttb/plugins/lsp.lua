@@ -15,19 +15,43 @@ local function config()
 
   -- require('neoconf').setup({})
 
-  require('typescript-tools').setup({
+  -- require('typescript-tools').setup({
+  --   settings = {
+  --     expose_as_code_action = 'all',
+  --
+  --     complete_function_calls = true,
+  --
+  --     jsx_close_tag = {
+  --       enable = true,
+  --     },
+  --   },
+  -- })
+
+  -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+
+  require('lspconfig').jsonls.setup({
     settings = {
-      expose_as_code_action = 'all',
-
-      complete_function_calls = true,
-
-      jsx_close_tag = {
-        enable = true,
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
       },
     },
   })
 
-  -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+  require('lspconfig').yamlls.setup({
+    settings = {
+      yaml = {
+        schemaStore = {
+          -- You must disable built-in schemaStore support if you want to use
+          -- this plugin and its advanced options like `ignore`.
+          enable = false,
+          -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+          url = '',
+        },
+        schemas = require('schemastore').yaml.schemas(),
+      },
+    },
+  })
 
   vim.diagnostic.config({
     update_in_insert = false,
@@ -175,11 +199,11 @@ return {
       'neovim/nvim-lspconfig',
 
       {
-        enabled = false,
         'yioneko/nvim-vtsls',
       },
 
       {
+        enabled = false,
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = false,
@@ -245,6 +269,10 @@ return {
         keys = {
           { '<F2>', ':IncRename ' },
         },
+      },
+
+      {
+        'b0o/schemastore.nvim',
       },
     },
   },
