@@ -194,43 +194,47 @@ return {
       }
     end,
 
-    opts = {
-      defaults = {
-        winblend = 10,
+    opts = function()
+      local fb_actions = require('telescope').extensions.file_browser.actions
 
-        mappings = {
-          i = {
-            ['<esc>'] = 'close',
-            ['<D-BS>'] = { '<esc>ddi', type = 'command' },
-          },
-        },
-      },
+      return {
+        defaults = {
+          winblend = 10,
 
-      extensions = {
-        helpgrep = {
-          ignore_paths = {
-            vim.fn.stdpath('state') .. '/lazy/readme',
+          mappings = {
+            i = {
+              ['<esc>'] = 'close',
+              ['<D-BS>'] = { '<esc>ddi', type = 'command' },
+              -- ['<C-h>'] = fb_actions.toggle_hidden,
+            },
           },
         },
 
-        smart_open = {
-          match_algorithm = 'fzf',
-          result_limit = 200,
-        },
+        extensions = {
+          helpgrep = {
+            ignore_paths = {
+              vim.fn.stdpath('state') .. '/lazy/readme',
+            },
+          },
 
-        frecency = {
-          default_workspace = 'CWD',
-        },
+          smart_open = {
+            match_algorithm = 'fzf',
+            result_limit = 200,
+          },
 
-        fzf = {
-          fuzzy = true,
-          override_generic_sorter = true,
-          override_file_sorter = true,
-          case_mode = 'smart_case',
-        },
-      },
-    },
+          frecency = {
+            default_workspace = 'CWD',
+          },
 
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = 'smart_case',
+          },
+        },
+      }
+    end,
     dependencies = {
       {
         'nvim-telescope/telescope-fzf-native.nvim',
