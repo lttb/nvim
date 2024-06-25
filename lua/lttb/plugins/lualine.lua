@@ -36,7 +36,14 @@ local function config()
               format = function(client_messages)
                 local sign = '' -- nf-fa-gear \uf013
                 if #client_messages > 0 then
-                  return sign .. ' ' .. table.concat(client_messages, ' ')
+                  local message = sign .. ' ' .. table.concat(client_messages, ' ')
+
+                  -- ignore null-ls messages
+                  if string.find(message, 'null%-ls') then
+                    return ''
+                  end
+
+                  return message
                 end
 
                 local clients = (vim.lsp and vim.lsp.get_clients and vim.lsp.get_clients()) or nil
