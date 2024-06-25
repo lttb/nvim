@@ -51,3 +51,6 @@ vim.g.neovide_input_use_logo = true
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 
 vim.g.neovide_floating_shadow = false
+
+vim.g.neovide_text_gamma = 1.7
+vim.g.neovide_text_contrast = 0.3
