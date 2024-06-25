@@ -21,10 +21,6 @@ return {
     'lewis6991/gitsigns.nvim',
     event = 'VimEnter',
     opts = {
-      yadm = {
-        enable = not utils.is_neovide(), -- for some reason, it doesn't work in neovide
-      },
-
       current_line_blame = true,
       current_line_blame_opts = {
         delay = 250,
