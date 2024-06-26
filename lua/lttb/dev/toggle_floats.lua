@@ -15,11 +15,15 @@ function M.toggle_floats(name, callback)
 
   if #reg.hidden_w > 0 then
     for _, w in ipairs(reg.hidden_w) do
-      vim.api.nvim_win_set_config(w, { hide = false })
+      pcall(function()
+        vim.api.nvim_win_set_config(w, { hide = false })
+      end)
     end
 
     if reg.last_w then
-      vim.api.nvim_set_current_win(reg.last_w)
+      pcall(function()
+        vim.api.nvim_set_current_win(reg.last_w)
+      end)
 
       vim.schedule(function()
         vim.api.nvim_feedkeys('i', 'n', false)
