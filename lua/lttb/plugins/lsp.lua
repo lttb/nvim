@@ -27,7 +27,7 @@ local function config()
   --   },
   -- })
 
-  -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+  require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
   require('lspconfig').jsonls.setup({
     settings = {
