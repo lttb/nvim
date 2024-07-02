@@ -259,4 +259,15 @@ return {
   { 'diegoulloao/neofusion.nvim', priority = 1000, config = true, opts = {
     terminal_colors = true,
   } },
+
+  { 'slugbyte/lackluster.nvim', lazy = false, priority = 1000 },
+
+  { 'datsfilipe/vesper.nvim', lazy = false, priority = 1000 },
+
+  {
+    'sho-87/kanagawa-paper.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
 }

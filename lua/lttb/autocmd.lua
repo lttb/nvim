@@ -97,6 +97,10 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       link = 'IblScope',
     })
 
+    if true then
+      return
+    end
+
     color.extend_hl('FloatBorder', {
       -- bg = normalHL.bg,
       bg = 'NONE',
