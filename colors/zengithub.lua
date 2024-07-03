@@ -39,7 +39,7 @@ else
   palette = util.palette_extend({
     -- bg = hsluv(0, 0, 9),
     -- bg = hsluv('#24282e'),
-    bg = hsluv('#25282F'),
+    bg = hsluv('#282c34'),
     fg = hsluv('#C2C2C2'),
     sky = hsluv('#7d8590'),
 
