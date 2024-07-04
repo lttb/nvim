@@ -45,7 +45,7 @@ if utils.is_vscode() then
   return
 end
 
-require('lttb.dev.osx-text-nav').setup()
+require('lttb.dev.macos-text-nav').setup()
 
 -- @see https://github.com/LazyVim/LazyVim/blob/30b7215de80a215c9bc72640505ea76431ff515c/lua/lazyvim/config/keymaps.lua
 
