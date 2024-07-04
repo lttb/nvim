@@ -7,7 +7,7 @@ local theme = require('lttb.theme')
 --   -- ':#h-full',
 -- }
 
-vim.opt.guifont = 'Fira Code:h15:w0.5:#h-slight'
+vim.opt.guifont = 'JetBrains Mono:h15:w0.5:#h-slight'
 vim.opt.linespace = 6
 
 vim.g.neovide_window_blurred = true
