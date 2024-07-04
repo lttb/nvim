@@ -443,7 +443,7 @@ return {
         width = 120,
 
         autocmds = {
-          enableOnVimEnter = false,
+          enableOnVimEnter = true,
         },
       },
     },
