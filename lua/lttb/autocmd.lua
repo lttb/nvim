@@ -71,12 +71,14 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     })
 
     color.extend_hl('DiagnosticUnderlineWarn', {
-      underdouble = true,
+      underline = true,
+      undercurl = false,
       sp = 'NONE',
     })
 
     color.extend_hl('DiagnosticUnderlineError', {
-      underdouble = true,
+      underline = true,
+      undercurl = false,
     })
 
     color.extend_hl('DiagnosticUnderlineInfo', {
