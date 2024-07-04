@@ -47,7 +47,7 @@ else
 
     type = hsluv('#a07e3b'),
 
-    cursor_line = hsluv('#282c34'),
+    cursor_line = hsluv('#22272e'),
 
     -- sidebar = hsluv('#22272e'),
   }, bg)
