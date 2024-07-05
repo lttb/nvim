@@ -105,7 +105,7 @@ local function config()
 
   lsp_zero.setup()
 
-  -- require('lttb.dev.lsp_code_filter').setup()
+  require('lttb.dev.lsp_code_filter').setup()
 
   require('mason').setup({})
   require('mason-lspconfig').setup({
