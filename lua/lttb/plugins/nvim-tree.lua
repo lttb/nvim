@@ -19,7 +19,7 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     version = '*',
-    lazy = true,
+    lazy = false,
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
@@ -44,10 +44,6 @@ return {
       }
     end,
     init = function()
-      if true then
-        return
-      end
-
       if utils.is_neovide() then
         return
       end
