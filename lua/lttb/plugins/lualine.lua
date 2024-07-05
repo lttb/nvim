@@ -23,11 +23,17 @@ local function config()
     },
 
     sections = {
-      lualine_a = { { 'mode' } },
+      lualine_a = { { 'mode', separator = { left = '' } } },
       lualine_b = {},
       lualine_c = {
         {
           function()
+            local color = require('lttb.utils.color')
+
+            color.inherit_hl('lualine_a_normal', 'LuaLineProgress', {
+              fg = color.alpha_hl('lualine_a_normal', 'fg', 0.25),
+            })
+
             return require('lsp-progress').progress({
               --- @param client_messages string[]|table[]
               ---     Client messages array.
@@ -54,7 +60,7 @@ local function config()
               end,
             })
           end,
-          color = 'GitSignsCurrentLineBlame',
+          color = 'LuaLineProgress',
         },
       },
       lualine_x = {},
@@ -69,6 +75,7 @@ local function config()
       lualine_z = {
         {
           'location',
+          separator = { right = '' },
         },
       },
     },

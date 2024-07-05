@@ -46,6 +46,12 @@ function M.extend_hl(hl_name, opts)
   vim.api.nvim_set_hl(0, hl_name, vim.tbl_extend('force', hl, opts))
 end
 
+function M.inherit_hl(hl_name, hl_new_name, opts)
+  local hl = vim.api.nvim_get_hl(0, { name = hl_name })
+
+  vim.api.nvim_set_hl(0, hl_new_name, vim.tbl_extend('force', hl, opts))
+end
+
 -- function M.extend_hl_alpha(hl, hl_extend, color_name, a, opts)
 --   local hlExtendHL = vim.api.nvim_get_hl(0, { name = hl_extend })
 --   local currentHL = vim.api.nvim_get_hl(0, { name = hl })
