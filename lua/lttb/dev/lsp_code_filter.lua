@@ -1,21 +1,15 @@
 local M = {}
 
-local orig_virtual_text_handler = vim.diagnostic.handlers.virtual_text
-local orig_underline_handler = vim.diagnostic.handlers.underline
-
 local function is_ignored_code(code)
   return string.find(code, 'prettier') or string.find(code, 'no%-unused%-vars')
 end
 
 local function filter_diagnostics(diagnostics)
-  local filtered = {}
-  for _, d in ipairs(diagnostics) do
+  return vim.tbl_filter(function(d)
     local code = d.code or (d.user_data and d.user_data.lsp and d.user_data.lsp.code) or ''
-    if not is_ignored_code(code) then
-      table.insert(filtered, d)
-    end
-  end
-  return filtered
+
+    return not is_ignored_code(code)
+  end, diagnostics)
 end
 
 local function enhanced_show_handler(orig_handler)
@@ -35,7 +29,9 @@ local function enhanced_hide_handler(orig_handler)
 end
 
 function M.setup()
-  -- Enhance both handlers with the new logic
+  local orig_virtual_text_handler = vim.diagnostic.handlers.virtual_text
+  local orig_underline_handler = vim.diagnostic.handlers.underline
+
   vim.diagnostic.handlers.virtual_text = {
     show = enhanced_show_handler(orig_virtual_text_handler),
     hide = enhanced_hide_handler(orig_virtual_text_handler),
