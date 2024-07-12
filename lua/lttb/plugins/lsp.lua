@@ -15,19 +15,19 @@ local function config()
 
   -- require('neoconf').setup({})
 
-  -- require('typescript-tools').setup({
-  --   settings = {
-  --     expose_as_code_action = 'all',
-  --
-  --     complete_function_calls = true,
-  --
-  --     jsx_close_tag = {
-  --       enable = true,
-  --     },
-  --   },
-  -- })
+  require('typescript-tools').setup({
+    settings = {
+      expose_as_code_action = 'all',
 
-  require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+      complete_function_calls = true,
+
+      jsx_close_tag = {
+        enable = true,
+      },
+    },
+  })
+
+  -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
   require('lspconfig').jsonls.setup({
     settings = {
@@ -105,7 +105,7 @@ local function config()
 
   lsp_zero.setup()
 
-  require('lttb.dev.lsp_code_filter').setup()
+  -- require('lttb.dev.lsp_code_filter').setup()
 
   require('mason').setup({})
   require('mason-lspconfig').setup({
@@ -199,11 +199,12 @@ return {
       'neovim/nvim-lspconfig',
 
       {
+        enabled = false,
         'yioneko/nvim-vtsls',
       },
 
       {
-        enabled = false,
+        enabled = true,
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = false,
