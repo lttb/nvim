@@ -30,8 +30,8 @@ local function config()
           function()
             local color = require('lttb.utils.color')
 
-            color.inherit_hl('lualine_a_normal', 'LuaLineProgress', {
-              fg = color.alpha_hl('lualine_a_normal', 'fg', 0.25),
+            color.inherit_hl('lualine_b_normal', 'LuaLineProgress', {
+              fg = color.alpha_hl('lualine_b_normal', 'fg', 0.25),
             })
 
             return require('lsp-progress').progress({
