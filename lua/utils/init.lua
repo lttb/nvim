@@ -20,3 +20,5 @@ function M.log(v)
   print(vim.inspect(v))
   return v
 end
+
+return M

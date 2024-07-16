@@ -1,16 +1,7 @@
-return {
-  {
-    "folke/zen-mode.nvim",
-    opts = {
-      plugins = {
-        gitsigns = {
-          enabled = true,
-        },
+local utils = require("utils")
 
-        todo = {
-          enabled = true,
-        },
-      },
-    },
-  },
-}
+if utils.is_vscode() then
+  return {}
+end
+
+return {}
