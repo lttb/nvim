@@ -11,7 +11,7 @@ local function config()
   require('lualine').setup({
     options = {
       icons_enabled = true,
-      theme = theme.colorscheme == 'zengithub' and require('lttb.themes.lualine_zengithub') or 'auto',
+      theme = require('lttb.themes.lualine_zengithub'),
 
       component_separators = '|',
       section_separators = '',
@@ -23,7 +23,7 @@ local function config()
     },
 
     sections = {
-      lualine_a = { { 'mode', separator = { left = '' } } },
+      lualine_a = { { 'mode', separator = { left = utils.is_neovide() and '' or '' } } },
       lualine_b = {},
       lualine_c = {
         {
@@ -75,7 +75,7 @@ local function config()
       lualine_z = {
         {
           'location',
-          separator = { right = '' },
+          separator = { right = utils.is_neovide() and '' or '' },
         },
       },
     },
