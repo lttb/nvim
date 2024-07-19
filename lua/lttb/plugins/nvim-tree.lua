@@ -48,6 +48,10 @@ return {
         return
       end
 
+      if true then
+        return
+      end
+
       vim.api.nvim_create_autocmd({ 'VimEnter' }, {
         -- it should be "nested" not to show the number column
         -- @see https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1106
