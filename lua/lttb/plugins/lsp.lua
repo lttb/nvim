@@ -142,7 +142,7 @@ local function config()
 
     mapping = cmp.mapping.preset.insert({
       ['<C-Space>'] = cmp.mapping.complete(),
-      ['<Tab>'] = cmp_action.luasnip_supertab(),
+      ['<Tab>'] = cmp_action.luasnip_next_or_expand(),
       ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
     }),
 
