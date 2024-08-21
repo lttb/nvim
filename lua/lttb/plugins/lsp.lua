@@ -109,7 +109,7 @@ local function config()
 
   require('mason').setup({})
   require('mason-lspconfig').setup({
-    ensure_installed = { 'rust_analyzer', 'lua_ls', 'cssls', 'eslint', 'html', 'jsonls' },
+    ensure_installed = { 'rust_analyzer', 'lua_ls', 'cssls', 'html', 'jsonls' },
     handlers = {
       lsp_zero.default_setup,
       tsserver = lsp_zero.noop,
@@ -189,7 +189,12 @@ return {
           -- lags on large projects
           -- 'lukas-reineke/cmp-rg',
           'onsails/lspkind.nvim',
-          'L3MON4D3/LuaSnip',
+          {
+
+            'L3MON4D3/LuaSnip',
+            version = 'v2.*',
+            build = 'make install_jsregexp',
+          },
         },
       },
 
