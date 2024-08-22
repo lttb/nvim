@@ -5,7 +5,11 @@ if utils.is_vscode() then
   return
 end
 
+-- Create an autocommand group to organize your autocommands
+vim.api.nvim_create_augroup('MyAutoCmds', { clear = true })
+
 vim.api.nvim_create_autocmd('ColorScheme', {
+  group = 'MyAutoCmds',
   callback = function()
     local color = require('lttb.utils.color')
 
@@ -130,13 +134,25 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
+-- Define the autocommand to run vim.diagnostic.reset() on entering normal mode
+-- TODO: figure out why diagnostic stuck
+vim.api.nvim_create_autocmd('ModeChanged', {
+  group = 'MyAutoCmds',
+  pattern = '*:n', -- This pattern matches when entering normal mode
+  callback = function()
+    vim.diagnostic.reset()
+  end,
+})
+
 if utils.is_kitty() then
   vim.api.nvim_create_autocmd('VimLeave', {
+    group = 'MyAutoCmds',
     callback = function()
       vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title')
     end,
   })
   vim.api.nvim_create_autocmd('BufEnter', {
+    group = 'MyAutoCmds',
     callback = function()
       -- defer title setting to avoid flickering
       vim.defer_fn(function()
