@@ -95,7 +95,9 @@ vim.keymap.set('i', '<C-w>', '<C-g>u<C-w>')
 vim.keymap.set('i', '<D-z>', '<C-w>')
 
 -- Quick Save shortcut
-vim.keymap.set({ 'i', 'n' }, '<D-s>', '<cmd>update<cr>', { desc = 'Quick Save' })
+vim.keymap.set({ 'i', 'n' }, '<D-s>', function()
+  vim.cmd('update')
+end, { desc = 'Quick Save' })
 
 -- TODO: automatically close split if the last buffer in the split was closed
 vim.keymap.set('n', '<D-w>', '<cmd>lua MiniBufremove.delete()<cr>')
