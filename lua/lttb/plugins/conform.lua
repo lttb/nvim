@@ -29,6 +29,7 @@ local js_formatter = js_formatter_fn
 local slow_format_filetypes = {}
 
 return {
+  enabled = false,
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },

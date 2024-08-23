@@ -7,8 +7,9 @@ end
 return {
   {
     'nvimtools/none-ls.nvim',
-    dependencies = { 'davidmh/cspell.nvim' },
+    dependencies = { 'davidmh/cspell.nvim', 'nvimtools/none-ls-extras.nvim' },
     opts = function()
+      local null_ls = require('null-ls')
       local cspell = require('cspell')
 
       return {
@@ -19,6 +20,12 @@ return {
             end,
           }),
           cspell.code_actions,
+
+          -- require('none-ls.code_actions.eslint'),
+          -- require('none-ls.diagnostics.eslint'),
+          -- require('none-ls.formatting.eslint'),
+
+          null_ls.builtins.formatting.prettier,
         },
       }
     end,

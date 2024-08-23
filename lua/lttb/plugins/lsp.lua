@@ -11,23 +11,38 @@ end
 local function config()
   local lsp_zero = require('lsp-zero')
 
-  lsp_zero.extend_lspconfig()
+  require('lsp-format').setup()
+
+  lsp_zero.on_attach(function(client, bufnr)
+    client.server_capabilities.semanticTokensProvider = nil
+
+    -- see :help lsp-zero-keybindings
+    -- to learn the available actions
+    lsp_zero.default_keymaps({ buffer = bufnr })
+
+    lsp_zero.buffer_autoformat()
+  end)
+
+
+  lsp_zero.extend_lspconfig({
+    sign_text = true,
+  })
 
   -- require('neoconf').setup({})
 
-  require('typescript-tools').setup({
-    settings = {
-      expose_as_code_action = 'all',
+  -- require('typescript-tools').setup({
+  --   settings = {
+  --     expose_as_code_action = 'all',
+  --
+  --     complete_function_calls = true,
+  --
+  --     jsx_close_tag = {
+  --       enable = true,
+  --     },
+  --   },
+  -- })
 
-      complete_function_calls = true,
-
-      jsx_close_tag = {
-        enable = true,
-      },
-    },
-  })
-
-  -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+  require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
   require('lspconfig').jsonls.setup({
     settings = {
@@ -96,12 +111,6 @@ local function config()
   --   end,
   -- })
 
-  lsp_zero.on_attach(function(client, bufnr)
-    client.server_capabilities.semanticTokensProvider = nil
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
-    lsp_zero.default_keymaps({ buffer = bufnr })
-  end)
 
   lsp_zero.setup()
 
@@ -204,12 +213,12 @@ return {
       'neovim/nvim-lspconfig',
 
       {
-        enabled = false,
+        enabled = true,
         'yioneko/nvim-vtsls',
       },
 
       {
-        enabled = true,
+        enabled = false,
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = false,
@@ -219,7 +228,7 @@ return {
         'nvimdev/lspsaga.nvim',
         keys = {
           { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K', '<cmd>Lspsaga hover_doc<cr>' },
+          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
           -- { '<F2>', '<cmd>Lspsaga rename<cr>' },
         },
         config = function()
@@ -279,6 +288,10 @@ return {
 
       {
         'b0o/schemastore.nvim',
+      },
+
+      {
+        'lukas-reineke/lsp-format.nvim',
       },
     },
   },
