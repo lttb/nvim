@@ -179,7 +179,8 @@ return {
     lazy = false,
     priority = 10,
     keys = {
-      { '<D-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
+      -- ghostty doesn't support <D-.>
+      { '<C-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
       -- { '<F-2>', vim.lsp.buf.rename, desc = 'Rename Symbol' },
     },
     branch = 'v3.x',
