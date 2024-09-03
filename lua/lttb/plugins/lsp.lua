@@ -187,7 +187,9 @@ return {
     config = config,
     dependencies = {
       {
-        'hrsh7th/nvim-cmp',
+        -- 'hrsh7th/nvim-cmp',
+        'yioneko/nvim-cmp',
+        branch = 'perf',
         dependencies = {
           'VonHeikemen/lsp-zero.nvim',
 
@@ -204,6 +206,12 @@ return {
             'L3MON4D3/LuaSnip',
             version = 'v2.*',
             build = 'make install_jsregexp',
+          },
+        },
+        opts = {
+          performance = {
+            debounce = 0,   -- default is 60ms
+            throttle = 0,   -- default is 30ms
           },
         },
       },
