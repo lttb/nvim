@@ -132,21 +132,41 @@ local function config()
   require('lsp-zero').extend_cmp()
 
   local cmp = require('cmp')
-  local cmp_format = require('lsp-zero').cmp_format()
+  local cmp_format = require('lsp-zero').cmp_format({ details = true })
   local cmp_action = require('lsp-zero').cmp_action()
 
   cmp.setup({
-    formatting = cmp_format,
+    formatting = vim.tbl_extend('keep', {
+      format = function(entry, vim_item)
+        cmp_format.format(entry, vim_item)
+        -- Set dup to 0 for all sources to remove duplicates
+        vim_item.dup = 0
+        return vim_item
+      end,
+    }, cmp_format),
 
-    sources = {
+    sources = cmp.config.sources({
       {
         name = 'nvim_lsp',
         entry_filter = function(entry, ctx)
           return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
         end,
+        priority = 1000,
       },
-      { name = 'buffer' },
-      { name = 'path' },
+      { name = 'buffer', priority = 500 },
+      { name = 'path',   priority = 250 },
+    }),
+
+    sorting = {
+      comparators = {
+        cmp.config.compare.kind,
+        cmp.config.compare.offset,
+        cmp.config.compare.exact,
+        cmp.config.compare.score,
+        cmp.config.compare.sort_text,
+        cmp.config.compare.length,
+        cmp.config.compare.order,
+      },
     },
 
     mapping = cmp.mapping.preset.insert({
@@ -156,7 +176,7 @@ local function config()
     }),
 
     experimental = {
-      ghost_text = true, -- this feature conflict with copilot.vim's preview.
+      ghost_text = true,
     },
   })
 
