@@ -20,6 +20,10 @@ local function config()
     -- to learn the available actions
     lsp_zero.default_keymaps({ buffer = bufnr })
 
+    if client.name == 'ts_ls' then
+      return
+    end
+
     lsp_zero.buffer_autoformat()
   end)
 
@@ -30,17 +34,17 @@ local function config()
 
   -- require('neoconf').setup({})
 
-  require('typescript-tools').setup({
-    settings = {
-      expose_as_code_action = 'all',
-
-      complete_function_calls = true,
-
-      jsx_close_tag = {
-        enable = true,
-      },
-    },
-  })
+  -- require('typescript-tools').setup({
+  --   settings = {
+  --     expose_as_code_action = 'all',
+  --
+  --     complete_function_calls = true,
+  --
+  --     jsx_close_tag = {
+  --       enable = true,
+  --     },
+  --   },
+  -- })
 
   -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
@@ -121,7 +125,6 @@ local function config()
     ensure_installed = { 'rust_analyzer', 'lua_ls', 'cssls', 'html', 'jsonls' },
     handlers = {
       lsp_zero.default_setup,
-      tsserver = lsp_zero.noop,
       lua_ls = function()
         local lua_opts = lsp_zero.nvim_lua_ls()
         require('lspconfig').lua_ls.setup(lua_opts)
@@ -159,8 +162,8 @@ local function config()
 
     sorting = {
       comparators = {
-        cmp.config.compare.kind,
         cmp.config.compare.offset,
+        cmp.config.compare.kind,
         cmp.config.compare.exact,
         cmp.config.compare.score,
         cmp.config.compare.sort_text,
@@ -247,7 +250,7 @@ return {
       },
 
       {
-        enabled = true,
+        enabled = false,
         'pmizio/typescript-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = false,
