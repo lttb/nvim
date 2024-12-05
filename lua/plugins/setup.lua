@@ -6,4 +6,8 @@ if utils.is_neovide() then
   return {}
 end
 
+if utils.is_vscode() then
+  return {}
+end
+
 return {}

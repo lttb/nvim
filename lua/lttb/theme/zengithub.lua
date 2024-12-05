@@ -66,6 +66,14 @@ function M.create(name, bg, get_palette)
 
       Todo({ underline = false }),
 
+      FloatBorder({
+        bg = "NONE",
+      }),
+
+      NormalFloat({
+        bg = palette.bg,
+      }),
+
       -- NeoTreeNormalNC({ bg = '#FAFAFA' }),
       NeoTreeDirectoryIcon({ fg = palette.sky.hex }),
       NeoTreeDirectoryName({ fg = palette.sky.hex }),
