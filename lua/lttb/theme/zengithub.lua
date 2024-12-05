@@ -66,14 +66,6 @@ function M.create(name, bg, get_palette)
 
       Todo({ underline = false }),
 
-      FloatBorder({
-        bg = "NONE",
-      }),
-
-      NormalFloat({
-        bg = palette.bg,
-      }),
-
       -- NeoTreeNormalNC({ bg = '#FAFAFA' }),
       NeoTreeDirectoryIcon({ fg = palette.sky.hex }),
       NeoTreeDirectoryName({ fg = palette.sky.hex }),
@@ -85,6 +77,26 @@ function M.create(name, bg, get_palette)
       NvimTreeExecFile({ link = "Normal" }),
 
       TreesitterContextSeparator({ fg = palette.cursor_line }),
+
+      -- I might want to move it to autocmds to apply for all themes
+      FloatBorder({
+        bg = "NONE",
+      }),
+
+      NormalFloat({
+        bg = palette.bg,
+      }),
+
+      VertSplit({
+        bg = palette.cursor_line,
+        fg = palette.cursor_line,
+      }),
+
+      WinSeparator({
+        bg = palette.cursor_line,
+        fg = palette.cursor_line,
+        link = "WinSeparator",
+      }),
     }
   end)
 
