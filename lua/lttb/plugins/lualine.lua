@@ -135,11 +135,9 @@ return {
     'nvim-lualine/lualine.nvim',
     config = config,
     dependencies = {
-      { 'nvim-tree/nvim-web-devicons' },
       { 'arkav/lualine-lsp-progress', enabled = false },
       {
         'linrongbin16/lsp-progress.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {},
       },
     },

@@ -20,9 +20,6 @@ return {
     'nvim-tree/nvim-tree.lua',
     version = '*',
     lazy = false,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
     keys = function()
       local nvim_tree_api = require('nvim-tree.api')
 

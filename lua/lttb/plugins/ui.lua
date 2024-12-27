@@ -8,8 +8,57 @@ end
 
 return {
   {
+    -- {
+    --   'nvim-tree/nvim-web-devicons',
+    -- },
+
     {
-      'nvim-tree/nvim-web-devicons',
+      'echasnovski/mini.icons',
+      priority = 1000, -- make sure to load this before all the other start plugins
+      version = '*',
+      opts = {},
+      config = function()
+        local MiniIcons = require('mini.icons')
+        MiniIcons.setup()
+        MiniIcons.mock_nvim_web_devicons()
+      end,
+    },
+
+    -- {
+    --   'echasnovski/mini.icons',
+    --   lazy = true,
+    --   opts = {},
+    --   init = function()
+    --     package.preload['nvim-web-devicons'] = function()
+    --       require('mini.icons').mock_nvim_web_devicons()
+    --       return package.loaded['nvim-web-devicons']
+    --     end
+    --   end,
+    -- },
+
+    {
+      'folke/snacks.nvim',
+      opts = {
+        animate = {
+          duration = { step = 15, total = 250 },
+          easing = 'linear',
+        },
+        bigfile = { enabled = true },
+        indent = { enabled = true },
+        input = { enabled = true },
+        notifier = { enabled = true },
+        scroll = { enabled = true },
+        words = { enabled = true },
+      },
+      -- stylua: ignore
+      keys = function()
+        local Snacks = require('snacks')
+
+        return {
+          { '<leader>n',  function() Snacks.notifier.show_history() end, desc = 'Notification History' },
+          { '<leader>un', function() Snacks.notifier.hide() end,         desc = 'Dismiss All Notifications' },
+        }
+      end,
     },
 
     {
@@ -125,11 +174,11 @@ return {
         },
         -- you can enable a preset for easier configuration
         presets = {
-          bottom_search = true, -- use a classic bottom cmdline for search
-          command_palette = true, -- position the cmdline and popupmenu together
+          bottom_search = true,         -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = true, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true, -- add a border to hover docs and signature help
+          inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true,        -- add a border to hover docs and signature help
         },
 
         messages = {
@@ -237,7 +286,6 @@ return {
       'romgrk/barbar.nvim',
       dependencies = {
         'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
       },
       init = function()
         vim.g.barbar_auto_setup = false
@@ -284,10 +332,10 @@ return {
           },
         }
       end,
-      dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 
     {
+      enabled = false,
       'lukas-reineke/indent-blankline.nvim',
       main = 'ibl',
       opts = {
@@ -368,7 +416,7 @@ return {
         local hover = require('hover')
 
         return {
-          { 'K', hover.hover, desc = 'hover.nvim' },
+          { 'K',  hover.hover,        desc = 'hover.nvim' },
           { 'gK', hover.hover_select, desc = 'hover.nvim select' },
         }
       end,
@@ -424,7 +472,6 @@ return {
 
     {
       'folke/trouble.nvim',
-      dependencies = { 'nvim-tree/nvim-web-devicons' },
       keys = {
         utils.cmd_shift('m', { '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' }),
       },

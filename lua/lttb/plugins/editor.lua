@@ -37,6 +37,7 @@ return {
   },
 
   {
+    enabled = false,
     'windwp/nvim-autopairs',
     event = 'VimEnter',
     config = function()
@@ -167,6 +168,7 @@ return {
   },
 
   {
+    enabled = false,
     'NvChad/nvim-colorizer.lua',
     opts = {},
   },
@@ -278,12 +280,18 @@ return {
     },
   },
 
-  { 'knubie/vim-kitty-navigator' },
+  {
+    enabled = false,
+    'knubie/vim-kitty-navigator',
+  },
 
   -- better quick fix window
   { 'kevinhwang91/nvim-bqf' },
 
-  { 'LunarVim/bigfile.nvim' },
+  {
+    enabled = false,
+    'LunarVim/bigfile.nvim'
+  },
 
   {
     'willothy/flatten.nvim',

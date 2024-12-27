@@ -1,5 +1,9 @@
 local utils = require('lttb.utils')
 
+if utils.is_vscode() then
+  return {}
+end
+
 if true then
   return {}
 end

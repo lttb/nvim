@@ -53,11 +53,17 @@ require('lttb.dev.macos-text-nav').setup()
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+-- Move to window using the <ctrl> hjkl keys
+vim.keymap.set('n', '<C-h>', '<c-w>h', { desc = 'Go to left window', silent = true })
+vim.keymap.set('n', '<C-j>', '<c-j>h', { desc = 'Go to lower window', silent = true })
+vim.keymap.set('n', '<C-k>', '<c-k>h', { desc = 'Go to upper window', silent = true })
+vim.keymap.set('n', '<C-l>', '<c-l>h', { desc = 'Go to right window', silent = true })
+
 -- Move to window using the <ctrl> hjkl keys and `vim-kitty-navigator`
-vim.keymap.set('n', '<C-h>', ':KittyNavigateLeft<cr>', { desc = 'Go to left window', silent = true })
-vim.keymap.set('n', '<C-j>', ':KittyNavigateDown<cr>', { desc = 'Go to lower window', silent = true })
-vim.keymap.set('n', '<C-k>', ':KittyNavigateUp<cr>', { desc = 'Go to upper window', silent = true })
-vim.keymap.set('n', '<C-l>', ':KittyNavigateRight<cr>', { desc = 'Go to right window', silent = true })
+-- vim.keymap.set('n', '<C-h>', ':KittyNavigateLeft<cr>', { desc = 'Go to left window', silent = true })
+-- vim.keymap.set('n', '<C-j>', ':KittyNavigateDown<cr>', { desc = 'Go to lower window', silent = true })
+-- vim.keymap.set('n', '<C-k>', ':KittyNavigateUp<cr>', { desc = 'Go to upper window', silent = true })
+-- vim.keymap.set('n', '<C-l>', ':KittyNavigateRight<cr>', { desc = 'Go to right window', silent = true })
 
 -- Resize window using <ctrl> arrow keys
 vim.keymap.set('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase window height' })
@@ -65,8 +71,8 @@ vim.keymap.set('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease window 
 vim.keymap.set('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease window width' })
 vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase window width' })
 
-vim.keymap.set('n', '<C-D>', '25j', { desc = 'Better Scroll Down' })
-vim.keymap.set('n', '<C-U>', '25k', { desc = 'Better Scroll Up' })
+-- vim.keymap.set('n', '<C-D>', '25j', { desc = 'Better Scroll Down' })
+-- vim.keymap.set('n', '<C-U>', '25k', { desc = 'Better Scroll Up' })
 
 -- Clear search with <esc>
 vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })

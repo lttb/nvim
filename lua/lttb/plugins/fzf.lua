@@ -7,7 +7,6 @@ end
 return {
   {
     'ibhagwan/fzf-lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       lsp = {
         -- @see https://github.com/nvimtools/none-ls.nvim/wiki/Compatibility-with-other-plugins
