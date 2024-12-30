@@ -6,6 +6,7 @@ end
 
 return {
   {
+    enabled = false,
     'antosha417/nvim-lsp-file-operations',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -17,6 +18,7 @@ return {
   },
 
   {
+    enabled = false,
     'nvim-tree/nvim-tree.lua',
     version = '*',
     lazy = false,

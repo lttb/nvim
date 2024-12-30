@@ -37,18 +37,20 @@ return {
     -- },
 
     {
+      enabled = false,
       'folke/snacks.nvim',
       opts = {
         animate = {
           duration = { step = 15, total = 250 },
           easing = 'linear',
         },
-        bigfile = { enabled = true },
-        indent = { enabled = true },
-        input = { enabled = true },
-        notifier = { enabled = true },
-        scroll = { enabled = true },
-        words = { enabled = true },
+        bigfile = {},
+        indent = {},
+        input = {},
+        notifier = {},
+        scroll = {},
+        scope = {},
+        -- words = {},
       },
       -- stylua: ignore
       keys = function()

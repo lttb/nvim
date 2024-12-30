@@ -30,7 +30,8 @@ return {
   config = function()
     vim.g.chadtree_settings = {
       theme = {
-        text_colour_set = 'env',
+        text_colour_set = 'solarized_universal',
+        icon_colour_set = 'none',
       },
     }
     -- vim.api.nvim_set_var('chadtree_settings', {

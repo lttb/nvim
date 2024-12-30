@@ -4,6 +4,10 @@ if utils.is_vscode() then
   return {}
 end
 
+if true then
+  return {}
+end
+
 return {
   {
     'windwp/nvim-spectre',
@@ -18,12 +22,20 @@ return {
       local spectre = require('spectre')
 
       return {
-        { '<leader>rr', spectre.open, {
-          desc = 'spectre',
-        } },
-        { '<leader>rf', spectre.open_file_search, {
-          desc = 'spectre: search in file',
-        } },
+        {
+          '<leader>rr',
+          spectre.open,
+          {
+            desc = 'spectre',
+          },
+        },
+        {
+          '<leader>rf',
+          spectre.open_file_search,
+          {
+            desc = 'spectre: search in file',
+          },
+        },
       }
     end,
   },

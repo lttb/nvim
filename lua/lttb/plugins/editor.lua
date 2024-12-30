@@ -37,7 +37,6 @@ return {
   },
 
   {
-    enabled = false,
     'windwp/nvim-autopairs',
     event = 'VimEnter',
     config = function()
@@ -55,15 +54,15 @@ return {
         -- map_cr = false,
       })
 
-      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      local cmp = require('cmp')
-      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-
-      npairs.add_rules({
-        Rule('**', '**', { 'markdown', 'mdx' }),
-        Rule('```', '```', { 'mdx' }),
-        Rule('```.*$', '```', { 'mdx' }):only_cr():use_regex(true),
-      })
+      -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      -- local cmp = require('cmp')
+      -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+      --
+      -- npairs.add_rules({
+      --   Rule('**', '**', { 'markdown', 'mdx' }),
+      --   Rule('```', '```', { 'mdx' }),
+      --   Rule('```.*$', '```', { 'mdx' }):only_cr():use_regex(true),
+      -- })
     end,
   },
 
@@ -290,7 +289,7 @@ return {
 
   {
     enabled = false,
-    'LunarVim/bigfile.nvim'
+    'LunarVim/bigfile.nvim',
   },
 
   {

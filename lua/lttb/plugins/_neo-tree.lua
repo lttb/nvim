@@ -4,10 +4,6 @@ if utils.is_vscode() then
   return {}
 end
 
-if true then
-  return {}
-end
-
 return {
   {
     'nvim-neo-tree/neo-tree.nvim',
@@ -17,13 +13,6 @@ return {
       { '<D-e>', '<cmd>Neotree reveal<cr>', { desc = 'Focus Sidebar' } },
     },
     branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify',
-      -- 'coffebar/neovim-project',
-    },
     init = function()
       vim.api.nvim_create_autocmd({ 'VimEnter' }, {
         -- it should be "nested" not to show the number column
@@ -62,7 +51,7 @@ return {
       },
 
       enable_diagnostics = false,
-      enable_git_status = false,
+      enable_git_status = true,
 
       filesystem = {
         filtered_items = {

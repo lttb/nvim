@@ -78,7 +78,7 @@ return {
 
       require('mini.bufremove').setup({})
 
-      -- require('mini.cursorword').setup({})
+      require('mini.cursorword').setup({})
 
       -- local MiniMap = require('mini.map')
 
@@ -197,7 +197,7 @@ return {
     -- extended treesitter objects
     'chrisgrieser/nvim-various-textobjs',
     lazy = false,
-    opts = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } },
+    opts = { keymaps = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } } },
   },
 
   {

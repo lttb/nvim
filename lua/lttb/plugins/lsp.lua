@@ -27,10 +27,18 @@ local function config()
     lsp_zero.buffer_autoformat()
   end)
 
+  local lspconfig_defaults = require('lspconfig').util.default_config
+  lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+    'force',
+    lspconfig_defaults.capabilities,
+    require('blink.cmp').get_lsp_capabilities()
+  )
 
   lsp_zero.extend_lspconfig({
     sign_text = true,
   })
+
+
 
   -- require('neoconf').setup({})
 
@@ -132,65 +140,8 @@ local function config()
     },
   })
 
-  require('lsp-zero').extend_cmp()
-
-  local cmp = require('cmp')
-  local cmp_format = require('lsp-zero').cmp_format({ details = true })
-  local cmp_action = require('lsp-zero').cmp_action()
-
-  cmp.setup({
-    formatting = vim.tbl_extend('keep', {
-      format = function(entry, vim_item)
-        cmp_format.format(entry, vim_item)
-        -- Set dup to 0 for all sources to remove duplicates
-        vim_item.dup = 0
-        return vim_item
-      end,
-    }, cmp_format),
-
-    sources = cmp.config.sources({
-      {
-        name = 'nvim_lsp',
-        entry_filter = function(entry, ctx)
-          return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
-        end,
-        priority = 1000,
-      },
-      { name = 'buffer', priority = 500 },
-      { name = 'path',   priority = 250 },
-    }),
-
-    sorting = {
-      comparators = {
-        cmp.config.compare.offset,
-        cmp.config.compare.kind,
-        cmp.config.compare.exact,
-        cmp.config.compare.score,
-        cmp.config.compare.sort_text,
-        cmp.config.compare.length,
-        cmp.config.compare.order,
-      },
-    },
-
-    mapping = cmp.mapping.preset.insert({
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<Tab>'] = cmp_action.luasnip_next_or_expand(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-    }),
-
-    experimental = {
-      ghost_text = true,
-    },
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources(
-      { { name = 'path' } },
-      { { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } } }
-    ),
-  })
+  -- require('lttb.plugins._cmp').setup()
+  --   require('lsp-zero').extend_cmp()
 end
 
 return {
@@ -211,6 +162,7 @@ return {
     dependencies = {
       {
         -- 'hrsh7th/nvim-cmp',
+        enabled = false,
         'yioneko/nvim-cmp',
         branch = 'perf',
         dependencies = {
@@ -235,6 +187,46 @@ return {
           performance = {
             debounce = 0, -- default is 60ms
             throttle = 0, -- default is 30ms
+          },
+        },
+      },
+
+      {
+        'saghen/blink.cmp',
+        -- optional: provides snippets for the snippet source
+        dependencies = 'rafamadriz/friendly-snippets',
+
+        -- use a release tag to download pre-built binaries
+        version = '*',
+        -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+        -- build = 'cargo build --release',
+        -- If you use nix, you can build from source using latest nightly rust with:
+        -- build = 'nix run .#build-plugin',
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+          completion = {
+            ghost_text = { enabled = true },
+
+            list = {
+              selection = 'auto_insert',
+            },
+
+            menu = {
+              cmdline_position = function()
+                if vim.g.ui_cmdline_pos ~= nil then
+                  local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+                  return { pos[1] - 1, pos[2] }
+                end
+                local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+                return { vim.o.lines - height, 0 }
+              end,
+            },
+          },
+
+          keymap = {
+            preset = 'enter',
           },
         },
       },
