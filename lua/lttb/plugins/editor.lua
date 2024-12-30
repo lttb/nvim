@@ -8,7 +8,6 @@ return {
   {
     'nmac427/guess-indent.nvim',
     event = 'LazyFile',
-    opts = {},
   },
 
   {
@@ -71,7 +70,6 @@ return {
     event = 'VeryLazy',
   },
 
-
   -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
   {
     'axkirillov/hbac.nvim',
@@ -90,20 +88,4 @@ return {
 
   -- better quick fix window
   { 'kevinhwang91/nvim-bqf', event = 'LazyFile' },
-
-  {
-    -- used for lazygit
-    'willothy/flatten.nvim',
-    config = true,
-    -- or pass configuration with
-    -- opts = {  }
-    -- Ensure that it runs first to minimize delay when opening file from terminal
-    lazy = false,
-    priority = 1001,
-    opts = {
-      window = {
-        open = 'alternate',
-      },
-    },
-  },
 }

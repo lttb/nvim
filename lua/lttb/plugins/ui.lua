@@ -7,23 +7,31 @@ if utils.is_vscode() then
 end
 
 return {
-  {
-    {
-      'echasnovski/mini.icons',
-      event = 'VeryLazy',
-      priority = 1000, -- make sure to load this before all the other start plugins
-      version = '*',
-      opts = {},
-      config = function()
-        local MiniIcons = require('mini.icons')
-        MiniIcons.setup()
-        MiniIcons.mock_nvim_web_devicons()
-      end,
-    },
 
-    {
-      'akinsho/toggleterm.nvim',
-      keys = function()
+  {
+    'echasnovski/mini.icons',
+    event = 'VeryLazy',
+    priority = 1000, -- make sure to load this before all the other start plugins
+    version = '*',
+    opts = {},
+    config = function()
+      local MiniIcons = require('mini.icons')
+      MiniIcons.setup()
+      MiniIcons.mock_nvim_web_devicons()
+    end,
+  },
+
+  {
+    'akinsho/toggleterm.nvim',
+    event = 'VeryLazy',
+    keys = function()
+      local res = nil
+
+      local function get_term()
+        if res then
+          return res
+        end
+
         local Terminal = require('toggleterm.terminal').Terminal
         local term_options = {
           hidden = true,
@@ -48,177 +56,217 @@ return {
             end,
           },
         }
-        local term = Terminal:new(term_options)
-        local lazygit = Terminal:new(vim.tbl_extend('keep', { cmd = 'lazygit' }, term_options))
 
-        return {
-          {
-            '<D-j>',
-            function()
-              term:toggle()
-            end,
-            desc = 'Toggle Terminal',
-            mode = { 'n', 't', 'i' },
-          },
-          {
-            '<D-g>',
-            function()
-              lazygit:toggle()
-            end,
-            desc = 'Toggle lazy Git',
-            mode = { 'n', 't', 'i' },
-          },
-        }
-      end,
+        res = {}
+        res.term = Terminal:new(term_options)
+        res.lazygit = Terminal:new(vim.tbl_extend('keep', { cmd = 'lazygit' }, term_options))
+
+        return res
+      end
+
+      return {
+        {
+          '<D-j>',
+          function()
+            get_term().term:toggle()
+          end,
+          desc = 'Toggle Terminal',
+          mode = { 'n', 't', 'i' },
+        },
+        {
+          '<D-g>',
+          function()
+            get_term().lazygit:toggle()
+          end,
+          desc = 'Toggle lazy Git',
+          mode = { 'n', 't', 'i' },
+        },
+      }
+    end,
+  },
+
+  {
+    -- used for lazygit
+    'willothy/flatten.nvim',
+    config = true,
+    -- or pass configuration with
+    -- opts = {  }
+    -- Ensure that it runs first to minimize delay when opening file from terminal
+    lazy = false,
+    priority = 1001,
+    opts = {
+      window = {
+        open = 'alternate',
+      },
     },
+  },
 
-    {
-      'folke/noice.nvim',
-      event = 'VeryLazy',
-      -- -- @see https://github.com/folke/noice.nvim/issues/921#issuecomment-2253363579
-      -- commit = 'd9328ef903168b6f52385a751eb384ae7e906c6f',
-      opts = {
-        lsp = {
-          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-          override = {
-            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-            ['vim.lsp.util.stylize_markdown'] = true,
-            ['cmp.entry.get_documentation'] = true,
-          },
 
-          progress = {
-            enabled = false,
-          },
+  -- {
+  --   'kdheepak/lazygit.nvim',
+  --   lazy = true,
+  --   cmd = {
+  --     'LazyGit',
+  --     'LazyGitConfig',
+  --     'LazyGitCurrentFile',
+  --     'LazyGitFilter',
+  --     'LazyGitFilterCurrentFile',
+  --   },
+  --   -- optional for floating window border decoration
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --   },
+  --   -- setting the keybinding for LazyGit with 'keys' is recommended in
+  --   -- order to load the plugin when the command is run for the first time
+  --   keys = {
+  --     { '<D-g>', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+  --   },
+  -- },
 
-          signature = {
-            enabled = false,
-          },
-        },
-        -- you can enable a preset for easier configuration
-        presets = {
-          bottom_search = true,         -- use a classic bottom cmdline for search
-          command_palette = true,       -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = true,            -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true,        -- add a border to hover docs and signature help
-        },
-
-        messages = {
-          view_error = 'mini',
-          view_warn = 'mini',
-          view = 'mini',
-        },
-
-        -- @see https://github.com/LazyVim/LazyVim/discussions/830
-        routes = {
-          filter = {
-            event = 'notify',
-            find = 'No information available',
-          },
-          opts = { skip = true },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    -- -- @see https://github.com/folke/noice.nvim/issues/921#issuecomment-2253363579
+    -- commit = 'd9328ef903168b6f52385a751eb384ae7e906c6f',
+    opts = {
+      lsp = {
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
         },
 
-        notify = {
+        progress = {
+          enabled = false,
+        },
+
+        signature = {
           enabled = false,
         },
       },
-      dependencies = {
-        'MunifTanjim/nui.nvim',
-        'rcarriga/nvim-notify',
+      -- you can enable a preset for easier configuration
+      presets = {
+        bottom_search = true, -- use a classic bottom cmdline for search
+        command_palette = true, -- position the cmdline and popupmenu together
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = true, -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = true, -- add a border to hover docs and signature help
+      },
+
+      messages = {
+        view_error = 'mini',
+        view_warn = 'mini',
+        view = 'mini',
+      },
+
+      -- @see https://github.com/LazyVim/LazyVim/discussions/830
+      routes = {
+        filter = {
+          event = 'notify',
+          find = 'No information available',
+        },
+        opts = { skip = true },
+      },
+
+      notify = {
+        enabled = false,
       },
     },
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
+  },
 
-    {
-      'akinsho/bufferline.nvim',
-      event = 'LazyFile',
-      version = '*',
-      opts = function()
-        local bufferline = require('bufferline')
+  {
+    'akinsho/bufferline.nvim',
+    event = 'LazyFile',
+    version = '*',
+    opts = function()
+      local bufferline = require('bufferline')
 
-        return {
-          options = {
-            themable = true,
+      return {
+        options = {
+          themable = true,
 
-            offsets = {
-              {
-                filetype = 'neo-tree',
-                text = 'File Explorer',
-                highlight = 'Directory',
-                separator = false, -- use a "true" to enable the default, or set your own character
-              },
+          offsets = {
+            {
+              filetype = 'neo-tree',
+              text = 'File Explorer',
+              highlight = 'Directory',
+              separator = false, -- use a "true" to enable the default, or set your own character
             },
-
-            separator_style = 'thin',
-
-            hover = {
-              enabled = true,
-              delay = 200,
-              reveal = { 'close' },
-            },
-
-            diagnostics = 'nvim_lsp',
           },
-        }
-      end,
-    },
 
+          separator_style = 'thin',
 
-    {
-      'mvllow/modes.nvim',
-      event = 'LazyFile',
-      opts = {
-        line_opacity = 0.15,
-
-        colors = {
-          visual = '#a89984',
-        },
-      },
-    },
-
-    {
-      'folke/which-key.nvim',
-      cmd = 'WhichKey',
-      init = function()
-        vim.o.timeout = true
-        vim.o.timeoutlen = 300
-      end,
-      opts = {},
-      priority = 1,
-    },
-
-    {
-      'folke/todo-comments.nvim',
-      event = 'LazyFile',
-      dependencies = { 'nvim-lua/plenary.nvim' },
-      opts = {
-        signs = false,
-
-        highlight = {
-          keyword = 'fg',
-        },
-      },
-    },
-
-    {
-      'folke/trouble.nvim',
-      event = 'LazyFile',
-      keys = {
-        utils.cmd_shift('m', { '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' }),
-      },
-    },
-
-    {
-      'shortcuts/no-neck-pain.nvim',
-      event = 'LazyFile',
-      opts = {
-        buffers = {
-          right = {
-            enabled = false,
+          hover = {
+            enabled = true,
+            delay = 200,
+            reveal = { 'close' },
           },
+
+          diagnostics = 'nvim_lsp',
         },
-        autocmds = {
-          enableOnVimEnter = false,
+      }
+    end,
+  },
+
+  {
+    'mvllow/modes.nvim',
+    event = 'LazyFile',
+    opts = {
+      line_opacity = 0.15,
+
+      colors = {
+        visual = '#a89984',
+      },
+    },
+  },
+
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    cmd = 'WhichKey',
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+  },
+
+  {
+    'folke/todo-comments.nvim',
+    event = 'LazyFile',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      signs = false,
+
+      highlight = {
+        keyword = 'fg',
+      },
+    },
+  },
+
+  {
+    'folke/trouble.nvim',
+    event = 'LazyFile',
+    keys = {
+      utils.cmd_shift('m', { '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' }),
+    },
+  },
+
+  {
+    'shortcuts/no-neck-pain.nvim',
+    event = 'LazyFile',
+    opts = {
+      buffers = {
+        right = {
+          enabled = false,
         },
+      },
+      autocmds = {
+        enableOnVimEnter = false,
       },
     },
   },

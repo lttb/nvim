@@ -34,10 +34,10 @@ if utils.is_vscode() then
   return
 end
 
-local theme = require('lttb.theme')
+-- local theme = require('lttb.theme')
 
-vim.opt.background = theme.variant
-vim.cmd.colorscheme(theme.colorscheme)
+-- vim.opt.background = theme.variant
+vim.cmd.colorscheme('zengithub')
 
 if utils.is_neovide() then
   require('lttb.settings.neovide')

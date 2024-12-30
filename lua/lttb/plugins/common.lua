@@ -34,14 +34,57 @@ return {
       },
     },
     keys = function()
-      local flash = require('flash')
+      local res = nil
+      local function get()
+        if res then
+          return res
+        end
+
+        res = { flash = require('flash') }
+        return res
+      end
 
       return {
-        { 's',     mode = { 'n', 'o' }, flash.jump,              desc = 'Flash' },
-        { 'S',     mode = { 'n', 'o' }, flash.treesitter,        desc = 'Flash Treesitter' },
-        { 'r',     mode = 'o',          flash.remote,            desc = 'Remote Flash' },
-        { 'R',     mode = { 'o', 'x' }, flash.treesitter_search, desc = 'Treesitter Search' },
-        { '<c-s>', mode = { 'c' },      flash.toggle,            desc = 'Toggle Flash Search' },
+        {
+          's',
+          mode = { 'n', 'o' },
+          function()
+            get().flash.jump()
+          end,
+          desc = 'Flash',
+        },
+        {
+          'S',
+          mode = { 'n', 'o' },
+          function()
+            get().flash.treesitter()
+          end,
+          desc = 'Flash Treesitter',
+        },
+        {
+          'r',
+          mode = 'o',
+          function()
+            get().flash.remote()
+          end,
+          desc = 'Remote Flash',
+        },
+        {
+          'R',
+          mode = { 'o', 'x' },
+          function()
+            get().flash.treesitter_search()
+          end,
+          desc = 'Treesitter Search',
+        },
+        {
+          '<c-s>',
+          mode = { 'c' },
+          function()
+            get().flash.toggle()
+          end,
+          desc = 'Toggle Flash Search',
+        },
       }
     end,
   },
@@ -52,9 +95,9 @@ return {
     config = function()
       require('smartyank').setup({
         highlight = {
-          enabled = true,     -- highlight yanked text
+          enabled = true, -- highlight yanked text
           higroup = 'Search', -- highlight group of yanked text
-          timeout = 200,      -- timeout for clearing the highlight
+          timeout = 200, -- timeout for clearing the highlight
         },
         clipboard = { enabled = true },
         tmux = {
@@ -64,8 +107,8 @@ return {
         },
         osc52 = {
           enabled = true,
-          ssh_only = true,       -- false to OSC52 yank also in local sessions
-          silent = false,        -- true to disable the "n chars copied" echo
+          ssh_only = true, -- false to OSC52 yank also in local sessions
+          silent = false, -- true to disable the "n chars copied" echo
           echo_hl = 'Directory', -- highlight group of the OSC52 echo message
         },
 
@@ -134,5 +177,4 @@ return {
     event = 'LazyFile',
     opts = { keymaps = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } } },
   },
-
 }
