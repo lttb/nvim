@@ -51,11 +51,17 @@ return {
           function()
             local tf = require('lttb.dev.toggle_floats')
 
-            if tf.is_hidden('fzf') then
-              tf.toggle_floats('fzf')
+            local is_unhidden = fzf.win.unhide()
 
+            if is_unhidden then
               return
             end
+
+            -- if tf.is_hidden('fzf') then
+            --   tf.toggle_floats('fzf')
+            --
+            --   return
+            -- end
 
             fzf.grep_project({
               fzf_opts = {
@@ -80,10 +86,19 @@ return {
 
               prompt = '  ',
 
+              keymap = {
+                builtin = {
+                  ['<Esc>'] = 'hide',
+                },
+              },
+
               actions = {
+                ['ctrl-r'] = actions.resume,
                 ['enter'] = {
                   function(selected, opts)
-                    tf.toggle_floats('fzf', function()
+                    fzf.win.hide()
+
+                    vim.schedule(function()
                       actions.file_edit(selected, opts)
                     end)
                   end,
