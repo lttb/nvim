@@ -212,6 +212,7 @@ return {
     },
 
     {
+      enabled = false,
       'utilyre/barbecue.nvim',
       name = 'barbecue',
       cond = not utils.is_neovide(),
