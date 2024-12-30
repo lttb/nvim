@@ -70,9 +70,9 @@ function M.should_open_sidebar(data)
   local filetype = vim.bo[data.buf].ft
 
   -- only files please
-  -- if not real_file and not no_name then
-  --   return
-  -- end
+  if not real_file or no_name then
+    return
+  end
 
   -- skip ignored filetypes
   if vim.tbl_contains(IGNORED_FT, filetype) then

@@ -14,7 +14,7 @@ return {
     },
     branch = 'v3.x',
     init = function()
-      vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+      vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         -- it should be "nested" not to show the number column
         -- @see https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1106
         nested = true,
