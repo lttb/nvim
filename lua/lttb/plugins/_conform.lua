@@ -4,6 +4,10 @@ if utils.is_vscode() then
   return {}
 end
 
+if true then
+  return {}
+end
+
 local js_formatter_fn = function(bufnr)
   local buf_clients = vim.lsp.buf_get_clients()
 

@@ -6,18 +6,6 @@ end
 
 return {
   {
-    enabled = false,
-    'tpope/vim-fugitive',
-    event = 'VimEnter',
-  },
-
-  {
-    enabled = false,
-    'tpope/vim-rhubarb',
-    event = 'VimEnter',
-  },
-
-  {
     'lewis6991/gitsigns.nvim',
     event = 'VimEnter',
     opts = {

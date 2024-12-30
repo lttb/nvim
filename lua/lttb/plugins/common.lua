@@ -3,7 +3,12 @@ local utils = require('lttb.utils')
 return {
   'nvim-lua/plenary.nvim',
 
-  { 'kylechui/nvim-surround', opts = { keymaps = { visual = '<C-S>' } } },
+  {
+    -- NOTE: replaced by mini.surround
+    enabled = false,
+    'kylechui/nvim-surround',
+    opts = { keymaps = { visual = '<C-S>' } },
+  },
 
   {
     'folke/flash.nvim',
@@ -39,11 +44,11 @@ return {
       local flash = require('flash')
 
       return {
-        { 's',     mode = { 'n', 'x', 'o' }, flash.jump,              desc = 'Flash' },
-        { 'S',     mode = { 'n', 'x', 'o' }, flash.treesitter,        desc = 'Flash Treesitter' },
-        { 'r',     mode = 'o',               flash.remote,            desc = 'Remote Flash' },
-        { 'R',     mode = { 'o', 'x' },      flash.treesitter_search, desc = 'Treesitter Search' },
-        { '<c-s>', mode = { 'c' },           flash.toggle,            desc = 'Toggle Flash Search' },
+        { 's',     mode = { 'n', 'o' }, flash.jump,              desc = 'Flash' },
+        { 'S',     mode = { 'n', 'o' }, flash.treesitter,        desc = 'Flash Treesitter' },
+        { 'r',     mode = 'o',          flash.remote,            desc = 'Remote Flash' },
+        { 'R',     mode = { 'o', 'x' }, flash.treesitter_search, desc = 'Treesitter Search' },
+        { '<c-s>', mode = { 'c' },      flash.toggle,            desc = 'Toggle Flash Search' },
       }
     end,
   },
@@ -59,46 +64,6 @@ return {
       utils.keyplug('lttb-substiture-line', substitute.line)
       utils.keyplug('lttb-substiture-eol', substitute.eol)
       utils.keyplug('lttb-substiture-visual', substitute.visual)
-    end,
-  },
-
-
-  {
-    'echasnovski/mini.nvim',
-    config = function()
-      require('mini.ai').setup({ search_method = 'cover_or_nearest' })
-
-      require('mini.align').setup({})
-
-      if utils.is_vscode() then
-        return
-      end
-
-      -- require('mini.animate').setup({})
-
-      require('mini.bufremove').setup({})
-
-      require('mini.cursorword').setup({})
-
-      -- local MiniMap = require('mini.map')
-
-      -- MiniMap.setup({
-      --   integrations = { MiniMap.gen_integration.builtin_search(), MiniMap.gen_integration.gitsigns() },
-      --   symbols = { encode = MiniMap.gen_encode_symbols.dot('3x2'), scroll_line = '▶ ', scroll_view = '┃ ' },
-      --
-      --   window = { show_integration_count = false },
-      -- })
-
-      -- vim.api.nvim_create_autocmd('BufEnter', {
-      --   callback = function()
-      --     if vim.bo.filetype == 'toggleterm' then
-      --       MiniMap.close()
-      --       return
-      --     end
-      --
-      --     MiniMap.open({})
-      --   end,
-      -- })
     end,
   },
 

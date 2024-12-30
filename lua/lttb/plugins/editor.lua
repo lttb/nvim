@@ -12,7 +12,6 @@ return {
   },
 
   {
-    enabled = false,
     'vidocqh/auto-indent.nvim',
     opts = {
       lightmode = false,
@@ -293,6 +292,7 @@ return {
   },
 
   {
+    -- used for lazygit
     'willothy/flatten.nvim',
     config = true,
     -- or pass configuration with

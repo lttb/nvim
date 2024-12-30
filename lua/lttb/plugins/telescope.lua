@@ -139,10 +139,10 @@ return {
           desc = 'Search Current File Browser',
         },
 
-        { '<leader>sh', builtin.help_tags, desc = 'Search Help' },
-        { '<leader>sd', builtin.diagnostics, desc = 'Search Diagnostics' },
-        { '<leader>sw', builtin.grep_string, desc = 'Search Word' },
-        { 'gs', builtin.lsp_document_symbols, desc = 'LSP: Goto Symbols' },
+        { '<leader>sh', builtin.help_tags,            desc = 'Search Help' },
+        { '<leader>sd', builtin.diagnostics,          desc = 'Search Diagnostics' },
+        { '<leader>sw', builtin.grep_string,          desc = 'Search Word' },
+        { 'gs',         builtin.lsp_document_symbols, desc = 'LSP: Goto Symbols' },
 
         -- {{{ LSP
 
@@ -219,6 +219,7 @@ return {
 
           smart_open = {
             match_algorithm = 'fzf',
+            disable_devicons = true,
             result_limit = 200,
           },
 

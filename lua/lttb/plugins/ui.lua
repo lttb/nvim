@@ -38,33 +38,6 @@ return {
 
     {
       enabled = false,
-      'folke/snacks.nvim',
-      opts = {
-        animate = {
-          duration = { step = 15, total = 250 },
-          easing = 'linear',
-        },
-        bigfile = {},
-        indent = {},
-        input = {},
-        notifier = {},
-        scroll = {},
-        scope = {},
-        -- words = {},
-      },
-      -- stylua: ignore
-      keys = function()
-        local Snacks = require('snacks')
-
-        return {
-          { '<leader>n',  function() Snacks.notifier.show_history() end, desc = 'Notification History' },
-          { '<leader>un', function() Snacks.notifier.hide() end,         desc = 'Dismiss All Notifications' },
-        }
-      end,
-    },
-
-    {
-      enabled = false,
       'declancm/cinnamon.nvim',
       opts = {
         default_keymaps = true,
@@ -239,14 +212,12 @@ return {
     },
 
     {
-      enabled = false,
       'utilyre/barbecue.nvim',
       name = 'barbecue',
       cond = not utils.is_neovide(),
       version = '*',
       dependencies = {
         'SmiteshP/nvim-navic',
-        'nvim-tree/nvim-web-devicons', -- optional dependency
       },
       opts = {
         create_autocmd = false,
@@ -303,7 +274,6 @@ return {
     },
 
     {
-      enabled = false,
       'akinsho/bufferline.nvim',
       version = '*',
       opts = function()

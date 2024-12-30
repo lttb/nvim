@@ -8,11 +8,11 @@ local theme = require('lttb.theme')
 
 return {
   -- lush is used for color calculations
-  { 'rktjmp/lush.nvim', priority = 1000 },
+  { 'rktjmp/lush.nvim',          priority = 1000 },
 
   {
     'projekt0n/github-nvim-theme',
-    lazy = true, -- make sure we load this during startup if it is your main colorscheme
+    lazy = true,     -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup({
@@ -246,7 +246,7 @@ return {
 
   { 'ronisbr/nano-theme.nvim', lazy = true, priority = 1000 },
 
-  { 'kvrohit/rasmus.nvim', lazy = true, priority = 1000 },
+  { 'kvrohit/rasmus.nvim',     lazy = true, priority = 1000 },
 
   {
     'RRethy/nvim-base16',
@@ -256,31 +256,42 @@ return {
 
   { 'rktjmp/shipwright.nvim' },
 
-  { 'diegoulloao/neofusion.nvim', priority = 1000, config = true, opts = {
-    terminal_colors = true,
-  } },
+  {
+    'diegoulloao/neofusion.nvim',
+    priority = 1000,
+    config = true,
+    opts = {
+      terminal_colors = true,
+    },
+  },
 
-  { 'slugbyte/lackluster.nvim', lazy = false, priority = 1000 },
+  { 'slugbyte/lackluster.nvim', lazy = true, priority = 1000 },
 
-  { 'datsfilipe/vesper.nvim', lazy = false, priority = 1000 },
+  { 'datsfilipe/vesper.nvim',   lazy = true, priority = 1000 },
 
   {
     'sho-87/kanagawa-paper.nvim',
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {},
   },
 
   {
     'navarasu/onedark.nvim',
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {},
   },
 
   {
     'olimorris/onedarkpro.nvim',
-    lazy = false,
+    lazy = true,
+    priority = 1000,
+  },
+
+  {
+    'aliqyan-21/darkvoid.nvim',
+    lazy = true,
     priority = 1000,
   },
 }
