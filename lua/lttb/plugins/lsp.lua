@@ -226,7 +226,9 @@ return {
           },
 
           keymap = {
-            preset = 'enter',
+            preset = 'super-tab',
+
+            ['<CR>'] = { 'select_and_accept', 'fallback' },
           },
         },
       },
