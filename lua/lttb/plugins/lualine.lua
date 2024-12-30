@@ -133,6 +133,7 @@ end
 return {
   {
     'nvim-lualine/lualine.nvim',
+    event = 'LazyFile',
     config = config,
     dependencies = {
       { 'arkav/lualine-lsp-progress', enabled = false },

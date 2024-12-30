@@ -8,12 +8,9 @@ end
 
 return {
   {
-    -- {
-    --   'nvim-tree/nvim-web-devicons',
-    -- },
-
     {
       'echasnovski/mini.icons',
+      lazy = true,
       priority = 1000, -- make sure to load this before all the other start plugins
       version = '*',
       opts = {},
@@ -24,58 +21,9 @@ return {
       end,
     },
 
-    -- {
-    --   'echasnovski/mini.icons',
-    --   lazy = true,
-    --   opts = {},
-    --   init = function()
-    --     package.preload['nvim-web-devicons'] = function()
-    --       require('mini.icons').mock_nvim_web_devicons()
-    --       return package.loaded['nvim-web-devicons']
-    --     end
-    --   end,
-    -- },
-
-    {
-      enabled = false,
-      'declancm/cinnamon.nvim',
-      opts = {
-        default_keymaps = true,
-        extra_keymaps = true,
-        extended_keymaps = true,
-
-        hide_cursor = true,
-        max_length = 50,
-        scroll_limit = 150,
-        always_scroll = true,
-      },
-    },
-
-    {
-      enabled = false,
-      'karb94/neoscroll.nvim',
-      opts = {},
-    },
-
-    {
-      enabled = false,
-      'numToStr/FTerm.nvim',
-      config = function()
-        require('FTerm').setup({
-          auto_close = true,
-          border = { { ' ', 'WinSeparator' } },
-          blend = 10,
-          hl = 'NeoTreeNormal',
-        })
-
-        utils.keyplug('lttb-toggle-term', function()
-          require('FTerm').toggle()
-        end)
-      end,
-    },
-
     {
       'akinsho/toggleterm.nvim',
+      config = true,
       keys = function()
         local Terminal = require('toggleterm.terminal').Terminal
         local term_options = {
@@ -123,11 +71,11 @@ return {
           },
         }
       end,
-      config = true,
     },
 
     {
       'folke/noice.nvim',
+      event = 'VeryLazy',
       -- -- @see https://github.com/folke/noice.nvim/issues/921#issuecomment-2253363579
       -- commit = 'd9328ef903168b6f52385a751eb384ae7e906c6f',
       opts = {
@@ -182,100 +130,8 @@ return {
     },
 
     {
-      'rcarriga/nvim-notify',
-      init = function()
-        vim.schedule(function()
-          -- See https://github.com/neovim/nvim-lspconfig/issues/1931#issuecomment-1297599534
-          -- An alternative solution: https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
-          local banned_messages = { 'No information available' }
-          vim.notify = function(msg, ...)
-            for _, banned in ipairs(banned_messages) do
-              if msg == banned then
-                return
-              end
-            end
-            return require('notify')(msg, ...)
-          end
-        end)
-      end,
-    },
-
-    {
-      enabled = false,
-      'luukvbaal/statuscol.nvim',
-      config = function()
-        require('statuscol').setup({
-          separator = ' ',
-        })
-      end,
-      -- enabled = vim.fn.has('nvim-0.9.0') == 1,
-    },
-
-    {
-      enabled = false,
-      'utilyre/barbecue.nvim',
-      name = 'barbecue',
-      cond = not utils.is_neovide(),
-      version = '*',
-      dependencies = {
-        'SmiteshP/nvim-navic',
-      },
-      opts = {
-        create_autocmd = false,
-
-        show_modified = true,
-      },
-      init = function()
-        -- Gain better performance when moving the cursor around
-        -- @see https://github.com/utilyre/barbecue.nvim#-recipes
-        vim.api.nvim_create_autocmd({
-          'WinResized', -- or WinResized on NVIM-v0.9 and higher
-          'BufWinEnter',
-          'CursorHold',
-          'InsertLeave',
-
-          -- include this if you have set `show_modified` to `true`
-          'BufModifiedSet',
-        }, {
-          group = vim.api.nvim_create_augroup('barbecue.updater', {}),
-          callback = function()
-            require('barbecue.ui').update()
-          end,
-        })
-      end,
-    },
-
-    {
-      enabled = false,
-      'Bekaboo/dropbar.nvim',
-      -- optional, but required for fuzzy finder support
-      dependencies = {
-        'nvim-telescope/telescope-fzf-native.nvim',
-      },
-      opts = {},
-    },
-
-    {
-      enabled = false,
-      'romgrk/barbar.nvim',
-      dependencies = {
-        'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      },
-      init = function()
-        vim.g.barbar_auto_setup = false
-      end,
-      opts = {
-        auto_hide = false,
-
-        sidebar_filetypes = {
-          ['neo-tree'] = true,
-        },
-      },
-      version = '^1.0.0', -- optional: only update when a new 1.x version is released
-    },
-
-    {
       'akinsho/bufferline.nvim',
+      event = 'LazyFile',
       version = '*',
       opts = function()
         local bufferline = require('bufferline')
@@ -307,110 +163,10 @@ return {
       end,
     },
 
-    {
-      enabled = false,
-      'lukas-reineke/indent-blankline.nvim',
-      main = 'ibl',
-      opts = {
-        indent = {
-          char = utils.is_neovide() and '┊' or '┊',
-        },
-
-        scope = {
-          show_start = false,
-          show_end = false,
-
-          -- @see https://github.com/lukas-reineke/indent-blankline.nvim/issues/632#issuecomment-1732366788
-          include = {
-            node_type = {
-              lua = {
-                'chunk',
-                'do_statement',
-                'while_statement',
-                'repeat_statement',
-                'if_statement',
-                'for_statement',
-                'function_declaration',
-                'function_definition',
-                'table_constructor',
-                'assignment_statement',
-              },
-              typescript = {
-                'statement_block',
-                'function',
-                'arrow_function',
-                'function_declaration',
-                'method_definition',
-                'for_statement',
-                'for_in_statement',
-                'catch_clause',
-                'object_pattern',
-                'arguments',
-                'switch_case',
-                'switch_statement',
-                'switch_default',
-                'object',
-                'object_type',
-                'ternary_expression',
-              },
-            },
-          },
-        },
-      },
-      -- tag = 'v2.20.8',
-      -- config = function()
-      --   local indent_char = false and utils.is_neovide() and '·' or '┊'
-
-      --   require('indent_blankline').setup({
-      --     char = indent_char,
-      --     context_char = indent_char,
-      --     show_trailing_blankline_indent = false,
-      --     show_current_context = true,
-      --     show_first_indent_level = false,
-      --   })
-      -- end,
-    },
 
     {
-      enabled = false,
-      'zbirenbaum/neodim',
-      event = 'LspAttach',
-      config = true,
-      opts = {
-        alpha = 0.3,
-        -- blend_color = theme.variant == 'dark' and '#2a2c3c' or '#f0f0f0',
-      },
-    },
-
-    {
-      enabled = false,
-      'lewis6991/hover.nvim',
-      keys = function()
-        local hover = require('hover')
-
-        return {
-          { 'K',  hover.hover,        desc = 'hover.nvim' },
-          { 'gK', hover.hover_select, desc = 'hover.nvim select' },
-        }
-      end,
-      config = function()
-        require('hover').setup({
-          init = function()
-            require('hover.providers.lsp')
-            require('hover.providers.gh')
-            require('hover.providers.gh_user')
-            require('hover.providers.jira')
-            require('hover.providers.man')
-            require('hover.providers.dictionary')
-          end,
-        })
-      end,
-    },
-
-    {
-      -- enabled = false,
       'mvllow/modes.nvim',
-      event = 'BufEnter',
+      event = 'LazyFile',
       opts = {
         line_opacity = 0.15,
 
@@ -433,6 +189,7 @@ return {
 
     {
       'folke/todo-comments.nvim',
+      event = 'LazyFile',
       dependencies = { 'nvim-lua/plenary.nvim' },
       opts = {
         signs = false,
@@ -445,22 +202,15 @@ return {
 
     {
       'folke/trouble.nvim',
+      event = 'LazyFile',
       keys = {
         utils.cmd_shift('m', { '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' }),
       },
     },
 
     {
-      'stevearc/dressing.nvim',
-      opts = {
-        select = {
-          telescope = require('telescope.themes').get_cursor({}),
-        },
-      },
-    },
-
-    {
       'shortcuts/no-neck-pain.nvim',
+      event = 'LazyFile',
       opts = {
         buffers = {
           right = {

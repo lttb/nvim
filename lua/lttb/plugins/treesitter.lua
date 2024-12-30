@@ -3,6 +3,7 @@ local utils = require('lttb.utils')
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    event = 'LazyFile',
     build = ':TSUpdate',
     init = function(plugin)
       require('nvim-treesitter.query_predicates')

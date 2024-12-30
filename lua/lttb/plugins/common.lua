@@ -69,6 +69,7 @@ return {
 
   {
     'ibhagwan/smartyank.nvim',
+    event = 'LazyFile',
     config = function()
       require('smartyank').setup({
         highlight = {
@@ -104,7 +105,7 @@ return {
   {
     enabled = true,
     'gbprod/yanky.nvim',
-    lazy = false,
+    event = 'LazyFile',
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -161,7 +162,7 @@ return {
   {
     -- extended treesitter objects
     'chrisgrieser/nvim-various-textobjs',
-    lazy = false,
+    event = 'LazyFile',
     opts = { keymaps = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } } },
   },
 

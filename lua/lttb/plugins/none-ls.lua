@@ -7,6 +7,7 @@ end
 return {
   {
     'nvimtools/none-ls.nvim',
+    event = 'LazyFile',
     dependencies = { 'davidmh/cspell.nvim', 'nvimtools/none-ls-extras.nvim' },
     opts = function()
       local null_ls = require('null-ls')

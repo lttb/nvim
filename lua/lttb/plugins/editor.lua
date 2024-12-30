@@ -6,13 +6,14 @@ end
 
 return {
   {
-    enabled = true,
     'nmac427/guess-indent.nvim',
+    event = 'LazyFile',
     opts = {},
   },
 
   {
     'vidocqh/auto-indent.nvim',
+    event = 'LazyFile',
     opts = {
       lightmode = false,
       ---@param lnum: number
@@ -31,13 +32,13 @@ return {
 
   {
     'windwp/nvim-ts-autotag',
-    event = 'VimEnter',
+    event = 'LazyFile',
     config = true,
   },
 
   {
     'windwp/nvim-autopairs',
-    event = 'VimEnter',
+    event = 'LazyFile',
     config = function()
       local npairs = require('nvim-autopairs')
       local Rule = require('nvim-autopairs.rule')
@@ -76,7 +77,7 @@ return {
 
   {
     'axelvc/template-string.nvim',
-    event = 'VimEnter',
+    event = 'LazyFile',
     config = true,
   },
 
@@ -284,7 +285,7 @@ return {
   },
 
   -- better quick fix window
-  { 'kevinhwang91/nvim-bqf' },
+  { 'kevinhwang91/nvim-bqf', event = 'LazyFile' },
 
   {
     enabled = false,

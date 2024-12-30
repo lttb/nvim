@@ -150,8 +150,7 @@ return {
 
   {
     'VonHeikemen/lsp-zero.nvim',
-    lazy = false,
-    priority = 10,
+    event = 'LazyFile',
     keys = {
       -- ghostty doesn't support <D-.>
       { '<C-.>', vim.lsp.buf.code_action, desc = 'Code Action' },

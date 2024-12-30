@@ -20,6 +20,8 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 -- }}}
 
+require('lttb.utils.lazy').lazy_file()
+
 require('lazy').setup('lttb.plugins')
 
 require('lttb.keymaps')
