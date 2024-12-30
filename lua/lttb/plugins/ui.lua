@@ -155,8 +155,8 @@ return {
 
     {
       'folke/noice.nvim',
-      -- @see https://github.com/folke/noice.nvim/issues/921#issuecomment-2253363579
-      commit = 'd9328ef903168b6f52385a751eb384ae7e906c6f',
+      -- -- @see https://github.com/folke/noice.nvim/issues/921#issuecomment-2253363579
+      -- commit = 'd9328ef903168b6f52385a751eb384ae7e906c6f',
       opts = {
         lsp = {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
