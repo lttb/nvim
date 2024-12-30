@@ -210,7 +210,9 @@ return {
             ghost_text = { enabled = true },
 
             list = {
-              selection = 'auto_insert',
+              selection = function(ctx)
+                return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
+              end,
             },
 
             menu = {
@@ -229,6 +231,10 @@ return {
             preset = 'super-tab',
 
             ['<CR>'] = { 'select_and_accept', 'fallback' },
+
+            cmdline = {
+              preset = 'super-tab',
+            },
           },
         },
       },
