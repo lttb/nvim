@@ -4,13 +4,6 @@ return {
   'nvim-lua/plenary.nvim',
 
   {
-    -- NOTE: replaced by mini.surround
-    enabled = false,
-    'kylechui/nvim-surround',
-    opts = { keymaps = { visual = '<C-S>' } },
-  },
-
-  {
     'folke/flash.nvim',
     event = 'VeryLazy',
     ---@type Flash.Config
@@ -54,20 +47,6 @@ return {
   },
 
   {
-    enabled = false,
-    'gbprod/substitute.nvim',
-    config = function()
-      local substitute = require('substitute')
-      substitute.setup({})
-
-      utils.keyplug('lttb-substiture-operator', substitute.operator)
-      utils.keyplug('lttb-substiture-line', substitute.line)
-      utils.keyplug('lttb-substiture-eol', substitute.eol)
-      utils.keyplug('lttb-substiture-visual', substitute.visual)
-    end,
-  },
-
-  {
     'ibhagwan/smartyank.nvim',
     event = 'LazyFile',
     config = function()
@@ -103,7 +82,6 @@ return {
   },
 
   {
-    enabled = true,
     'gbprod/yanky.nvim',
     event = 'LazyFile',
     opts = {
@@ -121,16 +99,7 @@ return {
   },
 
   {
-    enabled = false,
-    'chaoren/vim-wordmotion',
-    init = function()
-      vim.g.wordmotion_prefix = ';'
-    end,
-  },
-
-  {
     'chrisgrieser/nvim-spider',
-    opts = {},
     keys = {
       {
         'e',
@@ -166,14 +135,4 @@ return {
     opts = { keymaps = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } } },
   },
 
-  {
-    enabled = false,
-    'fedepujol/move.nvim',
-    keys = {
-      { '<M-j>', ':MoveLine(1)<CR>',   desc = 'Move: line down',  mode = { 'n' }, silent = true },
-      { '<M-j>', ':MoveBlock(1)<CR>',  desc = 'Move: block down', mode = { 'v' }, silent = true },
-      { '<M-k>', ':MoveLine(-1)<CR>',  desc = 'Move: line up',    mode = { 'n' }, silent = true },
-      { '<M-k>', ':MoveBlock(-1)<CR>', desc = 'Move: block up',   mode = { 'v' }, silent = true },
-    },
-  },
 }

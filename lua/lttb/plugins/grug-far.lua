@@ -8,6 +8,5 @@ return {
   {
     'MagicDuck/grug-far.nvim',
     event = 'LazyFile',
-    opts = {},
   },
 }

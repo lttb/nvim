@@ -136,9 +136,9 @@ return {
     event = 'LazyFile',
     config = config,
     dependencies = {
-      { 'arkav/lualine-lsp-progress', enabled = false },
       {
         'linrongbin16/lsp-progress.nvim',
+        event = 'LazyFile',
         opts = {},
       },
     },

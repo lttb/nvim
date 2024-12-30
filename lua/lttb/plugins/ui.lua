@@ -10,7 +10,7 @@ return {
   {
     {
       'echasnovski/mini.icons',
-      lazy = true,
+      event = 'VeryLazy',
       priority = 1000, -- make sure to load this before all the other start plugins
       version = '*',
       opts = {},
@@ -23,7 +23,6 @@ return {
 
     {
       'akinsho/toggleterm.nvim',
-      config = true,
       keys = function()
         local Terminal = require('toggleterm.terminal').Terminal
         local term_options = {

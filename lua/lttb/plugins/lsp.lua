@@ -160,38 +160,8 @@ return {
     config = config,
     dependencies = {
       {
-        -- 'hrsh7th/nvim-cmp',
-        enabled = false,
-        'yioneko/nvim-cmp',
-        branch = 'perf',
-        dependencies = {
-          'VonHeikemen/lsp-zero.nvim',
-
-          'hrsh7th/cmp-nvim-lsp',
-          'hrsh7th/nvim-cmp',
-          'hrsh7th/cmp-buffer',
-          'hrsh7th/cmp-path',
-          'hrsh7th/cmp-cmdline',
-          -- lags on large projects
-          -- 'lukas-reineke/cmp-rg',
-          'onsails/lspkind.nvim',
-          {
-
-            'L3MON4D3/LuaSnip',
-            version = 'v2.*',
-            build = 'make install_jsregexp',
-          },
-        },
-        opts = {
-          performance = {
-            debounce = 0, -- default is 60ms
-            throttle = 0, -- default is 30ms
-          },
-        },
-      },
-
-      {
         'saghen/blink.cmp',
+        event = 'LazyFile',
         -- optional: provides snippets for the snippet source
         dependencies = 'rafamadriz/friendly-snippets',
 
@@ -243,69 +213,6 @@ return {
 
       'neovim/nvim-lspconfig',
 
-      {
-        enabled = false,
-        'yioneko/nvim-vtsls',
-      },
-
-      {
-        enabled = false,
-        'pmizio/typescript-tools.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-        config = false,
-      },
-      {
-        enabled = false,
-        'nvimdev/lspsaga.nvim',
-        keys = {
-          { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
-          -- { '<F2>', '<cmd>Lspsaga rename<cr>' },
-        },
-        config = function()
-          require('lspsaga').setup({
-            ui = { code_action = '', border = 'rounded' },
-            hover = { max_width = 0.4 },
-            rename = { keys = { quit = '<ESC>' } },
-
-            lightbulb = { enable = false },
-            symbol_in_winbar = { enable = false },
-            implement = { enable = false },
-            beacon = { enable = false },
-          })
-        end,
-      },
-
-      { enabled = false, 'hinell/lsp-timeout.nvim', dependencies = { 'neovim/nvim-lspconfig' } },
-
-      {
-        enabled = false,
-        'aznhe21/actions-preview.nvim',
-        config = function()
-          vim.keymap.set({ 'v', 'n' }, '<D-.>', require('actions-preview').code_actions)
-        end,
-      },
-
-      {
-        enabled = false,
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
-        config = function()
-          vim.g.code_action_menu_show_diff = true
-        end,
-      },
-
-      {
-        enabled = false,
-        'antosha417/nvim-lsp-file-operations',
-        dependencies = {
-          'nvim-lua/plenary.nvim',
-          'nvim-neo-tree/neo-tree.nvim',
-        },
-        config = function()
-          require('lsp-file-operations').setup()
-        end,
-      },
 
       {
         'smjonas/inc-rename.nvim',
@@ -319,10 +226,12 @@ return {
 
       {
         'b0o/schemastore.nvim',
+        event = 'LazyFile',
       },
 
       {
         'lukas-reineke/lsp-format.nvim',
+        event = 'LazyFile',
       },
     },
   },
