@@ -55,6 +55,10 @@ end
 
 -- @see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
 function M.should_open_sidebar(data)
+  if os.getenv('DOTFILES') == '1' then
+    return false
+  end
+
   local IGNORED_FT = {
     'gitcommit',
     'gitrebase',
