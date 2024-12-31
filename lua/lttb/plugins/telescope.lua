@@ -8,15 +8,24 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     keys = function()
-      local builtin = require('telescope.builtin')
-      local telescope_themes = require('telescope.themes')
+      local res = nil
+      local function get()
+        if res then
+          return res
+        end
+
+        res = {}
+        res.builtin = require('telescope.builtin')
+        res.telescope_themes = require('telescope.themes')
+        return res
+      end
 
       return {
 
         {
           '<D-f>',
           function()
-            builtin.current_buffer_fuzzy_find({
+            get().builtin.current_buffer_fuzzy_find({
               layout_strategy = 'vertical',
               layout_config = {
                 prompt_position = 'top',
@@ -51,7 +60,7 @@ return {
         {
           '<D-o>',
           function()
-            builtin.buffers({
+            get().builtin.buffers({
               sort_mru = true,
               ignore_current_buffer = true,
             })
@@ -65,11 +74,11 @@ return {
             vim.fn.system('git rev-parse --is-inside-work-tree')
 
             if vim.v.shell_error == 0 then
-              builtin.git_files({
+              get().builtin.git_files({
                 show_untracked = true,
               })
             else
-              builtin.find_files({})
+              get().builtin.find_files({})
             end
           end,
           desc = 'Search Files',
@@ -102,7 +111,7 @@ return {
         {
           '<leader>sa',
           function()
-            builtin.find_files({
+            get().builtin.find_files({
               hidden = true,
               no_ignore = true,
             })
@@ -113,7 +122,7 @@ return {
         {
           '<leader>ss',
           function()
-            builtin.git_files({
+            get().builtin.git_files({
               recurse_submodules = true,
             })
           end,
@@ -139,52 +148,76 @@ return {
           desc = 'Search Current File Browser',
         },
 
-        { '<leader>sh', builtin.help_tags, desc = 'Search Help' },
-        { '<leader>sd', builtin.diagnostics, desc = 'Search Diagnostics' },
-        { '<leader>sw', builtin.grep_string, desc = 'Search Word' },
-        { 'gs', builtin.lsp_document_symbols, desc = 'LSP: Goto Symbols' },
+        {
+          '<leader>sh',
+          function()
+            get().builtin.help_tags()
+          end,
+          desc = 'Search Help',
+        },
+        {
+          '<leader>sd',
+          function()
+            get().builtin.diagnostics()
+          end,
+          desc = 'Search Diagnostics',
+        },
+        {
+          '<leader>sw',
+          function()
+            get().builtin.grep_string()
+          end,
+          desc = 'Search Word',
+        },
+        -- {
+        --   'gs',
+        --   function()
+        --     get().builtin.lsp_document_symbols()
+        --   end,
+        --   desc = 'LSP: Goto Symbols',
+        -- },
 
         -- {{{ LSP
 
-        {
-          'gd',
-          function()
-            builtin.lsp_definitions(telescope_themes.get_ivy({
-              show_line = false,
-            }))
-          end,
-          desc = 'LSP: Goto Definition',
-        },
-
-        {
-          'gD',
-          function()
-            builtin.lsp_type_definitions(telescope_themes.get_ivy({
-              show_line = false,
-            }))
-          end,
-          desc = 'LSP: Type Definition',
-        },
-
-        {
-          'gi',
-          function()
-            builtin.lsp_implementations(telescope_themes.get_ivy({
-              show_line = false,
-            }))
-          end,
-          desc = 'LSP: Goto Implementation',
-        },
-
-        {
-          'gr',
-          function()
-            builtin.lsp_references(telescope_themes.get_ivy({
-              show_line = false,
-            }))
-          end,
-          desc = 'LSP: Goto References',
-        },
+        -- {
+        --   'gd',
+        --   function()
+        --     get().builtin.lsp_definitions(get().telescope_themes.get_ivy({
+        --       show_line = false,
+        --     }))
+        --   end,
+        --   desc = 'LSP: Goto Definition',
+        -- },
+        --
+        -- {
+        --   'gD',
+        --   function()
+        --     get().builtin.lsp_type_definitions(get().telescope_themes.get_ivy({
+        --       show_line = false,
+        --     }))
+        --   end,
+        --   desc = 'LSP: Type Definition',
+        -- },
+        --
+        -- {
+        --   'gi',
+        --   function()
+        --     get().builtin.lsp_implementations(get().telescope_themes.get_ivy({
+        --       show_line = false,
+        --     }))
+        --   end,
+        --   desc = 'LSP: Goto Implementation',
+        -- },
+        --
+        -- {
+        --   'gr',
+        --   function()
+        --     get().builtin.lsp_references(get().telescope_themes.get_ivy({
+        --       show_line = false,
+        --     }))
+        --   end,
+        --   desc = 'LSP: Goto References',
+        -- },
 
         utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
 
@@ -219,6 +252,7 @@ return {
 
           smart_open = {
             match_algorithm = 'fzf',
+            disable_devicons = true,
             result_limit = 200,
           },
 

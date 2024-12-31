@@ -6,20 +6,8 @@ end
 
 return {
   {
-    enabled = false,
-    'tpope/vim-fugitive',
-    event = 'VimEnter',
-  },
-
-  {
-    enabled = false,
-    'tpope/vim-rhubarb',
-    event = 'VimEnter',
-  },
-
-  {
     'lewis6991/gitsigns.nvim',
-    event = 'VimEnter',
+    event = 'LazyFile',
     opts = {
       current_line_blame = true,
       current_line_blame_opts = {

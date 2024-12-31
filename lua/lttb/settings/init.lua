@@ -62,7 +62,7 @@ vim.opt.sidescrolloff = 20
 vim.opt.pumblend      = 10
 vim.opt.winblend      = 10
 
-vim.opt.fillchars='eob: '
+vim.opt.fillchars     = 'eob: '
 
 -- Don't show "Scanning..." messages (improves 'mini.completion')
 vim.cmd('set shortmess+=C')
@@ -104,14 +104,14 @@ vim.opt.smartcase = false
 vim.opt.wildignorecase = true
 vim.opt.wildignore =
 '.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**'
-vim.opt.wildmode = {'longest', 'list:full'}
+vim.opt.wildmode = { 'longest', 'list:full' }
 
 -- TODO: check if that's fine
 vim.opt.completeopt = {
   'menu',
   'menuone',
   -- 'noinsert',
-  'noselect'
+  'noselect',
 } -- Customize completions
 
 -- Define pattern for a start of 'numbered' list. This is responsible for

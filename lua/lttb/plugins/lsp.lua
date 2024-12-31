@@ -9,67 +9,98 @@ if utils.is_vscode() then
 end
 
 local function config()
-  local lsp_zero = require('lsp-zero')
+  -- @see https://github.com/nvim-lua/kickstart.nvim/blob/a8f539562a8c5d822dd5c0ca1803d963c60ad544/init.lua#L471
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+    callback = function(event)
+      -- NOTE: Remember that Lua is a real programming language, and as such it is possible
+      -- to define small helper and utility functions so you don't have to repeat yourself.
+      --
+      -- In this case, we create a function that lets us more easily define mappings specific
+      -- for LSP related items. It sets the mode, buffer and description for us each time.
+      local map = function(keys, func, desc, mode)
+        mode = mode or 'n'
+        vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+      end
 
-  require('lsp-format').setup()
+      -- Jump to the definition of the word under your cursor.
+      --  This is where a variable was first declared, or where a function is defined, etc.
+      --  To jump back, press <C-t>.
+      map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
-  lsp_zero.on_attach(function(client, bufnr)
-    client.server_capabilities.semanticTokensProvider = nil
+      -- Find references for the word under your cursor.
+      map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
-    lsp_zero.default_keymaps({ buffer = bufnr })
+      -- Jump to the implementation of the word under your cursor.
+      --  Useful when your language has ways of declaring types without an actual implementation.
+      map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
-    if client.name == 'ts_ls' then
-      return
-    end
+      map('gl', vim.diagnostic.open_float, 'Show diagnostic')
 
-    lsp_zero.buffer_autoformat()
-  end)
+      -- Jump to the type of the word under your cursor.
+      --  Useful when you're not sure what type a variable is and you want to see
+      --  the definition of its *type*, not where it was *defined*.
+      map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
+      -- Fuzzy find all the symbols in your current document.
+      --  Symbols are things like variables, functions, types, etc.
+      map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
-  lsp_zero.extend_lspconfig({
-    sign_text = true,
-  })
+      -- Fuzzy find all the symbols in your current workspace.
+      --  Similar to document symbols, except searches over your entire project.
+      map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  -- require('neoconf').setup({})
+      -- Rename the variable under your cursor.
+      --  Most Language Servers support renaming across files, etc.
+      map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
-  -- require('typescript-tools').setup({
-  --   settings = {
-  --     expose_as_code_action = 'all',
-  --
-  --     complete_function_calls = true,
-  --
-  --     jsx_close_tag = {
-  --       enable = true,
-  --     },
-  --   },
-  -- })
+      -- Execute a code action, usually your cursor needs to be on top of an error
+      -- or a suggestion from your LSP for this to activate.
+      map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
-  -- require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+      -- WARN: This is not Goto Definition, this is Goto Declaration.
+      --  For example, in C this would take you to the header.
+      map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-  require('lspconfig').jsonls.setup({
-    settings = {
-      json = {
-        schemas = require('schemastore').json.schemas(),
-        validate = { enable = true },
-      },
-    },
-  })
+      -- The following two autocommands are used to highlight references of the
+      -- word under your cursor when your cursor rests there for a little while.
+      --    See `:help CursorHold` for information about when this is executed
+      --
+      -- When you move your cursor, the highlights will be cleared (the second autocommand).
+      local client = vim.lsp.get_client_by_id(event.data.client_id)
+      if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          buffer = event.buf,
+          group = highlight_augroup,
+          callback = vim.lsp.buf.document_highlight,
+        })
 
-  require('lspconfig').yamlls.setup({
-    settings = {
-      yaml = {
-        schemaStore = {
-          -- You must disable built-in schemaStore support if you want to use
-          -- this plugin and its advanced options like `ignore`.
-          enable = false,
-          -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-          url = '',
-        },
-        schemas = require('schemastore').yaml.schemas(),
-      },
-    },
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+          buffer = event.buf,
+          group = highlight_augroup,
+          callback = vim.lsp.buf.clear_references,
+        })
+
+        vim.api.nvim_create_autocmd('LspDetach', {
+          group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+          callback = function(event2)
+            vim.lsp.buf.clear_references()
+            vim.api.nvim_clear_autocmds({ group = 'kickstart-lsp-highlight', buffer = event2.buf })
+          end,
+        })
+      end
+
+      -- The following code creates a keymap to toggle inlay hints in your
+      -- code, if the language server you are using supports them
+      --
+      -- This may be unwanted, since they displace some of your code
+      if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        map('<leader>th', function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+        end, '[T]oggle Inlay [H]ints')
+      end
+    end,
   })
 
   vim.diagnostic.config({
@@ -82,115 +113,134 @@ local function config()
     },
   })
 
-  -- lsp_zero.configure('lua_ls', {
-  --   settings = {
-  --     Lua = {
-  --       format = {
-  --         enable = true,
-  --         defaultConfig = {
-  --           indent_style = 'space',
-  --           indent_size = '2',
-  --         },
-  --       },
-  --       -- NOTE: it seems a bit slow
-  --       -- diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
-  --       completion = { callSnippet = 'Replace' },
-  --       -- Do not send telemetry data containing a randomized but unique identifier
-  --       telemetry = { enable = false },
+  -- LSP servers and clients are able to communicate to each other what features they support.
+  --  By default, Neovim doesn't support everything that is in the LSP specification.
+  --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+  --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
-  --       workspace = {
-  --         checkThirdParty = false,
-  --       },
-  --     },
-  --   },
-  -- })
+  -- Enable the following language servers
+  --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+  --
+  --  Add any additional override configuration in the following tables. Available keys are:
+  --  - cmd (table): Override the default command used to start the server
+  --  - filetypes (table): Override the default list of associated filetypes for the server
+  --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
+  --  - settings (table): Override the default settings passed when initializing the server.
+  --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+  local servers = {
+    -- clangd = {},
+    -- gopls = {},
+    -- pyright = {},
+    -- rust_analyzer = {},
+    -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+    --
+    -- Some languages (like typescript) have entire language plugins that can be useful:
+    --    https://github.com/pmizio/typescript-tools.nvim
+    --
+    -- But for many setups, the LSP (`ts_ls`) will work just fine
+    -- ts_ls = {},
+    --
 
-  require('lspconfig').biome.setup({})
+    lua_ls = {
+      -- cmd = { ... },
+      -- filetypes = { ... },
+      -- capabilities = {},
+      settings = {
+        Lua = {
+          format = {
+            enable = true,
+            defaultConfig = {
+              indent_style = 'space',
+              indent_size = '2',
+            },
+          },
+          -- NOTE: it seems a bit slow
+          -- diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
+          -- NOTE: You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+          -- diagnostics = { disable = { 'missing-fields' } },
+          completion = { callSnippet = 'Replace' },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = { enable = false },
 
-  -- lsp_zero.configure('tsserver', {
-  --   on_attach = function(client)
-  --     -- this is important, otherwise tsserver will format ts/js
-  --     -- files which we *really* don't want.
-  --     client.server_capabilities.documentFormattingProvider = false
-  --   end,
-  -- })
+          workspace = {
+            checkThirdParty = false,
+          },
+        },
+      },
+    },
 
+    jsonls = {
+      settings = {
+        json = {
+          schemas = require('schemastore').json.schemas(),
+          validate = { enable = true },
+        },
+      },
+    },
 
-  lsp_zero.setup()
+    yamlls = {
+      settings = {
+        yaml = {
+          schemaStore = {
+            -- You must disable built-in schemaStore support if you want to use
+            -- this plugin and its advanced options like `ignore`.
+            enable = false,
+            -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+            url = '',
+          },
+          schemas = require('schemastore').yaml.schemas(),
+        },
+      },
+    },
+  }
 
   require('lttb.dev.lsp_code_filter').setup()
 
-  require('mason').setup({})
-  require('mason-lspconfig').setup({
-    ensure_installed = { 'rust_analyzer', 'lua_ls', 'cssls', 'html', 'jsonls' },
-    handlers = {
-      lsp_zero.default_setup,
-      lua_ls = function()
-        local lua_opts = lsp_zero.nvim_lua_ls()
-        require('lspconfig').lua_ls.setup(lua_opts)
-      end,
-    },
+  -- Ensure the servers and tools above are installed
+  --  To check the current status of installed tools and/or manually install
+  --  other tools, you can run
+  --    :Mason
+  --
+  --  You can press `g?` for help in this menu.
+  require('mason').setup()
+
+  -- You can add other tools here that you want Mason to install
+  -- for you, so that they are available from within Neovim.
+  local ensure_installed = vim.tbl_keys(servers or {})
+  vim.list_extend(ensure_installed, {
+    'stylua', -- Used to format Lua code
+  })
+  -- require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
+
+  require('mason-lspconfig').setup({})
+  require('mason-lspconfig').setup_handlers({
+    -- The first entry (without a key) will be the default handler
+    -- and will be called for each installed server that doesn't have
+    -- a dedicated handler.
+    function(server_name) -- default handler (optional)
+      local server = servers[server_name] or {}
+      -- This handles overriding only values explicitly passed
+      -- by the server configuration above. Useful when disabling
+      -- certain features of an LSP (for example, turning off formatting for ts_ls)
+      server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+      require('lspconfig')[server_name].setup({})
+    end,
   })
 
-  require('lsp-zero').extend_cmp()
-
-  local cmp = require('cmp')
-  local cmp_format = require('lsp-zero').cmp_format({ details = true })
-  local cmp_action = require('lsp-zero').cmp_action()
-
-  cmp.setup({
-    formatting = vim.tbl_extend('keep', {
-      format = function(entry, vim_item)
-        cmp_format.format(entry, vim_item)
-        -- Set dup to 0 for all sources to remove duplicates
-        vim_item.dup = 0
-        return vim_item
-      end,
-    }, cmp_format),
-
-    sources = cmp.config.sources({
-      {
-        name = 'nvim_lsp',
-        entry_filter = function(entry, ctx)
-          return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
-        end,
-        priority = 1000,
-      },
-      { name = 'buffer', priority = 500 },
-      { name = 'path',   priority = 250 },
-    }),
-
-    sorting = {
-      comparators = {
-        cmp.config.compare.offset,
-        cmp.config.compare.kind,
-        cmp.config.compare.exact,
-        cmp.config.compare.score,
-        cmp.config.compare.sort_text,
-        cmp.config.compare.length,
-        cmp.config.compare.order,
-      },
-    },
-
-    mapping = cmp.mapping.preset.insert({
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<Tab>'] = cmp_action.luasnip_next_or_expand(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-    }),
-
-    experimental = {
-      ghost_text = true,
-    },
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources(
-      { { name = 'path' } },
-      { { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } } }
-    ),
-  })
+  -- require('mason-lspconfig').setup({
+  --   handlers = {
+  --     function(server_name)
+  --       local server = servers[server_name] or {}
+  --       -- This handles overriding only values explicitly passed
+  --       -- by the server configuration above. Useful when disabling
+  --       -- certain features of an LSP (for example, turning off formatting for ts_ls)
+  --       server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+  --       require('lspconfig')[server_name].setup(server)
+  --     end,
+  --   },
+  -- })
 end
 
 return {
@@ -198,115 +248,83 @@ return {
   -- { 'folke/neoconf.nvim' },
 
   {
-    'VonHeikemen/lsp-zero.nvim',
-    lazy = false,
-    priority = 10,
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+      },
+    },
+    dependencies = {
+      { 'Bilal2453/luvit-meta', lazy = true },
+    },
+  },
+
+  {
+    'neovim/nvim-lspconfig',
+    -- it has to be VeryLazy or not lazy at all, otherwise LSP get stuck a bit
+    event = 'VeryLazy',
     keys = {
       -- ghostty doesn't support <D-.>
       { '<C-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
       -- { '<F-2>', vim.lsp.buf.rename, desc = 'Rename Symbol' },
     },
-    branch = 'v3.x',
     config = config,
     dependencies = {
       {
-        -- 'hrsh7th/nvim-cmp',
-        'yioneko/nvim-cmp',
-        branch = 'perf',
-        dependencies = {
-          'VonHeikemen/lsp-zero.nvim',
+        'saghen/blink.cmp',
+        -- optional: provides snippets for the snippet source
+        dependencies = 'rafamadriz/friendly-snippets',
 
-          'hrsh7th/cmp-nvim-lsp',
-          'hrsh7th/nvim-cmp',
-          'hrsh7th/cmp-buffer',
-          'hrsh7th/cmp-path',
-          'hrsh7th/cmp-cmdline',
-          -- lags on large projects
-          -- 'lukas-reineke/cmp-rg',
-          'onsails/lspkind.nvim',
-          {
+        -- use a release tag to download pre-built binaries
+        version = '*',
+        -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+        -- build = 'cargo build --release',
+        -- If you use nix, you can build from source using latest nightly rust with:
+        -- build = 'nix run .#build-plugin',
 
-            'L3MON4D3/LuaSnip',
-            version = 'v2.*',
-            build = 'make install_jsregexp',
-          },
-        },
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
         opts = {
-          performance = {
-            debounce = 0, -- default is 60ms
-            throttle = 0, -- default is 30ms
+          completion = {
+            ghost_text = { enabled = true },
+
+            list = {
+              selection = function(ctx)
+                return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
+              end,
+            },
+
+            menu = {
+              cmdline_position = function()
+                if vim.g.ui_cmdline_pos ~= nil then
+                  local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+                  return { pos[1] - 1, pos[2] }
+                end
+                local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+                return { vim.o.lines - height, 0 }
+              end,
+            },
+          },
+
+          keymap = {
+            preset = 'super-tab',
+
+            ['<CR>'] = { 'select_and_accept', 'fallback' },
+
+            cmdline = {
+              preset = 'super-tab',
+            },
           },
         },
       },
 
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-
-      'neovim/nvim-lspconfig',
-
-      {
-        enabled = false,
-        'yioneko/nvim-vtsls',
-      },
-
-      {
-        enabled = false,
-        'pmizio/typescript-tools.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-        config = false,
-      },
-      {
-        enabled = false,
-        'nvimdev/lspsaga.nvim',
-        keys = {
-          { '<D-.>', '<cmd>Lspsaga code_action<cr>', mode = { 'n', 'v' } },
-          { 'K',     '<cmd>Lspsaga hover_doc<cr>' },
-          -- { '<F2>', '<cmd>Lspsaga rename<cr>' },
-        },
-        config = function()
-          require('lspsaga').setup({
-            ui = { code_action = '', border = 'rounded' },
-            hover = { max_width = 0.4 },
-            rename = { keys = { quit = '<ESC>' } },
-
-            lightbulb = { enable = false },
-            symbol_in_winbar = { enable = false },
-            implement = { enable = false },
-            beacon = { enable = false },
-          })
-        end,
-      },
-
-      { enabled = false, 'hinell/lsp-timeout.nvim', dependencies = { 'neovim/nvim-lspconfig' } },
-
-      {
-        enabled = false,
-        'aznhe21/actions-preview.nvim',
-        config = function()
-          vim.keymap.set({ 'v', 'n' }, '<D-.>', require('actions-preview').code_actions)
-        end,
-      },
-
-      {
-        enabled = false,
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
-        config = function()
-          vim.g.code_action_menu_show_diff = true
-        end,
-      },
-
-      {
-        enabled = false,
-        'antosha417/nvim-lsp-file-operations',
-        dependencies = {
-          'nvim-lua/plenary.nvim',
-          'nvim-neo-tree/neo-tree.nvim',
-        },
-        config = function()
-          require('lsp-file-operations').setup()
-        end,
-      },
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       {
         'smjonas/inc-rename.nvim',
@@ -320,10 +338,7 @@ return {
 
       {
         'b0o/schemastore.nvim',
-      },
-
-      {
-        'lukas-reineke/lsp-format.nvim',
+        event = 'LazyFile',
       },
     },
   },

@@ -3,8 +3,6 @@ local utils = require('lttb.utils')
 return {
   'nvim-lua/plenary.nvim',
 
-  { 'kylechui/nvim-surround', opts = { keymaps = { visual = '<C-S>' } } },
-
   {
     'folke/flash.nvim',
     event = 'VeryLazy',
@@ -36,81 +34,64 @@ return {
       },
     },
     keys = function()
-      local flash = require('flash')
+      local res = nil
+      local function get()
+        if res then
+          return res
+        end
+
+        res = { flash = require('flash') }
+        return res
+      end
 
       return {
-        { 's', mode = { 'n', 'x', 'o' }, flash.jump, desc = 'Flash' },
-        { 'S', mode = { 'n', 'x', 'o' }, flash.treesitter, desc = 'Flash Treesitter' },
-        { 'r', mode = 'o', flash.remote, desc = 'Remote Flash' },
-        { 'R', mode = { 'o', 'x' }, flash.treesitter_search, desc = 'Treesitter Search' },
-        { '<c-s>', mode = { 'c' }, flash.toggle, desc = 'Toggle Flash Search' },
+        {
+          's',
+          mode = { 'n', 'o' },
+          function()
+            get().flash.jump()
+          end,
+          desc = 'Flash',
+        },
+        {
+          'S',
+          mode = { 'n', 'o' },
+          function()
+            get().flash.treesitter()
+          end,
+          desc = 'Flash Treesitter',
+        },
+        {
+          'r',
+          mode = 'o',
+          function()
+            get().flash.remote()
+          end,
+          desc = 'Remote Flash',
+        },
+        {
+          'R',
+          mode = { 'o', 'x' },
+          function()
+            get().flash.treesitter_search()
+          end,
+          desc = 'Treesitter Search',
+        },
+        {
+          '<c-s>',
+          mode = { 'c' },
+          function()
+            get().flash.toggle()
+          end,
+          desc = 'Toggle Flash Search',
+        },
       }
     end,
   },
 
   {
-    enabled = false,
-    'gbprod/substitute.nvim',
-    config = function()
-      local substitute = require('substitute')
-      substitute.setup({})
-
-      utils.keyplug('lttb-substiture-operator', substitute.operator)
-      utils.keyplug('lttb-substiture-line', substitute.line)
-      utils.keyplug('lttb-substiture-eol', substitute.eol)
-      utils.keyplug('lttb-substiture-visual', substitute.visual)
-    end,
-  },
-
-  {
-    enabled = false,
-    'chaoren/vim-wordmotion',
-    init = function()
-      vim.g.wordmotion_prefix = ';'
-    end,
-  },
-
-  {
-    'echasnovski/mini.nvim',
-    config = function()
-      require('mini.ai').setup({ search_method = 'cover_or_nearest' })
-
-      require('mini.align').setup({})
-
-      if utils.is_vscode() then
-        return
-      end
-
-      -- require('mini.animate').setup({})
-
-      require('mini.bufremove').setup({})
-
-      require('mini.cursorword').setup({})
-
-      local MiniMap = require('mini.map')
-
-      MiniMap.setup({
-        integrations = { MiniMap.gen_integration.builtin_search(), MiniMap.gen_integration.gitsigns() },
-        symbols = { encode = MiniMap.gen_encode_symbols.dot('3x2'), scroll_line = '▶ ', scroll_view = '┃ ' },
-
-        window = { show_integration_count = false },
-      })
-
-      vim.api.nvim_create_autocmd('BufEnter', {
-        callback = function()
-          if vim.bo.filetype == 'toggleterm' then
-            MiniMap.close()
-            return
-          end
-
-          MiniMap.open({})
-        end,
-      })
-    end,
-  },
-
-  {
     'ibhagwan/smartyank.nvim',
+    event = 'LazyFile',
     config = function()
       require('smartyank').setup({
         highlight = {
@@ -144,9 +125,8 @@ return {
   },
 
   {
-    enabled = true,
     'gbprod/yanky.nvim',
-    lazy = false,
+    event = 'LazyFile',
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -163,7 +143,6 @@ return {
 
   {
     'chrisgrieser/nvim-spider',
-    opts = {},
     keys = {
       {
         'e',
@@ -195,18 +174,7 @@ return {
   {
     -- extended treesitter objects
     'chrisgrieser/nvim-various-textobjs',
-    lazy = false,
-    opts = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } },
-  },
-
-  {
-    enabled = false,
-    'fedepujol/move.nvim',
-    keys = {
-      { '<M-j>', ':MoveLine(1)<CR>', desc = 'Move: line down', mode = { 'n' }, silent = true },
-      { '<M-j>', ':MoveBlock(1)<CR>', desc = 'Move: block down', mode = { 'v' }, silent = true },
-      { '<M-k>', ':MoveLine(-1)<CR>', desc = 'Move: line up', mode = { 'n' }, silent = true },
-      { '<M-k>', ':MoveBlock(-1)<CR>', desc = 'Move: block up', mode = { 'v' }, silent = true },
-    },
+    event = 'LazyFile',
+    opts = { keymaps = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } } },
   },
 }

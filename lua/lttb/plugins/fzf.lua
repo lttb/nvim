@@ -7,7 +7,6 @@ end
 return {
   {
     'ibhagwan/fzf-lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       lsp = {
         -- @see https://github.com/nvimtools/none-ls.nvim/wiki/Compatibility-with-other-plugins
@@ -20,9 +19,18 @@ return {
       },
     },
     keys = function()
-      local fzf = require('fzf-lua')
-      local actions = require('fzf-lua.actions')
-      local path = require('fzf-lua.path')
+      local res = nil
+      local function get()
+        if res then
+          return res
+        end
+
+        res = {}
+        res.fzf = require('fzf-lua')
+        res.actions = require('fzf-lua.actions')
+        res.path = require('fzf-lua.path')
+        return res
+      end
 
       return {
         -- {
@@ -43,22 +51,30 @@ return {
         --   silent = true,
         -- },
 
-        utils.cmd_shift('r', {
-          fzf.resume,
-          desc = 'fzf: resume',
-        }),
+        -- utils.cmd_shift('r', {
+        --   function()
+        --     get().fzf.resume()
+        --   end,
+        --   desc = 'fzf: resume',
+        -- }),
 
         utils.cmd_shift('f', {
           function()
-            local tf = require('lttb.dev.toggle_floats')
+            -- local tf = require('lttb.dev.toggle_floats')
 
-            if tf.is_hidden('fzf') then
-              tf.toggle_floats('fzf')
+            local is_unhidden = get().fzf.win.unhide()
 
+            if is_unhidden then
               return
             end
 
-            fzf.grep_project({
+            -- if tf.is_hidden('fzf') then
+            --   tf.toggle_floats('fzf')
+            --
+            --   return
+            -- end
+
+            get().fzf.grep_project({
               fzf_opts = {
                 ['--layout'] = 'reverse',
                 ['--info'] = 'inline',
@@ -81,14 +97,23 @@ return {
 
               prompt = '  ',
 
+              keymap = {
+                builtin = {
+                  ['<Esc>'] = 'hide',
+                },
+              },
+
               actions = {
+                ['ctrl-r'] = get().actions.resume,
                 ['enter'] = {
                   function(selected, opts)
-                    tf.toggle_floats('fzf', function()
-                      actions.file_edit(selected, opts)
+                    get().fzf.win.hide()
+
+                    vim.schedule(function()
+                      get().actions.file_edit(selected, opts)
                     end)
                   end,
-                  actions.resume,
+                  get().actions.resume,
                 },
               },
             })

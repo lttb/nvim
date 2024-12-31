@@ -136,13 +136,13 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 -- Define the autocommand to run vim.diagnostic.reset() on entering normal mode
 -- TODO: figure out why diagnostic stuck
-vim.api.nvim_create_autocmd('ModeChanged', {
-  group = 'MyAutoCmds',
-  pattern = '*:n', -- This pattern matches when entering normal mode
-  callback = function()
-    vim.diagnostic.reset()
-  end,
-})
+-- vim.api.nvim_create_autocmd('ModeChanged', {
+--   group = 'MyAutoCmds',
+--   pattern = '*:n', -- This pattern matches when entering normal mode
+--   callback = function()
+--     vim.diagnostic.reset()
+--   end,
+-- })
 
 if utils.is_kitty() then
   vim.api.nvim_create_autocmd('VimLeave', {
