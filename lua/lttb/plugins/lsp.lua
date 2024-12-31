@@ -149,13 +149,6 @@ local function config()
       -- capabilities = {},
       settings = {
         Lua = {
-          format = {
-            enable = true,
-            defaultConfig = {
-              indent_style = 'space',
-              indent_size = '2',
-            },
-          },
           -- NOTE: it seems a bit slow
           -- diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
           -- NOTE: You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
