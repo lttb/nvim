@@ -28,6 +28,10 @@ return {
         end,
       })
     end,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
     opts = {
       window = {
         width = utils.is_neovide() and 60 or '25%',

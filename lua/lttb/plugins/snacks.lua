@@ -23,8 +23,8 @@ return {
           char = '┊',
         },
       },
-      input = { enabled = true },
-      notifier = { enabled = true },
+      -- input = { enabled = true },
+      -- notifier = { enabled = true },
       scroll = {
         enabled = true,
         animate = {
@@ -43,7 +43,6 @@ return {
       -- this is needed to have early notifications show up in noice history
       vim.notify = notify
     end,
-    -- stylua: ignore
     keys = function()
       local Snacks = require('snacks')
 

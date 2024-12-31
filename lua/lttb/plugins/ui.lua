@@ -244,4 +244,17 @@ return {
       },
     },
   },
+
+  {
+    enabled = false,
+    'Chaitanyabsprip/fastaction.nvim',
+    event = 'LazyFile',
+    ---@type FastActionConfig
+    opts = {
+      register_ui_select = true,
+    },
+    keys = {
+      { '<C-.>', '<cmd>lua require("fastaction").code_action()<CR>', desc = 'Code Action' },
+    },
+  },
 }
