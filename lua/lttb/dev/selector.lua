@@ -6,9 +6,8 @@ M.config = {
     border = 'rounded',
     width = 60,
     height = 10,
-    row = 1,
-    col = 1,
   },
+  highlight_group = 'PmenuSel',
 }
 
 local function generate_labels(items)
@@ -16,7 +15,7 @@ local function generate_labels(items)
   local labels = {}
 
   for i, item in ipairs(items) do
-    local first_char = item:sub(1, 1):lower()
+    local first_char = tostring(item):sub(1, 1):lower()
     if not used_keys[first_char] and M.config.keys:find(first_char, 1, true) then
       labels[i] = first_char
       used_keys[first_char] = true
@@ -42,41 +41,80 @@ local function generate_labels(items)
 end
 
 function M.select(items, opts, on_choice)
-  local labels = generate_labels(items)
   local selected_index = nil
 
+  -- Create buffer for popup
   local buf = vim.api.nvim_create_buf(false, true)
-  local win = vim.api.nvim_open_win(buf, true, {
-    relative = 'editor',
-    width = M.config.popup.width,
-    height = math.min(#items, M.config.popup.height),
-    row = M.config.popup.row,
-    col = M.config.popup.col,
-    style = 'minimal',
-    border = M.config.popup.border,
-  })
+
+
+  local height_content = #items
+  local width_content
+
+  -- Set buffer options
+  vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
+  vim.api.nvim_buf_set_option(buf, 'modifiable', true)
+
+  local keys = {}
+  M.config.keys:gsub('.', function(c) table.insert(keys, c) end)
+  local labels = {}
+  local used_keys = {}
 
   local function update_display()
-    vim.api.nvim_buf_set_option(buf, 'modifiable', true)
+    width_content = 0
+
+    local format_item = opts.format_item or tostring
     local lines = {}
     for i, item in ipairs(items) do
-      local line = string.format('%s. %s', labels[i], item)
+      local name = format_item(item)
+      local first_char = name:sub(1, 1):lower()
+
+      local line = string.format('%s. %s', labels[i], name)
+
+      line = ' ' .. line:gsub('\r', '')
+
       if i == selected_index then
         line = '> ' .. line
       else
         line = '  ' .. line
       end
+
       table.insert(lines, line)
+
+      width_content = math.max(width_content, vim.fn.strdisplaywidth(line))
+
+      print(line)
     end
+
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-    vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+
+    -- Clear existing highlights
+    vim.api.nvim_buf_clear_namespace(buf, -1, 0, -1)
+
+    -- Apply highlight to the selected item
+    if selected_index then
+      vim.api.nvim_buf_add_highlight(buf, -1, M.config.highlight_group, selected_index - 1, 0, -1)
+    end
   end
 
   update_display()
-  vim.api.nvim_buf_set_option(buf, 'modifiable', false)
-  vim.api.nvim_win_set_option(win, 'cursorline', true)
 
+  -- Calculate dimensions
+  local width = width_content or M.config.popup.width
+  local height = math.min(height_content, M.config.popup.height)
+
+  -- Handle input
   vim.defer_fn(function()
+    -- Create popup window
+    local popup = vim.api.nvim_open_win(buf, true, {
+      relative = 'cursor',
+      row = 1,
+      col = 0,
+      width = width,
+      height = height,
+      style = 'minimal',
+      border = M.config.popup.border,
+    })
+
     while true do
       local char = vim.fn.getchar()
       if char == 27 then -- Esc key
@@ -85,22 +123,25 @@ function M.select(items, opts, on_choice)
       end
 
       local key = vim.fn.nr2char(char)
-      for i, label in ipairs(labels) do
-        if key == label then
-          if selected_index == i then
-            on_choice(items[i], i)
-            vim.api.nvim_win_close(win, true)
-            return
-          else
-            selected_index = i
-            update_display()
-          end
-          break
-        end
+
+      local selected_item = labels[key]
+
+      if selected_item == nil then
+        goto continue
       end
+
+      if selected_index then
+        on_choice(items[selected_index], selected_index)
+        vim.api.nvim_win_close(popup, true)
+      end
+
+      selected_index = selected_item.index
+      update_display()
+
+      ::continue::
     end
 
-    vim.api.nvim_win_close(win, true)
+    vim.api.nvim_win_close(popup, true)
   end, 0)
 end
 

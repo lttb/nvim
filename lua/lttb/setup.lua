@@ -46,7 +46,9 @@ homerow_select.setup({
   },
 })
 
-vim.ui.select = homerow_select.select
+vim.ui.select = function(items, opts, on_choice)
+  homerow_select.select(items, opts, on_choice)
+end
 
 -- local theme = require('lttb.theme')
 
