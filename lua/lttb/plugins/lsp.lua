@@ -118,7 +118,13 @@ local function config()
   --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
   --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
+  capabilities = vim.tbl_deep_extend(
+    'force',
+    capabilities,
+    require('blink.cmp').get_lsp_capabilities({
+      -- textDocument = { completion = { completionItem = { snippetSupport = true } } },
+    })
+  )
 
   -- Enable the following language servers
   --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -212,7 +218,8 @@ local function config()
   vim.list_extend(ensure_installed, {
     'stylua', -- Used to format Lua code
   })
-  -- require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
+
+  require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
   require('mason-lspconfig').setup({})
   require('mason-lspconfig').setup_handlers({
@@ -225,7 +232,7 @@ local function config()
       -- by the server configuration above. Useful when disabling
       -- certain features of an LSP (for example, turning off formatting for ts_ls)
       server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-      require('lspconfig')[server_name].setup({})
+      require('lspconfig')[server_name].setup(server)
     end,
   })
 
@@ -277,7 +284,10 @@ return {
       {
         'saghen/blink.cmp',
         -- optional: provides snippets for the snippet source
-        dependencies = 'rafamadriz/friendly-snippets',
+        dependencies = {
+          -- 'rafamadriz/friendly-snippets',
+          { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+        },
 
         -- use a release tag to download pre-built binaries
         version = '*',
@@ -289,6 +299,23 @@ return {
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
+          snippets = {
+            expand = function(snippet)
+              require('luasnip').lsp_expand(snippet)
+            end,
+            active = function(filter)
+              if filter and filter.direction then
+                return require('luasnip').jumpable(filter.direction)
+              end
+              return require('luasnip').in_snippet()
+            end,
+            jump = function(direction)
+              require('luasnip').jump(direction)
+            end,
+          },
+          sources = {
+            default = { 'lsp', 'path', 'luasnip', 'buffer' },
+          },
           completion = {
             ghost_text = { enabled = true },
 
