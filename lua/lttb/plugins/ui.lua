@@ -113,11 +113,11 @@ return {
       },
       -- you can enable a preset for easier configuration
       presets = {
-        bottom_search = true,         -- use a classic bottom cmdline for search
-        command_palette = true,       -- position the cmdline and popupmenu together
+        bottom_search = true, -- use a classic bottom cmdline for search
+        command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = true,            -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true,        -- add a border to hover docs and signature help
+        inc_rename = true, -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = true, -- add a border to hover docs and signature help
       },
 
       messages = {
@@ -195,10 +195,16 @@ return {
     'folke/which-key.nvim',
     event = 'VeryLazy',
     cmd = 'WhichKey',
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-    end,
+    opts = {},
+    keys = {
+      {
+        '<leader>?',
+        function()
+          require('which-key').show({ global = false })
+        end,
+        desc = 'Buffer Local Keymaps (which-key)',
+      },
+    },
   },
 
   {
@@ -217,8 +223,10 @@ return {
   {
     'folke/trouble.nvim',
     event = 'LazyFile',
+    cmd = 'Trouble',
+    opts = {},
     keys = {
-      utils.cmd_shift('m', { '<cmd>TroubleToggle<cr>', desc = 'Trouble: Toggle' }),
+      utils.cmd_shift('m', { '<cmd>Trouble diagnostics toggle<cr>', desc = 'Trouble: Diagnostics Toggle' }),
     },
   },
 
