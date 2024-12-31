@@ -90,28 +90,28 @@ local function config()
     },
   })
 
-  -- lsp_zero.configure('lua_ls', {
-  --   settings = {
-  --     Lua = {
-  --       format = {
-  --         enable = true,
-  --         defaultConfig = {
-  --           indent_style = 'space',
-  --           indent_size = '2',
-  --         },
-  --       },
-  --       -- NOTE: it seems a bit slow
-  --       -- diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
-  --       completion = { callSnippet = 'Replace' },
-  --       -- Do not send telemetry data containing a randomized but unique identifier
-  --       telemetry = { enable = false },
+  lsp_zero.configure('lua_ls', {
+    settings = {
+      Lua = {
+        format = {
+          enable = true,
+          defaultConfig = {
+            indent_style = 'space',
+            indent_size = '2',
+          },
+        },
+        -- NOTE: it seems a bit slow
+        -- diagnostics = { neededFileStatus = { ['codestyle-check'] = 'Any' } },
+        completion = { callSnippet = 'Replace' },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = { enable = false },
 
-  --       workspace = {
-  --         checkThirdParty = false,
-  --       },
-  --     },
-  --   },
-  -- })
+        workspace = {
+          checkThirdParty = false,
+        },
+      },
+    },
+  })
 
   require('lspconfig').biome.setup({})
 
