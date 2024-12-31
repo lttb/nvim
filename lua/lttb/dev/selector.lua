@@ -10,93 +10,62 @@ M.config = {
   highlight_group = 'PmenuSel',
 }
 
-local function generate_labels(items)
-  local used_keys = {}
-  local labels = {}
-
-  for i, item in ipairs(items) do
-    local first_char = tostring(item):sub(1, 1):lower()
-    if not used_keys[first_char] and M.config.keys:find(first_char, 1, true) then
-      labels[i] = first_char
-      used_keys[first_char] = true
-    end
-  end
-
-  local key_index = 1
-  for i = 1, #items do
-    if not labels[i] then
-      while key_index <= #M.config.keys do
-        local key = M.config.keys:sub(key_index, key_index)
-        key_index = key_index + 1
-        if not used_keys[key] then
-          labels[i] = key
-          used_keys[key] = true
-          break
-        end
-      end
-    end
-  end
-
-  return labels
-end
-
 function M.select(items, opts, on_choice)
-  local selected_index = nil
-
   -- Create buffer for popup
   local buf = vim.api.nvim_create_buf(false, true)
-
 
   local height_content = #items
   local width_content
 
+  local used_labels = {}
+
+  local function get_label(name, to)
+    to = to or 1
+    local key = name:sub(1, to):lower():gsub('%W', '')
+
+    if not used_labels[key] then
+      used_labels[key] = true
+      return key
+    end
+
+    return get_label(name, to + 1)
+  end
+
   -- Set buffer options
-  vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
-  vim.api.nvim_buf_set_option(buf, 'modifiable', true)
+  vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = buf })
+  vim.api.nvim_set_option_value('buftype', 'nofile', { buf = buf })
+  vim.api.nvim_set_option_value('swapfile', false, { buf = buf })
 
-  local keys = {}
-  M.config.keys:gsub('.', function(c) table.insert(keys, c) end)
-  local labels = {}
-  local used_keys = {}
-
-  local function update_display()
+  local function render()
     width_content = 0
 
     local format_item = opts.format_item or tostring
+
     local lines = {}
     for i, item in ipairs(items) do
       local name = format_item(item)
-      local first_char = name:sub(1, 1):lower()
 
-      local line = string.format('%s. %s', labels[i], name)
+      -- local label = get_label(name)
+      local label = '❯'
+
+      local line = string.format('%s %s', label, name)
 
       line = ' ' .. line:gsub('\r', '')
 
-      if i == selected_index then
-        line = '> ' .. line
-      else
-        line = '  ' .. line
-      end
-
       table.insert(lines, line)
 
-      width_content = math.max(width_content, vim.fn.strdisplaywidth(line))
-
-      print(line)
+      width_content = 5 + math.max(width_content, vim.fn.strdisplaywidth(line))
     end
 
+    vim.api.nvim_set_option_value('modifiable', true, { buf = buf })
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+    vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
 
     -- Clear existing highlights
     vim.api.nvim_buf_clear_namespace(buf, -1, 0, -1)
-
-    -- Apply highlight to the selected item
-    if selected_index then
-      vim.api.nvim_buf_add_highlight(buf, -1, M.config.highlight_group, selected_index - 1, 0, -1)
-    end
   end
 
-  update_display()
+  render()
 
   -- Calculate dimensions
   local width = width_content or M.config.popup.width
@@ -115,33 +84,26 @@ function M.select(items, opts, on_choice)
       border = M.config.popup.border,
     })
 
-    while true do
-      local char = vim.fn.getchar()
-      if char == 27 then -- Esc key
-        on_choice(nil, nil)
-        break
-      end
+    local flash = require('flash')
 
-      local key = vim.fn.nr2char(char)
+    vim.keymap.set('n', '<ESC>', function()
+      vim.api.nvim_win_close(popup, true)
+    end, { buffer = buf, noremap = true, silent = true })
 
-      local selected_item = labels[key]
-
-      if selected_item == nil then
-        goto continue
-      end
-
-      if selected_index then
-        on_choice(items[selected_index], selected_index)
+    -- Use flash.nvim for selection
+    flash.jump({
+      action = function(match, state)
+        state:hide()
+        local line = match.pos[1]
+        on_choice(items[line], line)
         vim.api.nvim_win_close(popup, true)
-      end
-
-      selected_index = selected_item.index
-      update_display()
-
-      ::continue::
-    end
-
-    vim.api.nvim_win_close(popup, true)
+      end,
+      win = popup,
+      search = {
+        multi_window = false,
+        incremental = true,
+      },
+    })
   end, 0)
 end
 
