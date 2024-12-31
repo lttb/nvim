@@ -34,22 +34,9 @@ if utils.is_vscode() then
   return
 end
 
-local homerow_select = require('lttb.dev.selector')
-homerow_select.setup({
-  keys = 'asdfjkl;ghqwertyuiopzxcvbnm',
-  popup = {
-    border = 'rounded',
-    width = 60,
-    height = 10,
-    row = 1,
-    col = 1,
-  },
-})
-
-vim.ui.select = function(items, opts, on_choice)
-  homerow_select.select(items, opts, on_choice)
-end
-
+local homerow_select = require('lttb.dev.flash-select')
+homerow_select.setup({})
+vim.ui.select = homerow_select.select
 -- local theme = require('lttb.theme')
 
 -- vim.opt.background = theme.variant
