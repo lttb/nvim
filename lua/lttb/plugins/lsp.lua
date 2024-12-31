@@ -9,6 +9,7 @@ if utils.is_vscode() then
 end
 
 local function config()
+  -- @see https://github.com/nvim-lua/kickstart.nvim/blob/a8f539562a8c5d822dd5c0ca1803d963c60ad544/init.lua#L471
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
     callback = function(event)
@@ -195,7 +196,7 @@ local function config()
     },
   }
 
-  -- require('lttb.dev.lsp_code_filter').setup()
+  require('lttb.dev.lsp_code_filter').setup()
 
   -- Ensure the servers and tools above are installed
   --  To check the current status of installed tools and/or manually install
@@ -264,7 +265,8 @@ return {
 
   {
     'neovim/nvim-lspconfig',
-    event = 'LazyFile',
+    -- it has to be VeryLazy or not lazy at all, otherwise LSP get stuck a bit
+    event = 'VeryLazy',
     keys = {
       -- ghostty doesn't support <D-.>
       { '<C-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
