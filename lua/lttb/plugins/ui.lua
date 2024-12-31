@@ -23,52 +23,41 @@ return {
 
   {
     'akinsho/toggleterm.nvim',
-    event = 'VeryLazy',
+    -- sync load is critical to work properly with editing in lazygit
+    config = true,
     keys = function()
-      local res = nil
-
-      local function get_term()
-        if res then
-          return res
-        end
-
-        local Terminal = require('toggleterm.terminal').Terminal
-        local term_options = {
-          hidden = true,
-          dir = 'git_dir',
-          direction = 'float',
-          highlights = {
-            NormalFloat = {
-              link = 'Normal',
-            },
-            FloatBorder = {
-              link = 'FloatBorder',
-            },
+      local Terminal = require('toggleterm.terminal').Terminal
+      local term_options = {
+        hidden = true,
+        dir = 'git_dir',
+        direction = 'float',
+        highlights = {
+          NormalFloat = {
+            link = 'Normal',
           },
-          float_opts = {
-            border = 'curved',
-            winblend = 5,
+          FloatBorder = {
+            link = 'FloatBorder',
           },
-          winbar = {
-            enabled = false,
-            name_formatter = function(term) --  term: Terminal
-              return term.name
-            end,
-          },
-        }
-
-        res = {}
-        res.term = Terminal:new(term_options)
-        res.lazygit = Terminal:new(vim.tbl_extend('keep', { cmd = 'lazygit' }, term_options))
-
-        return res
-      end
+        },
+        float_opts = {
+          border = 'curved',
+          winblend = 5,
+        },
+        winbar = {
+          enabled = false,
+          name_formatter = function(term) --  term: Terminal
+            return term.name
+          end,
+        },
+      }
+      local term = Terminal:new(term_options)
+      local lazygit = Terminal:new(vim.tbl_extend('keep', { cmd = 'lazygit' }, term_options))
 
       return {
         {
           '<D-j>',
           function()
-            get_term().term:toggle()
+            term:toggle()
           end,
           desc = 'Toggle Terminal',
           mode = { 'n', 't', 'i' },
@@ -76,7 +65,7 @@ return {
         {
           '<D-g>',
           function()
-            get_term().lazygit:toggle()
+            lazygit:toggle()
           end,
           desc = 'Toggle lazy Git',
           mode = { 'n', 't', 'i' },
@@ -100,28 +89,6 @@ return {
       },
     },
   },
-
-
-  -- {
-  --   'kdheepak/lazygit.nvim',
-  --   lazy = true,
-  --   cmd = {
-  --     'LazyGit',
-  --     'LazyGitConfig',
-  --     'LazyGitCurrentFile',
-  --     'LazyGitFilter',
-  --     'LazyGitFilterCurrentFile',
-  --   },
-  --   -- optional for floating window border decoration
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim',
-  --   },
-  --   -- setting the keybinding for LazyGit with 'keys' is recommended in
-  --   -- order to load the plugin when the command is run for the first time
-  --   keys = {
-  --     { '<D-g>', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
-  --   },
-  -- },
 
   {
     'folke/noice.nvim',
@@ -147,11 +114,11 @@ return {
       },
       -- you can enable a preset for easier configuration
       presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
+        bottom_search = true,         -- use a classic bottom cmdline for search
+        command_palette = true,       -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = true, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true, -- add a border to hover docs and signature help
+        inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = true,        -- add a border to hover docs and signature help
       },
 
       messages = {
