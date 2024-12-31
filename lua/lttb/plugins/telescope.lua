@@ -169,55 +169,55 @@ return {
           end,
           desc = 'Search Word',
         },
-        {
-          'gs',
-          function()
-            get().builtin.lsp_document_symbols()
-          end,
-          desc = 'LSP: Goto Symbols',
-        },
+        -- {
+        --   'gs',
+        --   function()
+        --     get().builtin.lsp_document_symbols()
+        --   end,
+        --   desc = 'LSP: Goto Symbols',
+        -- },
 
         -- {{{ LSP
 
-        {
-          'gd',
-          function()
-            get().builtin.lsp_definitions(telescope_themes.get_ivy({
-              show_line = false,
-            }))
-          end,
-          desc = 'LSP: Goto Definition',
-        },
-
-        {
-          'gD',
-          function()
-            get().builtin.lsp_type_definitions(telescope_themes.get_ivy({
-              show_line = false,
-            }))
-          end,
-          desc = 'LSP: Type Definition',
-        },
-
-        {
-          'gi',
-          function()
-            get().builtin.lsp_implementations(telescope_themes.get_ivy({
-              show_line = false,
-            }))
-          end,
-          desc = 'LSP: Goto Implementation',
-        },
-
-        {
-          'gr',
-          function()
-            get().builtin.lsp_references(telescope_themes.get_ivy({
-              show_line = false,
-            }))
-          end,
-          desc = 'LSP: Goto References',
-        },
+        -- {
+        --   'gd',
+        --   function()
+        --     get().builtin.lsp_definitions(get().telescope_themes.get_ivy({
+        --       show_line = false,
+        --     }))
+        --   end,
+        --   desc = 'LSP: Goto Definition',
+        -- },
+        --
+        -- {
+        --   'gD',
+        --   function()
+        --     get().builtin.lsp_type_definitions(get().telescope_themes.get_ivy({
+        --       show_line = false,
+        --     }))
+        --   end,
+        --   desc = 'LSP: Type Definition',
+        -- },
+        --
+        -- {
+        --   'gi',
+        --   function()
+        --     get().builtin.lsp_implementations(get().telescope_themes.get_ivy({
+        --       show_line = false,
+        --     }))
+        --   end,
+        --   desc = 'LSP: Goto Implementation',
+        -- },
+        --
+        -- {
+        --   'gr',
+        --   function()
+        --     get().builtin.lsp_references(get().telescope_themes.get_ivy({
+        --       show_line = false,
+        --     }))
+        --   end,
+        --   desc = 'LSP: Goto References',
+        -- },
 
         utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
 

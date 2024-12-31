@@ -7,7 +7,6 @@ if utils.is_vscode() then
 end
 
 return {
-
   {
     'echasnovski/mini.icons',
     event = 'VeryLazy',
