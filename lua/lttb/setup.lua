@@ -18,11 +18,11 @@ if utils.is_vscode() then
 end
 
 vim.o.background = 'dark'
-vim.cmd.colorscheme('zengithub')
+vim.cmd.colorscheme('ghostflow')
 
-local homerow_select = require('lttb.dev.flash-select')
-homerow_select.setup({})
-vim.ui.select = homerow_select.select
+-- local homerow_select = require('lttb.dev.flash-select')
+-- homerow_select.setup({})
+-- vim.ui.select = homerow_select.select
 
 if utils.is_neovide() then
   require('lttb.settings.neovide')

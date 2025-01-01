@@ -1,4 +1,4 @@
-function zengithub_dark#load()
+function ghostflow_dark#load()
 let g:terminal_color_0 = '#24282E'
 let g:terminal_color_1 = '#DE6E7C'
 let g:terminal_color_2 = '#819B69'

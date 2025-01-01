@@ -2,10 +2,10 @@
 
 local bg = vim.o.background
 
-local colorscheme = require('lttb.themes.zengithub.palette')
+local colorscheme = require('ghostflow.palette')
 local lushwright = require('shipwright.transform.lush')
 
-local name = 'zengithub_' .. bg
+local name = 'ghostflow' .. bg
 
 -- @see https://github.com/zenbones-theme/zenbones.nvim/blob/3c0b86bb912d41d191d90c019a346f6a1d27f588/lua/zenbones/shipwright/runners/vim.lua
 local function to_vim_autoload(colorscheme)

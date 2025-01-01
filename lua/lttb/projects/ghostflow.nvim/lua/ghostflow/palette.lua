@@ -1,12 +1,12 @@
 local util = require('zenbones.util')
-local core = require('lttb.themes.zengithub.common')
+local core = require('ghostflow.common')
 
 local lush = require('lush')
 local hsluv = lush.hsluv -- Human-friendly hsl
 
 local M = {}
 
-M.light = core.create('zengithub', 'light', function()
+M.light = core.create('ghostflow', 'light', function()
   return util.palette_extend({
     bg = hsluv('#ffffff'),
     fg = hsluv('#1f2328'),
@@ -19,7 +19,7 @@ M.light = core.create('zengithub', 'light', function()
     cursor_line = hsluv('#f6f8fa'),
   }, 'light')
 end)
-M.dark = core.create('zengithub', 'dark', function()
+M.dark = core.create('ghostflow', 'dark', function()
   return util.palette_extend({
     bg = hsluv('#24282e'),
     fg = hsluv('#C2C2C2'),
