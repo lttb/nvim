@@ -3,28 +3,11 @@
 vim.loader.enable()
 
 require('lttb.settings')
-require('lttb.autocmd')
 
--- {{{ Bootstrap lazy
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    '--single-branch',
-    'https://github.com/folke/lazy.nvim.git',
-    lazypath,
-  })
-end
-vim.opt.runtimepath:prepend(lazypath)
--- }}}
+require('lttb.config.lazy')
 
-require('lttb.utils.lazy').lazy_file()
-
-require('lazy').setup('lttb.plugins')
-
-require('lttb.keymaps')
+require('lttb.config.autocmd')
+require('lttb.config.keymaps')
 
 local utils = require('lttb.utils')
 
@@ -34,13 +17,12 @@ if utils.is_vscode() then
   return
 end
 
+vim.o.background = 'dark'
+vim.cmd.colorscheme('zengithub')
+
 local homerow_select = require('lttb.dev.flash-select')
 homerow_select.setup({})
 vim.ui.select = homerow_select.select
--- local theme = require('lttb.theme')
-
--- vim.opt.background = theme.variant
-vim.cmd.colorscheme('zengithub')
 
 if utils.is_neovide() then
   require('lttb.settings.neovide')

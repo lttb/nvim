@@ -1,5 +1,4 @@
 local utils = require('lttb.utils')
-local theme = require('lttb.theme')
 
 if utils.is_vscode() then
   return
@@ -126,7 +125,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       bg = normalHL.bg,
     })
 
-    if theme.colorscheme == 'rasmus' then
+    if vim.g.colors_name == 'rasmus' then
       -- color.extend_hl('Normal', {
       --   bg = '#24282e',
       -- })

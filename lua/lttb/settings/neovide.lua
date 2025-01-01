@@ -1,5 +1,3 @@
-local theme = require('lttb.theme')
-
 -- vim.opt.guifont = {
 --   'Fira Code',
 --   ':h20',

@@ -6,7 +6,6 @@ end
 
 local function config()
   -- local git_blame = require('gitblame')
-  local theme = require('lttb.theme')
 
   require('lualine').setup({
     options = {
