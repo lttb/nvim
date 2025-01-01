@@ -17,25 +17,36 @@ function M.select(items, opts, on_choice)
   vim.api.nvim_set_option_value('buftype', 'nofile', { buf = buf })
   vim.api.nvim_set_option_value('swapfile', false, { buf = buf })
 
+  local prev_index = 1
   local current_index = 1
+  local lines = {}
+
+  local selected_char = vim.api.nvim_replace_termcodes('❯', true, true, true)
 
   local function render()
     width_content = 0
     local format_item = opts.format_item or tostring
-    local lines = {}
     for i, item in ipairs(items) do
       local name = format_item(item)
-      local label = i == current_index and '❯' or ' '
-      local line = string.format('%s %s', label, name)
-      line = ' ' .. line:gsub('\r', '')
+      local prefix = i == current_index and selected_char or ' '
+      local line = string.format('%s %s', prefix, name):gsub('\r', '')
       table.insert(lines, line)
       width_content = 5 + math.max(width_content, vim.fn.strdisplaywidth(line))
     end
 
     vim.api.nvim_set_option_value('modifiable', true, { buf = buf })
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-    vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
     vim.api.nvim_buf_clear_namespace(buf, -1, 0, -1)
+    vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
+  end
+
+  local function update()
+    local selected = selected_char .. ' '
+    local unselected = '  '
+    vim.api.nvim_set_option_value('modifiable', true, { buf = buf })
+    vim.api.nvim_buf_set_text(buf, prev_index - 1, 0, prev_index - 1, #selected, { unselected })
+    vim.api.nvim_buf_set_text(buf, current_index - 1, 0, current_index - 1, #unselected, { selected })
+    vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
   end
 
   render()
@@ -58,32 +69,32 @@ function M.select(items, opts, on_choice)
       vim.api.nvim_win_close(popup, true)
     end
 
-    local function select_item()
-      on_choice(items[current_index], current_index)
+    local function move_cursor(delta)
+      prev_index = current_index
+      current_index = (current_index + delta - 1) % #items + 1
+      update()
+      vim.api.nvim_win_set_cursor(popup, { current_index, 0 })
     end
 
-    local function move_cursor(delta)
-      current_index = (current_index + delta - 1) % #items + 1
-      render()
-      vim.api.nvim_win_set_cursor(popup, { current_index, 0 })
+    local function move_up()
+      move_cursor(-1)
+    end
+    local function move_down()
+      move_cursor(1)
+    end
+    local function confirm()
+      on_choice(items[current_index], current_index)
+
+      vim.api.nvim_input('<esc>')
     end
 
     local flash = require('flash')
 
-    ---@type Flash.State
-    -- Set custom keymaps
-    vim.keymap.set('n', '<Down>', function()
-      move_cursor(1)
-    end, { buffer = buf, remap = false, silent = true })
+    vim.keymap.set('n', '<Down>', move_down, { buffer = buf, remap = false, silent = true })
 
-    vim.keymap.set('n', '<Up>', function()
-      move_cursor(-1)
-    end, { buffer = buf, remap = false, silent = true })
+    vim.keymap.set('n', '<Up>', move_up, { buffer = buf, remap = false, silent = true })
 
-    vim.keymap.set('n', '<CR>', function()
-      select_item()
-      vim.api.nvim_input('<esc>')
-    end, { buffer = buf, noremap = true, silent = true })
+    vim.keymap.set('n', '<CR>', confirm, { buffer = buf, noremap = true, silent = true })
 
     vim.keymap.set('n', '<ESC>', close_popup, { buffer = buf, noremap = true, silent = true })
 
@@ -107,15 +118,10 @@ function M.select(items, opts, on_choice)
       actions = {
         [CR] = function(state)
           state:hide()
-          select_item()
-          vim.api.nvim_input('<esc>')
+          confirm()
         end,
-        [DOWN] = function()
-          move_cursor(1)
-        end,
-        [UP] = function()
-          move_cursor(-1)
-        end,
+        [DOWN] = move_down,
+        [UP] = move_up,
       },
     })
   end, 0)
