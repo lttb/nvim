@@ -1,17 +1,10 @@
 ---@diagnostic disable: undefined-global
 
-local utils = require('lttb.utils')
-
 local lush = require('lush')
-local hsluv = lush.hsluv -- Human-friendly hsl
-local util = require('zenbones.util')
 
 local M = {}
 
-function M.create(name, bg, get_palette)
-  local colors_name = name
-  vim.g.colors_name = colors_name -- Required when defining a colorscheme
-
+function M.create(colors_name, bg, get_palette)
   local palette = get_palette()
 
   -- Generate the lush specs using the generator util
@@ -71,7 +64,7 @@ function M.create(name, bg, get_palette)
       NeoTreeDirectoryName({ fg = palette.sky.hex }),
       NeoTreeFileName({ fg = palette.sky.hex }),
 
-      NvimTreeNormal({ bg = utils.is_neovide() and palette.bg or palette.bg }),
+      NvimTreeNormal({ bg = palette.bg }),
       NvimTreeWinSeparator({ bg = palette.cursor_line, fg = palette.cursor_line, link = 'WinSeparator' }),
       NvimTreeCursorLine({ bg = palette.cursor_line }),
       NvimTreeExecFile({ link = 'Normal' }),
@@ -100,11 +93,7 @@ function M.create(name, bg, get_palette)
     }
   end)
 
-  -- Pass the specs to lush to apply
-  lush(specs)
-
-  -- Optionally set term colors
-  require('zenbones.term').apply_colors(palette)
+  return { specs = lush(specs), palette = palette }
 end
 
 return M

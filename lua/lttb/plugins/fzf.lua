@@ -60,19 +60,11 @@ return {
 
         utils.cmd_shift('f', {
           function()
-            -- local tf = require('lttb.dev.toggle_floats')
-
             local is_unhidden = get().fzf.win.unhide()
 
             if is_unhidden then
               return
             end
-
-            -- if tf.is_hidden('fzf') then
-            --   tf.toggle_floats('fzf')
-            --
-            --   return
-            -- end
 
             get().fzf.grep_project({
               fzf_opts = {

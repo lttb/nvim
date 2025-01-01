@@ -20,32 +20,9 @@ vim.keymap.set('n', '<C-I>', '<C-I>zv', { remap = true })
 -- Simplify switch no normal mode
 vim.keymap.set({ 'i', 'c', 'v', 't' }, '<M-ESC>', '<C-\\><C-n>')
 
--- require('lttb.dev.yanka')
-local yanka = require('lttb.dev.yanka2')
-
--- TODO: think about simpler approach
-if true then
-  vim.keymap.set('n', 'p', function()
-    vim.api.nvim_feedkeys('o', 'n', false)
-    vim.schedule(function()
-      yanka.put_with_autoindent()
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'i', true)
-    end)
-  end)
-  vim.keymap.set('n', 'P', function()
-    vim.api.nvim_feedkeys('O', 'n', false)
-    vim.schedule(function()
-      yanka.put_with_autoindent()
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'i', true)
-    end)
-  end)
-end
-
 if utils.is_vscode() then
   return
 end
-
-require('lttb.dev.macos-text-nav').setup()
 
 -- @see https://github.com/LazyVim/LazyVim/blob/30b7215de80a215c9bc72640505ea76431ff515c/lua/lazyvim/config/keymaps.lua
 
@@ -123,22 +100,3 @@ function FormatPasted()
 end
 
 vim.keymap.set('n', '/', 'zR/', { remap = false })
-
--- vim.keymap.set('i', '<S-D-v>', '<C-r><C-p>+<cmd>lua FormatPasted()<CR>', { noremap = true, silent = true })
-
--- more refined paste
--- vim.keymap.set('i', '<D-v>', '<C-r><C-p>+')
-
-vim.keymap.set('x', '<D-x>', '"+d')
-vim.keymap.set('n', '<D-x>', '"+dd')
-vim.keymap.set('x', '<D-c>', 'y')
-vim.keymap.set('n', '<D-c>', 'yy')
-vim.keymap.set({ 'i', 'n', 't', 'x' }, '<D-v>', yanka.put_with_autoindent, { noremap = true, silent = true })
-vim.keymap.set('c', '<D-v>', '<C-r>+')
-
-vim.keymap.set({ 'n', 'x', 'i', 't' }, '<D-k>', function()
-  vim.opt.eventignore:append('WinLeave,BufLeave')
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, false, true), 'i', true)
-end)
-
--- vim.keymap.set({ 'n', 'x', 'i', 't' }, '<D-d>', require('lttb.dev.toggle_floats').toggle_floats)

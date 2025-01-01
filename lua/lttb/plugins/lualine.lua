@@ -6,12 +6,12 @@ end
 
 local function config()
   -- local git_blame = require('gitblame')
-  local theme = require('lttb.theme')
 
   require('lualine').setup({
     options = {
       icons_enabled = true,
-      theme = require('lttb.themes.lualine_zengithub'),
+      theme = 'auto',
+      -- theme = require('lualine.themes.zengithub'),
 
       component_separators = '|',
       section_separators = '',

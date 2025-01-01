@@ -7,18 +7,18 @@ if utils.is_vscode() then
 end
 
 return {
-  {
-    'echasnovski/mini.icons',
-    event = 'VeryLazy',
-    priority = 1000, -- make sure to load this before all the other start plugins
-    version = '*',
-    opts = {},
-    config = function()
-      local MiniIcons = require('mini.icons')
-      MiniIcons.setup()
-      MiniIcons.mock_nvim_web_devicons()
-    end,
-  },
+  -- {
+  --   'echasnovski/mini.icons',
+  --   event = 'VeryLazy',
+  --   -- priority = 1000, -- make sure to load this before all the other start plugins
+  --   version = '*',
+  --   opts = {},
+  --   config = function()
+  --     local MiniIcons = require('mini.icons')
+  --     MiniIcons.setup()
+  --     MiniIcons.mock_nvim_web_devicons()
+  --   end,
+  -- },
 
   {
     'akinsho/toggleterm.nvim',
@@ -256,5 +256,11 @@ return {
     keys = {
       { '<C-.>', '<cmd>lua require("fastaction").code_action()<CR>', desc = 'Code Action' },
     },
+  },
+
+  {
+    'lttb/flash-select.nvim',
+    event = 'LazyFile',
+    opts = {},
   },
 }

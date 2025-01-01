@@ -4,11 +4,14 @@ if utils.is_vscode() then
   return {}
 end
 
-local theme = require('lttb.theme')
-
 return {
   -- lush is used for color calculations
   { 'rktjmp/lush.nvim', lazy = true },
+  {
+    'rktjmp/shipwright.nvim',
+    lazy = true,
+    cmd = { 'Shipwright' },
+  },
 
   {
     'mcchrish/zenbones.nvim',
@@ -17,5 +20,16 @@ return {
     init = function()
       vim.g.zenbones_lightness = 'bright'
     end,
+  },
+
+  {
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme',
+    lazy = true,
+  },
+
+  {
+    'lttb/ghostflow.nvim',
+    lazy = true,
   },
 }
