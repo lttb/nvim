@@ -1,9 +1,7 @@
-local theme = require('lttb.theme')
-
 local common_fg = '#636c76'
 local inactive_bg = '#23272E'
 
-if theme.variant == 'light' then
+if vim.o.background == 'light' then
   common_fg = '#1f2328'
   inactive_bg = '#fafafa'
 end

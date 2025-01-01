@@ -9,6 +9,11 @@ local theme = require('lttb.theme')
 return {
   -- lush is used for color calculations
   { 'rktjmp/lush.nvim', lazy = true },
+  {
+    'rktjmp/shipwright.nvim',
+    cmd = { 'Shipwright' },
+    lazy = true
+  },
 
   {
     'mcchrish/zenbones.nvim',
