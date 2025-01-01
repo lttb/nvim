@@ -1,9 +1,5 @@
 .vscode
 
-# it's ignored for now as it hardcodes all the workspace.libraries
-# TODO: think how it can be improved, so far all settings defined with LSP config
-.luarc.json
-
 *.log
 
 .DS_Store
@@ -11,8 +7,6 @@ packer_compiled.*
 
 misc/undodir/**
 !misc/undodir/.gitkeep
-
-.luarc.json
 
 # Compiled Lua sources
 luac.out
