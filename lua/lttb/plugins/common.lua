@@ -95,9 +95,9 @@ return {
     config = function()
       require('smartyank').setup({
         highlight = {
-          enabled = true, -- highlight yanked text
+          enabled = true,     -- highlight yanked text
           higroup = 'Search', -- highlight group of yanked text
-          timeout = 200, -- timeout for clearing the highlight
+          timeout = 200,      -- timeout for clearing the highlight
         },
         clipboard = { enabled = true },
         tmux = {
@@ -107,8 +107,8 @@ return {
         },
         osc52 = {
           enabled = true,
-          ssh_only = true, -- false to OSC52 yank also in local sessions
-          silent = false, -- true to disable the "n chars copied" echo
+          ssh_only = true,       -- false to OSC52 yank also in local sessions
+          silent = false,        -- true to disable the "n chars copied" echo
           echo_hl = 'Directory', -- highlight group of the OSC52 echo message
         },
 
@@ -138,6 +138,26 @@ return {
       -- { 'P',  '<Plug>(YankyPutBefore)',  mode = { 'n', 'x' }, desc = 'Put yanked text before cursor' },
       -- { 'gp', '<Plug>(YankyGPutAfter)',  mode = { 'n', 'x' }, desc = 'Put yanked text after selection' },
       -- { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, desc = 'Put yanked text before selection' },
+    },
+  },
+
+  {
+    'lttb/yanka.nvim',
+    event = 'LazyFile',
+    opts = {},
+    keys = {
+      { '<D-x>', '"+d',  mode = { 'x' } },
+      { '<D-x>', '"+dd', mode = { 'n' } },
+      { '<D-c>', 'y',    mode = { 'x' } },
+      { '<D-c>', 'yy',   mode = { 'n' } },
+      {
+        '<D-v>',
+        '<cmd>lua require("yanka").put_with_autoindent()<CR>',
+        mode = { 'i', 'n', 't', 'x' },
+        noremap = true,
+        silent = true,
+      },
+      { '<D-v>', '<C-r>+', mode = { 'c' } },
     },
   },
 

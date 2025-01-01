@@ -98,4 +98,23 @@ function M.put_with_autoindent()
   vim.api.nvim_put(new_lines, '', false, true)
 end
 
+function M.setup()
+  -- TODO: make it configurable
+  vim.keymap.set('n', 'p', function()
+    vim.api.nvim_feedkeys('o', 'n', false)
+    vim.schedule(function()
+      M.put_with_autoindent()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'i', true)
+    end)
+  end)
+
+  vim.keymap.set('n', 'P', function()
+    vim.api.nvim_feedkeys('O', 'n', false)
+    vim.schedule(function()
+      M.put_with_autoindent()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'i', true)
+    end)
+  end)
+end
+
 return M
