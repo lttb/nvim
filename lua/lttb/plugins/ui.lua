@@ -7,18 +7,17 @@ if utils.is_vscode() then
 end
 
 return {
-  -- {
-  --   'echasnovski/mini.icons',
-  --   event = 'VeryLazy',
-  --   -- priority = 1000, -- make sure to load this before all the other start plugins
-  --   version = '*',
-  --   opts = {},
-  --   config = function()
-  --     local MiniIcons = require('mini.icons')
-  --     MiniIcons.setup()
-  --     MiniIcons.mock_nvim_web_devicons()
-  --   end,
-  -- },
+  {
+    'echasnovski/mini.icons',
+    event = 'VeryLazy',
+    version = '*',
+    opts = {},
+    config = function()
+      local MiniIcons = require('mini.icons')
+      MiniIcons.setup()
+      MiniIcons.mock_nvim_web_devicons()
+    end,
+  },
 
   {
     'akinsho/toggleterm.nvim',

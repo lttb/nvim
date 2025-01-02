@@ -54,12 +54,12 @@ return {
         },
       },
 
-      enable_diagnostics = false,
+      enable_diagnostics = true,
       enable_git_status = true,
 
       filesystem = {
         filtered_items = {
-          visible = true,
+          visible = not utils.is_dotfiles(),
         },
 
         follow_current_file = {
@@ -68,7 +68,7 @@ return {
         },
         group_empty_dirs = false,
 
-        use_libuv_file_watcher = false,
+        use_libuv_file_watcher = true,
       },
 
       default_component_configs = {

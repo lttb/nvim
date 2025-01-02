@@ -21,7 +21,6 @@ return {
       end
 
       return {
-
         {
           '<D-f>',
           function()
@@ -309,7 +308,7 @@ return {
         'danielfalk/smart-open.nvim',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
         -- branch = 'feature/result-bigger-limit',
-        branch = '0.2.x',
+        -- branch = '0.2.x',
         keys = {
           {
             '<leader><leader>',

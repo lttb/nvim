@@ -20,6 +20,10 @@ function M.is_goneovim()
   return vim.g.goneovim ~= nil
 end
 
+function M.is_dotfiles()
+  return os.getenv('DOTFILES') == '1'
+end
+
 function M.log(v)
   print(vim.inspect(v))
   return v
@@ -55,7 +59,7 @@ end
 
 -- @see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
 function M.should_open_sidebar(data)
-  if os.getenv('DOTFILES') == '1' then
+  if M.is_dotfiles() then
     return false
   end
 
