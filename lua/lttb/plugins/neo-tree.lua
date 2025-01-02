@@ -67,7 +67,7 @@ return {
         },
         group_empty_dirs = false,
 
-        use_libuv_file_watcher = true,
+        use_libuv_file_watcher = not utils.is_dotfiles(),
       },
 
       default_component_configs = {
