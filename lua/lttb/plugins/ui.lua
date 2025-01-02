@@ -49,7 +49,8 @@ return {
         },
       }
       local term = Terminal:new(term_options)
-      local lazygit = Terminal:new(vim.tbl_extend('keep', { cmd = 'lazygit' }, term_options))
+
+      local lazygit = Terminal:new(term_options)
 
       return {
         {
@@ -63,6 +64,7 @@ return {
         {
           '<D-g>',
           function()
+            lazygit.cmd = 'DELTA_FEATURES="+' .. vim.o.background .. '" lazygit'
             lazygit:toggle()
           end,
           desc = 'Toggle lazy Git',
