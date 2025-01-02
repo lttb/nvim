@@ -53,8 +53,8 @@ return {
         },
       },
 
-      enable_diagnostics = true,
-      enable_git_status = true,
+      enable_diagnostics = not utils.is_dotfiles(),
+      enable_git_status = not utils.is_dotfiles(),
 
       filesystem = {
         filtered_items = {
