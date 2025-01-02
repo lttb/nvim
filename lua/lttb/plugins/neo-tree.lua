@@ -37,10 +37,6 @@ return {
     },
     opts = {
       window = {
-        width = utils.is_neovide() and 60 or '25%',
-
-        min_width = 40,
-
         mappings = {
           ['<space>'] = false, -- disable space until we figure out which-key disabling
           s = false,
