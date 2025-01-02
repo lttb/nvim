@@ -214,6 +214,10 @@ local function config()
     -- and will be called for each installed server that doesn't have
     -- a dedicated handler.
     function(server_name) -- default handler (optional)
+      if utils.is_dotfiles() then
+        return
+      end
+
       local server = servers[server_name] or {}
       -- This handles overriding only values explicitly passed
       -- by the server configuration above. Useful when disabling
