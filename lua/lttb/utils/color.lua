@@ -1,7 +1,5 @@
 local M = {}
 
-local rgb_convert = require('lush.vivid.rgb.convert')
-
 function M.number_to_hex(color)
   return string.format('#%06x', color)
 end
@@ -15,6 +13,8 @@ function M.blend(from, to, level)
 end
 
 function M.blend_hex(from, to, level)
+  local rgb_convert = require('lush.vivid.rgb.convert')
+
   if to == nil or from == nil then
     return from
   end

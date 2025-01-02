@@ -7,6 +7,7 @@ end
 return {
   {
     'nvim-neo-tree/neo-tree.nvim',
+    event = 'LazyFile',
     cmd = { 'Neotree' },
     keys = {
       { '<D-b>', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Sidebar' } },
