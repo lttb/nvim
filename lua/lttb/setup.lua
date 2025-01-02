@@ -2,6 +2,8 @@
 
 vim.loader.enable()
 
+vim.o.background = 'dark'
+
 require('lttb.settings')
 
 require('lttb.config.lazy')
@@ -17,12 +19,7 @@ if utils.is_vscode() then
   return
 end
 
-vim.o.background = 'dark'
 vim.cmd.colorscheme('ghostflow')
-
--- local homerow_select = require('lttb.dev.flash-select')
--- homerow_select.setup({})
--- vim.ui.select = homerow_select.select
 
 if utils.is_neovide() then
   require('lttb.settings.neovide')
