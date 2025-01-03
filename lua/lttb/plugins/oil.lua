@@ -18,8 +18,7 @@ local function is_file_buffer(bufnr)
 end
 
 local prev_winbar = ''
-
-function _G.get_oil_winbar()
+function _G.oil_render_winbar()
   local buf = vim.api.nvim_get_current_buf()
 
   -- Avoid updating the winbar for floating windows or specific filetypes
@@ -34,6 +33,24 @@ function _G.get_oil_winbar()
   return prev_winbar
 end
 
+function oil_prepare_current_buf()
+  local oil = require('oil')
+  local view = require('oil.view')
+  local bufname = vim.api.nvim_buf_get_name(0)
+  local dir = vim.fn.fnamemodify(bufname, ':h') -- Get the buffer's directory (omit filename)
+
+  local parent_url = oil.get_url_for_path(dir)
+  local basename = vim.fn.fnamemodify(bufname, ':t')
+
+  if basename then
+    view.set_last_cursor(parent_url, basename)
+  end
+
+  return parent_url, basename
+end
+
+-- Based on oil.nvim maybe_set_cursor
+-- @see https://github.com/stevearc/oil.nvim/blob/ba858b662599eab8ef1cba9ab745afded99cb180/lua/oil/view.lua#L40-L60
 ---Set the cursor to the last_cursor_entry if one exists
 local function oil_maybe_set_cursor(bufid, winid)
   bufid = bufid or 0
@@ -63,35 +80,25 @@ end
 return {
   {
     'stevearc/stickybuf.nvim',
+    event = 'VeryLazy',
     init = function()
       local util = require('stickybuf.util')
 
+      -- don't ignore empty buffers
       -- @see https://github.com/stevearc/stickybuf.nvim/issues/30
       util.is_empty_buffer = function()
         return false
       end
     end,
-    opts = {
-      -- This function is run on BufEnter to determine pinning should be activated
-      get_auto_pin = function(bufnr)
-        local filetype = vim.bo[bufnr].filetype
-
-        -- if filetype == 'oil' then
-        --   return true
-        -- end
-        -- You can return "bufnr", "buftype", "filetype", or a custom function to set how the window will be pinned.
-        -- You can instead return an table that will be passed in as "opts" to `stickybuf.pin`.
-        -- The function below encompasses the default logic. Inspect the source to see what it does.
-        return require('stickybuf').should_auto_pin(bufnr)
-      end,
-    },
+    opts = {},
   },
   {
     'stevearc/oil.nvim',
+    event = 'VeryLazy',
     cmd = 'Oil',
     opts = {
       win_options = {
-        winbar = '%!v:lua.get_oil_winbar()',
+        winbar = '%!v:lua.oil_render_winbar()',
       },
       view_options = {
         -- Show files and directories that start with "."
@@ -117,10 +124,7 @@ return {
       })
 
       local shown_win = nil
-      local shown_buf = nil
-      local is_shown = false
 
-      local prev_buf = nil
       local prev_win = nil
 
       local is_pending = false
@@ -155,60 +159,24 @@ return {
               return
             end
 
-            local oil = require('oil')
+            is_pending = true
+
             local view = require('oil.view')
 
-            local bufname = vim.api.nvim_buf_get_name(0)
-            local dir = vim.fn.fnamemodify(bufname, ':h') -- Get the buffer's directory (omit filename)
+            local parent_url = oil_prepare_current_buf()
 
-            is_pending = true
-            -- vim.api.nvim_set_current_win(shown_win)
-
-            local parent_url = oil.get_url_for_path(dir)
-            local basename = vim.fn.fnamemodify(bufname, ':t')
-
-            if basename then
-              view.set_last_cursor(parent_url, basename)
-            end
-
+            local shown_buf = vim.api.nvim_win_get_buf(shown_win)
             local current_buf_name = vim.api.nvim_buf_get_name(shown_buf)
 
             if current_buf_name ~= parent_url then
               vim.api.nvim_buf_set_name(shown_buf, parent_url)
               view.render_buffer_async(shown_buf)
-              -- oil.load_oil_buffer(shown_buf, shown_win)
-              -- vim.cmd.edit({ args = { util.escape_filename(parent_url) } })
-              -- local oil_buf = vim.api.nvim_get_current_buf()
-              -- vim.api.nvim_set_option_value('buflisted', false, { buf = oil_buf })
             end
 
             oil_maybe_set_cursor(shown_buf, shown_win)
 
-            -- vim.api.nvim_set_current_win(win)
             is_pending = false
 
-            -- vim.defer_fn(function()
-            -- end, 0)
-
-            -- vim.cmd.edit({ args = { util.escape_filename(parent_url) }, mods = { keepalt = true } })
-
-            -- vim.api.nvim_set_current_win(win)
-
-            -- print(parent_url, basename)
-
-            -- view.initialize(shown_buf)
-
-            -- local win = vim.api.nvim_get_current_win()
-            -- vim.api.nvim_set_current_win(shown_win)
-            -- require('oil').open()
-            -- vim.api.nvim_set_current_win(win)
-            -- require('oil.view').render_buffer_async(shown_buf)
-            -- require('oil.view').initialize(shown_buf)
-
-            return
-          end
-
-          if is_shown then
             return
           end
 
@@ -216,48 +184,34 @@ return {
             return
           end
 
-          is_shown = true
+          is_pending = true
 
-          local oil = require('oil')
           local view = require('oil.view')
 
-          -- Create a new empty buffer for the vertical split
-          shown_buf = vim.api.nvim_create_buf(false, true) -- false: not listed, true: scratch buffer
+          local shown_buf = vim.api.nvim_create_buf(false, false)
 
-          -- Create the new window with the specified options
           shown_win = vim.api.nvim_open_win(shown_buf, false, {
-            -- relative = 'editor',  -- Position relative to the editor
             split = 'left',
-            width = 50, -- Width of the vertical split
-            -- height = vim.o.lines, -- Full height of the editor
-            -- col = 0,              -- Start at column 0 (leftmost)
-            -- row = 0,              -- Start at row 0 (topmost)
-            focusable = true, -- Prevent focus change
-            -- style = 'minimal', -- Minimal UI (no status line, etc.)
+            width = 50,
+            focusable = true,
+            -- style = 'minimal',
           })
 
-          local bufname = vim.api.nvim_buf_get_name(0)
-          local dir = vim.fn.fnamemodify(bufname, ':h') -- Get the buffer's directory (omit filename)
-
-          -- vim.api.nvim_set_current_win(shown_win)
-
-          local parent_url = oil.get_url_for_path(dir)
-          local basename = vim.fn.fnamemodify(bufname, ':t')
-
-          if basename then
-            view.set_last_cursor(parent_url, basename)
-          end
+          local parent_url = oil_prepare_current_buf()
 
           vim.api.nvim_buf_set_name(shown_buf, parent_url)
 
           view.initialize(shown_buf)
 
-          -- vim.api.nvim_set_option_value('buflisted', false, { buf = shown_buf })
-          -- vim.api.nvim_set_option_value('number', false, { buf = shown_buf })
-          -- vim.api.nvim_set_option_value('relativenumber', false, { buf = shown_buf })
-          -- vim.api.nvim_set_option_value('winfixwidth', true, { buf = shown_buf })
+          require('stickybuf').pin(shown_win, {
+            allow = function(bufnr)
+              local ft = vim.bo[bufnr].ft
 
-          require('stickybuf').pin(shown_win)
+              return bufnr == shown_buf or ft == 'oil'
+            end,
+          })
+
+          is_pending = false
         end,
       })
     end,
