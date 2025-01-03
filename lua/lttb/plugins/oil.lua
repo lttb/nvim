@@ -218,16 +218,46 @@ return {
 
           is_shown = true
 
-          -- TODO: make it async and without window switch, using oil.initialize
-          is_pending = true
-          local win = vim.api.nvim_get_current_win()
-          vim.cmd('topleft 50vsp +Oil')
-          require('stickybuf').pin()
-          -- vim.cmd('PinFiletype')
-          shown_win = vim.api.nvim_get_current_win()
-          shown_buf = vim.api.nvim_get_current_buf()
-          vim.api.nvim_set_current_win(win)
-          is_pending = false
+          local oil = require('oil')
+          local view = require('oil.view')
+
+          -- Create a new empty buffer for the vertical split
+          shown_buf = vim.api.nvim_create_buf(false, true) -- false: not listed, true: scratch buffer
+
+          -- Create the new window with the specified options
+          shown_win = vim.api.nvim_open_win(shown_buf, false, {
+            -- relative = 'editor',  -- Position relative to the editor
+            split = 'left',
+            width = 50, -- Width of the vertical split
+            -- height = vim.o.lines, -- Full height of the editor
+            -- col = 0,              -- Start at column 0 (leftmost)
+            -- row = 0,              -- Start at row 0 (topmost)
+            focusable = true, -- Prevent focus change
+            -- style = 'minimal', -- Minimal UI (no status line, etc.)
+          })
+
+          local bufname = vim.api.nvim_buf_get_name(0)
+          local dir = vim.fn.fnamemodify(bufname, ':h') -- Get the buffer's directory (omit filename)
+
+          -- vim.api.nvim_set_current_win(shown_win)
+
+          local parent_url = oil.get_url_for_path(dir)
+          local basename = vim.fn.fnamemodify(bufname, ':t')
+
+          if basename then
+            view.set_last_cursor(parent_url, basename)
+          end
+
+          vim.api.nvim_buf_set_name(shown_buf, parent_url)
+
+          view.initialize(shown_buf)
+
+          -- vim.api.nvim_set_option_value('buflisted', false, { buf = shown_buf })
+          -- vim.api.nvim_set_option_value('number', false, { buf = shown_buf })
+          -- vim.api.nvim_set_option_value('relativenumber', false, { buf = shown_buf })
+          -- vim.api.nvim_set_option_value('winfixwidth', true, { buf = shown_buf })
+
+          require('stickybuf').pin(shown_win)
         end,
       })
     end,
