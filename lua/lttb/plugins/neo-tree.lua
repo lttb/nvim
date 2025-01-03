@@ -4,10 +4,13 @@ if utils.is_vscode() then
   return {}
 end
 
+if true then
+  return {}
+end
+
 return {
   {
     'nvim-neo-tree/neo-tree.nvim',
-    event = 'LazyFile',
     cmd = { 'Neotree' },
     keys = {
       { '<D-b>', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Sidebar' } },
@@ -54,8 +57,11 @@ return {
         },
       },
 
-      enable_diagnostics = not utils.is_dotfiles(),
-      enable_git_status = not utils.is_dotfiles(),
+      enable_diagnostics = false,
+      enable_git_status = false,
+
+      -- enable_diagnostics = not utils.is_dotfiles(),
+      -- enable_git_status = not utils.is_dotfiles(),
 
       filesystem = {
         filtered_items = {
@@ -68,7 +74,7 @@ return {
         },
         group_empty_dirs = false,
 
-        use_libuv_file_watcher = not utils.is_dotfiles(),
+        -- use_libuv_file_watcher = not utils.is_dotfiles(),
       },
 
       default_component_configs = {
