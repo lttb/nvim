@@ -199,6 +199,10 @@ local function config()
   --  You can press `g?` for help in this menu.
   require('mason').setup()
 
+  if utils.is_dotfiles() then
+    return
+  end
+
   -- You can add other tools here that you want Mason to install
   -- for you, so that they are available from within Neovim.
   local ensure_installed = vim.tbl_keys(servers or {})
@@ -214,10 +218,6 @@ local function config()
     -- and will be called for each installed server that doesn't have
     -- a dedicated handler.
     function(server_name) -- default handler (optional)
-      if utils.is_dotfiles() then
-        return
-      end
-
       local server = servers[server_name] or {}
       -- This handles overriding only values explicitly passed
       -- by the server configuration above. Useful when disabling
@@ -276,7 +276,7 @@ return {
         'saghen/blink.cmp',
         -- optional: provides snippets for the snippet source
         dependencies = {
-          'rafamadriz/friendly-snippets',
+          -- 'rafamadriz/friendly-snippets',
         },
 
         -- use a release tag to download pre-built binaries
@@ -289,6 +289,8 @@ return {
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
+          signature = { enabled = true },
+
           completion = {
             ghost_text = { enabled = true },
 
@@ -296,6 +298,12 @@ return {
               selection = function(ctx)
                 return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
               end,
+            },
+
+            accept = {
+              auto_brackets = {
+                enabled = false,
+              },
             },
 
             menu = {

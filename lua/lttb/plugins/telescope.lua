@@ -305,7 +305,8 @@ return {
 
       {
         enabled = true,
-        'danielfalk/smart-open.nvim',
+        'lttb/smart-open.nvim',
+        branch = 'feat/git-files-open-buffers',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
         -- branch = 'feature/result-bigger-limit',
         -- branch = '0.2.x',
