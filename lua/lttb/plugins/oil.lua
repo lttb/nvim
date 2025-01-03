@@ -4,7 +4,6 @@ if utils.is_vscode() then
   return {}
 end
 
-
 local function is_file_buffer(bufnr)
   local buftype = vim.bo[bufnr].buftype
   local bufname = vim.api.nvim_buf_get_name(bufnr)
@@ -93,6 +92,8 @@ return {
 
       local prev_parent_url = nil
 
+      local current_timer
+
       vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         nested = true,
         callback = function(data)
@@ -127,15 +128,16 @@ return {
             local util = require('oil.util')
             local view = require('oil.view')
 
-            local dir = oil.get_current_dir()
+            local bufname = vim.api.nvim_buf_get_name(0)
+            local dir = vim.fn.fnamemodify(bufname, ':h') -- Get the buffer's directory (omit filename)
+
+            is_pending = true
+            vim.api.nvim_set_current_win(shown_win)
+
             local parent_url, basename = oil.get_url_for_path(dir)
             if basename then
               view.set_last_cursor(parent_url, basename)
             end
-
-            is_pending = true
-
-            vim.api.nvim_set_current_win(shown_win)
 
             view.maybe_set_cursor()
 
