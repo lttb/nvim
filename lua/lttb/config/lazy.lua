@@ -67,5 +67,6 @@ require('lazy').setup({
   dev = {
     path = '~/.config/nvim/lua/lttb/projects',
     patterns = { 'lttb' },
+    fallback = true,
   },
 })

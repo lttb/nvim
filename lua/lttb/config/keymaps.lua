@@ -31,10 +31,10 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Move to window using the <ctrl> hjkl keys
-vim.keymap.set('n', '<C-h>', '<c-w>h', { desc = 'Go to left window', silent = true })
-vim.keymap.set('n', '<C-j>', '<c-w>j', { desc = 'Go to lower window', silent = true })
-vim.keymap.set('n', '<C-k>', '<c-w>k', { desc = 'Go to upper window', silent = true })
-vim.keymap.set('n', '<C-l>', '<c-w>l', { desc = 'Go to right window', silent = true })
+vim.keymap.set('n', '<C-h>', '<c-w>h', { desc = 'Go to left window', silent = true, noremap = true })
+vim.keymap.set('n', '<C-j>', '<c-w>j', { desc = 'Go to lower window', silent = true, noremap = true })
+vim.keymap.set('n', '<C-k>', '<c-w>k', { desc = 'Go to upper window', silent = true, noremap = true })
+vim.keymap.set('n', '<C-l>', '<c-w>l', { desc = 'Go to right window', silent = true, noremap = true })
 
 -- Move to window using the <ctrl> hjkl keys and `vim-kitty-navigator`
 -- vim.keymap.set('n', '<C-h>', ':KittyNavigateLeft<cr>', { desc = 'Go to left window', silent = true })

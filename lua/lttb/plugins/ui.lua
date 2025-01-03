@@ -233,7 +233,7 @@ return {
 
   {
     'shortcuts/no-neck-pain.nvim',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     opts = {
       buffers = {
         right = {

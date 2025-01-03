@@ -32,9 +32,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       highlight! link NoiceCursor Cursor
     ]])
 
-    vim.cmd([[
-      hi NonText guifg=bg
-    ]])
+    -- vim.cmd([[
+    --   hi NonText guifg=bg
+    -- ]])
 
     vim.cmd([[
       hi NeoTreeFileNameOpened gui=bold
