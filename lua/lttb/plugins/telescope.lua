@@ -133,6 +133,7 @@ return {
           function()
             require('telescope').extensions.file_browser.file_browser({
               auto_depth = true,
+              hidden = true,
             })
           end,
           desc = 'Search File Browser',
@@ -145,6 +146,7 @@ return {
               path = '%:p:h',
               select_buffer = true,
               auto_depth = true,
+              hidden = true,
             })
           end,
           desc = 'Search Current File Browser',
@@ -246,6 +248,8 @@ return {
         },
 
         extensions = {
+          file_browser = {},
+
           helpgrep = {
             ignore_paths = {
               vim.fn.stdpath('state') .. '/lazy/readme',
