@@ -131,7 +131,9 @@ return {
         {
           '<leader>sf',
           function()
-            require('telescope').extensions.file_browser.file_browser({})
+            require('telescope').extensions.file_browser.file_browser({
+              auto_depth = true,
+            })
           end,
           desc = 'Search File Browser',
         },
@@ -142,6 +144,7 @@ return {
             require('telescope').extensions.file_browser.file_browser({
               path = '%:p:h',
               select_buffer = true,
+              auto_depth = true,
             })
           end,
           desc = 'Search Current File Browser',
