@@ -93,6 +93,14 @@ return {
       win_options = {
         winbar = '%!v:lua.get_oil_winbar()',
       },
+      view_options = {
+        -- Show files and directories that start with "."
+        show_hidden = true,
+      },
+      keymaps = {
+        ['<C-r>'] = 'actions.refresh',
+        ['<C-l>'] = false,
+      },
     },
     init = function()
       vim.api.nvim_create_autocmd('FileType', {
@@ -116,10 +124,6 @@ return {
       local prev_win = nil
 
       local is_pending = false
-
-      local prev_parent_url = nil
-
-      local current_timer
 
       vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         nested = true,
@@ -152,7 +156,6 @@ return {
             end
 
             local oil = require('oil')
-            local util = require('oil.util')
             local view = require('oil.view')
 
             local bufname = vim.api.nvim_buf_get_name(0)
@@ -164,14 +167,13 @@ return {
             local parent_url = oil.get_url_for_path(dir)
             local basename = vim.fn.fnamemodify(bufname, ':t')
 
-            print('cursor', parent_url, basename)
-
             if basename then
               view.set_last_cursor(parent_url, basename)
             end
 
+            local current_buf_name = vim.api.nvim_buf_get_name(shown_buf)
 
-            if prev_parent_url ~= parent_url then
+            if current_buf_name ~= parent_url then
               vim.api.nvim_buf_set_name(shown_buf, parent_url)
               view.render_buffer_async(shown_buf)
               -- oil.load_oil_buffer(shown_buf, shown_win)
@@ -181,8 +183,6 @@ return {
             end
 
             oil_maybe_set_cursor(shown_buf, shown_win)
-
-            prev_parent_url = parent_url
 
             -- vim.api.nvim_set_current_win(win)
             is_pending = false
