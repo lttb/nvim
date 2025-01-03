@@ -34,6 +34,32 @@ function _G.get_oil_winbar()
   return prev_winbar
 end
 
+---Set the cursor to the last_cursor_entry if one exists
+local function oil_maybe_set_cursor(bufid, winid)
+  bufid = bufid or 0
+  winid = winid or 0
+
+  local oil = require('oil')
+  local view = require('oil.view')
+  local bufname = vim.api.nvim_buf_get_name(bufid)
+  local entry_name = view.get_last_cursor(bufname)
+  if not entry_name then
+    return
+  end
+  local line_count = vim.api.nvim_buf_line_count(bufid)
+  for lnum = 1, line_count do
+    local entry = oil.get_entry_on_line(bufid, lnum)
+    if entry and entry.name == entry_name then
+      local line = vim.api.nvim_buf_get_lines(bufid, lnum - 1, lnum, true)[1]
+      local id_str = line:match('^/(%d+)')
+      local col = line:find(entry_name, 1, true) or (id_str:len() + 1)
+      vim.api.nvim_win_set_cursor(winid, { lnum, col - 1 })
+      view.set_last_cursor(bufname, nil)
+      break
+    end
+  end
+end
+
 return {
   {
     'stevearc/stickybuf.nvim',
@@ -83,6 +109,7 @@ return {
       })
 
       local shown_win = nil
+      local shown_buf = nil
       local is_shown = false
 
       local prev_buf = nil
@@ -132,25 +159,36 @@ return {
             local dir = vim.fn.fnamemodify(bufname, ':h') -- Get the buffer's directory (omit filename)
 
             is_pending = true
-            vim.api.nvim_set_current_win(shown_win)
+            -- vim.api.nvim_set_current_win(shown_win)
 
-            local parent_url, basename = oil.get_url_for_path(dir)
+            local parent_url = oil.get_url_for_path(dir)
+            local basename = vim.fn.fnamemodify(bufname, ':t')
+
+            print('cursor', parent_url, basename)
+
             if basename then
               view.set_last_cursor(parent_url, basename)
             end
 
-            view.maybe_set_cursor()
 
             if prev_parent_url ~= parent_url then
-              vim.cmd.edit({ args = { util.escape_filename(parent_url) } })
-              local oil_buf = vim.api.nvim_get_current_buf()
-              vim.api.nvim_set_option_value('buflisted', false, { buf = oil_buf })
+              vim.api.nvim_buf_set_name(shown_buf, parent_url)
+              view.render_buffer_async(shown_buf)
+              -- oil.load_oil_buffer(shown_buf, shown_win)
+              -- vim.cmd.edit({ args = { util.escape_filename(parent_url) } })
+              -- local oil_buf = vim.api.nvim_get_current_buf()
+              -- vim.api.nvim_set_option_value('buflisted', false, { buf = oil_buf })
             end
+
+            oil_maybe_set_cursor(shown_buf, shown_win)
 
             prev_parent_url = parent_url
 
-            vim.api.nvim_set_current_win(win)
+            -- vim.api.nvim_set_current_win(win)
             is_pending = false
+
+            -- vim.defer_fn(function()
+            -- end, 0)
 
             -- vim.cmd.edit({ args = { util.escape_filename(parent_url) }, mods = { keepalt = true } })
 
@@ -185,7 +223,7 @@ return {
           vim.cmd('topleft 50vsp +Oil')
           vim.cmd('PinFiletype')
           shown_win = vim.api.nvim_get_current_win()
-          -- shown_buf = vim.api.nvim_get_current_buf()
+          shown_buf = vim.api.nvim_get_current_buf()
           vim.api.nvim_set_current_win(win)
           is_pending = false
         end,
