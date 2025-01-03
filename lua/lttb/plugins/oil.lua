@@ -31,19 +31,27 @@ end
 return {
   {
     'stevearc/stickybuf.nvim',
+    init = function()
+      local util = require('stickybuf.util')
+
+      -- @see https://github.com/stevearc/stickybuf.nvim/issues/30
+      util.is_empty_buffer = function()
+        return false
+      end
+    end,
     opts = {
-      -- -- This function is run on BufEnter to determine pinning should be activated
-      -- get_auto_pin = function(bufnr)
-      --   local filetype = vim.bo[bufnr].filetype
-      --
-      --   if filetype == 'oil' then
-      --     return true
-      --   end
-      --   -- You can return "bufnr", "buftype", "filetype", or a custom function to set how the window will be pinned.
-      --   -- You can instead return an table that will be passed in as "opts" to `stickybuf.pin`.
-      --   -- The function below encompasses the default logic. Inspect the source to see what it does.
-      --   return require('stickybuf').should_auto_pin(bufnr)
-      -- end,
+      -- This function is run on BufEnter to determine pinning should be activated
+      get_auto_pin = function(bufnr)
+        local filetype = vim.bo[bufnr].filetype
+
+        if filetype == 'oil' then
+          return true
+        end
+        -- You can return "bufnr", "buftype", "filetype", or a custom function to set how the window will be pinned.
+        -- You can instead return an table that will be passed in as "opts" to `stickybuf.pin`.
+        -- The function below encompasses the default logic. Inspect the source to see what it does.
+        return require('stickybuf').should_auto_pin(bufnr)
+      end,
     },
   },
   {
@@ -69,7 +77,6 @@ return {
       })
 
       local shown_win = nil
-      local shown_buf = nil
       local is_shown = false
 
       local prev_buf = nil
@@ -84,43 +91,28 @@ return {
           local buf = vim.api.nvim_get_current_buf()
           local win = vim.api.nvim_get_current_win()
 
-
           if is_pending then
             return
           end
 
           if filetype == 'oil' then
-            prev_buf = buf
+            prev_win = win
 
             return
           end
-
-          if prev_buf == buf then
-            return
-          end
-
-          if prev_buf == shown_buf then
-            prev_buf = buf
-
-            return
-          end
-
-          prev_buf = buf
 
           if shown_win ~= nil then
             if prev_win == shown_win then
+              prev_win = win
+
               return
             end
 
             prev_win = win
-            -- local buftype = vim.bo[buf].buftype
-            -- local bufname = vim.api.nvim_buf_get_name(buf)
-            -- print(is_file_buffer(buf), buftype, bufname)
 
             if not is_file_buffer(buf) then
               return
             end
-
 
             local oil = require('oil')
             local util = require('oil.util')
@@ -136,7 +128,8 @@ return {
             is_pending = true
             vim.api.nvim_set_current_win(shown_win)
             vim.cmd.edit({ args = { util.escape_filename(parent_url) }, mods = { keepalt = true } })
-            vim.api.nvim_set_option_value('buflisted', false, { buf = shown_buf })
+            local oil_buf = vim.api.nvim_get_current_buf()
+            vim.api.nvim_set_option_value('buflisted', false, { buf = oil_buf })
 
             vim.api.nvim_set_current_win(win)
             is_pending = false
@@ -169,12 +162,14 @@ return {
 
           is_shown = true
 
+          is_pending = true
           local win = vim.api.nvim_get_current_win()
           vim.cmd('topleft 50vsp +Oil')
           vim.cmd('PinFiletype')
           shown_win = vim.api.nvim_get_current_win()
-          shown_buf = vim.api.nvim_get_current_buf()
+          -- shown_buf = vim.api.nvim_get_current_buf()
           vim.api.nvim_set_current_win(win)
+          is_pending = false
         end,
       })
     end,
