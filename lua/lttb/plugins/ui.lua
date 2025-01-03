@@ -51,13 +51,7 @@ return {
       local term = Terminal:new(term_options)
 
       -- new term_options object is needed to avoid caching
-      local lazygit = Terminal:new(
-        vim.tbl_extend(
-          'keep',
-          {},
-          term_options
-        )
-      )
+      local lazygit = Terminal:new(vim.tbl_extend('keep', {}, term_options))
 
       return {
         {
