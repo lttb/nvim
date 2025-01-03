@@ -76,9 +76,9 @@ return {
       get_auto_pin = function(bufnr)
         local filetype = vim.bo[bufnr].filetype
 
-        if filetype == 'oil' then
-          return true
-        end
+        -- if filetype == 'oil' then
+        --   return true
+        -- end
         -- You can return "bufnr", "buftype", "filetype", or a custom function to set how the window will be pinned.
         -- You can instead return an table that will be passed in as "opts" to `stickybuf.pin`.
         -- The function below encompasses the default logic. Inspect the source to see what it does.
@@ -218,10 +218,12 @@ return {
 
           is_shown = true
 
+          -- TODO: make it async and without window switch, using oil.initialize
           is_pending = true
           local win = vim.api.nvim_get_current_win()
           vim.cmd('topleft 50vsp +Oil')
-          vim.cmd('PinFiletype')
+          require('stickybuf').pin()
+          -- vim.cmd('PinFiletype')
           shown_win = vim.api.nvim_get_current_win()
           shown_buf = vim.api.nvim_get_current_buf()
           vim.api.nvim_set_current_win(win)
