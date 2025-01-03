@@ -4,16 +4,6 @@ if utils.is_vscode() then
   return {}
 end
 
--- Declare a global function to retrieve the current directory
-function _G.get_oil_winbar()
-  local dir = require('oil').get_current_dir()
-  if dir then
-    return vim.fn.fnamemodify(dir, ':~')
-  else
-    -- If there is no current directory (e.g. over ssh), just show the buffer name
-    return vim.api.nvim_buf_get_name(0)
-  end
-end
 
 local function is_file_buffer(bufnr)
   local buftype = vim.bo[bufnr].buftype
@@ -26,6 +16,23 @@ local function is_file_buffer(bufnr)
 
   -- Regular file buffers have an empty buftype and a non-empty bufname
   return buftype == '' and bufname ~= ''
+end
+
+local prev_winbar = ''
+
+function _G.get_oil_winbar()
+  local buf = vim.api.nvim_get_current_buf()
+
+  -- Avoid updating the winbar for floating windows or specific filetypes
+  if not is_file_buffer(buf) then
+    return prev_winbar -- Return an empty string to avoid setting the winbar
+  end
+
+  local bufname = vim.api.nvim_buf_get_name(0)
+  local bufdir = vim.fn.fnamemodify(bufname, ':h') -- Get the buffer's directory (omit filename)
+  prev_winbar = vim.fn.fnamemodify(bufdir, ':.')   -- Make it relative to CWD
+
+  return prev_winbar
 end
 
 return {
@@ -84,6 +91,8 @@ return {
 
       local is_pending = false
 
+      local prev_parent_url = nil
+
       vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         nested = true,
         callback = function(data)
@@ -124,12 +133,19 @@ return {
               view.set_last_cursor(parent_url, basename)
             end
 
-
             is_pending = true
+
             vim.api.nvim_set_current_win(shown_win)
-            vim.cmd.edit({ args = { util.escape_filename(parent_url) }, mods = { keepalt = true } })
-            local oil_buf = vim.api.nvim_get_current_buf()
-            vim.api.nvim_set_option_value('buflisted', false, { buf = oil_buf })
+
+            view.maybe_set_cursor()
+
+            if prev_parent_url ~= parent_url then
+              vim.cmd.edit({ args = { util.escape_filename(parent_url) } })
+              local oil_buf = vim.api.nvim_get_current_buf()
+              vim.api.nvim_set_option_value('buflisted', false, { buf = oil_buf })
+            end
+
+            prev_parent_url = parent_url
 
             vim.api.nvim_set_current_win(win)
             is_pending = false
