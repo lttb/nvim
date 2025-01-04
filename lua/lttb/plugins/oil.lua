@@ -269,13 +269,19 @@ return {
 
           local view = require('oil.view')
 
+          local winwin = require('lttb.utils.windows')
+
+          winwin.setup()
+
           local shown_buf = vim.api.nvim_create_buf(false, false)
 
-          shown_win = vim.api.nvim_open_win(shown_buf, false, {
-            split = 'left',
-            width = 50,
+          shown_win = winwin.open_win(shown_buf, false, {
             focusable = true,
-            -- style = 'minimal',
+            split = 'left',
+          }, {
+            sync = true,
+            width = 0.25,
+            min_width = 30,
           })
 
           local parent_url = oil_prepare_current_buf()
