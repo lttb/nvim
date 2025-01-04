@@ -49,15 +49,23 @@ function oil_prepare_current_buf()
   return parent_url, basename
 end
 
+function oil_get_selected_file()
+  local dir = require('oil').get_current_dir()
+  local entry = require('oil').get_cursor_entry()
+  local filepath = vim.fn.resolve(dir .. (entry and entry.name))
+
+  return { filepath = filepath, entry = entry }
+end
+
 -- Based on oil.nvim maybe_set_cursor
 -- @see https://github.com/stevearc/oil.nvim/blob/ba858b662599eab8ef1cba9ab745afded99cb180/lua/oil/view.lua#L40-L60
 ---Set the cursor to the last_cursor_entry if one exists
-local function oil_maybe_set_cursor(bufid, winid)
-  bufid = bufid or 0
+local function oil_maybe_set_cursor(winid)
   winid = winid or 0
 
   local oil = require('oil')
   local view = require('oil.view')
+  local bufid = vim.api.nvim_win_get_buf(winid)
   local bufname = vim.api.nvim_buf_get_name(bufid)
   local entry_name = view.get_last_cursor(bufname)
   if not entry_name then
@@ -76,6 +84,55 @@ local function oil_maybe_set_cursor(bufid, winid)
     end
   end
 end
+
+local commands = {
+  system_open = function(filepath)
+    vim.ui.open(filepath)
+  end,
+  copy_selector = function(filepath)
+    local notify = require('notify')
+
+    local modify = vim.fn.fnamemodify
+    local filename = modify(filepath, ':t')
+
+    local vals = {
+      ['1.FILENAME'] = filename,
+      ['2.DIRNAME'] = modify(filepath, ':h'),
+      ['3.PATH (CWD)'] = modify(filepath, ':.'),
+      ['4.PATH (HOME)'] = modify(filepath, ':~'),
+      ['5.PATH (GLOBAL)'] = filepath,
+      ['6.BASENAME'] = modify(filename, ':r'),
+      ['7.EXTENSION'] = modify(filename, ':e'),
+      ['8.URI'] = vim.uri_from_fname(filepath),
+    }
+
+    local options = vim.tbl_filter(function(val)
+      return vals[val] ~= ''
+    end, vim.tbl_keys(vals))
+    if vim.tbl_isempty(options) then
+      notify('No values to copy', vim.log.levels.WARN)
+      return
+    end
+    table.sort(options)
+    vim.ui.select(options, {
+      prompt = 'Choose to copy to clipboard:',
+      format_item = function(item)
+        return ('%s: %s'):format(item:sub(3), vals[item])
+      end,
+    }, function(choice)
+      local result = vals[choice]
+      if result then
+        notify(('Copied: `%s`'):format(result))
+        vim.fn.setreg('+', result)
+      end
+    end)
+  end,
+  find_in_dir = function(type, filepath)
+    require('telescope.builtin').find_files({
+      cwd = type == 'directory' and filepath or vim.fn.fnamemodify(filepath, ':h'),
+    })
+  end,
+}
 
 return {
   {
@@ -107,6 +164,16 @@ return {
       keymaps = {
         ['<C-r>'] = 'actions.refresh',
         ['<C-l>'] = false,
+        ['<S-O>'] = function()
+          commands.system_open(oil_get_selected_file().filepath)
+        end,
+        ['<C-f>'] = function()
+          local selected_file = oil_get_selected_file()
+          commands.find_in_dir(selected_file.entry.type, selected_file.filepath)
+        end,
+        ['<S-y>'] = function()
+          commands.copy_selector(oil_get_selected_file().filepath)
+        end,
       },
     },
     init = function()
@@ -127,18 +194,21 @@ return {
 
       local prev_win = nil
 
-      local is_pending = false
+      -- local is_pending = false
+
+      local pending_timer = nil
+      local state = 'idle'
 
       vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         nested = true,
         callback = function(data)
+          if state == 'initialising' then
+            return
+          end
+
           local filetype = vim.bo[data.buf].ft
           local buf = vim.api.nvim_get_current_buf()
           local win = vim.api.nvim_get_current_win()
-
-          if is_pending then
-            return
-          end
 
           if filetype == 'oil' then
             prev_win = win
@@ -159,24 +229,35 @@ return {
               return
             end
 
-            is_pending = true
-
-            local view = require('oil.view')
-
-            local parent_url = oil_prepare_current_buf()
-
-            local shown_buf = vim.api.nvim_win_get_buf(shown_win)
-            local current_buf_name = vim.api.nvim_buf_get_name(shown_buf)
-
-            if current_buf_name ~= parent_url then
-              vim.api.nvim_buf_set_name(shown_buf, parent_url)
-              view.render_buffer_async(shown_buf)
+            if pending_timer then
+              pending_timer:stop()
             end
 
-            oil_maybe_set_cursor(shown_buf, shown_win)
+            pending_timer = vim.defer_fn(function()
+              local shown_buf = vim.api.nvim_win_get_buf(shown_win)
+              local current_buf_name = vim.api.nvim_buf_get_name(shown_buf)
 
-            is_pending = false
+              if not vim.startswith(current_buf_name, 'oil://') then
+                return
+              end
 
+              local parent_url = oil_prepare_current_buf()
+
+              local view = require('oil.view')
+
+              if current_buf_name ~= parent_url then
+                print(current_buf_name, parent_url)
+                vim.api.nvim_buf_set_name(shown_buf, parent_url)
+                view.render_buffer_async(shown_buf)
+              end
+
+              oil_maybe_set_cursor(shown_win)
+            end, 0)
+
+            return
+          end
+
+          if state == 'inited' then
             return
           end
 
@@ -184,7 +265,7 @@ return {
             return
           end
 
-          is_pending = true
+          state = 'initialising'
 
           local view = require('oil.view')
 
@@ -211,7 +292,7 @@ return {
             end,
           })
 
-          is_pending = false
+          state = 'inited'
         end,
       })
     end,
