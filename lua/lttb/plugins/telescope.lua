@@ -294,6 +294,8 @@ return {
       },
 
       {
+        -- NOTE: it seems it doesn't work with oil.nvim
+        enabled = false,
         'dawsers/telescope-file-history.nvim',
         -- NOTE: nice plugin, but spams notifications on changs, need to investigate
         config = function()
