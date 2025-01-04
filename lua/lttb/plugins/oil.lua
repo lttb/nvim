@@ -148,7 +148,7 @@ local commands = {
 return {
   {
     'stevearc/stickybuf.nvim',
-    event = 'VeryLazy',
+    lazy = true,
     init = function()
       local util = require('stickybuf.util')
 
@@ -162,9 +162,11 @@ return {
   },
   {
     'stevearc/oil.nvim',
-    event = 'VeryLazy',
+    lazy = false,
     cmd = 'Oil',
     opts = {
+      default_file_explorer = true,
+
       win_options = {
         winbar = '%!v:lua.oil_render_winbar()',
       },
@@ -292,7 +294,12 @@ return {
 
           winwin.setup()
 
+          local current_win = vim.api.nvim_get_current_win()
           local buf = vim.api.nvim_create_buf(false, false)
+
+          -- vim.defer_fn(function ()
+          --
+          -- end, 0)
 
           shown_win = winwin.open_win(buf, false, {
             focusable = false,
@@ -306,9 +313,14 @@ return {
 
           local parent_url = oil_prepare_current_buf()
 
-          vim.api.nvim_buf_set_name(buf, parent_url)
+          local existing_buf = find_buffer_by_name(parent_url)
 
-          view.initialize(buf)
+          if existing_buf == -1 then
+            vim.api.nvim_buf_set_name(buf, parent_url)
+            view.initialize(buf)
+          else
+            vim.api.nvim_win_set_buf(shown_win, existing_buf)
+          end
 
           require('stickybuf').pin(shown_win, {
             allow = function(bufnr)
@@ -320,6 +332,11 @@ return {
               return bufnr ~= shown_buf or ft == 'oil'
             end,
           })
+
+          vim.defer_fn(function()
+            -- force to focus on the original win
+            vim.api.nvim_set_current_win(current_win)
+          end, 0)
 
           vim.api.nvim_create_autocmd({ 'WinEnter' }, {
             nested = true,
