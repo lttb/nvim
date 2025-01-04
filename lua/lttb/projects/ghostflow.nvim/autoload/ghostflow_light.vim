@@ -19,11 +19,11 @@ highlight Normal guifg=#202429 guibg=#FFFFFF guisp=NONE gui=NONE cterm=NONE
 highlight! link ModeMsg Normal
 highlight Bold guifg=NONE guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight Boolean guifg=#202429 guibg=NONE guisp=NONE gui=italic cterm=italic
+highlight BufferLineFill guifg=NONE guibg=#F4F7F9 guisp=NONE gui=NONE cterm=NONE
 highlight BufferVisible guifg=#525A65 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight BufferVisibleIndex guifg=#525A65 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight BufferVisibleSign guifg=#525A65 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight CocMarkdownLink guifg=#6F7882 guibg=NONE guisp=NONE gui=underline cterm=underline
-highlight ColorColumn guifg=NONE guibg=#EDD8D4 guisp=NONE gui=NONE cterm=NONE
 highlight! link LspReferenceRead ColorColumn
 highlight! link LspReferenceText ColorColumn
 highlight! link LspReferenceWrite ColorColumn
@@ -39,6 +39,7 @@ highlight Cursor guifg=#FFFFFF guibg=#202429 guisp=NONE gui=NONE cterm=NONE
 highlight! link TermCursor Cursor
 highlight CursorLine guifg=NONE guibg=#F4F7F9 guisp=NONE gui=NONE cterm=NONE
 highlight! link CocMenuSel CursorLine
+highlight! link ColorColumn CursorLine
 highlight! link CursorColumn CursorLine
 highlight CursorLineNr guifg=#202429 guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight Delimiter guifg=#8B8B8B guibg=NONE guisp=NONE gui=NONE cterm=NONE
