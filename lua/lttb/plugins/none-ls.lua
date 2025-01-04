@@ -8,7 +8,11 @@ return {
   {
     'nvimtools/none-ls.nvim',
     event = 'LazyFile',
-    dependencies = { 'davidmh/cspell.nvim', 'nvimtools/none-ls-extras.nvim' },
+    dependencies = {
+      -- cspell can freeze with "lint" and without "--file" flag
+      'lttb/cspell.nvim',
+      'nvimtools/none-ls-extras.nvim',
+    },
     opts = function()
       local null_ls = require('null-ls')
       local cspell = require('cspell')
