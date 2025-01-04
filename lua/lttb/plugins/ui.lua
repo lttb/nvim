@@ -149,18 +149,16 @@ return {
 
   {
     'akinsho/bufferline.nvim',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     version = '*',
     opts = function()
-      local bufferline = require('bufferline')
-
       return {
         options = {
           themable = true,
 
           offsets = {
             {
-              filetype = 'neo-tree',
+              filetype = 'oil',
               text = 'File Explorer',
               highlight = 'Directory',
               separator = false, -- use a "true" to enable the default, or set your own character
