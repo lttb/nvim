@@ -85,6 +85,17 @@ local function oil_maybe_set_cursor(winid)
   end
 end
 
+-- @see https://github.com/nvim-neo-tree/neo-tree.nvim/blob/2a0b2c5d394a280cee9444c9894582ac53098604/lua/neo-tree/utils/init.lua
+local function find_buffer_by_name(name)
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    local buf_name = vim.api.nvim_buf_get_name(buf)
+    if buf_name == name then
+      return buf
+    end
+  end
+  return -1
+end
+
 local commands = {
   system_open = function(filepath)
     vim.ui.open(filepath)
@@ -181,11 +192,11 @@ return {
         pattern = 'oil',
         callback = function()
           vim.opt_local.number = false
-          vim.opt_local.relativenumber = false
           -- Mark the window as special
           vim.w.oil_window = true
           -- Set window options to prevent most plugins from targeting it
           vim.opt_local.winfixwidth = true
+          vim.opt_local.equalalways = true
           vim.opt_local.buflisted = false
         end,
       })
@@ -202,12 +213,14 @@ return {
       vim.api.nvim_create_autocmd({ 'BufEnter' }, {
         nested = true,
         callback = function(data)
+          -- print(string.format('event fired: %s', vim.inspect(data)))
+
           if state == 'initialising' then
             return
           end
 
           local filetype = vim.bo[data.buf].ft
-          local buf = vim.api.nvim_get_current_buf()
+          local buf = data.buf
           local win = vim.api.nvim_get_current_win()
 
           if filetype == 'oil' then
@@ -246,9 +259,15 @@ return {
               local view = require('oil.view')
 
               if current_buf_name ~= parent_url then
-                print(current_buf_name, parent_url)
-                vim.api.nvim_buf_set_name(shown_buf, parent_url)
-                view.render_buffer_async(shown_buf)
+                -- TODO: think about more efficient way
+                local existing_buf = find_buffer_by_name(parent_url)
+
+                if existing_buf == -1 then
+                  vim.api.nvim_buf_set_name(shown_buf, parent_url)
+                  view.render_buffer_async(shown_buf)
+                else
+                  vim.api.nvim_win_set_buf(shown_win, existing_buf)
+                end
               end
 
               oil_maybe_set_cursor(shown_win)
@@ -273,11 +292,12 @@ return {
 
           winwin.setup()
 
-          local shown_buf = vim.api.nvim_create_buf(false, false)
+          local buf = vim.api.nvim_create_buf(false, false)
 
-          shown_win = winwin.open_win(shown_buf, false, {
-            focusable = true,
+          shown_win = winwin.open_win(buf, false, {
+            focusable = false,
             split = 'left',
+            fixed = true,
           }, {
             sync = true,
             width = 0.25,
@@ -286,15 +306,85 @@ return {
 
           local parent_url = oil_prepare_current_buf()
 
-          vim.api.nvim_buf_set_name(shown_buf, parent_url)
+          vim.api.nvim_buf_set_name(buf, parent_url)
 
-          view.initialize(shown_buf)
+          view.initialize(buf)
 
           require('stickybuf').pin(shown_win, {
             allow = function(bufnr)
               local ft = vim.bo[bufnr].ft
+              local shown_buf = vim.api.nvim_win_get_buf(shown_win)
 
-              return bufnr == shown_buf or ft == 'oil'
+              -- print('pin', bufnr, buf, shown_buf)
+
+              return bufnr ~= shown_buf or ft == 'oil'
+            end,
+          })
+
+          vim.api.nvim_create_autocmd({ 'WinEnter' }, {
+            nested = true,
+            callback = function(data)
+              local win = vim.api.nvim_get_current_win()
+              if win ~= shown_win then
+                return
+              end
+
+              local width_expected = winwin.get_win_width(win)
+              local width = vim.api.nvim_win_get_width(win)
+
+              if width_expected ~= width then
+                local empty_buf = vim.api.nvim_create_buf(false, true)
+                local total_width = vim.o.columns
+
+                -- print('initial', shown_win)
+
+                local empty_buf_pattern = 'oil_scratch_buf'
+
+                vim.api.nvim_create_autocmd('FileType', {
+                  pattern = empty_buf_pattern,
+                  once = true,
+                  callback = function()
+                    vim.opt_local.number = false
+                    vim.opt_local.colorcolumn = ''
+                  end,
+                })
+
+                vim.api.nvim_create_autocmd('WinResized', {
+                  once = true,
+                  callback = function()
+                    vim.api.nvim_open_win(empty_buf, false, {
+                      split = 'right',
+                      width = total_width - width_expected - 1, -- Adjust split width (50% of current width)
+                      focusable = false,
+                    })
+
+                    vim.api.nvim_set_option_value('filetype', empty_buf_pattern, { buf = empty_buf })
+
+                    -- vim.api.nvim_buf_set_option(empty_buf, 'number', false)
+                    -- vim.api.nvim_buf_set_option(empty_buf, 'relativenumber', false)
+
+                    -- vim.api.nvim_win_set_config(0, {
+                    --   width = width_expected,
+                    --   split = 'left',
+                    --   vertical = true,
+                    -- })
+                  end,
+                })
+
+                -- vim.cmd('e')
+                -- winwin.resize_synced_windows()
+                -- width_expected = vim.api.nvim_win_get_width(win)
+              end
+
+              -- local win_amount = #vim.api.nvim_tabpage_list_wins(0)
+              --
+              -- print('hey', win_amount)
+              --
+              -- if win_amount > 1 then
+              --   return
+              -- end
+              --
+              -- print('alone')
             end,
           })
 

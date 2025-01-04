@@ -20,12 +20,13 @@ function M.open_win(buffer, enter, base_options, options)
   end
 
   -- Call the original nvim_open_win function with updated options
-  local win_id = vim.api.nvim_open_win(buffer, enter, vim.tbl_extend('force', base_options, { width = width }))
+  local win_id = vim.api.nvim_open_win(buffer, enter, vim.tbl_extend('keep', { width = width }, base_options))
 
   -- If sync is enabled, track the window for resizing on screen changes
   if options.sync then
     synced_windows[win_id] = {
       buffer = buffer,
+      width = width,
       base_options = base_options,
       options = vim.tbl_extend('force', options, { sync = nil }), -- Remove sync to avoid recursion
     }
@@ -49,13 +50,19 @@ function M.resize_synced_windows()
         width = math.min(width, data.options.max_width or math.huge)
       end
 
+      synced_windows[win_id].width = width
+
       -- Update the window configuration with the new width
-      vim.api.nvim_win_set_config(win_id, vim.tbl_extend('force', data.base_options, { width = width }))
+      vim.api.nvim_win_set_config(win_id, vim.tbl_extend('keep', { width = width }, data.base_options))
     else
       -- Remove invalid windows from tracking table
       synced_windows[win_id] = nil
     end
   end
+end
+
+function M.get_win_width(winid)
+  return synced_windows[winid] and synced_windows[winid].width
 end
 
 local is_set = false
