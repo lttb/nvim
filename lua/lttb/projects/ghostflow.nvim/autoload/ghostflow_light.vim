@@ -17,6 +17,7 @@ let g:terminal_color_14 = '#546576'
 let g:terminal_color_15 = '#474E58'
 highlight Normal guifg=#202429 guibg=#FFFFFF guisp=NONE gui=NONE cterm=NONE
 highlight! link ModeMsg Normal
+highlight! link WinBarNC Normal
 highlight Bold guifg=NONE guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight Boolean guifg=#202429 guibg=NONE guisp=NONE gui=italic cterm=italic
 highlight BufferLineFill guifg=NONE guibg=#F4F7F9 guisp=NONE gui=NONE cterm=NONE
@@ -177,7 +178,6 @@ highlight! link TabLine StatusLine
 highlight! link WinBar StatusLine
 highlight StatusLineNC guifg=#525A65 guibg=#EEEEEE guisp=NONE gui=NONE cterm=NONE
 highlight! link TabLineFill StatusLineNC
-highlight! link WinBarNC StatusLineNC
 highlight TabLineSel guifg=NONE guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight! link BufferCurrent TabLineSel
 highlight Title guifg=#202429 guibg=NONE guisp=NONE gui=bold cterm=bold

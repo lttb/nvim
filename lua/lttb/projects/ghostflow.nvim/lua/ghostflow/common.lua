@@ -61,16 +61,6 @@ function M.create(colors_name, bg, get_palette)
 
       Todo({ underline = false }),
 
-      -- NeoTreeNormalNC({ bg = '#FAFAFA' }),
-      NeoTreeDirectoryIcon({ fg = palette.sky.hex }),
-      NeoTreeDirectoryName({ fg = palette.sky.hex }),
-      NeoTreeFileName({ fg = palette.sky.hex }),
-
-      NvimTreeNormal({ bg = palette.bg }),
-      NvimTreeWinSeparator({ bg = palette.cursor_line, fg = palette.cursor_line, link = 'WinSeparator' }),
-      NvimTreeCursorLine({ bg = palette.cursor_line }),
-      NvimTreeExecFile({ link = 'Normal' }),
-
       TreesitterContextSeparator({ fg = palette.cursor_line }),
 
       -- I might want to move it to autocmds to apply for all themes
@@ -90,12 +80,23 @@ function M.create(colors_name, bg, get_palette)
       WinSeparator({
         bg = palette.cursor_line,
         fg = palette.cursor_line,
-        link = 'WinSeparator',
       }),
+
+      WinBarNC({ base_specs.Normal }),
+
+      -- NeoTreeNormalNC({ bg = '#FAFAFA' }),
+      NeoTreeDirectoryIcon({ fg = palette.sky.hex }),
+      NeoTreeDirectoryName({ fg = palette.sky.hex }),
+      NeoTreeFileName({ fg = palette.sky.hex }),
+
+      NvimTreeNormal({ bg = palette.bg }),
+      NvimTreeWinSeparator({ WinSeparator }),
+      NvimTreeCursorLine({ bg = palette.cursor_line }),
+      NvimTreeExecFile({ base_specs.Normal }),
     }
   end)
 
-  return { specs = lush(specs), palette = palette }
+  return { specs = specs, palette = palette }
 end
 
 return M
