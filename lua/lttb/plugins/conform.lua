@@ -19,7 +19,8 @@ local js_formatter = function(bufnr)
     return { 'biome' }
   end
 
-  return { lsp_format = 'first', 'prettier' }
+  -- use global "prettierd" instead of Mason?
+  return { lsp_format = 'first', 'prettierd' }
 end
 
 return {
