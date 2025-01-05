@@ -4,6 +4,24 @@ if utils.is_vscode() then
   return {}
 end
 
+local js_formatter = function(bufnr)
+  local lsp_clients = vim.lsp.get_clients({ bufnr = bufnr })
+
+  local is_biome = false
+  for _, client in pairs(lsp_clients) do
+    if client.name == 'biome' then
+      is_biome = true
+      break
+    end
+  end
+
+  if is_biome then
+    return { 'biome' }
+  end
+
+  return { lsp_format = 'first', 'prettier' }
+end
+
 return {
   {
     -- Autoformat
@@ -46,6 +64,16 @@ return {
       formatters_by_ft = {
         lua = { 'stylua', lsp_format = 'last' },
         zsh = { 'shfmt' },
+        sh = { 'shfmt' },
+        typescript = js_formatter,
+        typescriptreact = js_formatter,
+        javascript = js_formatter,
+        javascriptreact = js_formatter,
+        json = js_formatter,
+        jsonc = js_formatter,
+        yaml = { 'prettier' },
+        ['markdown'] = { 'prettier' },
+        ['markdown.mdx'] = { 'prettier' },
       },
     },
   },
