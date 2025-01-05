@@ -149,7 +149,9 @@ return {
   {
     'stevearc/stickybuf.nvim',
     lazy = true,
-    init = function()
+    config = function()
+      require('stickybuf').setup({})
+
       local util = require('stickybuf.util')
 
       -- don't ignore empty buffers
@@ -158,14 +160,18 @@ return {
         return false
       end
     end,
-    opts = {},
   },
+
+  -- TODO: support sidebar toggling
+  -- TODO: check edgy.nvim again, there were perf issues
   {
     'stevearc/oil.nvim',
     lazy = false,
     cmd = 'Oil',
     opts = {
       default_file_explorer = true,
+
+      skip_confirm_for_simple_edits = true,
 
       win_options = {
         winbar = '%!v:lua.oil_render_winbar()',
