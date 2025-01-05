@@ -107,16 +107,16 @@ return {
         --   desc = 'Search by Grep by File glob',
         -- },
 
-        {
-          '<leader>sa',
-          function()
-            get().builtin.find_files({
-              hidden = true,
-              no_ignore = true,
-            })
-          end,
-          desc = 'Search All files',
-        },
+        -- {
+        --   '<leader>sa',
+        --   function()
+        --     get().builtin.find_files({
+        --       hidden = true,
+        --       no_ignore = true,
+        --     })
+        --   end,
+        --   desc = 'Search All files',
+        -- },
 
         {
           '<leader>ss',

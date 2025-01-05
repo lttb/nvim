@@ -55,9 +55,17 @@ return {
         {
           '<D-p>',
           function()
-            require('fzf-lua').files()
+            get().fzf.git_files()
           end,
           desc = 'Search Files',
+        },
+
+        {
+          '<leader>sa',
+          function()
+            get().fzf.files()
+          end,
+          desc = 'Search All files',
         },
 
         -- utils.cmd_shift('r', {
