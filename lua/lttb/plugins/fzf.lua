@@ -7,6 +7,7 @@ end
 return {
   {
     'ibhagwan/fzf-lua',
+    cmd = 'FzfLua',
     opts = {
       lsp = {
         -- @see https://github.com/nvimtools/none-ls.nvim/wiki/Compatibility-with-other-plugins
@@ -50,6 +51,14 @@ return {
         --   desc = 'Fuzzily search in current buffer',
         --   silent = true,
         -- },
+
+        {
+          '<D-p>',
+          function()
+            require('fzf-lua').files()
+          end,
+          desc = 'Search Files',
+        },
 
         -- utils.cmd_shift('r', {
         --   function()

@@ -67,21 +67,21 @@ return {
           desc = 'Search Buffers',
         },
 
-        {
-          '<D-p>',
-          function()
-            vim.fn.system('git rev-parse --is-inside-work-tree')
-
-            if vim.v.shell_error == 0 then
-              get().builtin.git_files({
-                show_untracked = true,
-              })
-            else
-              get().builtin.find_files({})
-            end
-          end,
-          desc = 'Search Files',
-        },
+        -- {
+        --   '<D-p>',
+        --   function()
+        --     vim.fn.system('git rev-parse --is-inside-work-tree')
+        --
+        --     if vim.v.shell_error == 0 then
+        --       get().builtin.git_files({
+        --         show_untracked = true,
+        --       })
+        --     else
+        --       get().builtin.find_files({})
+        --     end
+        --   end,
+        --   desc = 'Search Files',
+        -- },
 
         -- {
         --   '<leader>sgt',
