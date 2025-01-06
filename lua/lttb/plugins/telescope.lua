@@ -134,6 +134,8 @@ return {
             require('telescope').extensions.file_browser.file_browser({
               auto_depth = true,
               hidden = false,
+              respect_gitignore = true,
+              git_status = false,
             })
           end,
           desc = 'Search File Browser',
@@ -147,6 +149,8 @@ return {
               select_buffer = true,
               auto_depth = true,
               hidden = false,
+              respect_gitignore = true,
+              git_status = true,
             })
           end,
           desc = 'Search Current File Browser',
