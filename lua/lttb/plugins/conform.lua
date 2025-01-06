@@ -29,16 +29,11 @@ return {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    keys = {
-      {
-        '<leader>f',
-        function()
-          require('conform').format({ async = true, lsp_format = 'fallback' })
-        end,
-        mode = '',
-        desc = '[F]ormat buffer',
-      },
-    },
+    init = function()
+      vim.api.nvim_create_user_command('Format', function()
+        require('conform').format({ async = true })
+      end, {})
+    end,
     opts = {
       notify_on_error = false,
       default_format_opts = {
