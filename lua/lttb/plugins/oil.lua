@@ -53,7 +53,7 @@ function oil_get_selected_file()
   local entry = require('oil').get_cursor_entry()
   local filepath = vim.fn.resolve(dir .. (entry and entry.name))
 
-  return { filepath = filepath, entry = entry }
+  return { filepath = filepath, directory = dir, entry = entry }
 end
 
 -- Based on oil.nvim maybe_set_cursor
@@ -95,55 +95,6 @@ local function find_buffer_by_name(name)
   return -1
 end
 
-local commands = {
-  system_open = function(filepath)
-    vim.ui.open(filepath)
-  end,
-  copy_selector = function(filepath)
-    local notify = require('notify')
-
-    local modify = vim.fn.fnamemodify
-    local filename = modify(filepath, ':t')
-
-    local vals = {
-      ['1.FILENAME'] = filename,
-      ['2.DIRNAME'] = modify(filepath, ':h'),
-      ['3.PATH (CWD)'] = modify(filepath, ':.'),
-      ['4.PATH (HOME)'] = modify(filepath, ':~'),
-      ['5.PATH (GLOBAL)'] = filepath,
-      ['6.BASENAME'] = modify(filename, ':r'),
-      ['7.EXTENSION'] = modify(filename, ':e'),
-      ['8.URI'] = vim.uri_from_fname(filepath),
-    }
-
-    local options = vim.tbl_filter(function(val)
-      return vals[val] ~= ''
-    end, vim.tbl_keys(vals))
-    if vim.tbl_isempty(options) then
-      notify('No values to copy', vim.log.levels.WARN)
-      return
-    end
-    table.sort(options)
-    vim.ui.select(options, {
-      prompt = 'Choose to copy to clipboard:',
-      format_item = function(item)
-        return ('%s: %s'):format(item:sub(3), vals[item])
-      end,
-    }, function(choice)
-      local result = vals[choice]
-      if result then
-        notify(('Copied: `%s`'):format(result))
-        vim.fn.setreg('+', result)
-      end
-    end)
-  end,
-  find_in_dir = function(type, filepath)
-    require('telescope.builtin').find_files({
-      cwd = type == 'directory' and filepath or vim.fn.fnamemodify(filepath, ':h'),
-    })
-  end,
-}
-
 return {
   {
     'stevearc/stickybuf.nvim',
@@ -182,15 +133,18 @@ return {
       keymaps = {
         ['<C-r>'] = 'actions.refresh',
         ['<C-l>'] = false,
+        ['f'] = function()
+          require('mini.files').open(oil_get_selected_file().directory)
+        end,
         ['<S-O>'] = function()
-          commands.system_open(oil_get_selected_file().filepath)
+          require('lttb.utils.fs').system_open(oil_get_selected_file().filepath)
         end,
         ['<C-f>'] = function()
           local selected_file = oil_get_selected_file()
-          commands.find_in_dir(selected_file.entry.type, selected_file.filepath)
+          require('lttb.utils.fs').find_in_dir(selected_file.entry.type, selected_file.filepath)
         end,
-        ['<S-y>'] = function()
-          commands.copy_selector(oil_get_selected_file().filepath)
+        ['<C-y>'] = function()
+          require('lttb.utils.fs').copy_selector(oil_get_selected_file().filepath)
         end,
       },
     },
@@ -307,7 +261,7 @@ return {
           -- end, 0)
 
           shown_win = winwin.open_win(buf, false, {
-            focusable = false,
+            focusable = true,
             split = 'left',
             fixed = true,
           }, {
