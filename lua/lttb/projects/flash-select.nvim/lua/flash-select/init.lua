@@ -63,6 +63,7 @@ function M.select(items, opts, on_choice)
       height = height,
       style = 'minimal',
       border = M.config.popup.border,
+      zindex = 1000,
     })
 
     local function close_popup()
