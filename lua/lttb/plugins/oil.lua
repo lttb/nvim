@@ -8,9 +8,8 @@ local function is_file_buffer(bufnr)
   local buftype = vim.bo[bufnr].buftype
   local bufname = vim.api.nvim_buf_get_name(bufnr)
 
-  -- Exclude oil.nvim buffers (bufname starts with "oil://")
   if bufname:match('^oil://') then
-    return false
+    return true
   end
 
   -- Regular file buffers have an empty buftype and a non-empty bufname
@@ -26,7 +25,7 @@ function _G.oil_render_winbar()
     return prev_winbar -- Return an empty string to avoid setting the winbar
   end
 
-  local bufname = vim.api.nvim_buf_get_name(0)
+  local bufname = vim.api.nvim_buf_get_name(0):gsub('oil://', '')
   local bufdir = vim.fn.fnamemodify(bufname, ':h') -- Get the buffer's directory (omit filename)
   prev_winbar = vim.fn.fnamemodify(bufdir, ':.')   -- Make it relative to CWD
 
