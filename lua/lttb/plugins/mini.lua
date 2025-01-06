@@ -51,4 +51,64 @@ return {
     version = '*',
     opts = {},
   },
+
+  {
+    cond = not utils.is_vscode(),
+    event = 'LazyFile',
+    'echasnovski/mini.files',
+    version = '*',
+    init = function()
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesBufferCreate',
+        callback = function(args)
+          local buf_id = args.data.buf_id
+          -- Tweak left-hand side of mapping to your liking
+          vim.keymap.set('n', '-', MiniFiles.go_out, { buffer = buf_id })
+          vim.keymap.set('n', '_', function()
+            MiniFiles.open(vim.fn.getcwd(), false)
+          end, { buffer = buf_id })
+
+          vim.keymap.set('n', '<C-f>', function()
+            local entry = MiniFiles.get_fs_entry(buf_id)
+            if not entry then
+              return
+            end
+
+            MiniFiles.close()
+            require('lttb.utils.fs').find_in_dir(entry.fs_type, entry.path)
+          end, { buffer = buf_id })
+
+          vim.keymap.set('n', '<C-y>', function()
+            local entry = MiniFiles.get_fs_entry(buf_id)
+            if not entry then
+              return
+            end
+
+            require('lttb.utils.fs').copy_selector(entry.path)
+          end, { buffer = buf_id })
+        end,
+      })
+    end,
+    keys = {
+      {
+        '<D-e>',
+        function()
+          MiniFiles.open(vim.api.nvim_buf_get_name(0))
+        end,
+      },
+      {
+        '<S-D-e>',
+        function()
+          MiniFiles.open()
+        end,
+      },
+    },
+    opts = {
+      mappings = {
+        go_in = 'L',
+        go_in_plus = 'l',
+        synchronize = '<D-s>',
+      },
+    },
+  },
 }
