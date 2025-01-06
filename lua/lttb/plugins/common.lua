@@ -9,7 +9,7 @@ return {
     ---@type Flash.Config
     opts = {
       search = {
-        incremental = false,
+        incremental = true,
         mode = 'fuzzy',
       },
 

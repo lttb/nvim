@@ -133,7 +133,7 @@ return {
           function()
             require('telescope').extensions.file_browser.file_browser({
               auto_depth = true,
-              hidden = true,
+              hidden = false,
             })
           end,
           desc = 'Search File Browser',
@@ -146,7 +146,7 @@ return {
               path = '%:p:h',
               select_buffer = true,
               auto_depth = true,
-              hidden = true,
+              hidden = false,
             })
           end,
           desc = 'Search Current File Browser',
