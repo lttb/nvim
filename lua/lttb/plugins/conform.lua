@@ -70,6 +70,7 @@ return {
         yaml = { 'prettier' },
         ['markdown'] = { 'prettier' },
         ['markdown.mdx'] = { 'prettier' },
+        ['toml'] = { 'taplo' },
       },
     },
   },
