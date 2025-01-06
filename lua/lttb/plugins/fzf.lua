@@ -9,6 +9,9 @@ return {
     'ibhagwan/fzf-lua',
     cmd = 'FzfLua',
     opts = {
+      defaults = {
+        git_icons = false,
+      },
       lsp = {
         -- @see https://github.com/nvimtools/none-ls.nvim/wiki/Compatibility-with-other-plugins
         -- make lsp requests synchronous so they work with null-ls
