@@ -39,10 +39,10 @@ vim.g.neovide_input_use_logo = true
 
 -- in case of buttonless frame
 
--- vim.g.neovide_padding_top = 20
--- vim.g.neovide_padding_bottom = 20
--- vim.g.neovide_padding_right = 20
--- vim.g.neovide_padding_left = 20
+vim.g.neovide_padding_top = 20
+vim.g.neovide_padding_bottom = 20
+vim.g.neovide_padding_right = 40
+vim.g.neovide_padding_left = 40
 
 -- vim.g.neovide_profiler = true
 -- @see https://github.com/neovide/neovide/issues/2093
