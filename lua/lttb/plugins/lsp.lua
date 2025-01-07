@@ -226,6 +226,8 @@ local function config()
 
       require('lspconfig')[server_name].setup(server)
     end,
+
+    require('lspconfig').prettier_ls.setup({}),
   })
 
   -- require('mason-lspconfig').setup({

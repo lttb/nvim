@@ -5,7 +5,7 @@
 --   -- ':#h-full',
 -- }
 
-vim.opt.guifont = 'JetBrains Mono:h15'
+-- vim.opt.guifont = 'JetBrains Mono:h15'
 vim.opt.linespace = 8
 
 vim.g.neovide_window_blurred = true
@@ -54,3 +54,6 @@ vim.g.neovide_floating_shadow = false
 
 -- vim.g.neovide_text_gamma = 1.7
 -- vim.g.neovide_text_contrast = 0.3
+
+vim.keymap.set('n', '<D-{>', '<cmd>bprev<cr>')
+vim.keymap.set('n', '<D-}>', '<cmd>bnext<cr>')

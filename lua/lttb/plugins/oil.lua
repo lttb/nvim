@@ -123,6 +123,8 @@ return {
 
       skip_confirm_for_simple_edits = true,
 
+      watch_for_changes = true,
+
       win_options = {
         winbar = '%!v:lua.oil_render_winbar()',
       },
@@ -261,7 +263,7 @@ return {
           -- end, 0)
 
           shown_win = winwin.open_win(buf, false, {
-            focusable = true,
+            focusable = false,
             split = 'left',
             fixed = true,
           }, {

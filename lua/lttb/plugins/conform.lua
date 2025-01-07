@@ -16,11 +16,11 @@ local js_formatter = function(bufnr)
   end
 
   if is_biome then
-    return { 'biome' }
+    return {}
   end
 
   -- use global "prettierd" instead of Mason?
-  return { lsp_format = 'first', 'prettierd' }
+  return {}
 end
 
 return {
@@ -30,9 +30,13 @@ return {
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     init = function()
-      vim.api.nvim_create_user_command('Format', function()
+      vim.keymap.set({ 'n', 'v' }, '<S-M-f>', function()
         require('conform').format({ async = true })
-      end, {})
+      end)
+
+      -- vim.api.nvim_create_user_command('Format', function()
+      --   require('conform').format({ async = true })
+      -- end, {})
     end,
     opts = {
       notify_on_error = false,
@@ -40,7 +44,7 @@ return {
         lsp_format = 'fallback',
       },
       format_on_save = function(bufnr)
-        local timeout_ms = 500
+        local timeout_ms = 1000
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
@@ -54,7 +58,7 @@ return {
         end
 
         return {
-          timeout_ms = 500,
+          timeout_ms = timeout_ms,
         }
       end,
       formatters_by_ft = {
