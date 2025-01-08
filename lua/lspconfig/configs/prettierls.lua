@@ -34,7 +34,9 @@ return {
       'graphql',
       'handlebars',
     },
-    single_file_support = false,
+
+    single_file_support = true,
+
     root_dir = function(fname)
       local util = require('lspconfig.util')
 
