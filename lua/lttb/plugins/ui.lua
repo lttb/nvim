@@ -181,7 +181,7 @@ return {
 
   {
     'mvllow/modes.nvim',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     opts = {
       line_opacity = 0.15,
 
@@ -209,7 +209,7 @@ return {
 
   {
     'folke/todo-comments.nvim',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
       signs = false,
@@ -222,7 +222,6 @@ return {
 
   {
     'folke/trouble.nvim',
-    event = 'LazyFile',
     cmd = 'Trouble',
     opts = {},
     keys = {

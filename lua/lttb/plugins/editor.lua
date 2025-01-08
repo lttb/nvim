@@ -67,7 +67,7 @@ return {
 
   {
     'folke/ts-comments.nvim',
-    event = 'VeryLazy',
+    event = 'LazyFile',
   },
 
   -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
@@ -89,5 +89,5 @@ return {
   -- better quick fix window
   { 'kevinhwang91/nvim-bqf', event = 'LazyFile' },
 
-  { 'lttb/macos-text.nvim', event = 'LazyFile', opts = {} },
+  { 'lttb/macos-text.nvim',  event = 'LazyFile', opts = {} },
 }

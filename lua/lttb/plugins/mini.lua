@@ -3,7 +3,7 @@ local utils = require('lttb.utils')
 return {
   {
     'echasnovski/mini.surround',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     version = '*',
     config = function()
       require('mini.surround').setup({
@@ -24,7 +24,7 @@ return {
   },
   {
     'echasnovski/mini.ai',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     version = '*',
     opts = {
       search_method = 'cover_or_nearest',
@@ -32,21 +32,21 @@ return {
   },
   {
     'echasnovski/mini.align',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     version = '*',
     opts = {},
   },
 
   {
     cond = not utils.is_vscode(),
-    event = 'LazyFile',
+    event = 'VeryLazy',
     'echasnovski/mini.bufremove',
     version = '*',
     opts = {},
   },
   {
     cond = not utils.is_vscode(),
-    event = 'LazyFile',
+    event = 'VeryLazy',
     'echasnovski/mini.cursorword',
     version = '*',
     opts = {},
@@ -54,7 +54,7 @@ return {
 
   {
     cond = not utils.is_vscode(),
-    event = 'LazyFile',
+    event = 'VeryLazy',
     'echasnovski/mini.files',
     version = '*',
     init = function()

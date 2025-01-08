@@ -7,7 +7,7 @@ end
 return {
   {
     'nvimtools/none-ls.nvim',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     dependencies = {
       -- cspell can freeze with "lint" and without "--file" flag
       'lttb/cspell.nvim',

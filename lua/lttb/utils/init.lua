@@ -59,6 +59,12 @@ end
 
 -- @see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
 function M.should_open_sidebar(data)
+  local args = vim.fn.argv()
+
+  if #args > 0 then
+    return
+  end
+
   local IGNORED_FT = {
     'gitcommit',
     'gitrebase',
@@ -94,6 +100,30 @@ function M.cmd_shift(key, opts)
   end
 
   return { '<D-' .. string.upper(key) .. '>', unpack(opts) }
+end
+
+-- @see https://github.com/LazyVim/LazyVim/blob/41f40b73d94f12cd6aa2d87bfee8808e76e80d5d/lua/lazyvim/util/init.lua#L153-L174
+function M.is_loaded(name)
+  local Config = require('lazy.core.config')
+  return Config.plugins[name] and Config.plugins[name]._.loaded
+end
+
+---@param name string
+---@param fn fun(name:string)
+function M.on_load(name, fn)
+  if M.is_loaded(name) then
+    fn(name)
+  else
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'LazyLoad',
+      callback = function(event)
+        if event.data == name then
+          fn(name)
+          return true
+        end
+      end,
+    })
+  end
 end
 
 return M

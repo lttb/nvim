@@ -5,7 +5,6 @@ return {
 
   {
     'folke/flash.nvim',
-    event = 'VeryLazy',
     ---@type Flash.Config
     opts = {
       search = {
@@ -91,42 +90,39 @@ return {
 
   {
     'ibhagwan/smartyank.nvim',
-    event = 'LazyFile',
-    config = function()
-      require('smartyank').setup({
-        highlight = {
-          enabled = true,     -- highlight yanked text
-          higroup = 'Search', -- highlight group of yanked text
-          timeout = 200,      -- timeout for clearing the highlight
-        },
-        clipboard = { enabled = true },
-        tmux = {
-          enabled = true,
-          -- remove `-w` to disable copy to host client's clipboard
-          cmd = { 'tmux', 'set-buffer', '-w' },
-        },
-        osc52 = {
-          enabled = true,
-          ssh_only = true,       -- false to OSC52 yank also in local sessions
-          silent = false,        -- true to disable the "n chars copied" echo
-          echo_hl = 'Directory', -- highlight group of the OSC52 echo message
-        },
+    event = 'VeryLazy',
+    opts = {
+      highlight = {
+        enabled = true,     -- highlight yanked text
+        higroup = 'Search', -- highlight group of yanked text
+        timeout = 200,      -- timeout for clearing the highlight
+      },
+      clipboard = { enabled = true },
+      tmux = {
+        enabled = true,
+        -- remove `-w` to disable copy to host client's clipboard
+        cmd = { 'tmux', 'set-buffer', '-w' },
+      },
+      osc52 = {
+        enabled = true,
+        ssh_only = true,       -- false to OSC52 yank also in local sessions
+        silent = false,        -- true to disable the "n chars copied" echo
+        echo_hl = 'Directory', -- highlight group of the OSC52 echo message
+      },
 
-        -- validate_yank = false,
+      -- validate_yank = false,
 
-        -- validate_yank = function()
-        --   return vim.v.operator == 'y'
-        --       -- TODO: yanka needs to be improved
-        --       or vim.v.operator == 'g@' -- support `yanka` operator
-        --       or vim.v.operator == ':' -- support `yanka` visual
-        -- end,
-      })
-    end,
+      -- validate_yank = function()
+      --   return vim.v.operator == 'y'
+      --       -- TODO: yanka needs to be improved
+      --       or vim.v.operator == 'g@' -- support `yanka` operator
+      --       or vim.v.operator == ':' -- support `yanka` visual
+      -- end,
+    },
   },
 
   {
     'gbprod/yanky.nvim',
-    event = 'LazyFile',
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -143,7 +139,6 @@ return {
 
   {
     'lttb/yanka.nvim',
-    event = 'LazyFile',
     opts = {},
     keys = {
       { '<D-x>', '"+d',  mode = { 'x' } },
@@ -194,7 +189,7 @@ return {
   {
     -- extended treesitter objects
     'chrisgrieser/nvim-various-textobjs',
-    event = 'LazyFile',
+    event = 'VeryLazy',
     opts = { keymaps = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } } },
   },
 }
