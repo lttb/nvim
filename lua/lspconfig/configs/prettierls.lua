@@ -15,7 +15,7 @@ local root_file = {
 
 return {
   default_config = {
-    cmd = { 'pretterls' },
+    cmd = { 'prettier-language-server' },
     filetypes = {
       'javascript',
       'javascriptreact',
@@ -34,6 +34,7 @@ return {
       'graphql',
       'handlebars',
     },
+    single_file_support = false,
     root_dir = function(fname)
       local util = require('lspconfig.util')
 
