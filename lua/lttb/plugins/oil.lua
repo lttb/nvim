@@ -12,6 +12,10 @@ local function is_file_buffer(bufnr)
     return true
   end
 
+  if bufname:match('/scratch/') then
+    return false
+  end
+
   -- Regular file buffers have an empty buftype and a non-empty bufname
   return buftype == '' and bufname ~= ''
 end
@@ -122,6 +126,8 @@ return {
       default_file_explorer = true,
 
       skip_confirm_for_simple_edits = true,
+
+      watch_for_changes = true,
 
       win_options = {
         winbar = '%!v:lua.oil_render_winbar()',
@@ -261,7 +267,7 @@ return {
           -- end, 0)
 
           shown_win = winwin.open_win(buf, false, {
-            focusable = true,
+            focusable = false,
             split = 'left',
             fixed = true,
           }, {

@@ -9,9 +9,12 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
+    ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
+      quickfile = { enabled = true },
       dashboard = { enabled = true },
+      scratch = { enabled = true },
       indent = {
         enabled = true,
 
@@ -44,11 +47,35 @@ return {
       vim.notify = notify
     end,
     keys = function()
-      local Snacks = require('snacks')
-
       return {
-        { '<leader>n',  function() Snacks.notifier.show_history() end, desc = 'Notification History' },
-        { '<leader>un', function() Snacks.notifier.hide() end,         desc = 'Dismiss All Notifications' },
+        {
+          '<leader>S.',
+          function()
+            Snacks.scratch()
+          end,
+          desc = 'Toggle Scratch Buffer',
+        },
+        {
+          '<leader>SS',
+          function()
+            Snacks.scratch.select()
+          end,
+          desc = 'Select Scratch Buffer',
+        },
+        {
+          '<leader>n',
+          function()
+            Snacks.notifier.show_history()
+          end,
+          desc = 'Notification History',
+        },
+        {
+          '<leader>un',
+          function()
+            Snacks.notifier.hide()
+          end,
+          desc = 'Dismiss All Notifications',
+        },
       }
     end,
   },

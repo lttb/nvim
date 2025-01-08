@@ -2,7 +2,7 @@
 
 vim.loader.enable()
 
-vim.o.background = 'dark'
+vim.o.background = 'light'
 
 require('lttb.settings')
 
