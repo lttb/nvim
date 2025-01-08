@@ -12,6 +12,10 @@ local function is_file_buffer(bufnr)
     return true
   end
 
+  if bufname:match('/scratch/') then
+    return false
+  end
+
   -- Regular file buffers have an empty buftype and a non-empty bufname
   return buftype == '' and bufname ~= ''
 end

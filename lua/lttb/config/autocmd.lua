@@ -150,21 +150,47 @@ if utils.is_kitty() then
       vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title')
     end,
   })
+
+  local function should_update_title(bufnr)
+    local buftype = vim.bo[bufnr].buftype
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+    if bufname:match('^oil://') then
+      return false
+    end
+
+    if bufname:find('^term://') ~= nil then
+      return false
+    end
+
+    if bufname:match('/scratch/') then
+      return false
+    end
+
+    -- Regular file buffers have an empty buftype and a non-empty bufname
+    return buftype == '' and bufname ~= ''
+  end
+
+  --- @type uv_handle_t
+  local timer = nil
+
   vim.api.nvim_create_autocmd('BufEnter', {
     group = 'MyAutoCmds',
     callback = function()
+      if not should_update_title(0) then
+        return
+      end
+
+      if timer ~= nil and not timer:is_closing() then
+        timer:close()
+      end
+
       -- defer title setting to avoid flickering
-      vim.defer_fn(function()
-        local bufname = vim.fn.bufname()
-
-        if bufname == '' or bufname == nil or bufname:find('^term://') ~= nil then
-          return
-        end
-
+      timer = vim.defer_fn(function()
         local filepath = vim.fn.expand('%:~:.')
 
         vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title --temporary ' .. filepath)
-      end, 100)
+      end, 5)
     end,
   })
 end
