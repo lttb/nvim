@@ -12,6 +12,10 @@ local function is_file_buffer(bufnr)
     return true
   end
 
+  if bufname:find('^term://') ~= nil then
+    return false
+  end
+
   if bufname:match('/scratch/') then
     return false
   end
