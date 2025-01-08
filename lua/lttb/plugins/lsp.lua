@@ -226,9 +226,39 @@ local function config()
 
       require('lspconfig')[server_name].setup(server)
     end,
-
-    require('lspconfig').prettierls.setup({}),
   })
+
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+      if client == nil then
+        return
+      end
+
+      if client.name == 'biome' then
+        vim.b.ls_biome = { client = client }
+
+        if vim.b.ls_prettierls then
+          vim.b.ls_prettierls.client.stop()
+        end
+
+        return
+      end
+
+      if client.name == 'prettierls' then
+        vim.b.ls_prettierls = { client = client }
+
+        if vim.b.ls_biome ~= nil then
+          client.stop()
+        end
+
+        return
+      end
+    end,
+  })
+
+  require('lspconfig').prettierls.setup({})
 
   -- require('mason-lspconfig').setup({
   --   handlers = {
@@ -297,10 +327,8 @@ return {
           completion = {
             ghost_text = { enabled = true },
 
-            list = {
-              selection = function(ctx)
-                return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
-              end,
+            keyword = {
+              range = 'full',
             },
 
             accept = {
