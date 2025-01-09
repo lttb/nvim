@@ -153,6 +153,10 @@ return {
           local selected_file = oil_get_selected_file()
           require('lttb.utils.fs').find_in_dir(selected_file.entry.type, selected_file.filepath)
         end,
+        ['<S-D-f>'] = function()
+          local selected_file = oil_get_selected_file()
+          require('lttb.utils.fs').grep_in_dir(selected_file.entry.type, selected_file.filepath)
+        end,
         ['<C-y>'] = function()
           require('lttb.utils.fs').copy_selector(oil_get_selected_file().filepath)
         end,
@@ -195,54 +199,38 @@ return {
           local win = vim.api.nvim_get_current_win()
 
           if filetype == 'oil' then
-            prev_win = win
-
             return
           end
 
           if shown_win ~= nil then
-            if prev_win == shown_win then
-              prev_win = win
-
-              return
-            end
-
-            prev_win = win
-
             if not is_file_buffer(buf) then
               return
             end
 
-            if pending_timer then
-              pending_timer:stop()
+            local shown_buf = vim.api.nvim_win_get_buf(shown_win)
+            local current_buf_name = vim.api.nvim_buf_get_name(shown_buf)
+
+            if not vim.startswith(current_buf_name, 'oil://') then
+              return
             end
 
-            pending_timer = vim.defer_fn(function()
-              local shown_buf = vim.api.nvim_win_get_buf(shown_win)
-              local current_buf_name = vim.api.nvim_buf_get_name(shown_buf)
+            local parent_url = oil_prepare_current_buf()
 
-              if not vim.startswith(current_buf_name, 'oil://') then
-                return
+            local view = require('oil.view')
+
+            if current_buf_name ~= parent_url then
+              -- TODO: think about more efficient way
+              local existing_buf = find_buffer_by_name(parent_url)
+
+              if existing_buf == -1 then
+                vim.api.nvim_buf_set_name(shown_buf, parent_url)
+                view.render_buffer_async(shown_buf)
+              else
+                vim.api.nvim_win_set_buf(shown_win, existing_buf)
               end
+            end
 
-              local parent_url = oil_prepare_current_buf()
-
-              local view = require('oil.view')
-
-              if current_buf_name ~= parent_url then
-                -- TODO: think about more efficient way
-                local existing_buf = find_buffer_by_name(parent_url)
-
-                if existing_buf == -1 then
-                  vim.api.nvim_buf_set_name(shown_buf, parent_url)
-                  view.render_buffer_async(shown_buf)
-                else
-                  vim.api.nvim_win_set_buf(shown_win, existing_buf)
-                end
-              end
-
-              oil_maybe_set_cursor(shown_win)
-            end, 0)
+            oil_maybe_set_cursor(shown_win)
 
             return
           end
