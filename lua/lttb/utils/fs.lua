@@ -45,6 +45,11 @@ local M = {
       cwd = type == 'directory' and filepath or vim.fn.fnamemodify(filepath, ':h'),
     })
   end,
+  grep_in_dir = function(type, filepath)
+    require('fzf-lua').grep_project({
+      cwd = type == 'directory' and filepath or vim.fn.fnamemodify(filepath, ':h'),
+    })
+  end,
 }
 
 return M
