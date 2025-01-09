@@ -191,6 +191,16 @@ local function config()
 
   require('lttb.utils.lsp_code_filter').setup()
 
+  local lsp_format_js = {
+    order = { 'eslint', 'prettier_ls' },
+  }
+  require('lsp-format').setup({
+    typescript = lsp_format_js,
+    typescriptreact = lsp_format_js,
+    javascript = lsp_format_js,
+    javascriptreact = lsp_format_js,
+  })
+
   -- Ensure the servers and tools above are installed
   --  To check the current status of installed tools and/or manually install
   --  other tools, you can run
@@ -242,19 +252,17 @@ local function config()
         if vim.b.ls_prettierls then
           vim.b.ls_prettierls.client.stop()
         end
-
-        return
-      end
-
-      if client.name == 'prettierls' then
+      elseif client.name == 'prettierls' then
         vim.b.ls_prettierls = { client = client }
 
         if vim.b.ls_biome ~= nil then
           client.stop()
-        end
 
-        return
+          return
+        end
       end
+
+      require('lsp-format').on_attach(client, ev.buf)
     end,
   })
 
@@ -365,7 +373,10 @@ return {
 
       {
         'b0o/schemastore.nvim',
-        event = 'LazyFile',
+      },
+
+      {
+        'lukas-reineke/lsp-format.nvim',
       },
     },
   },
