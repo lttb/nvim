@@ -19,7 +19,7 @@ if utils.is_vscode() then
   return
 end
 
-vim.cmd.colorscheme('ghostflow')
+vim.cmd.colorscheme('morningstar')
 
 if utils.is_neovide() then
   require('lttb.settings.neovide')

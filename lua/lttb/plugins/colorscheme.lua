@@ -26,7 +26,7 @@ return {
   },
 
   {
-    'lttb/ghostflow.nvim',
+    'lttb/morningstar.nvim',
     lazy = true,
   },
 }

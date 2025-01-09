@@ -1,4 +1,4 @@
-function ghostflow_light#load()
+function morningstar_light#load()
 let g:terminal_color_0 = '#FFFFFF'
 let g:terminal_color_1 = '#A8334C'
 let g:terminal_color_2 = '#4F6C31'
