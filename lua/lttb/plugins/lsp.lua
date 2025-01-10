@@ -164,6 +164,10 @@ local function config()
       },
     },
 
+    marksman = {
+      settings = {},
+    },
+
     jsonls = {
       settings = {
         json = {
@@ -234,7 +238,15 @@ local function config()
         return
       end
 
-      require('lspconfig')[server_name].setup(server)
+      require('lspconfig')[server_name].setup(vim.tbl_extend('keep', {
+        on_attach = function(client, bufnr)
+          if server.on_attach then
+            server.on_attach(client, bufnr)
+          end
+
+          require('lsp-format').on_attach(client, bufnr)
+        end,
+      }, server))
     end,
   })
 
@@ -261,8 +273,6 @@ local function config()
           return
         end
       end
-
-      require('lsp-format').on_attach(client, ev.buf)
     end,
   })
 
