@@ -195,15 +195,15 @@ local function config()
 
   require('lttb.utils.lsp_code_filter').setup()
 
-  local lsp_format_js = {
-    order = { 'eslint', 'prettier_ls' },
-  }
-  require('lsp-format').setup({
-    typescript = lsp_format_js,
-    typescriptreact = lsp_format_js,
-    javascript = lsp_format_js,
-    javascriptreact = lsp_format_js,
-  })
+  -- local lsp_format_js = {
+  --   order = { 'eslint', 'prettier_ls' },
+  -- }
+  -- require('lsp-format').setup({
+  --   typescript = lsp_format_js,
+  --   typescriptreact = lsp_format_js,
+  --   javascript = lsp_format_js,
+  --   javascriptreact = lsp_format_js,
+  -- })
 
   -- Ensure the servers and tools above are installed
   --  To check the current status of installed tools and/or manually install
@@ -244,11 +244,30 @@ local function config()
             server.on_attach(client, bufnr)
           end
 
-          require('lsp-format').on_attach(client, bufnr)
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            callback = function()
+              if server_name == 'biome' then
+                vim.lsp.buf.code_action({
+                  context = {
+                    only = { 'source.fixAll' },
+                  },
+                  apply = true,
+                })
+              end
+
+              vim.lsp.buf.format()
+            end,
+          })
+
+          -- require('lsp-format').on_attach(client, bufnr)
         end,
       }, server))
     end,
   })
+
+  require('lspconfig').prettier_ls.setup({})
+  require('lspconfig').gh_actions_ls.setup({})
 
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
@@ -261,11 +280,11 @@ local function config()
       if client.name == 'biome' then
         vim.b.ls_biome = { client = client }
 
-        if vim.b.ls_prettierls then
-          vim.b.ls_prettierls.client.stop()
+        if vim.b.ls_prettier_ls then
+          vim.b.ls_prettier_ls.client.stop()
         end
-      elseif client.name == 'prettierls' then
-        vim.b.ls_prettierls = { client = client }
+      elseif client.name == 'prettier_ls' then
+        vim.b.ls_prettier_ls = { client = client }
 
         if vim.b.ls_biome ~= nil then
           client.stop()
@@ -275,9 +294,6 @@ local function config()
       end
     end,
   })
-
-  require('lspconfig').prettier_ls.setup({})
-  require('lspconfig').gh_actions_ls.setup({})
 end
 
 return {
@@ -306,7 +322,7 @@ return {
     event = 'VeryLazy',
     keys = {
       -- ghostty doesn't support <D-.>
-      { '<C-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
+      { '<D-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
       -- { '<F-2>', vim.lsp.buf.rename, desc = 'Rename Symbol' },
     },
     config = config,
