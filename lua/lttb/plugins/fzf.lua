@@ -58,7 +58,9 @@ return {
         {
           '<D-p>',
           function()
-            get().fzf.git_files()
+            get().fzf.git_files({
+              cmd = 'git ls-files --exclude-standard --others',
+            })
           end,
           desc = 'Search Files',
         },
