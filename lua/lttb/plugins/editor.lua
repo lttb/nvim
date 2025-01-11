@@ -90,4 +90,18 @@ return {
   { 'kevinhwang91/nvim-bqf', event = 'LazyFile' },
 
   { 'lttb/macos-text.nvim',  event = 'LazyFile', opts = {} },
+
+  {
+    'kwkarlwang/bufjump.nvim',
+    event = 'VeryLazy',
+    opts = {
+      on_success = nil,
+    },
+    keys = {
+      { '<C-P>', ":lua require('bufjump').backward()<cr>",          mode = { 'n' }, silent = true },
+      { '<C-N>', ":lua require('bufjump').forward()<cr>",           mode = { 'n' }, silent = true },
+      { '<M-o>', ":lua require('bufjump').backward_same_buf()<cr>", mode = { 'n' }, silent = true },
+      { '<M-i>', ":lua require('bufjump').forward_same_buf()<cr>",  mode = { 'n' }, silent = true },
+    },
+  },
 }
