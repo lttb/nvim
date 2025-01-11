@@ -93,7 +93,9 @@ return {
       {
         '<D-e>',
         function()
-          MiniFiles.open(vim.api.nvim_buf_get_name(0))
+          if not MiniFiles.close() then
+            MiniFiles.open(vim.api.nvim_buf_get_name(0))
+          end
         end,
       },
       {
@@ -106,7 +108,8 @@ return {
     opts = {
       mappings = {
         go_in = 'L',
-        go_in_plus = 'l',
+        go_in_plus = '<CR>',
+        go_out = '-',
         synchronize = '<D-s>',
       },
     },
