@@ -17,7 +17,7 @@ return {
     opts = {
       notify_on_error = false,
       default_format_opts = {
-        lsp_format = 'never',
+        lsp_format = 'fallback',
       },
       format_on_save = function(bufnr)
         local timeout_ms = 1000

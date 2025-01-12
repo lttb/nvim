@@ -168,6 +168,13 @@ local function config()
       settings = {},
     },
 
+    ts_ls = {
+      on_attach = function (client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end
+    },
+
     jsonls = {
       settings = {
         json = {
@@ -194,16 +201,6 @@ local function config()
   }
 
   require('lttb.utils.lsp_code_filter').setup()
-
-  -- local lsp_format_js = {
-  --   order = { 'eslint', 'prettier_ls' },
-  -- }
-  -- require('lsp-format').setup({
-  --   typescript = lsp_format_js,
-  --   typescriptreact = lsp_format_js,
-  --   javascript = lsp_format_js,
-  --   javascriptreact = lsp_format_js,
-  -- })
 
   -- Ensure the servers and tools above are installed
   --  To check the current status of installed tools and/or manually install
@@ -243,24 +240,6 @@ local function config()
           if server.on_attach then
             server.on_attach(client, bufnr)
           end
-
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = bufnr,
-            callback = function()
-              if server_name == 'biome' then
-                vim.lsp.buf.code_action({
-                  context = {
-                    only = { 'source.fixAll' },
-                  },
-                  apply = true,
-                })
-              end
-
-              vim.lsp.buf.format()
-            end,
-          })
-
-          -- require('lsp-format').on_attach(client, bufnr)
         end,
       }, server))
     end,
@@ -402,6 +381,7 @@ return {
       },
 
       {
+        enabled = false,
         'lukas-reineke/lsp-format.nvim',
       },
     },
