@@ -6,6 +6,10 @@ end
 
 return {
   {
+    -- NOTE: build failed,
+    -- Import 'https://deno.land/x/emit@0.38.1/mod.ts' failed: error sending request for url
+    -- (https://deno.land/x/emit@0.38.1/mod.ts): client error (Connect): invalid peer certificate: UnknownIssuer
+    enabled = false,
     'toppair/peek.nvim',
     event = { 'VeryLazy' },
     build = 'deno task --quiet build:fast',
