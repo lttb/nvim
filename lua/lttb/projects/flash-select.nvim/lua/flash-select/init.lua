@@ -13,6 +13,7 @@ function M.select(items, opts, on_choice)
   local height_content = #items
   local width_content
 
+  vim.api.nvim_set_option_value('buflisted', false, { buf = buf })
   vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = buf })
   vim.api.nvim_set_option_value('buftype', 'nofile', { buf = buf })
   vim.api.nvim_set_option_value('swapfile', false, { buf = buf })
@@ -64,6 +65,8 @@ function M.select(items, opts, on_choice)
       style = 'minimal',
       border = M.config.popup.border,
       zindex = 1000,
+      focusable = false,
+      -- hide = true,
     })
 
     local function close_popup()
@@ -84,9 +87,11 @@ function M.select(items, opts, on_choice)
       move_cursor(1)
     end
     local function confirm()
-      on_choice(items[current_index], current_index)
-
       vim.api.nvim_input('<esc>')
+
+      vim.defer_fn(function()
+        on_choice(items[current_index], current_index)
+      end, 0)
     end
 
     local flash = require('flash')
