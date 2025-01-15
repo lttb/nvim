@@ -66,7 +66,7 @@ local function config()
       lualine_x = {},
       lualine_y = {
         'branch',
-        { 'filename', path = 1, symbols = { unnamed = '' } },
+        { 'filename', path = 4, symbols = { unnamed = '' } },
         'diff',
         'diagnostics',
         'filetype',
