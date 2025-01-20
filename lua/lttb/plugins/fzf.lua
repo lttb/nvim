@@ -55,23 +55,23 @@ return {
         --   silent = true,
         -- },
 
-        {
-          '<D-p>',
-          function()
-            get().fzf.git_files({
-              cmd = 'git ls-files -c -o --exclude-standard',
-            })
-          end,
-          desc = 'Search Files',
-        },
+        -- {
+        --   '<D-p>',
+        --   function()
+        --     get().fzf.git_files({
+        --       cmd = 'git ls-files -c -o --exclude-standard',
+        --     })
+        --   end,
+        --   desc = 'Search Files',
+        -- },
 
-        {
-          '<leader>sa',
-          function()
-            get().fzf.files()
-          end,
-          desc = 'Search All files',
-        },
+        -- {
+        --   '<leader>sa',
+        --   function()
+        --     get().fzf.files()
+        --   end,
+        --   desc = 'Search All files',
+        -- },
 
         -- utils.cmd_shift('r', {
         --   function()
