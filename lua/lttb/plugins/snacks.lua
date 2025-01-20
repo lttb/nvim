@@ -48,6 +48,17 @@ return {
     end,
     keys = function()
       return {
+        -- {
+        --   '<D-f>',
+        --   function()
+        --     Snacks.picker.lines({
+        --       layout = {
+        --         preset = 'telescope',
+        --       },
+        --     })
+        --   end,
+        -- },
+
         {
           '<leader>S.',
           function()
