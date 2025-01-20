@@ -244,6 +244,8 @@ local function config()
           if server.on_attach then
             server.on_attach(client, bufnr)
           end
+
+          client.server_capabilities.semanticTokensProvider = nil
         end,
       }, server))
     end,
