@@ -78,7 +78,9 @@ return {
         end,
       })
 
-      require('lttb.utils.oil_sidebar').setup()
+      local sb = require('lttb.utils.oil_sidebar')
+
+      sb.setup()
     end,
   },
 }

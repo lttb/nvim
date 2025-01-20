@@ -65,19 +65,19 @@ vim.opt.winblend      = 10
 vim.opt.fillchars     = 'eob: '
 
 -- Don't show "Scanning..." messages (improves 'mini.completion')
-vim.cmd('set shortmess+=C')
+-- vim.cmd('set shortmess+=C')
 
--- Ignore swap warnings
-vim.cmd('set shortmess+=A')
+-- -- Ignore swap warnings
+-- vim.cmd('set shortmess+=A')
 
--- Don't show intro message
-vim.cmd('set shortmess+=I')
+-- -- Don't show intro message
+-- vim.cmd('set shortmess+=I')
 
--- Enable syntax highlighing if it wasn't already (as it is time consuming)
--- Don't use defer it because it affects start screen appearance
-if vim.fn.exists('syntax_on') ~= 1 then
-  vim.cmd([[syntax enable]])
-end
+-- -- Enable syntax highlighing if it wasn't already (as it is time consuming)
+-- -- Don't use defer it because it affects start screen appearance
+-- if vim.fn.exists('syntax_on') ~= 1 then
+--   vim.cmd([[syntax enable]])
+-- end
 
 -- }}}
 
@@ -136,17 +136,17 @@ vim.opt.foldopen = 'block,hor,insert,jump,mark,percent,quickfix,search,tag,undo'
 
 -- Custom commands {{{
 
-vim.cmd([[augroup CustomSettings]])
-vim.cmd([[autocmd!]])
+-- vim.cmd([[augroup CustomSettings]])
+-- vim.cmd([[autocmd!]])
 
--- Don't auto-wrap comments and don't insert comment leader after hitting 'o'
-vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=o]])
--- But insert comment leader after hitting <CR> and respect 'numbered' lists
-vim.cmd([[autocmd FileType * setlocal formatoptions+=r formatoptions+=n]])
+-- -- Don't auto-wrap comments and don't insert comment leader after hitting 'o'
+-- vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=o]])
+-- -- But insert comment leader after hitting <CR> and respect 'numbered' lists
+-- vim.cmd([[autocmd FileType * setlocal formatoptions+=r formatoptions+=n]])
 
--- Start integrated terminal already in insert mode
--- vim.cmd([[autocmd TermOpen * startinsert]])
-vim.cmd([[augroup END]])
+-- -- Start integrated terminal already in insert mode
+-- -- vim.cmd([[autocmd TermOpen * startinsert]])
+-- vim.cmd([[augroup END]])
 
 -- }}}
 

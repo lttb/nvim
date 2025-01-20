@@ -14,31 +14,33 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
     -- Highlight line number instead of having icons in sign column
     -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
-    vim.cmd([[
-      sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticError
-      sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticWarn
-      sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticInfo
-      sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticHint
-    ]])
+    for _, diag in ipairs({ 'Error', 'Warn', 'Info', 'Hint' }) do
+      vim.fn.sign_define('DiagnosticSign' .. diag, {
+        text = '',
+        texthl = 'DiagnosticSign' .. diag,
+        linehl = '',
+        numhl = 'DiagnosticSign' .. diag,
+      })
+    end
 
-    vim.cmd([[
-      highlight ErrorText gui=NONE
-      highlight WarningText gui=NONE
-      highlight InfoText gui=NONE
-      highlight HintText gui=NONE
-    ]])
+    -- vim.cmd([[
+    --   highlight ErrorText gui=NONE
+    --   highlight WarningText gui=NONE
+    --   highlight InfoText gui=NONE
+    --   highlight HintText gui=NONE
+    -- ]])
 
-    vim.cmd([[
-      highlight! link NoiceCursor Cursor
-    ]])
+    -- vim.cmd([[
+    --   highlight! link NoiceCursor Cursor
+    -- ]])
 
     -- vim.cmd([[
     --   hi NonText guifg=bg
     -- ]])
 
-    vim.cmd([[
-      hi NeoTreeFileNameOpened gui=bold
-    ]])
+    -- vim.cmd([[
+    --   hi NeoTreeFileNameOpened gui=bold
+    -- ]])
 
     local normalHL = vim.api.nvim_get_hl(0, { name = 'Normal' })
     local splitLineHL = vim.api.nvim_get_hl(0, { name = 'CursorLine' })
@@ -143,7 +145,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 --   end,
 -- })
 
-if utils.is_kitty() then
+if false and utils.is_kitty() then
   vim.api.nvim_create_autocmd('VimLeave', {
     group = 'MyAutoCmds',
     callback = function()
@@ -190,7 +192,7 @@ if utils.is_kitty() then
         local filepath = vim.fn.expand('%:~:.')
 
         vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title --temporary ' .. filepath)
-      end, 5)
+      end, 10)
     end,
   })
 end
