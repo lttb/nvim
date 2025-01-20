@@ -232,7 +232,7 @@ return {
         --   desc = 'LSP: Goto References',
         -- },
 
-        utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
+        -- utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
 
         -- utils.cmd_shift('r', { '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' }),
 

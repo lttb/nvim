@@ -80,6 +80,7 @@ return {
           function()
             Snacks.picker.lines({
               layout = {
+                -- TODO: research if it's possible to use "ivy" but only win width
                 preset = 'telescope',
               },
             })
@@ -120,7 +121,14 @@ return {
           function()
             Snacks.picker.resume()
           end,
-          desc = 'Telescope Resume',
+          desc = 'Snacks Resume',
+        }),
+
+        utils.cmd_shift('p', {
+          function()
+            Snacks.picker()
+          end,
+          desc = 'Snacks',
         }),
 
         {
