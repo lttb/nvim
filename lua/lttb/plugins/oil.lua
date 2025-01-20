@@ -207,6 +207,10 @@ return {
               return
             end
 
+            if not vim.api.nvim_win_is_valid(shown_win) then
+              return
+            end
+
             local shown_buf = vim.api.nvim_win_get_buf(shown_win)
             local current_buf_name = vim.api.nvim_buf_get_name(shown_buf)
 
