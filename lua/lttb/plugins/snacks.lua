@@ -44,10 +44,6 @@ return {
           },
         },
 
-        jump = {
-          reuse_win = true,
-        },
-
         win = {
           -- input window
           input = {
