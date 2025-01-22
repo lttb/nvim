@@ -36,6 +36,27 @@ return {
         },
       },
       scope = { enabled = true },
+
+      picker = {
+        formatters = {
+          file = {
+            filename_first = true,
+          },
+        },
+
+        jump = {
+          reuse_win = true,
+        },
+
+        win = {
+          -- input window
+          input = {
+            keys = {
+              ['<Esc>'] = { 'close', mode = { 'n', 'i' } },
+            },
+          },
+        },
+      },
       -- words = {},
     },
     config = function(_, opts)
@@ -90,7 +111,9 @@ return {
         {
           '<D-o>',
           function()
-            Snacks.picker.buffers({})
+            Snacks.picker.buffers({
+              current = false,
+            })
           end,
           desc = 'Search Buffers',
         },
