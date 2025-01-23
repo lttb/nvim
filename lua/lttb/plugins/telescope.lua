@@ -4,6 +4,10 @@ if utils.is_vscode() then
   return {}
 end
 
+if true then
+  return {}
+end
+
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -22,18 +26,18 @@ return {
       end
 
       return {
-        {
-          '<D-f>',
-          function()
-            get().builtin.current_buffer_fuzzy_find({
-              layout_strategy = 'vertical',
-              layout_config = {
-                prompt_position = 'top',
-              },
-            })
-          end,
-          desc = 'Fuzzily search in current buffer',
-        },
+        -- {
+        --   '<D-f>',
+        --   function()
+        --     get().builtin.current_buffer_fuzzy_find({
+        --       layout_strategy = 'vertical',
+        --       layout_config = {
+        --         prompt_position = 'top',
+        --       },
+        --     })
+        --   end,
+        --   desc = 'Fuzzily search in current buffer',
+        -- },
 
         -- {
         --   '<S-D-f>',
@@ -57,16 +61,16 @@ return {
         --   desc = 'Search by Grep',
         -- },
 
-        {
-          '<D-o>',
-          function()
-            get().builtin.buffers({
-              sort_mru = true,
-              ignore_current_buffer = true,
-            })
-          end,
-          desc = 'Search Buffers',
-        },
+        -- {
+        --   '<D-o>',
+        --   function()
+        --     get().builtin.buffers({
+        --       sort_mru = true,
+        --       ignore_current_buffer = true,
+        --     })
+        --   end,
+        --   desc = 'Search Buffers',
+        -- },
 
         -- {
         --   '<D-p>',
@@ -119,15 +123,15 @@ return {
         --   desc = 'Search All files',
         -- },
 
-        {
-          '<leader>ss',
-          function()
-            get().builtin.git_files({
-              recurse_submodules = true,
-            })
-          end,
-          desc = 'Search Submodules',
-        },
+        -- {
+        --   '<leader>ss',
+        --   function()
+        --     get().builtin.git_files({
+        --       recurse_submodules = true,
+        --     })
+        --   end,
+        --   desc = 'Search Submodules',
+        -- },
 
         {
           '<leader>sf',
@@ -157,27 +161,27 @@ return {
           desc = 'Search Current File Browser',
         },
 
-        {
-          '<leader>sh',
-          function()
-            get().builtin.help_tags()
-          end,
-          desc = 'Search Help',
-        },
-        {
-          '<leader>sd',
-          function()
-            get().builtin.diagnostics()
-          end,
-          desc = 'Search Diagnostics',
-        },
-        {
-          '<leader>sw',
-          function()
-            get().builtin.grep_string()
-          end,
-          desc = 'Search Word',
-        },
+        -- {
+        --   '<leader>sh',
+        --   function()
+        --     get().builtin.help_tags()
+        --   end,
+        --   desc = 'Search Help',
+        -- },
+        -- {
+        --   '<leader>sd',
+        --   function()
+        --     get().builtin.diagnostics()
+        --   end,
+        --   desc = 'Search Diagnostics',
+        -- },
+        -- {
+        --   '<leader>sw',
+        --   function()
+        --     get().builtin.grep_string()
+        --   end,
+        --   desc = 'Search Word',
+        -- },
         -- {
         --   'gs',
         --   function()
@@ -228,9 +232,9 @@ return {
         --   desc = 'LSP: Goto References',
         -- },
 
-        utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
+        -- utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
 
-        utils.cmd_shift('r', { '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' }),
+        -- utils.cmd_shift('r', { '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' }),
 
         -- }}}
       }
@@ -318,7 +322,7 @@ return {
       },
 
       {
-        enabled = true,
+        enabled = false,
         'lttb/smart-open.nvim',
         branch = 'feat/git-files-open-buffers',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43

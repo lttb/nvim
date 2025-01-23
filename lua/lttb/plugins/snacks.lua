@@ -36,6 +36,26 @@ return {
         },
       },
       scope = { enabled = true },
+
+      picker = {
+        layout = {
+          preset = 'vertical',
+        },
+        formatters = {
+          file = {
+            filename_first = false,
+          },
+        },
+
+        win = {
+          -- input window
+          input = {
+            keys = {
+              ['<Esc>'] = { 'close', mode = { 'n', 'i' } },
+            },
+          },
+        },
+      },
       -- words = {},
     },
     config = function(_, opts)
@@ -48,16 +68,90 @@ return {
     end,
     keys = function()
       return {
-        -- {
-        --   '<D-f>',
-        --   function()
-        --     Snacks.picker.lines({
-        --       layout = {
-        --         preset = 'telescope',
-        --       },
-        --     })
-        --   end,
-        -- },
+        {
+          '<leader><leader>',
+          function()
+            Snacks.picker.smart({
+              cwd = vim.uv.cwd(),
+              finders = { 'buffers', 'recent', 'git_files' },
+            })
+          end,
+          desc = 'Smart Open',
+        },
+
+        {
+          '<D-p>',
+          function()
+            Snacks.picker.git_files({})
+          end,
+          desc = 'Search Files',
+        },
+
+        {
+          '<leader>sa',
+          function()
+            Snacks.picker.files()
+          end,
+          desc = 'Search All files',
+        },
+
+        {
+          '<D-f>',
+          function()
+            Snacks.picker.lines({
+              layout = {
+                -- TODO: research if it's possible to use "ivy" but only win width
+                preset = 'telescope',
+              },
+            })
+          end,
+        },
+
+        {
+          '<D-o>',
+          function()
+            Snacks.picker.buffers({
+              current = false,
+            })
+          end,
+          desc = 'Search Buffers',
+        },
+
+        {
+          '<leader>sh',
+          function()
+            Snacks.picker.help()
+          end,
+          desc = 'Search Help',
+        },
+        {
+          '<leader>sd',
+          function()
+            Snacks.picker.diagnostics()
+          end,
+          desc = 'Search Diagnostics',
+        },
+        {
+          '<leader>sw',
+          function()
+            Snacks.picker.grep_word()
+          end,
+          desc = 'Search Word',
+        },
+
+        utils.cmd_shift('r', {
+          function()
+            Snacks.picker.resume()
+          end,
+          desc = 'Snacks Resume',
+        }),
+
+        utils.cmd_shift('p', {
+          function()
+            Snacks.picker()
+          end,
+          desc = 'Snacks',
+        }),
 
         {
           '<leader>S.',

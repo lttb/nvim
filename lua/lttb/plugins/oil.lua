@@ -29,11 +29,14 @@ return {
     lazy = false,
     cmd = 'Oil',
     opts = {
-      default_file_explorer = true,
+      default_file_explorer = false,
 
       skip_confirm_for_simple_edits = true,
 
-      watch_for_changes = true,
+      -- NOTE: with the latest changes, there is an error
+      -- Could not find oil adapter for scheme '/..file.lua://'
+      -- [oil] could not find adapter for buffer '/..file.lua://'
+      watch_for_changes = false,
 
       win_options = {
         winbar = '%!v:lua.oil_render_winbar()',
@@ -78,7 +81,9 @@ return {
         end,
       })
 
-      require('lttb.utils.oil_sidebar').setup()
+      local sb = require('lttb.utils.oil_sidebar')
+
+      sb.setup()
     end,
   },
 }
