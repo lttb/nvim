@@ -38,9 +38,12 @@ return {
       scope = { enabled = true },
 
       picker = {
+        layout = {
+          preset = 'vertical',
+        },
         formatters = {
           file = {
-            filename_first = true,
+            filename_first = false,
           },
         },
 
