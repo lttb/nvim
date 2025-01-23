@@ -72,8 +72,8 @@ return {
           '<leader><leader>',
           function()
             Snacks.picker.smart({
-              cwd = vim.uv.cwd(),
-              finders = { 'buffers', 'recent', 'git_files' },
+              multi = { 'buffers', 'recent', 'git_files' },
+              filter = { cwd = true },
             })
           end,
           desc = 'Smart Open',
