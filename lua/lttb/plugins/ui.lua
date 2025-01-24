@@ -165,6 +165,9 @@ return {
         options = {
           themable = true,
 
+          -- for some reason, a regular cross isn't rendered in kitty correctly (it's much larger)
+          buffer_close_icon = '󰅖',
+
           offsets = {
             {
               filetype = 'oil',
