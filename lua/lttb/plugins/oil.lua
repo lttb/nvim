@@ -48,6 +48,7 @@ return {
       keymaps = {
         ['<C-r>'] = 'actions.refresh',
         ['<C-l>'] = false,
+        ['<C-h>'] = false,
         ['f'] = function()
           require('mini.files').open(oil_get_selected_file().directory)
         end,
