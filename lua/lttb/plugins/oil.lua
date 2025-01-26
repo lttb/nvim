@@ -9,7 +9,11 @@ return {
     'stevearc/stickybuf.nvim',
     lazy = true,
     config = function()
-      require('stickybuf').setup({})
+      require('stickybuf').setup({
+        get_auto_pin = function()
+          return false
+        end,
+      })
 
       local util = require('stickybuf.util')
 
