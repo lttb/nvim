@@ -6,7 +6,7 @@ local function is_file_buffer(bufnr)
   local buftype = vim.bo[bufnr].buftype
   local bufname = vim.api.nvim_buf_get_name(bufnr)
 
-  if bufname:match('^oil://') then
+  if buftype == 'oil' then
     return true
   end
 
@@ -15,6 +15,10 @@ local function is_file_buffer(bufnr)
   end
 
   if bufname:match('/scratch/') then
+    return false
+  end
+
+  if buftype:find('^snacks_') then
     return false
   end
 
