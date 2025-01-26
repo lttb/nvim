@@ -61,13 +61,17 @@ return {
         },
       },
       -- words = {},
+
+      notifier = {
+        enabled = true,
+      },
     },
     config = function(_, opts)
       -- @see https://github.com/LazyVim/LazyVim/blob/d0c366e4d861b848bdc710696d5311dca2c6d540/lua/lazyvim/plugins/init.lua#L21-L29
       local notify = vim.notify
       require('snacks').setup(opts)
-      -- HACK: restore vim.notify after snacks setup and let noice.nvim take over
-      -- this is needed to have early notifications show up in noice history
+      -- -- HACK: restore vim.notify after snacks setup and let noice.nvim take over
+      -- -- this is needed to have early notifications show up in noice history
       vim.notify = notify
     end,
     keys = function()
@@ -99,16 +103,31 @@ return {
           desc = 'Search All files',
         },
 
-        -- {
-        --   '<D-f>',
-        --   function()
-        --     Snacks.picker.lines({
-        --       layout = {
-        --         preset = 'ivy',
-        --       },
-        --     })
-        --   end,
-        -- },
+        {
+          '<D-f>',
+          function()
+            Snacks.picker.lines({
+              layout = {
+                preview = true,
+
+                layout = {
+                  backdrop = false,
+                  width = 0.7,
+                  min_width = 80,
+                  height = 0.8,
+                  min_height = 30,
+                  box = 'vertical',
+                  border = 'rounded',
+                  title = '{title} {live} {flags}',
+                  title_pos = 'center',
+                  { win = 'preview', title = '{preview}', height = 0.6,     border = 'bottom' },
+                  { win = 'input',   height = 1,          border = 'bottom' },
+                  { win = 'list',    border = 'none' },
+                },
+              },
+            })
+          end,
+        },
 
         {
           '<D-o>',
