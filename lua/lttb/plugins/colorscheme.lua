@@ -29,4 +29,9 @@ return {
     'lttb/morningstar.nvim',
     lazy = true,
   },
+
+  {
+    'idr4n/github-monochrome.nvim',
+    lazy = false,
+  },
 }

@@ -20,7 +20,6 @@ highlight! link ModeMsg Normal
 highlight! link WinBarNC Normal
 highlight Bold guifg=NONE guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight Boolean guifg=#202429 guibg=NONE guisp=NONE gui=italic cterm=italic
-highlight BufferLineFill guifg=NONE guibg=#F4F7F9 guisp=NONE gui=NONE cterm=NONE
 highlight BufferVisible guifg=#525A65 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight BufferVisibleIndex guifg=#525A65 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight BufferVisibleSign guifg=#525A65 guibg=NONE guisp=NONE gui=NONE cterm=NONE

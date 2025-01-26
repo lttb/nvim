@@ -44,6 +44,7 @@ return {
     version = '*',
     opts = {},
   },
+
   {
     cond = not utils.is_vscode(),
     event = 'VeryLazy',

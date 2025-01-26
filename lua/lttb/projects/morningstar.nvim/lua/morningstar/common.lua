@@ -18,7 +18,8 @@ function M.create(colors_name, bg, get_palette)
     return {
       CursorLine({ bg = palette.cursor_line }),
       ColorColumn({ CursorLine }),
-      BufferLineFill({ bg = palette.cursor_line }),
+
+      -- BufferLineFill({ bg = palette.cursor_line }),
 
       -- Visual({ bg = palette.cursor_line }),
 

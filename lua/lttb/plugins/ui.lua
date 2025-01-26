@@ -9,7 +9,8 @@ end
 return {
   {
     'echasnovski/mini.icons',
-    event = 'VeryLazy',
+    lazy = false,
+    priority = 1000,
     version = '*',
     opts = {},
     config = function()
@@ -168,16 +169,43 @@ return {
   },
 
   {
+    enabled = false,
+    'romgrk/barbar.nvim',
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    opts = {
+      auto_hide = 1,
+
+      sidebar_filetypes = {
+        oil = true,
+      },
+    },
+  },
+
+  {
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
     version = '*',
     opts = function()
+      local bufferline = require('bufferline')
+
       return {
         options = {
           themable = true,
 
+          style_preset = {
+            bufferline.style_preset.no_italic,
+            bufferline.style_preset.minimal,
+          },
+
           -- for some reason, a regular cross isn't rendered in kitty correctly (it's much larger)
-          buffer_close_icon = '󰅖',
+          buffer_close_icon = ' ',
+
+          color_icons = false,
+
+          always_show_bufferline = false,
+          auto_toggle_bufferline = true,
 
           offsets = {
             {
@@ -194,7 +222,7 @@ return {
             },
           },
 
-          separator_style = 'thin',
+          separator_style = 'thick',
 
           hover = {
             enabled = true,
@@ -202,7 +230,21 @@ return {
             reveal = { 'close' },
           },
 
-          diagnostics = 'nvim_lsp',
+          diagnostics = false,
+        },
+
+        highlights = {
+          fill = {
+            bg = { highlight = 'WinSeparator', attribute = 'bg' },
+          },
+
+          background = {
+            bg = { highlight = 'WinSeparator', attribute = 'bg' },
+          },
+
+          info = {
+            bg = { highlight = 'WinSeparator', attribute = 'bg' },
+          },
         },
       }
     end,

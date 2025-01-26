@@ -55,9 +55,9 @@ vim.opt.showcmd       = false
 
 vim.opt.pumheight     = 10
 
-vim.opt.textwidth     = 120
-vim.opt.scrolloff     = 80
-vim.opt.sidescrolloff = 20
+-- vim.opt.textwidth     = 120
+-- vim.opt.scrolloff     = 80
+-- vim.opt.sidescrolloff = 20
 
 vim.opt.pumblend      = 10
 vim.opt.winblend      = 10

@@ -19,6 +19,7 @@ if utils.is_vscode() then
   return
 end
 
+-- vim.cmd.colorscheme('github-monochrome-' .. vim.o.background)
 vim.cmd.colorscheme('morningstar')
 
 if utils.is_neovide() then
