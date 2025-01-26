@@ -36,7 +36,7 @@ return {
       -- NOTE: with the latest changes, there is an error
       -- Could not find oil adapter for scheme '/..file.lua://'
       -- [oil] could not find adapter for buffer '/..file.lua://'
-      watch_for_changes = false,
+      watch_for_changes = true,
 
       win_options = {
         winbar = '%!v:lua.oil_render_winbar()',
@@ -81,6 +81,21 @@ return {
           vim.opt_local.buflisted = false
         end,
       })
+
+      -- NOTE: investigate the issue with adapters on watched files with oil opened
+      local config = require('oil.config')
+      local _get_adapter_by_scheme = config.get_adapter_by_scheme
+      config.get_adapter_by_scheme = function(scheme)
+        if not scheme then
+          return nil
+        end
+
+        if not vim.endswith(scheme, '://') then
+          return require('oil.adapters.files')
+        end
+
+        return _get_adapter_by_scheme(scheme)
+      end
 
       local sb = require('lttb.utils.oil_sidebar')
 
