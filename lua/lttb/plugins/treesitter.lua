@@ -133,7 +133,6 @@ return {
       })
 
       -- @see https://phelipetls.github.io/posts/mdx-syntax-highlight-treesitter-nvim/
-
       vim.filetype.add({
         extension = {
           mdx = 'mdx',
@@ -141,6 +140,7 @@ return {
       })
 
       vim.treesitter.language.register('markdown', 'mdx')
+      vim.treesitter.language.register('tsx', { 'typescript', 'typescriptreact' })
     end,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-refactor',
@@ -156,7 +156,7 @@ return {
         config = function()
           require('treesitter-context').setup({
             separator = '-',
-            multiline_threshold = 2,
+            multiline_threshold = 1,
           })
         end,
       },
