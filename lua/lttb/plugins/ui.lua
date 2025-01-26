@@ -56,6 +56,9 @@ return {
       -- new term_options object is needed to avoid caching
       local broot = Terminal:new(vim.tbl_extend('keep', {}, term_options))
 
+      -- new term_options object is needed to avoid caching
+      local local_term = Terminal:new(vim.tbl_extend('keep', {}, term_options))
+
       return {
         {
           '<D-j>',
@@ -65,11 +68,19 @@ return {
           desc = 'Toggle Terminal',
           mode = { 'n', 't', 'i' },
         },
+        utils.cmd_shift('j', {
+          function()
+            local_term.dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':h')
+            local_term:toggle()
+          end,
+          mode = { 'n', 't', 'i' },
+        }),
         utils.cmd_shift('g', {
           function()
             broot.cmd = 'broot'
             broot:toggle()
           end,
+          mode = { 'n', 't', 'i' },
         }),
         {
           '<D-g>',

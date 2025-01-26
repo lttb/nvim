@@ -95,7 +95,21 @@ vim.keymap.set({ 'i', 'n' }, '<D-s>', function()
 end, { desc = 'Quick Save', silent = true })
 
 -- TODO: automatically close split if the last buffer in the split was closed
-vim.keymap.set('n', '<D-w>', '<cmd>lua MiniBufremove.delete()<cr>')
+vim.keymap.set({ 'n', 't', 'i' }, '<D-w>', function()
+  local Terminal = require('toggleterm.terminal').Terminal
+
+  if Terminal:is_open() then
+    Terminal:close()
+
+    return
+  end
+
+  require('snacks').bufdelete()
+
+  -- if winnr('$') > 2 then
+  --   vim.api.nvim_win_close(0, true)
+  -- end
+end)
 
 function FormatPasted()
   -- Get the lines where the last paste occurred
