@@ -111,6 +111,148 @@ function M.setup()
   local pending_timer = nil
   local state = 'idle'
 
+  local function open_sidebar()
+    state = 'initialising'
+
+    local view = require('oil.view')
+
+    local winwin = require('lttb.utils.windows')
+
+    winwin.setup()
+
+    local current_win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_create_buf(false, false)
+
+    -- vim.defer_fn(function ()
+    --
+    -- end, 0)
+
+    shown_win = winwin.open_win(buf, false, {
+      focusable = false,
+      split = 'left',
+      fixed = true,
+    }, {
+      sync = true,
+      width = 0.25,
+      min_width = 30,
+    })
+
+    local parent_url = oil_prepare_current_buf()
+
+    local existing_buf = find_buffer_by_name(parent_url)
+
+    if existing_buf == -1 then
+      vim.api.nvim_buf_set_name(buf, parent_url)
+      view.initialize(buf)
+    else
+      vim.api.nvim_win_set_buf(shown_win, existing_buf)
+    end
+
+    require('stickybuf').pin(shown_win, {
+      allow = function(bufnr)
+        local ft = vim.bo[bufnr].ft
+        local shown_buf = vim.api.nvim_win_get_buf(shown_win)
+
+        -- print('pin', bufnr, buf, shown_buf)
+
+        return bufnr ~= shown_buf or ft == 'oil'
+      end,
+    })
+
+    vim.defer_fn(function()
+      -- force to focus on the original win
+      vim.api.nvim_set_current_win(current_win)
+    end, 0)
+
+    vim.api.nvim_create_autocmd({ 'WinEnter' }, {
+      nested = true,
+      callback = function(data)
+        local win = vim.api.nvim_get_current_win()
+        if win ~= shown_win then
+          return
+        end
+
+        local width_expected = winwin.get_win_width(win)
+        local width = vim.api.nvim_win_get_width(win)
+
+        if width_expected ~= width then
+          local empty_buf = vim.api.nvim_create_buf(false, true)
+          local total_width = vim.o.columns
+
+          -- print('initial', shown_win)
+
+          local empty_buf_pattern = 'oil_scratch_buf'
+
+          vim.api.nvim_create_autocmd('FileType', {
+            pattern = empty_buf_pattern,
+            once = true,
+            callback = function()
+              vim.opt_local.number = false
+              vim.opt_local.colorcolumn = ''
+            end,
+          })
+
+          vim.api.nvim_create_autocmd('WinResized', {
+            once = true,
+            callback = function()
+              vim.api.nvim_open_win(empty_buf, false, {
+                split = 'right',
+                width = total_width - width_expected - 1, -- Adjust split width (50% of current width)
+                focusable = false,
+              })
+
+              vim.api.nvim_set_option_value('filetype', empty_buf_pattern, { buf = empty_buf })
+
+              -- vim.api.nvim_buf_set_option(empty_buf, 'number', false)
+              -- vim.api.nvim_buf_set_option(empty_buf, 'relativenumber', false)
+
+              -- vim.api.nvim_win_set_config(0, {
+              --   width = width_expected,
+              --   split = 'left',
+              --   vertical = true,
+              -- })
+            end,
+          })
+
+          -- vim.cmd('e')
+          -- winwin.resize_synced_windows()
+          -- width_expected = vim.api.nvim_win_get_width(win)
+        end
+
+        -- local win_amount = #vim.api.nvim_tabpage_list_wins(0)
+        --
+        -- print('hey', win_amount)
+        --
+        -- if win_amount > 1 then
+        --   return
+        -- end
+        --
+        -- print('alone')
+      end,
+    })
+
+    state = 'inited'
+  end
+
+  function close_sidebar()
+    if not shown_win or not vim.api.nvim_win_is_valid(shown_win) then
+      return false
+    end
+
+    vim.api.nvim_win_close(shown_win, true)
+    shown_win = nil
+
+    return true
+  end
+
+  function toggle_sidebar()
+    if not close_sidebar() then
+      open_sidebar()
+    end
+  end
+
+  vim.keymap.set('n', '<D-b>', toggle_sidebar, { silent = true })
+
   vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     nested = true,
     callback = function(data)
@@ -173,126 +315,7 @@ function M.setup()
         return
       end
 
-      state = 'initialising'
-
-      local view = require('oil.view')
-
-      local winwin = require('lttb.utils.windows')
-
-      winwin.setup()
-
-      local current_win = vim.api.nvim_get_current_win()
-      local buf = vim.api.nvim_create_buf(false, false)
-
-      -- vim.defer_fn(function ()
-      --
-      -- end, 0)
-
-      shown_win = winwin.open_win(buf, false, {
-        focusable = false,
-        split = 'left',
-        fixed = true,
-      }, {
-        sync = true,
-        width = 0.25,
-        min_width = 30,
-      })
-
-      local parent_url = oil_prepare_current_buf()
-
-      local existing_buf = find_buffer_by_name(parent_url)
-
-      if existing_buf == -1 then
-        vim.api.nvim_buf_set_name(buf, parent_url)
-        view.initialize(buf)
-      else
-        vim.api.nvim_win_set_buf(shown_win, existing_buf)
-      end
-
-      require('stickybuf').pin(shown_win, {
-        allow = function(bufnr)
-          local ft = vim.bo[bufnr].ft
-          local shown_buf = vim.api.nvim_win_get_buf(shown_win)
-
-          -- print('pin', bufnr, buf, shown_buf)
-
-          return bufnr ~= shown_buf or ft == 'oil'
-        end,
-      })
-
-      vim.defer_fn(function()
-        -- force to focus on the original win
-        vim.api.nvim_set_current_win(current_win)
-      end, 0)
-
-      vim.api.nvim_create_autocmd({ 'WinEnter' }, {
-        nested = true,
-        callback = function(data)
-          local win = vim.api.nvim_get_current_win()
-          if win ~= shown_win then
-            return
-          end
-
-          local width_expected = winwin.get_win_width(win)
-          local width = vim.api.nvim_win_get_width(win)
-
-          if width_expected ~= width then
-            local empty_buf = vim.api.nvim_create_buf(false, true)
-            local total_width = vim.o.columns
-
-            -- print('initial', shown_win)
-
-            local empty_buf_pattern = 'oil_scratch_buf'
-
-            vim.api.nvim_create_autocmd('FileType', {
-              pattern = empty_buf_pattern,
-              once = true,
-              callback = function()
-                vim.opt_local.number = false
-                vim.opt_local.colorcolumn = ''
-              end,
-            })
-
-            vim.api.nvim_create_autocmd('WinResized', {
-              once = true,
-              callback = function()
-                vim.api.nvim_open_win(empty_buf, false, {
-                  split = 'right',
-                  width = total_width - width_expected - 1, -- Adjust split width (50% of current width)
-                  focusable = false,
-                })
-
-                vim.api.nvim_set_option_value('filetype', empty_buf_pattern, { buf = empty_buf })
-
-                -- vim.api.nvim_buf_set_option(empty_buf, 'number', false)
-                -- vim.api.nvim_buf_set_option(empty_buf, 'relativenumber', false)
-
-                -- vim.api.nvim_win_set_config(0, {
-                --   width = width_expected,
-                --   split = 'left',
-                --   vertical = true,
-                -- })
-              end,
-            })
-
-            -- vim.cmd('e')
-            -- winwin.resize_synced_windows()
-            -- width_expected = vim.api.nvim_win_get_width(win)
-          end
-
-          -- local win_amount = #vim.api.nvim_tabpage_list_wins(0)
-          --
-          -- print('hey', win_amount)
-          --
-          -- if win_amount > 1 then
-          --   return
-          -- end
-          --
-          -- print('alone')
-        end,
-      })
-
-      state = 'inited'
+      open_sidebar()
     end,
   })
 end
