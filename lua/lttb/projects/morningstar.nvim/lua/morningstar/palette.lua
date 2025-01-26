@@ -19,6 +19,7 @@ M.light = core.create('morningstar', 'light', function()
     cursor_line = hsluv('#f6f8fa'),
   }, 'light')
 end)
+
 M.dark = core.create('morningstar', 'dark', function()
   return util.palette_extend({
     bg = hsluv('#24282e'),
@@ -32,6 +33,5 @@ M.dark = core.create('morningstar', 'dark', function()
     cursor_line = hsluv('#282c34'),
   }, 'dark')
 end)
-
 
 return M

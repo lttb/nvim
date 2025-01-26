@@ -3,7 +3,7 @@ local inactive_bg = '#23272E'
 
 if vim.o.background == 'light' then
   common_fg = '#1f2328'
-  inactive_bg = '#fafafa'
+  inactive_bg = '#f6f8fa'
 end
 
 local inactive_fg = common_fg

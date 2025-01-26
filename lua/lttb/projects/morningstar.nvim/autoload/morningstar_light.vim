@@ -41,6 +41,7 @@ highlight CursorLine guifg=NONE guibg=#F4F7F9 guisp=NONE gui=NONE cterm=NONE
 highlight! link CocMenuSel CursorLine
 highlight! link ColorColumn CursorLine
 highlight! link CursorColumn CursorLine
+highlight! link FzfLuaFzfCursorLine CursorLine
 highlight CursorLineNr guifg=#202429 guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight Delimiter guifg=#8B8B8B guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight! link markdownLinkTextDelimiter Delimiter
@@ -98,6 +99,7 @@ highlight! link ErrorMsg Error
 highlight FlashBackdrop guifg=#969696 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight FlashLabel guifg=#202429 guibg=#B3D9F8 guisp=NONE gui=NONE cterm=NONE
 highlight FloatBorder guifg=NONE guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight FloatTitle guifg=#202429 guibg=#E8E8E8 guisp=NONE gui=bold cterm=bold
 highlight FoldColumn guifg=#A3A3A3 guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight Folded guifg=#555555 guibg=#D1D1D1 guisp=NONE gui=NONE cterm=NONE
 highlight Function guifg=#202429 guibg=NONE guisp=NONE gui=bold cterm=bold
@@ -106,6 +108,7 @@ highlight! link TroubleText Function
 highlight FzfLuaBufFlagAlt guifg=#286486 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight FzfLuaBufFlagCur guifg=#944927 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight FzfLuaBufNr guifg=#4F6C31 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+highlight FzfLuaFzfMatch guifg=NONE guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight FzfLuaHeaderBind guifg=#4F6C31 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight FzfLuaHeaderText guifg=#944927 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight FzfLuaLiveSym guifg=#944927 guibg=NONE guisp=NONE gui=NONE cterm=NONE
@@ -180,6 +183,7 @@ highlight! link TabLineFill StatusLineNC
 highlight TabLineSel guifg=NONE guibg=NONE guisp=NONE gui=bold cterm=bold
 highlight! link BufferCurrent TabLineSel
 highlight Title guifg=#202429 guibg=NONE guisp=NONE gui=bold cterm=bold
+highlight! link FzfLuaTitle Title
 highlight Todo guifg=NONE guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight TreesitterContextSeparator guifg=#F4F7F9 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 highlight Type guifg=#7D6D81 guibg=NONE guisp=NONE gui=NONE cterm=NONE
