@@ -95,17 +95,16 @@ return {
           desc = 'Search All files',
         },
 
-        {
-          '<D-f>',
-          function()
-            Snacks.picker.lines({
-              layout = {
-                -- TODO: research if it's possible to use "ivy" but only win width
-                preset = 'telescope',
-              },
-            })
-          end,
-        },
+        -- {
+        --   '<D-f>',
+        --   function()
+        --     Snacks.picker.lines({
+        --       layout = {
+        --         preset = 'ivy',
+        --       },
+        --     })
+        --   end,
+        -- },
 
         {
           '<D-o>',

@@ -4,10 +4,6 @@ if utils.is_vscode() then
   return {}
 end
 
-if true then
-  return {}
-end
-
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -26,18 +22,18 @@ return {
       end
 
       return {
-        -- {
-        --   '<D-f>',
-        --   function()
-        --     get().builtin.current_buffer_fuzzy_find({
-        --       layout_strategy = 'vertical',
-        --       layout_config = {
-        --         prompt_position = 'top',
-        --       },
-        --     })
-        --   end,
-        --   desc = 'Fuzzily search in current buffer',
-        -- },
+        {
+          '<D-f>',
+          function()
+            get().builtin.current_buffer_fuzzy_find({
+              layout_strategy = 'vertical',
+              layout_config = {
+                prompt_position = 'top',
+              },
+            })
+          end,
+          desc = 'Fuzzily search in current buffer',
+        },
 
         -- {
         --   '<S-D-f>',
@@ -133,33 +129,33 @@ return {
         --   desc = 'Search Submodules',
         -- },
 
-        {
-          '<leader>sf',
-          function()
-            require('telescope').extensions.file_browser.file_browser({
-              auto_depth = true,
-              hidden = false,
-              respect_gitignore = true,
-              git_status = false,
-            })
-          end,
-          desc = 'Search File Browser',
-        },
-
-        {
-          '<leader>sc',
-          function()
-            require('telescope').extensions.file_browser.file_browser({
-              path = '%:p:h',
-              select_buffer = true,
-              auto_depth = true,
-              hidden = false,
-              respect_gitignore = true,
-              git_status = true,
-            })
-          end,
-          desc = 'Search Current File Browser',
-        },
+        -- {
+        --   '<leader>sf',
+        --   function()
+        --     require('telescope').extensions.file_browser.file_browser({
+        --       auto_depth = true,
+        --       hidden = false,
+        --       respect_gitignore = true,
+        --       git_status = false,
+        --     })
+        --   end,
+        --   desc = 'Search File Browser',
+        -- },
+        --
+        -- {
+        --   '<leader>sc',
+        --   function()
+        --     require('telescope').extensions.file_browser.file_browser({
+        --       path = '%:p:h',
+        --       select_buffer = true,
+        --       auto_depth = true,
+        --       hidden = false,
+        --       respect_gitignore = true,
+        --       git_status = true,
+        --     })
+        --   end,
+        --   desc = 'Search Current File Browser',
+        -- },
 
         -- {
         --   '<leader>sh',
