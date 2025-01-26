@@ -25,6 +25,10 @@ return {
         indent = {
           char = '┊',
         },
+
+        scope = {
+          char = '┊',
+        },
       },
       -- input = { enabled = true },
       -- notifier = { enabled = true },

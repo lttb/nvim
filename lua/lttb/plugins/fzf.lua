@@ -21,6 +21,8 @@ return {
         header_bind = 'DiagnosticWarn',
         header_text = 'DiagnosticInfo',
       },
+
+      fzf_colors = true,
     },
     keys = function()
       local res = nil

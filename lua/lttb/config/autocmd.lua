@@ -5,10 +5,18 @@ if utils.is_vscode() then
 end
 
 -- Create an autocommand group to organize your autocommands
-vim.api.nvim_create_augroup('MyAutoCmds', { clear = true })
+local lttb_ag = vim.api.nvim_create_augroup('MyAutoCmds', { clear = true })
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = lttb_ag,
+  callback = function()
+    vim.opt_local.formatoptions:remove({ 'c', 'o' })
+    vim.opt_local.formatoptions:append({ 'r', 'n' })
+  end,
+})
 
 vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'MyAutoCmds',
+  group = lttb_ag,
   callback = function()
     local color = require('lttb.utils.color')
 
@@ -147,7 +155,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 if false and utils.is_kitty() then
   vim.api.nvim_create_autocmd('VimLeave', {
-    group = 'MyAutoCmds',
+    group = lttb_ag,
     callback = function()
       vim.cmd('silent !kitty @ --to=$KITTY_LISTEN_ON set-window-title')
     end,
@@ -177,7 +185,7 @@ if false and utils.is_kitty() then
   local timer = nil
 
   vim.api.nvim_create_autocmd('BufEnter', {
-    group = 'MyAutoCmds',
+    group = lttb_ag,
     callback = function()
       if not should_update_title(0) then
         return

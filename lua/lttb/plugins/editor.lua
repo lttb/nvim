@@ -8,6 +8,7 @@ return {
   {
     'nmac427/guess-indent.nvim',
     event = 'LazyFile',
+    opts = {},
   },
 
   {
@@ -62,18 +63,20 @@ return {
   {
     'axelvc/template-string.nvim',
     event = 'LazyFile',
-    config = true,
+    opts = {},
   },
 
   {
     'folke/ts-comments.nvim',
     event = 'LazyFile',
+    opts = {},
   },
 
   -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
   {
     'axkirillov/hbac.nvim',
     event = 'VeryLazy',
+    opts = {},
   },
 
   {
@@ -87,7 +90,7 @@ return {
   },
 
   -- better quick fix window
-  { 'kevinhwang91/nvim-bqf', event = 'LazyFile' },
+  { 'kevinhwang91/nvim-bqf', event = 'LazyFile', opts = {} },
 
   { 'lttb/macos-text.nvim',  event = 'LazyFile', opts = {} },
 

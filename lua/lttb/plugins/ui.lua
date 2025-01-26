@@ -199,9 +199,6 @@ return {
             bufferline.style_preset.minimal,
           },
 
-          -- for some reason, a regular cross isn't rendered in kitty correctly (it's much larger)
-          buffer_close_icon = ' ',
-
           color_icons = false,
 
           always_show_bufferline = false,
@@ -222,7 +219,10 @@ return {
             },
           },
 
-          separator_style = 'thick',
+          show_buffer_icons = false,
+          show_buffer_close_icons = false,
+
+          separator_style = { '', '' },
 
           hover = {
             enabled = true,
