@@ -41,7 +41,9 @@ return {
         lua = { 'stylua', lsp_format = 'last' },
         zsh = { 'shfmt' },
         sh = { 'shfmt' },
-        ['toml'] = { 'taplo' },
+        toml = { 'taplo' },
+
+        _ = { 'trim_whitespace' },
       },
     },
   },

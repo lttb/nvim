@@ -19,7 +19,7 @@ local function config()
       -- component_separators = '|',
       -- section_separators = '',
 
-      disabled_filetypes = { 'NvimTree', 'neo-tree' },
+      disabled_filetypes = { 'NvimTree', 'neo-tree', 'oil' },
     },
 
     sections = {
@@ -138,7 +138,6 @@ return {
     dependencies = {
       {
         'linrongbin16/lsp-progress.nvim',
-        event = 'LazyFile',
         opts = {},
       },
     },

@@ -32,6 +32,16 @@ return {
 
   {
     'idr4n/github-monochrome.nvim',
-    lazy = false,
+    lazy = true,
+  },
+
+  {
+    'ronisbr/nano-theme.nvim',
+    lazy = true,
+  },
+
+  {
+    'RRethy/base16-nvim',
+    lazy = true,
   },
 }
