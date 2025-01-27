@@ -239,6 +239,10 @@ return {
           info = {
             bg = { highlight = 'WinSeparator', attribute = 'bg' },
           },
+
+          duplicate = {
+            bg = { highlight = 'WinSeparator', attribute = 'bg' },
+          },
         },
       }
     end,
