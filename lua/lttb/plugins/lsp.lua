@@ -328,9 +328,31 @@ return {
         -- If you use nix, you can build from source using latest nightly rust with:
         -- build = 'nix run .#build-plugin',
 
+        opts_extend = { 'sources.default' },
+
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
+          sources = {
+            default = { 'lsp', 'path', 'snippets', 'buffer' },
+
+            providers = {
+              path = {
+                -- @see https://github.com/Saghen/blink.cmp/discussions/884
+                enabled = function()
+                  return not vim.tbl_contains(
+                    { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+                    vim.bo.filetype
+                  )
+                end,
+              },
+
+              lsp = {
+                fallbacks = { 'buffer', 'path' },
+              },
+            },
+          },
+
           signature = { enabled = true },
 
           completion = {
