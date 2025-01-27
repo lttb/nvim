@@ -206,7 +206,7 @@ return {
   {
     -- extended treesitter objects
     'chrisgrieser/nvim-various-textobjs',
-    event = 'VeryLazy',
-    opts = { keymaps = { useDefaultKeymaps = true, disabledKeymaps = { 'gc' } } },
+    event = 'LazyFile',
+    opts = { keymaps = { useDefaults = true, disabledDefaults = { 'gc' } } },
   },
 }
