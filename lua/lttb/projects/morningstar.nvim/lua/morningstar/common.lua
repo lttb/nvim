@@ -23,13 +23,14 @@ function M.create(colors_name, bg, get_palette)
 
       -- Visual({ bg = palette.cursor_line }),
 
-      Statement({ fg = palette.sky, gui = 'NONE' }),
+      Statement({ fg = palette.muted, gui = 'NONE' }),
       -- Special({ fg = palette.water, gui = 'NONE' }),
 
       Type({ fg = palette.type.desaturate(80) }),
+
       sym('@type.builtin')({ fg = palette.type.desaturate(60) }),
 
-      -- Constant({ fg = palette.muted, gui = 'NONE' }),
+      Constant({ fg = palette.fg, gui = 'NONE' }),
       -- sym('@constant')({ fg = palette.muted, gui = 'NONE' }),
 
       Function({ fg = palette.fg, gui = 'bold' }),
@@ -41,7 +42,11 @@ function M.create(colors_name, bg, get_palette)
 
       sym('@label')({ fg = palette.fg, gui = 'NONE' }),
       sym('@method')({ gui = 'NONE' }),
+
       sym('@tag')({ fg = palette.wood, gui = 'NONE' }),
+      sym('@tag.attribute.tsx')({ gui = 'NONE' }),
+      sym('@tag.builtin.tsx')({ sym('@tag') }),
+
       sym('@constructor')({ fg = palette.wood, gui = 'NONE' }),
 
       sym('@constant')({ fg = palette.wood, gui = 'NONE' }),
@@ -94,6 +99,8 @@ function M.create(colors_name, bg, get_palette)
       NvimTreeWinSeparator({ WinSeparator }),
       NvimTreeCursorLine({ bg = palette.cursor_line }),
       NvimTreeExecFile({ base_specs.Normal }),
+
+      sym('@variable.tsx')({ fg = palette.fg }),
     }
   end)
 

@@ -35,29 +35,16 @@ end
 
 local scheme = colorscheme[bg]
 
-local term = require('zenbones.term').colors_map(scheme.palette)
-
 run(
   scheme.specs,
   lushwright.to_vimscript,
-  lushwright.vim_compatible_vimscript,
+  -- lushwright.vim_compatible_vimscript,
   -- @see https://github.com/zenbones-theme/zenbones.nvim/blob/3c0b86bb912d41d191d90c019a346f6a1d27f588/lua/zenbones/shipwright/runners/vim.lua
   function(colors)
-    local vimcolors = vim.tbl_filter(function(color)
-      return not (
-        string.match(color, '@')
-        or string.match(color, 'Noice')
-        or string.match(color, 'Telescope')
-        or string.match(color, 'Leap')
-        or string.match(color, 'Hop')
-        or string.match(color, 'Neogit')
-        or string.match(color, 'NvimTree')
-        or string.match(color, 'Cmp')
-        or string.match(color, 'Mason')
-      )
-    end, colors)
+    local term = require('zenbones.term').colors_map(scheme.palette)
+
     return {
-      vimcolors,
+      colors,
       term,
     }
   end,

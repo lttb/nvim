@@ -10,8 +10,8 @@ M.light = core.create('morningstar', 'light', function()
   return util.palette_extend({
     bg = hsluv('#ffffff'),
     fg = hsluv('#1f2328'),
-    sky = hsluv('#6e7781'),
 
+    sky = hsluv('#7d8590'),
     muted = hsluv('#636c76'),
 
     type = hsluv('#AB47BC'),
@@ -24,8 +24,8 @@ M.dark = core.create('morningstar', 'dark', function()
   return util.palette_extend({
     bg = hsluv('#24282e'),
     fg = hsluv('#C2C2C2'),
-    sky = hsluv('#7d8590'),
 
+    sky = hsluv('#7d8590'),
     muted = hsluv('#636c76'),
 
     type = hsluv('#a07e3b'),
