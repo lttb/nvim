@@ -157,7 +157,7 @@ return {
           require('treesitter-context').setup({
             separator = '-',
             multiline_threshold = 2,
-            max_lines = 8,
+            max_lines = 5,
             mode = 'topline',
           })
         end,
