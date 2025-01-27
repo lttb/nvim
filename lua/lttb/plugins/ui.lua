@@ -243,6 +243,16 @@ return {
           duplicate = {
             bg = { highlight = 'WinSeparator', attribute = 'bg' },
           },
+
+          modified = {
+            bg = { highlight = 'WinSeparator', attribute = 'bg' },
+          },
+          modified_visible = {
+            bg = { highlight = 'Normal', attribute = 'bg' },
+          },
+          modified_selected = {
+            bg = { highlight = 'Normal', attribute = 'bg' },
+          },
         },
       }
     end,
