@@ -3,7 +3,8 @@
 (
  (variable_declarator
     name: (identifier) @variable)
-  (#set! "priority" 128))
+  (#set! "priority" 128)
+)
 
 (
   (import_specifier
