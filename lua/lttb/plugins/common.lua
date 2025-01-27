@@ -93,9 +93,9 @@ return {
     event = 'VeryLazy',
     opts = {
       highlight = {
-        enabled = true,     -- highlight yanked text
-        higroup = 'Search', -- highlight group of yanked text
-        timeout = 200,      -- timeout for clearing the highlight
+        enabled = true,         -- highlight yanked text
+        higroup = 'CursorLine', -- highlight group of yanked text
+        timeout = 200,          -- timeout for clearing the highlight
       },
       clipboard = { enabled = true },
       tmux = {
@@ -122,29 +122,16 @@ return {
   },
 
   {
-    'gbprod/yanky.nvim',
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
-    keys = {
-      { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank text' },
-      -- { 'p',  '<Plug>(YankyPutAfter)',   mode = { 'n', 'x' }, desc = 'Put yanked text after cursor' },
-      -- { 'P',  '<Plug>(YankyPutBefore)',  mode = { 'n', 'x' }, desc = 'Put yanked text before cursor' },
-      -- { 'gp', '<Plug>(YankyGPutAfter)',  mode = { 'n', 'x' }, desc = 'Put yanked text after selection' },
-      -- { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, desc = 'Put yanked text before selection' },
-    },
-  },
-
-  {
     'lttb/yanka.nvim',
     opts = {},
     keys = {
-      { '<D-x>', '"+d',  mode = { 'x' } },
-      { '<D-x>', '"+dd', mode = { 'n' } },
-      { '<D-c>', 'y',    mode = { 'x' } },
-      { '<D-c>', 'yy',   mode = { 'n' } },
+      -- { 'y',     '<Plug>(YankyYank)', mode = { 'x' } },
+      -- { '<D-c>', '<Plug>(YankyYank)', mode = { 'x' } },
+      { 'y',     'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
+      { '<D-c>', 'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
+      { '<D-x>', '"+d',                                    mode = { 'x' } },
+      { '<D-x>', '"+dd',                                   mode = { 'n' } },
+      { '<D-c>', 'yy',                                     mode = { 'n' } },
       {
         '<D-v>',
         '<cmd>lua require("yanka").put_with_autoindent()<CR>',
@@ -153,6 +140,36 @@ return {
         silent = true,
       },
       { '<D-v>', '<C-r>+', mode = { 'c' } },
+    },
+  },
+
+  {
+    enabled = false,
+    'gbprod/yanky.nvim',
+    event = 'VeryLazy',
+    config = function()
+      -- vim.keymap.set('v', 'y', function()
+      --   return 'my"' .. vim.v.register .. 'y`y'
+      -- end, { expr = true })
+
+      -- vim.opt.clipboard = 'unnamedplus'
+
+      require('yanky').setup({
+        highlight = {
+          on_yank = false,
+          timer = 200,
+        },
+      })
+
+      vim.api.nvim_set_hl(0, 'YankyYanked', { link = 'CursorLine' })
+      vim.api.nvim_set_hl(0, 'YankyPut', { link = 'CursorLine' })
+    end,
+    keys = {
+      -- { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank text' },
+      -- { 'p',  '<Plug>(YankyPutAfter)',   mode = { 'n', 'x' }, desc = 'Put yanked text after cursor' },
+      -- { 'P',  '<Plug>(YankyPutBefore)',  mode = { 'n', 'x' }, desc = 'Put yanked text before cursor' },
+      -- { 'gp', '<Plug>(YankyGPutAfter)',  mode = { 'n', 'x' }, desc = 'Put yanked text after selection' },
+      -- { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, desc = 'Put yanked text before selection' },
     },
   },
 
