@@ -4,8 +4,26 @@ function M.number_to_hex(color)
   return string.format('#%06x', color)
 end
 
+-- @see https://github.com/rktjmp/lush.nvim/blob/45a79ec4acb5af783a6a29673a999ce37f00497e/lua/lush/vivid/rgb/convert.lua#L3-L5
 function M.rgb_to_hex(r, g, b)
   return string.format('#%02X%02X%02X', r, g, b)
+end
+
+-- @see https://github.com/rktjmp/lush.nvim/blob/45a79ec4acb5af783a6a29673a999ce37f00497e/lua/lush/vivid/rgb/convert.lua#L7-L22
+function M.hex_to_rgb(hex_str)
+  -- normalise
+  local hex = '[abcdef0-9][abcdef0-9]'
+  local pat = '^#(' .. hex .. ')(' .. hex .. ')(' .. hex .. ')$'
+  hex_str = string.lower(hex_str)
+
+  -- smoke test
+  assert(string.find(hex_str, pat) ~= nil, 'hex_to_rgb: invalid hex_str: ' .. tostring(hex_str))
+
+  -- convert
+  local r, g, b = string.match(hex_str, pat)
+  r, g, b = tonumber(r, 16), tonumber(g, 16), tonumber(b, 16)
+
+  return { r = r, g = g, b = b }
 end
 
 function M.blend(from, to, level)
@@ -13,13 +31,11 @@ function M.blend(from, to, level)
 end
 
 function M.blend_hex(from, to, level)
-  local rgb_convert = require('lush.vivid.rgb.convert')
-
   if to == nil or from == nil then
     return from
   end
 
-  return M.blend(rgb_convert.hex_to_rgb(M.number_to_hex(from)), rgb_convert.hex_to_rgb(M.number_to_hex(to)), level)
+  return M.blend(M.hex_to_rgb(M.number_to_hex(from)), M.hex_to_rgb(M.number_to_hex(to)), level)
 end
 
 function M.alpha(from, level)
