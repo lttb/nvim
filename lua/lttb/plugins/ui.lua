@@ -143,12 +143,6 @@ return {
         lsp_doc_border = true,        -- add a border to hover docs and signature help
       },
 
-      messages = {
-        view_error = 'mini',
-        view_warn = 'mini',
-        view = 'mini',
-      },
-
       -- @see https://github.com/LazyVim/LazyVim/discussions/830
       routes = {
         filter = {
