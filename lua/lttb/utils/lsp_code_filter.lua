@@ -4,7 +4,7 @@ local function is_ignored_code(code)
   return string.find(code, 'prettier')
       or string.find(code, 'no%-unused%-vars')
       -- Could not find a declaration file for module .js
-      or string.find(code, '[7016]')
+      or string.find(code, '%[7016%]')
 end
 
 local function filter_diagnostics(diagnostics)
