@@ -117,6 +117,7 @@ return {
     event = 'VeryLazy',
     -- -- @see https://github.com/folke/noice.nvim/issues/921#issuecomment-2253363579
     -- commit = 'd9328ef903168b6f52385a751eb384ae7e906c6f',
+    --- @type NoiceConfig
     opts = {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
