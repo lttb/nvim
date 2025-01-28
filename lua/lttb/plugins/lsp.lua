@@ -237,9 +237,9 @@ local function config()
       -- certain features of an LSP (for example, turning off formatting for ts_ls)
       server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
 
-      if utils.is_dotfiles() then
-        return
-      end
+      -- if utils.is_dotfiles() then
+      --   return
+      -- end
 
       require('lspconfig')[server_name].setup(vim.tbl_extend('keep', {
         on_attach = function(client, bufnr)
