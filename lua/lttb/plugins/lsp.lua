@@ -247,7 +247,7 @@ local function config()
             server.on_attach(client, bufnr)
           end
 
-          client.server_capabilities.semanticTokensProvider = nil
+          -- client.server_capabilities.semanticTokensProvider = nil
         end,
       }, server))
     end,
