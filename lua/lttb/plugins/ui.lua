@@ -64,7 +64,7 @@ return {
         {
           '<D-j>',
           function()
-            term:toggle()
+            __term__ = term:toggle()
           end,
           desc = 'Toggle Terminal',
           mode = { 'n', 't', 'i' },
@@ -72,14 +72,14 @@ return {
         utils.cmd_shift('j', {
           function()
             local_term.dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':h')
-            local_term:toggle()
+            __term__ = local_term:toggle()
           end,
           mode = { 'n', 't', 'i' },
         }),
         utils.cmd_shift('g', {
           function()
             broot.cmd = 'broot'
-            broot:toggle()
+            __term__ = broot:toggle()
           end,
           mode = { 'n', 't', 'i' },
         }),
@@ -87,7 +87,7 @@ return {
           '<D-g>',
           function()
             lazygit.cmd = 'DELTA_FEATURES="+' .. vim.o.background .. '" lazygit'
-            lazygit:toggle()
+            __term__ = lazygit:toggle()
           end,
           desc = 'Toggle lazy Git',
           mode = { 'n', 't', 'i' },

@@ -98,8 +98,8 @@ end, { desc = 'Quick Save', silent = true })
 vim.keymap.set({ 'n', 't', 'i' }, '<D-w>', function()
   local Terminal = require('toggleterm.terminal').Terminal
 
-  if Terminal:is_open() then
-    Terminal:close()
+  if __term__ and __term__:is_open() then
+    __term__:toggle()
 
     return
   end
