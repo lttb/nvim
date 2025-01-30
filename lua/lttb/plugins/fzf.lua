@@ -23,6 +23,10 @@ return {
       },
 
       fzf_colors = true,
+
+      winopts = {
+        backdrop = 100,
+      },
     },
     keys = function()
       local res = nil
@@ -39,33 +43,33 @@ return {
       end
 
       return {
-        -- {
-        --   '<D-f>',
-        --   function()
-        --     fzf.grep_curbuf({
-        --       winopts = {
-        --         preview = {
-        --           layout = 'vertical',
-        --           delay = 5,
+        {
+          '<D-f>',
+          function()
+            get().fzf.lgrep_curbuf({
+              winopts = {
+                preview = {
+                  layout = 'vertical',
+                  delay = 5,
 
-        --           vertical = 'up:40%',
-        --         },
-        --       },
-        --     })
-        --   end,
-        --   desc = 'Fuzzily search in current buffer',
-        --   silent = true,
-        -- },
+                  vertical = 'up:40%',
+                },
+              },
+            })
+          end,
+          desc = 'Fuzzily search in current buffer',
+          silent = true,
+        },
 
-        -- {
-        --   '<D-p>',
-        --   function()
-        --     get().fzf.git_files({
-        --       cmd = 'git ls-files -c -o --exclude-standard',
-        --     })
-        --   end,
-        --   desc = 'Search Files',
-        -- },
+        {
+          '<D-p>',
+          function()
+            get().fzf.git_files({
+              cmd = 'git ls-files -c -o --exclude-standard',
+            })
+          end,
+          desc = 'Search Files',
+        },
 
         -- {
         --   '<leader>sa',
