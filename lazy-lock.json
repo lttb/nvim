@@ -62,7 +62,7 @@
   "schemastore.nvim": { "branch": "main", "commit": "085d1a9c4f30de56e312931582e80805f0ed3621" },
   "shipwright.nvim": { "branch": "master", "commit": "e596ab48328c31873f4f4d2e070243bf9de16ff3" },
   "smartyank.nvim": { "branch": "master", "commit": "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2" },
-  "snacks.nvim": { "branch": "main", "commit": "4db1fc6da608bfa39e0e0e4a05c06a52b578891e" },
+  "snacks.nvim": { "branch": "main", "commit": "aed7aceec9ff32f43dbd4f062a859ecedeb0d3e1" },
   "stickybuf.nvim": { "branch": "master", "commit": "61ec81b9de2a76bfcfaa579f16bf88395b58b814" },
   "tailwind-tools": { "branch": "master", "commit": "0862805c3c0d8a8d61ec1baffc79b9fbf5578d82" },
   "template-string.nvim": { "branch": "main", "commit": "da5f326b65fb74fd068aa1d8b55461b64c8fb23b" },
