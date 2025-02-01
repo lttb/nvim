@@ -9,6 +9,14 @@ if utils.is_vscode() then
 end
 
 local function config()
+  --- @type vim.diagnostic.Opts.VirtualText
+  local virtual_text_settings = {
+    enabled = false,
+    severity = { min = vim.diagnostic.severity.ERROR },
+    source = false,
+    spacing = 1,
+  }
+
   -- @see https://github.com/nvim-lua/kickstart.nvim/blob/a8f539562a8c5d822dd5c0ca1803d963c60ad544/init.lua#L471
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -50,7 +58,18 @@ local function config()
 
       -- Fuzzy find all the symbols in your current workspace.
       --  Similar to document symbols, except searches over your entire project.
-      map('gS', picker.lsp_workspace_symbols, '[W]orkspace [S]ymbols')
+      map('gS', function()
+        picker.lsp_symbols({ workspace = true })
+      end, '[W]orkspace [S]ymbols')
+
+      local is_virtual_text_enabled = true
+      map('<leader>D', function()
+        is_virtual_text_enabled = not is_virtual_text_enabled
+
+        vim.diagnostic.config({
+          virtual_text = is_virtual_text_enabled and virtual_text_settings or false,
+        })
+      end, 'Enable Virtual Text')
 
       -- Rename the variable under your cursor.
       --  Most Language Servers support renaming across files, etc.
@@ -108,11 +127,7 @@ local function config()
   vim.diagnostic.config({
     update_in_insert = false,
 
-    virtual_text = {
-      severity = { min = vim.diagnostic.severity.ERROR },
-      source = false,
-      spacing = 1,
-    },
+    virtual_text = virtual_text_settings,
   })
 
   -- LSP servers and clients are able to communicate to each other what features they support.
@@ -247,7 +262,7 @@ local function config()
             server.on_attach(client, bufnr)
           end
 
-          -- client.server_capabilities.semanticTokensProvider = nil
+          client.server_capabilities.semanticTokensProvider = nil
         end,
       }, server))
     end,
