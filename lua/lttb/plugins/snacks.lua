@@ -85,6 +85,7 @@ return {
             Snacks.picker.smart({
               multi = { 'buffers', 'recent', 'git_files' },
               filter = { cwd = true },
+              untracked = true,
             })
           end,
           desc = 'Smart Open',
