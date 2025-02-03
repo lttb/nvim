@@ -41,7 +41,7 @@ local M = {
     end)
   end,
   find_in_dir = function(type, filepath)
-    require('telescope.builtin').find_files({
+    require('snacks.picker').files({
       cwd = type == 'directory' and filepath or vim.fn.fnamemodify(filepath, ':h'),
     })
   end,
