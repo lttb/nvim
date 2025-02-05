@@ -6,7 +6,8 @@ end
 
 return {
   {
-    'stevearc/stickybuf.nvim',
+    'lttb/stickybuf.nvim',
+    branch = 'lttb/invalid-buf-fix',
     lazy = true,
     config = function()
       require('stickybuf').setup({
