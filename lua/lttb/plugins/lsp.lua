@@ -270,6 +270,16 @@ local function config()
 
   require('lspconfig').prettier_ls.setup({})
   require('lspconfig').gh_actions_ls.setup({})
+  require('lspconfig').cspell_ls.setup({
+    handlers = {
+      ['textDocument/publishDiagnostics'] = function(err, result, ctx, conf)
+        vim.tbl_map(function(d)
+          d.severity = vim.diagnostic.severity.INFO
+        end, result.diagnostics or {})
+        vim.lsp.handlers['textDocument/publishDiagnostics'](err, result, ctx, conf)
+      end,
+    },
+  })
 
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
@@ -348,25 +358,25 @@ return {
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
-          sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
-
-            providers = {
-              path = {
-                -- @see https://github.com/Saghen/blink.cmp/discussions/884
-                enabled = function()
-                  return not vim.tbl_contains(
-                    { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-                    vim.bo.filetype
-                  )
-                end,
-              },
-
-              lsp = {
-                fallbacks = { 'buffer', 'path' },
-              },
-            },
-          },
+          -- sources = {
+          --   default = { 'lsp', 'path', 'snippets', 'buffer' },
+          --
+          --   providers = {
+          --     path = {
+          --       -- @see https://github.com/Saghen/blink.cmp/discussions/884
+          --       enabled = function()
+          --         return not vim.tbl_contains(
+          --           { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+          --           vim.bo.filetype
+          --         )
+          --       end,
+          --     },
+          --
+          --     lsp = {
+          --       fallbacks = { 'buffer', 'path' },
+          --     },
+          --   },
+          -- },
 
           signature = { enabled = true },
 

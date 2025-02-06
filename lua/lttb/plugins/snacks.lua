@@ -23,11 +23,11 @@ return {
         },
 
         indent = {
-          char = '┊',
+          char = utils.is_neovide() and '┊' or '┊',
         },
 
         scope = {
-          char = '┊',
+          char = utils.is_neovide() and '┊' or '┊',
         },
       },
       -- input = { enabled = true },
