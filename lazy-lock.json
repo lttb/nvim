@@ -9,7 +9,7 @@
   "cspell.nvim": { "branch": "main", "commit": "d8e657c81ec20a602d203e15c898fd9bdc4e5727" },
   "flash.nvim": { "branch": "main", "commit": "f899265876ecdcf7352dbc9f0adf87068cedefbb" },
   "flatten.nvim": { "branch": "main", "commit": "b17a3e65c2e4e2ecd1345a2d08435e80f982c4a6" },
-  "fzf-lua": { "branch": "main", "commit": "9ce9441266331ad7d38a7b786a2faf0c193fa29c" },
+  "fzf-lua": { "branch": "main", "commit": "0bdf2d97f32f5a5addf8b7fca30d155fb99f1894" },
   "github-monochrome.nvim": { "branch": "master", "commit": "53350b6a89730f7930dfea917ae88226ed933691" },
   "github-theme": { "branch": "main", "commit": "c106c9472154d6b2c74b74565616b877ae8ed31d" },
   "gitsigns.nvim": { "branch": "main", "commit": "fc56fc25cfc3dc3f24266508aa4a7096102eb6a6" },
