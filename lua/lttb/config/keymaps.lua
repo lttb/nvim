@@ -7,7 +7,7 @@ local utils = require('lttb.utils')
 vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 
 -- Fix gx, avoid netrw
-vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
+-- vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })
 
 -- cut into system clipboard
 -- vim.keymap.set({ 'n', 'x' }, 'd', '"_d')
