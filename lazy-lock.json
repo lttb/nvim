@@ -60,7 +60,7 @@
   "schemastore.nvim": { "branch": "main", "commit": "97b08f928d355bd6d5dee595fdf667b5bfb6329f" },
   "shipwright.nvim": { "branch": "master", "commit": "e596ab48328c31873f4f4d2e070243bf9de16ff3" },
   "smartyank.nvim": { "branch": "master", "commit": "0a4554a4ea4cad73dab0a15e559f2128ca03c7b2" },
-  "snacks.nvim": { "branch": "main", "commit": "9242a9bed8fa7297acfcb9d23f644eaf4d5d6d32" },
+  "snacks.nvim": { "branch": "main", "commit": "70afc4225ac8ae3e6c8af88d205b03991a173af3" },
   "stickybuf.nvim": { "branch": "lttb/invalid-buf-fix", "commit": "fc3bf052a94848346c3cc96c811a01ea93351086" },
   "tailwind-tools": { "branch": "master", "commit": "1d735ea28538c37e71b2b9ae9b0efa3fd71db2d7" },
   "template-string.nvim": { "branch": "main", "commit": "da5f326b65fb74fd068aa1d8b55461b64c8fb23b" },
