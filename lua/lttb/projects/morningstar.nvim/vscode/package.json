@@ -1,0 +1,41 @@
+{
+	"name": "morningstar-theme",
+	"displayName": "Morningstar Theme",
+	"version": "1.0.0",
+	"description": "A clean, modern theme with dark and light variants",
+	"publisher": "Artur Kenzhaev",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.75.0"
+	},
+	"categories": [
+		"Themes"
+	],
+	"contributes": {
+		"themes": [
+			{
+				"label": "Morningstar Dark",
+				"uiTheme": "vs-dark",
+				"path": "./themes/morningstar-dark-color-theme.json"
+			},
+			{
+				"label": "Morningstar Light",
+				"uiTheme": "vs",
+				"path": "./themes/morningstar-light-color-theme.json"
+			}
+		]
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lttb/morningstar.nvim"
+	},
+	"keywords": [
+		"theme",
+		"dark theme",
+		"light theme",
+		"morningstar"
+	],
+	"__metadata": {
+		"size": 3956
+	}
+}
