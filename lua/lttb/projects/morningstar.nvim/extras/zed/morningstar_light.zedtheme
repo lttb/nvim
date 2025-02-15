@@ -1,0 +1,98 @@
+[name]
+"Morningstar Light"
+
+[appearance]
+mode = "light"
+
+[editor]
+background = "#FFFFFF"
+foreground = "#202429"
+cursor = "#202429"
+selection = { background = "#E5E8ED" }
+line-number = { foreground = "#A3A3A3" }
+line-number-active = { foreground = "#202429", background = "#F4F7F9" }
+line-highlight = { background = "#F4F7F9" }
+
+[editor.scrollbar]
+thumb = { background = "#DDDDDD" }
+
+[editor.indent-guide]
+color = "#EEEEEE"
+color-active = "#C1C1C1"
+
+[editor.bracket]
+foreground = "#8B8B8B"
+background = "#F4F7F9"
+
+[editor.matching-bracket]
+foreground = "#202429"
+background = "#E5E8ED"
+
+[editor.suggestion]
+background = "#DDDDDD"
+foreground = "#202429"
+selected = { background = "#E5E8ED" }
+
+[terminal]
+background = "#FFFFFF"
+foreground = "#202429"
+cursor = "#202429"
+selection = { background = "#E5E8ED" }
+
+[terminal.bright]
+black = "#D4D1D1"
+red = "#94253E"
+green = "#3F5A22"
+yellow = "#803D1C"
+blue = "#1D5573"
+magenta = "#7B3B70"
+cyan = "#5E6F82"
+white = "#474E58"
+
+[terminal.normal]
+black = "#FFFFFF"
+red = "#A8334C"
+green = "#4F6C31"
+yellow = "#944927"
+blue = "#286486"
+magenta = "#88507D"
+cyan = "#7C848F"
+white = "#202429"
+
+[statusbar]
+background = "#DDDDDD"
+foreground = "#202429"
+
+[picker]
+background = "#FFFFFF"
+foreground = "#202429"
+selected = { background = "#E5E8ED" }
+
+[diagnostic]
+error = { foreground = "#A8334C" }
+warning = { foreground = "#944927" }
+info = { foreground = "#286486" }
+hint = { foreground = "#88507D" }
+
+[syntax]
+comment = "#A7ACB1"
+constant = "#202429"
+string = "#7C848F"
+string.escape = "#8B8B8B"
+identifier = "#3A4048"
+type = "#7D6D81"
+type.builtin = "#896691"
+keyword = "#626B76"
+function = { foreground = "#202429", modifiers = ["bold"] }
+function.builtin = { foreground = "#474E58", modifiers = ["bold"] }
+constructor = "#944927"
+operator = "#8B8B8B"
+punctuation = "#8B8B8B"
+markup.bold = { modifiers = ["bold"] }
+markup.italic = { modifiers = ["italic"] }
+markup.heading = { foreground = "#202429", modifiers = ["bold"] }
+markup.link = { foreground = "#7C848F", modifiers = ["underlined"] }
+markup.raw = "#7C848F"
+diff.plus = "#4F6C31"
+diff.minus = "#A8334C"
+diff.delta = "#286486"

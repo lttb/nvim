@@ -1,0 +1,7 @@
+authors        = ["Artur Kenzhaev"]
+description    = "Light and Dark almost monochrome theme"
+id             = "morningstar"
+name           = "Morningstar Theme"
+repository     = "https://github.com/lttb/morningstar.nvim"
+schema_version = 1
+version        = "0.0.1"
