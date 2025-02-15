@@ -44,4 +44,9 @@ return {
     'RRethy/base16-nvim',
     lazy = true,
   },
+
+  {
+    'rjshkhr/shadow.nvim',
+    lazy = true,
+  },
 }
