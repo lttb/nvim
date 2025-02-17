@@ -393,16 +393,16 @@ return {
               },
             },
 
-            menu = {
-              cmdline_position = function()
-                if vim.g.ui_cmdline_pos ~= nil then
-                  local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
-                  return { pos[1] - 1, pos[2] }
-                end
-                local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
-                return { vim.o.lines - height, 0 }
-              end,
-            },
+            -- menu = {
+            --   cmdline_position = function()
+            --     if vim.g.ui_cmdline_pos ~= nil then
+            --       local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+            --       return { pos[1] - 1, pos[2] }
+            --     end
+            --     local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+            --     return { vim.o.lines - height, 0 }
+            --   end,
+            -- },
           },
 
           keymap = {
@@ -410,8 +410,16 @@ return {
 
             ['<CR>'] = { 'select_and_accept', 'fallback' },
 
-            cmdline = {
+            -- cmdline = {
+            --   preset = 'super-tab',
+            -- },
+          },
+
+          cmdline = {
+            keymap = {
               preset = 'super-tab',
+
+              ['<CR>'] = { 'select_accept_and_enter', 'fallback' },
             },
           },
         },
