@@ -7,6 +7,7 @@ end
 return {
   -- lush is used for color calculations
   { 'rktjmp/lush.nvim', lazy = true },
+
   {
     'rktjmp/shipwright.nvim',
     lazy = true,
@@ -47,6 +48,11 @@ return {
 
   {
     'rjshkhr/shadow.nvim',
+    lazy = true,
+  },
+
+  {
+    'alexxGmZ/e-ink.nvim',
     lazy = true,
   },
 }
