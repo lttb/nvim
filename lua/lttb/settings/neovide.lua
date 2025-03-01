@@ -8,8 +8,8 @@
 -- vim.opt.guifont = 'JetBrains Mono:h15'
 vim.opt.linespace = 8
 
-vim.g.neovide_window_blurred = true
-vim.g.neovide_transparency = 0.95
+-- vim.g.neovide_window_blurred = true
+-- vim.g.neovide_transparency = 0.95
 
 vim.g.neovide_floating_blur_amount_x = 30
 vim.g.neovide_floating_blur_amount_y = 30
@@ -51,6 +51,9 @@ vim.g.neovide_padding_left = 40
 vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 
 vim.g.neovide_floating_shadow = false
+vim.g.neovide_floating_corner_radius = 8.0
+
+-- vim.g.neovide_show_border = true
 
 -- vim.g.neovide_text_gamma = 1.7
 -- vim.g.neovide_text_contrast = 0.3
