@@ -207,6 +207,12 @@ return {
               separator = false, -- use a "true" to enable the default, or set your own character
             },
             {
+              filetype = 'neo-tree',
+              text = 'File Explorer',
+              highlight = 'Directory',
+              separator = false, -- use a "true" to enable the default, or set your own character
+            },
+            {
               filetype = 'no-neck-pain',
               text = '',
               highlight = 'Directory',

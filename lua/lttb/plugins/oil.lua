@@ -101,9 +101,8 @@ return {
         return _get_adapter_by_scheme(scheme)
       end
 
-      local sb = require('lttb.utils.oil_sidebar')
-
-      sb.setup()
+      -- local sb = require('lttb.utils.oil_sidebar')
+      -- sb.setup()
     end,
   },
 }
