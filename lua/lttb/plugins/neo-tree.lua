@@ -10,7 +10,7 @@ return {
     cmd = { 'Neotree' },
     keys = {
       { '<D-b>', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Sidebar' } },
-      { '<D-e>', '<cmd>Neotree reveal<cr>', { desc = 'Focus Sidebar' } },
+      -- { '<D-e>', '<cmd>Neotree reveal<cr>', { desc = 'Focus Sidebar' } },
     },
     branch = 'v3.x',
     init = function()
