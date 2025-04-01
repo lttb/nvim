@@ -1,0 +1,38 @@
+return {
+  cmd = { 'prettier-language-server' },
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+    'vue',
+    'css',
+    'scss',
+    'less',
+    'html',
+    'json',
+    'jsonc',
+    'yaml',
+    'markdown',
+    'markdown.mdx',
+    'graphql',
+    'handlebars',
+  },
+
+  single_file_support = true,
+
+  root_markers = {
+    '.prettierrc',
+    '.prettierrc.json',
+    '.prettierrc.yml',
+    '.prettierrc.yaml',
+    '.prettierrc.json5',
+    '.prettierrc.js',
+    'prettier.config.js',
+    '.prettierrc.mjs',
+    'prettier.config.mjs',
+    '.prettierrc.cjs',
+    'prettier.config.cjs',
+    '.prettierrc.toml',
+  },
+}
