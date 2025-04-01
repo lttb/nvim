@@ -37,6 +37,9 @@ return {
     },
     opts = {
       window = {
+        min_width = 50,
+        width = '25%',
+
         mappings = {
           ['<space>'] = false, -- disable space until we figure out which-key disabling
           s = false,
