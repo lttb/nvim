@@ -11,7 +11,8 @@ return {
     cmd = { 'ConformInfo' },
     init = function()
       vim.keymap.set({ 'n', 'v' }, '<S-M-f>', function()
-        require('conform').format({ async = true })
+        vim.lsp.buf.format()
+        -- require('conform').format({ async = true })
       end)
     end,
     opts = {
