@@ -11,8 +11,7 @@ return {
     cmd = { 'ConformInfo' },
     init = function()
       vim.keymap.set({ 'n', 'v' }, '<S-M-f>', function()
-        vim.lsp.buf.format()
-        -- require('conform').format({ async = true })
+        require('conform').format({ async = true })
       end)
     end,
     opts = {
@@ -21,7 +20,7 @@ return {
         lsp_format = 'fallback',
       },
       format_on_save = function(bufnr)
-        local timeout_ms = 1000
+        local timeout_ms = 2000
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
@@ -44,7 +43,7 @@ return {
         sh = { 'shfmt' },
         toml = { 'taplo' },
 
-        _ = { 'trim_whitespace' },
+        _ = { 'trim_whitespace', lsp_format = 'last' },
       },
     },
   },
