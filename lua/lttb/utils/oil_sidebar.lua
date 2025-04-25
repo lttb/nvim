@@ -255,7 +255,7 @@ function M.setup()
     end
   end
 
-  vim.keymap.set('n', '<D-b>', toggle_sidebar, { silent = true })
+  vim.keymap.set({ 'n', 'i', 'x' }, '<D-b>', toggle_sidebar, { silent = true })
 
   vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     nested = true,

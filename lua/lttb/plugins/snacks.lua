@@ -98,6 +98,7 @@ return {
               untracked = true,
             })
           end,
+          mode = { 'n', 'i', 'x' },
           desc = 'Search Files',
         },
 
@@ -133,6 +134,7 @@ return {
               },
             })
           end,
+          mode = { 'n', 'i', 'x' },
         },
 
         {
@@ -142,6 +144,7 @@ return {
               current = false,
             })
           end,
+          mode = { 'n', 'i', 'x' },
           desc = 'Search Buffers',
         },
 

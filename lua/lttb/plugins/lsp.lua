@@ -334,7 +334,7 @@ return {
     event = 'VeryLazy',
     keys = {
       -- ghostty doesn't support <D-.>
-      { '<D-.>', vim.lsp.buf.code_action, desc = 'Code Action' },
+      { '<D-.>', vim.lsp.buf.code_action, desc = 'Code Action', mode = { 'n', 'i', 'x' } },
       -- { '<F-2>', vim.lsp.buf.rename, desc = 'Rename Symbol' },
     },
     config = config,

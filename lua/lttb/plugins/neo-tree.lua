@@ -9,7 +9,7 @@ return {
     'nvim-neo-tree/neo-tree.nvim',
     cmd = { 'Neotree' },
     keys = {
-      { '<D-b>', '<cmd>Neotree toggle<cr>', { desc = 'Toggle Sidebar' } },
+      { '<D-b>', '<cmd>Neotree toggle<cr>', desc = 'Toggle Sidebar', mode = { 'n', 'i', 'x' } },
       -- { '<D-e>', '<cmd>Neotree reveal<cr>', { desc = 'Focus Sidebar' } },
     },
     branch = 'v3.x',
