@@ -46,6 +46,7 @@ return {
           ['[b'] = 'prev_source',
           [']b'] = 'next_source',
           ['<C-f>'] = 'find_in_dir',
+          ['<D-S-f>'] = 'grep_in_dir',
           O = 'system_open',
           ['<C-y>'] = 'copy_selector',
           o = 'open',
@@ -101,6 +102,12 @@ return {
           local filepath = node:get_id()
 
           require('lttb.utils.fs').find_in_dir(node.type, filepath)
+        end,
+        grep_in_dir = function(state)
+          local node = state.tree:get_node()
+          local filepath = node:get_id()
+
+          require('lttb.utils.fs').grep_in_dir(node.type, filepath)
         end,
       },
     },
