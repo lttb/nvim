@@ -20,17 +20,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
     local color = require('lttb.utils.color')
 
-    -- Highlight line number instead of having icons in sign column
-    -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
-    for _, diag in ipairs({ 'Error', 'Warn', 'Info', 'Hint' }) do
-      vim.fn.sign_define('DiagnosticSign' .. diag, {
-        text = '',
-        texthl = 'DiagnosticSign' .. diag,
-        linehl = '',
-        numhl = 'DiagnosticSign' .. diag,
-      })
-    end
-
     -- vim.cmd([[
     --   highlight ErrorText gui=NONE
     --   highlight WarningText gui=NONE

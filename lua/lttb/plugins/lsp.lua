@@ -128,6 +128,17 @@ local function config()
     update_in_insert = false,
 
     virtual_text = virtual_text_settings,
+
+    signs = (function()
+      -- Highlight line number instead of having icons in sign column
+      -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
+      local signs_map = {}
+      for _, diag in ipairs({ 'Error', 'Warn', 'Info', 'Hint' }) do
+        local hl = 'DiagnosticSign' .. diag
+        signs_map[hl] = { text = '', texthl = hl, linehl = '', numhl = hl }
+      end
+      return signs_map
+    end)(),
   })
 
   -- LSP servers and clients are able to communicate to each other what features they support.
@@ -262,7 +273,7 @@ local function config()
             server.on_attach(client, bufnr)
           end
 
-          client.server_capabilities.semanticTokensProvider = nil
+          -- client.server_capabilities.semanticTokensProvider = nil
         end,
       }, server))
     end,
