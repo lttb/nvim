@@ -29,9 +29,10 @@ end
 local prev_winbar = ''
 function _G.oil_render_winbar()
   local buf = vim.api.nvim_get_current_buf()
+  local ft = vim.bo[buf].ft
 
   -- Avoid updating the winbar for floating windows or specific filetypes
-  if not is_file_buffer(buf) then
+  if not is_file_buffer(buf) and ft ~= 'oil' then
     return prev_winbar -- Return an empty string to avoid setting the winbar
   end
 
