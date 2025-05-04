@@ -220,4 +220,10 @@ return {
     config = true,
     submodules = false,
   },
+
+  {
+    'kylechui/nvim-surround',
+    event = 'VeryLazy',
+    opts = {},
+  },
 }

@@ -12,6 +12,7 @@ return {
   },
 
   {
+    enabled = false, -- not maintained
     'vidocqh/auto-indent.nvim',
     event = 'LazyFile',
     opts = {
@@ -74,12 +75,14 @@ return {
 
   -- NOTE: consider alternative https://github.com/chrisgrieser/nvim-early-retirement
   {
+    enabled = false,
     'axkirillov/hbac.nvim',
     event = 'VeryLazy',
     opts = {},
   },
 
   {
+    enabled = false,
     'folke/zen-mode.nvim',
     cmd = 'ZenMode',
     opts = {

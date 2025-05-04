@@ -2,6 +2,7 @@ local utils = require('lttb.utils')
 
 return {
   {
+    enabled = false, -- too used to nvim-surround
     'echasnovski/mini.surround',
     event = 'VeryLazy',
     version = '*',

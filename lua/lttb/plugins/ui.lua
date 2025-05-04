@@ -301,6 +301,7 @@ return {
   },
 
   {
+    enabled = false, -- slow? see https://github.com/folke/todo-comments.nvim/issues/358
     'folke/todo-comments.nvim',
     event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim' },
