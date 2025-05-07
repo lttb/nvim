@@ -252,32 +252,32 @@ local function config()
   require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
   require('mason-lspconfig').setup({})
-  require('mason-lspconfig').setup_handlers({
-    -- The first entry (without a key) will be the default handler
-    -- and will be called for each installed server that doesn't have
-    -- a dedicated handler.
-    function(server_name) -- default handler (optional)
-      local server = servers[server_name] or {}
-      -- This handles overriding only values explicitly passed
-      -- by the server configuration above. Useful when disabling
-      -- certain features of an LSP (for example, turning off formatting for ts_ls)
-      server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-
-      -- if utils.is_dotfiles() then
-      --   return
-      -- end
-
-      require('lspconfig')[server_name].setup(vim.tbl_extend('keep', {
-        on_attach = function(client, bufnr)
-          if server.on_attach then
-            server.on_attach(client, bufnr)
-          end
-
-          -- client.server_capabilities.semanticTokensProvider = nil
-        end,
-      }, server))
-    end,
-  })
+  -- require('mason-lspconfig').setup_handlers({
+  --   -- The first entry (without a key) will be the default handler
+  --   -- and will be called for each installed server that doesn't have
+  --   -- a dedicated handler.
+  --   function(server_name) -- default handler (optional)
+  --     local server = servers[server_name] or {}
+  --     -- This handles overriding only values explicitly passed
+  --     -- by the server configuration above. Useful when disabling
+  --     -- certain features of an LSP (for example, turning off formatting for ts_ls)
+  --     server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+  --
+  --     -- if utils.is_dotfiles() then
+  --     --   return
+  --     -- end
+  --
+  --     require('lspconfig')[server_name].setup(vim.tbl_extend('keep', {
+  --       on_attach = function(client, bufnr)
+  --         if server.on_attach then
+  --           server.on_attach(client, bufnr)
+  --         end
+  --
+  --         -- client.server_capabilities.semanticTokensProvider = nil
+  --       end,
+  --     }, server))
+  --   end,
+  -- })
 
   require('lspconfig').prettier_ls.setup({})
   require('lspconfig').gh_actions_ls.setup({})
