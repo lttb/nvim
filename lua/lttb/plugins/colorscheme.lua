@@ -55,4 +55,12 @@ return {
     'alexxGmZ/e-ink.nvim',
     lazy = true,
   },
+
+  {
+    'webhooked/kanso.nvim',
+    lazy = true,
+    opts = {
+      keywordStyle = { italic = false },
+    },
+  },
 }
