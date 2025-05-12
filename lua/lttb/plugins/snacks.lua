@@ -42,9 +42,7 @@ return {
       scope = { enabled = true },
 
       picker = {
-        layout = {
-          preset = 'vertical',
-        },
+        layout = 'telescope',
         formatters = {
           file = {
             filename_first = false,
@@ -91,51 +89,51 @@ return {
           desc = 'Smart Open',
         },
 
-        {
-          '<D-p>',
-          function()
-            Snacks.picker.git_files({
-              untracked = true,
-            })
-          end,
-          mode = { 'n', 'i', 'x' },
-          desc = 'Search Files',
-        },
-
-        {
-          '<leader>sa',
-          function()
-            Snacks.picker.files()
-          end,
-          desc = 'Search All files',
-        },
-
-        {
-          '<D-f>',
-          function()
-            Snacks.picker.lines({
-              layout = {
-                preview = true,
-
-                layout = {
-                  backdrop = false,
-                  width = 0.7,
-                  min_width = 80,
-                  height = 0.8,
-                  min_height = 30,
-                  box = 'vertical',
-                  border = 'rounded',
-                  title = '{title} {live} {flags}',
-                  title_pos = 'center',
-                  { win = 'preview', title = '{preview}', height = 0.6,     border = 'bottom' },
-                  { win = 'input',   height = 1,          border = 'bottom' },
-                  { win = 'list',    border = 'none' },
-                },
-              },
-            })
-          end,
-          mode = { 'n', 'i', 'x' },
-        },
+        -- {
+        --   '<D-p>',
+        --   function()
+        --     Snacks.picker.git_files({
+        --       untracked = true,
+        --     })
+        --   end,
+        --   mode = { 'n', 'i', 'x' },
+        --   desc = 'Search Files',
+        -- },
+        --
+        -- {
+        --   '<leader>sa',
+        --   function()
+        --     Snacks.picker.files()
+        --   end,
+        --   desc = 'Search All files',
+        -- },
+        --
+        -- {
+        --   '<D-f>',
+        --   function()
+        --     Snacks.picker.lines({
+        --       layout = {
+        --         preview = true,
+        --
+        --         layout = {
+        --           backdrop = false,
+        --           width = 0.7,
+        --           min_width = 80,
+        --           height = 0.8,
+        --           min_height = 30,
+        --           box = 'vertical',
+        --           border = 'rounded',
+        --           title = '{title} {live} {flags}',
+        --           title_pos = 'center',
+        --           { win = 'preview', title = '{preview}', height = 0.6,     border = 'bottom' },
+        --           { win = 'input',   height = 1,          border = 'bottom' },
+        --           { win = 'list',    border = 'none' },
+        --         },
+        --       },
+        --     })
+        --   end,
+        --   mode = { 'n', 'i', 'x' },
+        -- },
 
         {
           '<D-o>',

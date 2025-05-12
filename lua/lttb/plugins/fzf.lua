@@ -43,48 +43,48 @@ return {
       end
 
       return {
-        -- {
-        --   '<D-f>',
-        --   function()
-        --     get().fzf.lgrep_curbuf({
-        --       winopts = {
-        --         preview = {
-        --           layout = 'vertical',
-        --           delay = 5,
-        --
-        --           vertical = 'up:40%',
-        --         },
-        --       },
-        --     })
-        --   end,
-        --   desc = 'Fuzzily search in current buffer',
-        --   silent = true,
-        -- },
+        {
+          '<D-f>',
+          function()
+            get().fzf.lgrep_curbuf({
+              winopts = {
+                preview = {
+                  layout = 'vertical',
+                  delay = 5,
 
-        -- {
-        --   '<D-p>',
-        --   function()
-        --     get().fzf.git_files({
-        --       cmd = 'git ls-files -c -o --exclude-standard',
-        --     })
-        --   end,
-        --   desc = 'Search Files',
-        -- },
+                  vertical = 'up:40%',
+                },
+              },
+            })
+          end,
+          desc = 'Fuzzily search in current buffer',
+          silent = true,
+        },
 
-        -- {
-        --   '<leader>sa',
-        --   function()
-        --     get().fzf.files()
-        --   end,
-        --   desc = 'Search All files',
-        -- },
+        {
+          '<D-p>',
+          function()
+            get().fzf.git_files({
+              cmd = 'git ls-files -c -o --exclude-standard',
+            })
+          end,
+          desc = 'Search Files',
+        },
 
-        -- utils.cmd_shift('r', {
-        --   function()
-        --     get().fzf.resume()
-        --   end,
-        --   desc = 'fzf: resume',
-        -- }),
+        {
+          '<leader>sa',
+          function()
+            get().fzf.files()
+          end,
+          desc = 'Search All files',
+        },
+
+        utils.cmd_shift('r', {
+          function()
+            get().fzf.resume()
+          end,
+          desc = 'fzf: resume',
+        }),
 
         utils.cmd_shift('f', {
           function()
