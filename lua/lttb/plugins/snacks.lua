@@ -42,10 +42,11 @@ return {
       scope = { enabled = true },
 
       picker = {
-        layout = 'telescope',
+        layout = 'vertical',
         formatters = {
           file = {
-            filename_first = false,
+            filename_first = true,
+            truncate = 200,
           },
         },
 
