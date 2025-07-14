@@ -46,7 +46,7 @@ return {
         {
           '<D-f>',
           function()
-            get().fzf.lgrep_curbuf({
+            get().fzf.grep_curbuf({
               winopts = {
                 preview = {
                   layout = 'vertical',
