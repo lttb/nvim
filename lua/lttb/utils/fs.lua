@@ -1,3 +1,7 @@
+local get_directory = function(type, filepath)
+  return type == 'directory' and filepath or vim.fn.fnamemodify(filepath, ':h')
+end
+
 local M = {
   system_open = function(filepath)
     vim.ui.open(filepath)
@@ -42,14 +46,16 @@ local M = {
   end,
   find_in_dir = function(type, filepath)
     require('snacks.picker').files({
-      cwd = type == 'directory' and filepath or vim.fn.fnamemodify(filepath, ':h'),
+      cwd = get_directory(type, filepath),
     })
   end,
   grep_in_dir = function(type, filepath)
     require('fzf-lua').grep_project({
-      cwd = type == 'directory' and filepath or vim.fn.fnamemodify(filepath, ':h'),
+      cwd = get_directory(type, filepath),
     })
   end,
+
+  get_directory = get_directory,
 }
 
 return M

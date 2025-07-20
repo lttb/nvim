@@ -4,6 +4,8 @@ if utils.is_vscode() then
   return {}
 end
 
+local oil_sidebar = require('lttb.utils.oil_sidebar')
+
 return {
   {
     'stevearc/stickybuf.nvim',
@@ -101,7 +103,7 @@ return {
         return _get_adapter_by_scheme(scheme)
       end
 
-      -- require('lttb.utils.oil_sidebar').setup()
+      -- oil_sidebar.setup()
     end,
   },
 }

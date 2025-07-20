@@ -39,6 +39,7 @@ return {
       window = {
         min_width = 50,
         width = '25%',
+        max_width = 100,
 
         mappings = {
           ['<space>'] = false, -- disable space until we figure out which-key disabling
@@ -50,6 +51,7 @@ return {
           O = 'system_open',
           ['<C-y>'] = 'copy_selector',
           o = 'open',
+          ['<D-e>'] = 'mini_files',
         },
         fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
           ['<C-j>'] = 'move_cursor_down',
@@ -57,8 +59,8 @@ return {
         },
       },
 
-      enable_diagnostics = false,
-      enable_git_status = false,
+      enable_diagnostics = true,
+      enable_git_status = true,
 
       -- enable_diagnostics = not utils.is_dotfiles(),
       -- enable_git_status = not utils.is_dotfiles(),
@@ -108,6 +110,14 @@ return {
           local filepath = node:get_id()
 
           require('lttb.utils.fs').grep_in_dir(node.type, filepath)
+        end,
+        mini_files = function(state)
+          local node = state.tree:get_node()
+          local filepath = node:get_id()
+
+          if not MiniFiles.close() then
+            MiniFiles.open(filepath)
+          end
         end,
       },
     },
