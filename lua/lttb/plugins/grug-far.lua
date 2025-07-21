@@ -9,5 +9,13 @@ return {
     'MagicDuck/grug-far.nvim',
     opts = {},
     event = 'LazyFile',
+    keys = {
+      {
+        '<leader>f',
+        function()
+          require('grug-far').open({ prefills = { paths = vim.fn.expand('%') } })
+        end,
+      },
+    },
   },
 }
