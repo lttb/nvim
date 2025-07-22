@@ -33,8 +33,6 @@ return {
 
   {
     'windwp/nvim-autopairs',
-    -- test blink.pairs
-    cond = false,
     event = 'InsertEnter',
     config = function()
       local npairs = require('nvim-autopairs')
@@ -64,6 +62,7 @@ return {
   },
 
   {
+    enabled = false,
     'saghen/blink.pairs',
     event = 'InsertEnter',
     version = '*',
