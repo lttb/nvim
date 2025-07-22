@@ -67,16 +67,16 @@ return {
 
       filesystem = {
         filtered_items = {
-          visible = true,
+          visible = false,
         },
 
         follow_current_file = {
           enabled = true,
-          leave_dirs_open = true,
+          leave_dirs_open = false,
         },
         group_empty_dirs = false,
 
-        -- use_libuv_file_watcher = not utils.is_dotfiles(),
+        use_libuv_file_watcher = not utils.is_dotfiles(),
       },
 
       default_component_configs = {
