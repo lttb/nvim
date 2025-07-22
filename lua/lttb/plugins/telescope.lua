@@ -57,16 +57,16 @@ return {
         --   desc = 'Search by Grep',
         -- },
 
-        -- {
-        --   '<D-o>',
-        --   function()
-        --     get().builtin.buffers({
-        --       sort_mru = true,
-        --       ignore_current_buffer = true,
-        --     })
-        --   end,
-        --   desc = 'Search Buffers',
-        -- },
+        {
+          '<D-o>',
+          function()
+            get().builtin.buffers({
+              sort_mru = true,
+              ignore_current_buffer = true,
+            })
+          end,
+          desc = 'Search Buffers',
+        },
 
         -- {
         --   '<D-p>',
@@ -157,27 +157,30 @@ return {
         --   desc = 'Search Current File Browser',
         -- },
 
-        -- {
-        --   '<leader>sh',
-        --   function()
-        --     get().builtin.help_tags()
-        --   end,
-        --   desc = 'Search Help',
-        -- },
-        -- {
-        --   '<leader>sd',
-        --   function()
-        --     get().builtin.diagnostics()
-        --   end,
-        --   desc = 'Search Diagnostics',
-        -- },
-        -- {
-        --   '<leader>sw',
-        --   function()
-        --     get().builtin.grep_string()
-        --   end,
-        --   desc = 'Search Word',
-        -- },
+        {
+          '<leader>sh',
+          function()
+            get().builtin.help_tags()
+          end,
+          desc = 'Search Help',
+        },
+
+        {
+          '<leader>sd',
+          function()
+            get().builtin.diagnostics()
+          end,
+          desc = 'Search Diagnostics',
+        },
+
+        {
+          '<leader>sw',
+          function()
+            get().builtin.grep_string()
+          end,
+          desc = 'Search Word',
+        },
+
         -- {
         --   'gs',
         --   function()
@@ -188,49 +191,49 @@ return {
 
         -- {{{ LSP
 
-        -- {
-        --   'gd',
-        --   function()
-        --     get().builtin.lsp_definitions(get().telescope_themes.get_ivy({
-        --       show_line = false,
-        --     }))
-        --   end,
-        --   desc = 'LSP: Goto Definition',
-        -- },
-        --
-        -- {
-        --   'gD',
-        --   function()
-        --     get().builtin.lsp_type_definitions(get().telescope_themes.get_ivy({
-        --       show_line = false,
-        --     }))
-        --   end,
-        --   desc = 'LSP: Type Definition',
-        -- },
-        --
-        -- {
-        --   'gi',
-        --   function()
-        --     get().builtin.lsp_implementations(get().telescope_themes.get_ivy({
-        --       show_line = false,
-        --     }))
-        --   end,
-        --   desc = 'LSP: Goto Implementation',
-        -- },
-        --
-        -- {
-        --   'gr',
-        --   function()
-        --     get().builtin.lsp_references(get().telescope_themes.get_ivy({
-        --       show_line = false,
-        --     }))
-        --   end,
-        --   desc = 'LSP: Goto References',
-        -- },
+        {
+          'gd',
+          function()
+            get().builtin.lsp_definitions(get().telescope_themes.get_ivy({
+              show_line = false,
+            }))
+          end,
+          desc = 'LSP: Goto Definition',
+        },
+
+        {
+          'gD',
+          function()
+            get().builtin.lsp_type_definitions(get().telescope_themes.get_ivy({
+              show_line = false,
+            }))
+          end,
+          desc = 'LSP: Type Definition',
+        },
+
+        {
+          'gi',
+          function()
+            get().builtin.lsp_implementations(get().telescope_themes.get_ivy({
+              show_line = false,
+            }))
+          end,
+          desc = 'LSP: Goto Implementation',
+        },
+
+        {
+          'gr',
+          function()
+            get().builtin.lsp_references(get().telescope_themes.get_ivy({
+              show_line = false,
+            }))
+          end,
+          desc = 'LSP: Goto References',
+        },
 
         -- utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
 
-        -- utils.cmd_shift('r', { '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' }),
+        utils.cmd_shift('r', { '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' }),
 
         -- }}}
       }
@@ -318,7 +321,7 @@ return {
       },
 
       {
-        enabled = false,
+        enabled = true,
         'lttb/smart-open.nvim',
         branch = 'feat/git-files-open-buffers',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
