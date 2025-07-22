@@ -33,7 +33,9 @@ return {
 
   {
     'windwp/nvim-autopairs',
-    event = 'LazyFile',
+    -- test blink.pairs
+    cond = false,
+    event = 'InsertEnter',
     config = function()
       local npairs = require('nvim-autopairs')
       local Rule = require('nvim-autopairs.rule')
@@ -59,6 +61,18 @@ return {
       --   Rule('```.*$', '```', { 'mdx' }):only_cr():use_regex(true),
       -- })
     end,
+  },
+
+  {
+    'saghen/blink.pairs',
+    event = 'InsertEnter',
+    version = '*',
+    dependencies = 'saghen/blink.download',
+    opts = {
+      highlights = {
+        enabled = false,
+      },
+    },
   },
 
   {
