@@ -4,10 +4,6 @@ if utils.is_vscode() then
   return {}
 end
 
-if true then
-  return {}
-end
-
 return {
   {
     'luckasRanarison/tailwind-tools.nvim',
