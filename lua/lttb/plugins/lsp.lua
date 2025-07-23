@@ -142,12 +142,22 @@ local function config()
       settings = {},
     },
 
-    ts_ls = {
-      on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end,
+    eslint = {
+      settings = {
+        codeActionOnSave = {
+          enable = true,
+        },
+      },
     },
+
+    biome = {},
+
+    -- ts_ls = {
+    --   on_attach = function(client, bufnr)
+    --     client.server_capabilities.documentFormattingProvider = false
+    --     client.server_capabilities.documentRangeFormattingProvider = false
+    --   end,
+    -- },
 
     jsonls = {
       on_attach = function(client, bufnr)

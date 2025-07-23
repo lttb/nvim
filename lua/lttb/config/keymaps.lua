@@ -79,19 +79,7 @@ vim.keymap.set('i', '<D-z>', '<C-w>')
 
 -- Quick Save shortcut
 vim.keymap.set({ 'i', 'n' }, '<D-s>', function()
-  if vim.b.ls_biome then
-    vim.lsp.buf.code_action({
-      context = {
-        only = { 'source.fixAll' },
-      },
-      apply = true,
-    })
-  end
-
-  -- it has to be deferred for 5ms to apply code_action first
-  vim.defer_fn(function()
-    vim.cmd('update')
-  end, 5)
+  vim.cmd('update')
 end, { desc = 'Quick Save', silent = true })
 
 -- TODO: automatically close split if the last buffer in the split was closed

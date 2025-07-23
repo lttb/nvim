@@ -20,6 +20,16 @@ return {
         lsp_format = 'fallback',
       },
       format_on_save = function(bufnr)
+        if vim.b.ls_biome then
+          vim.lsp.buf.code_action({
+            context = {
+              only = { 'source.fixAll.biome', 'source.organizeImports.biome' },
+              diagnostics = {},
+            },
+            apply = true,
+          })
+        end
+
         local timeout_ms = 2000
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
