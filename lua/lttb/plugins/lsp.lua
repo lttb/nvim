@@ -152,7 +152,21 @@ local function config()
 
     biome = {},
 
-    vtsls = {},
+    vtsls = {
+      on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end,
+    },
+
+    bashls = {},
+    taplo = {},
+
+    -- shfmt = {},
+    -- shellcheck = {},
+
+    cssls = {},
+    html = {},
 
     -- ts_ls = {
     --   on_attach = function(client, bufnr)
