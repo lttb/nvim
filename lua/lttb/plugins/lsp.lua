@@ -152,6 +152,8 @@ local function config()
 
     biome = {},
 
+    vtsls = {},
+
     -- ts_ls = {
     --   on_attach = function(client, bufnr)
     --     client.server_capabilities.documentFormattingProvider = false
