@@ -9,7 +9,13 @@ local LazyVim = require('lttb.utils.LazyVim')
 return {
   {
     'hrsh7th/nvim-cmp',
-    dependencies = { 'rafamadriz/friendly-snippets', 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path' },
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'onsails/lspkind-nvim',
+    },
 
     opts = function()
       vim.api.nvim_set_hl(0, 'CmpGhostText', { link = 'Comment', default = true })
@@ -47,25 +53,9 @@ return {
           { name = 'buffer' },
         }),
         formatting = {
-          format = function(entry, item)
-            local icons = LazyVim.config.icons.kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-
-            local widths = {
-              abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-              menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
-            }
-
-            for key, width in pairs(widths) do
-              if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
-                item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. '…'
-              end
-            end
-
-            return item
-          end,
+          format = require('lspkind').cmp_format({
+            before = require('tailwind-tools.cmp').lspkind_format,
+          }),
         },
         experimental = {
           ghost_text = true,
