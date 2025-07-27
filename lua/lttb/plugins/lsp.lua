@@ -13,7 +13,7 @@ local function config()
   local virtual_text_settings = {
     enabled = false,
     severity = { min = vim.diagnostic.severity.ERROR },
-    source = false,
+    source = 'if_many',
     spacing = 1,
   }
 
@@ -209,7 +209,7 @@ local function config()
     vim.lsp.config(lsp_name, lsp_config)
   end
 
-  require('lttb.utils.lsp_code_filter').setup()
+  -- require('lttb.utils.lsp_code_filter').setup()
 
   -- Ensure the servers and tools above are installed
   --  To check the current status of installed tools and/or manually install
@@ -254,42 +254,32 @@ local function config()
   --   end,
   -- })
 
-  require('lspconfig').prettier_ls.setup({})
+  vim.lsp.enable('prettier_ls')
+  vim.lsp.enable('cspell_ls')
+
+  -- require('lspconfig').prettier_ls.setup({})
   require('lspconfig').gh_actions_ls.setup({})
-  require('lspconfig').cspell_ls.setup({
-    handlers = {
-      ['textDocument/publishDiagnostics'] = function(err, result, ctx, conf)
-        vim.tbl_map(function(d)
-          d.severity = vim.diagnostic.severity.INFO
-        end, result.diagnostics or {})
-        vim.lsp.handlers['textDocument/publishDiagnostics'](err, result, ctx, conf)
-      end,
-    },
-  })
+  -- require('lspconfig').cspell_ls.setup({
+  --   handlers = {
+  --     ['textDocument/publishDiagnostics'] = function(err, result, ctx, conf)
+  --       vim.tbl_map(function(d)
+  --         d.severity = vim.diagnostic.severity.INFO
+  --       end, result.diagnostics or {})
+  --       vim.lsp.handlers['textDocument/publishDiagnostics'](err, result, ctx, conf)
+  --     end,
+  --   },
+  -- })
 
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(ev)
-      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+  local biome_lsp = require('lttb.plugins.lsp.biome')
 
-      if client == nil then
-        return
-      end
+  biome_lsp.setup()
 
-      if client.name == 'biome' then
-        vim.b.ls_biome = { client = client }
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = vim.api.nvim_create_augroup('LSPFormat', { clear = true }),
+    callback = function(arg)
+      vim.lsp.buf.format()
 
-        if vim.b.ls_prettier_ls then
-          vim.b.ls_prettier_ls.client.stop()
-        end
-      elseif client.name == 'prettier_ls' then
-        vim.b.ls_prettier_ls = { client = client }
-
-        if vim.b.ls_biome ~= nil then
-          client.stop()
-
-          return
-        end
-      end
+      biome_lsp.biome_code_action(arg.buf)
     end,
   })
 end

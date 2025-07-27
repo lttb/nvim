@@ -79,7 +79,7 @@ vim.keymap.set('i', '<D-z>', '<C-w>')
 
 -- Quick Save shortcut
 vim.keymap.set({ 'i', 'n' }, '<D-s>', function()
-  vim.cmd('update')
+  vim.cmd('w')
 end, { desc = 'Quick Save', silent = true })
 
 -- TODO: automatically close split if the last buffer in the split was closed
