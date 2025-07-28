@@ -50,7 +50,10 @@ function M.biome_code_action(bufnr)
     },
     context = {
       diagnostics = {},
-      only = { 'source.organizeImports.biome', 'source.fixAll.biome' },
+      only = {
+        -- 'source.organizeImports.biome',
+        'source.fixAll.biome',
+      },
     },
     range = range,
   }
