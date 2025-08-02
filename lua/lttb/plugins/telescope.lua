@@ -321,7 +321,7 @@ return {
       },
 
       {
-        enabled = true,
+        enabled = false,
         'lttb/smart-open.nvim',
         branch = 'feat/git-files-open-buffers',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
@@ -329,6 +329,7 @@ return {
         -- branch = '0.2.x',
         keys = {
           {
+            -- '<leader>ff',
             '<leader><leader>',
             function()
               require('telescope').extensions.smart_open.smart_open({
