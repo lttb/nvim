@@ -11,7 +11,7 @@ return {
     event = 'LazyFile',
     keys = {
       {
-        '<leader>f',
+        '<leader>gf',
         function()
           require('grug-far').open({ prefills = { paths = vim.fn.expand('%') } })
         end,
