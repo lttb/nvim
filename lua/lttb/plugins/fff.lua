@@ -16,7 +16,7 @@ return {
       {
         '<leader><leader>', -- try it if you didn't it is a banger keybinding for a picker
         function()
-          require('fff').toggle()
+          require('fff').find_files()
         end,
         desc = 'Toggle FFF',
       },
