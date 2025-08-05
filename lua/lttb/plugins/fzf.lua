@@ -8,24 +8,34 @@ return {
   {
     'ibhagwan/fzf-lua',
     cmd = 'FzfLua',
+    dependencies = { 'elanmed/fzf-lua-frecency.nvim', opts = {} },
     opts = {
       defaults = {
-        git_icons = false,
+        git_icons = true,
       },
-      lsp = {
-        -- @see https://github.com/nvimtools/none-ls.nvim/wiki/Compatibility-with-other-plugins
-        -- make lsp requests synchronous so they work with null-ls
-        async_or_timeout = 3000,
-      },
-      hls = {
-        header_bind = 'DiagnosticWarn',
-        header_text = 'DiagnosticInfo',
-      },
-
+      -- lsp = {
+      --   -- @see https://github.com/nvimtools/none-ls.nvim/wiki/Compatibility-with-other-plugins
+      --   -- make lsp requests synchronous so they work with null-ls
+      --   async_or_timeout = 3000,
+      -- },
+      -- hls = {
+      --   header_bind = 'DiagnosticWarn',
+      --   header_text = 'DiagnosticInfo',
+      -- },
+      --
       fzf_colors = true,
+      --
+      -- winopts = {
+      --   backdrop = 100,
+      -- },
 
-      winopts = {
-        backdrop = 100,
+      buffers = {
+        cwd_only = false,
+      },
+
+      frecency = {
+        cwd_only = true,
+        display_score = false,
       },
     },
     keys = function()
@@ -43,6 +53,16 @@ return {
       end
 
       return {
+        {
+          '<leader><leader>',
+          function()
+            -- TODO: raise an issue with `cwd_only` buffers the first item in the list isn't available
+            get().fzf.combine({
+              pickers = 'buffers,frecency',
+            })
+          end,
+        },
+
         {
           '<D-f>',
           function()
@@ -67,6 +87,14 @@ return {
             get().fzf.git_files({
               cmd = 'git ls-files -c -o --exclude-standard',
             })
+          end,
+          desc = 'Search Files',
+        },
+
+        {
+          '<D-S-p>',
+          function()
+            get().fzf.global()
           end,
           desc = 'Search Files',
         },
