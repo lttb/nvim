@@ -49,6 +49,7 @@ return {
         res.fzf = require('fzf-lua')
         res.actions = require('fzf-lua.actions')
         res.path = require('fzf-lua.path')
+        res.cmd = require('fzf-lua.cmd')
         return res
       end
 
@@ -92,11 +93,67 @@ return {
         },
 
         {
-          '<D-S-p>',
+          '<M-p>',
           function()
             get().fzf.global()
           end,
           desc = 'Search Files',
+        },
+
+        {
+          '<D-S-p>',
+          function()
+            get().cmd.run_command()
+          end,
+          desc = 'Command Palette',
+        },
+
+        {
+          '<D-o>',
+          function()
+            get().fzf.buffers()
+          end,
+          desc = 'Search Buffers',
+        },
+
+        {
+          'gl',
+          function()
+            get().fzf.lsp_finder()
+          end,
+          desc = 'LSP: Finder',
+        },
+
+        {
+          'gd',
+          function()
+            get().fzf.lsp_definitions()
+          end,
+          desc = 'LSP: Goto Definition',
+        },
+
+        {
+          'gD',
+          function()
+            get().fzf.lsp_typedefs()
+          end,
+          desc = 'LSP: Type Definition',
+        },
+
+        {
+          'gi',
+          function()
+            get().fzf.lsp_implementations()
+          end,
+          desc = 'LSP: Goto Implementation',
+        },
+
+        {
+          'gr',
+          function()
+            get().fzf.lsp_references()
+          end,
+          desc = 'LSP: Goto References',
         },
 
         {
