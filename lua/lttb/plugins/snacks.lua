@@ -13,7 +13,7 @@ return {
     opts = {
       bigfile = { enabled = true },
       quickfile = { enabled = true },
-      dashboard = { enabled = true },
+      dashboard = { enabled = false },
       scratch = { enabled = true },
       indent = {
         enabled = true,
