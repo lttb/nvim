@@ -93,7 +93,7 @@ return {
         },
 
         {
-          '<M-p>',
+          '<leader>fg',
           function()
             get().fzf.global()
           end,
