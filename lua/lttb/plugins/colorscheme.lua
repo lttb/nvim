@@ -34,6 +34,11 @@ return {
   {
     'idr4n/github-monochrome.nvim',
     lazy = true,
+    opts = {
+      on_highlights = function(hl, c, s)
+        hl.Substitute = { fg = c.highlight, bg = c.red }
+      end,
+    },
   },
 
   {
