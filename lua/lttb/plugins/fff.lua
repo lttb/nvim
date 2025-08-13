@@ -8,13 +8,13 @@ return {
   {
     'dmtrKovalenko/fff.nvim',
     branch = 'main',
-    build = 'cargo build --release',
+    -- build = 'cargo build --release',
     opts = {
       -- pass here all the options
     },
     keys = {
       {
-        '<leader><leader>', -- try it if you didn't it is a banger keybinding for a picker
+        '<leader>ff', -- try it if you didn't it is a banger keybinding for a picker
         function()
           require('fff').find_files()
         end,
