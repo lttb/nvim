@@ -10,16 +10,16 @@ return {
     dependencies = { 'echasnovski/mini.icons' },
     branch = 'main',
     opts = {
-      auto_confirm_simple_edits = true,
-      close_on_select = false,
       views = {
         explorer = {
-          width = 0.25,
-          height = 1,
-          kind = 'split:left',
-          win_opts = {
-            number = false,
-            relativenumber = false,
+          auto_confirm_simple_edits = true,
+          close_on_select = false,
+
+          win = {
+            win_opts = {
+              number = false,
+              relativenumber = false,
+            },
           },
         },
       },
@@ -38,7 +38,7 @@ return {
 
           -- open the tree but don't focus it
           is_shown = true
-          vim.cmd('Fyler')
+          vim.cmd('Fyler kind=split_left_most')
         end,
       })
     end,

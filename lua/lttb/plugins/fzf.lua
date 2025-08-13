@@ -55,7 +55,7 @@ return {
 
       return {
         {
-          '<leader><leader>',
+          '<leader>ff',
           function()
             -- TODO: raise an issue with `cwd_only` buffers the first item in the list isn't available
             get().fzf.combine({
