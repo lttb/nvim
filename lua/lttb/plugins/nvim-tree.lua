@@ -7,6 +7,20 @@ end
 return {
   {
     'nvim-tree/nvim-tree.lua',
+
+    keys = {
+      {
+        '<D-b>',
+        function()
+          local api = require('nvim-tree.api')
+
+          api.tree.toggle({ focus = false, find_file = true })
+        end,
+        desc = 'Toggle Sidebar',
+        mode = { 'n', 'i', 'x' },
+      },
+    },
+
     opts = {
       view = {
         width = {
