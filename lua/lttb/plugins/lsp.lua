@@ -256,6 +256,7 @@ local function config()
 
   vim.lsp.enable('prettier_ls')
   vim.lsp.enable('cspell_ls')
+  vim.lsp.enable('ts_ls', false)
 
   -- require('lspconfig').prettier_ls.setup({})
   require('lspconfig').gh_actions_ls.setup({})
