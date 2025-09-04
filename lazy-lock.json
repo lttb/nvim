@@ -14,7 +14,7 @@
   "flash.nvim": { "branch": "main", "commit": "3c942666f115e2811e959eabbdd361a025db8b63" },
   "flatten.nvim": { "branch": "main", "commit": "72527798e75b5e34757491947c2cb853ce21dc0e" },
   "friendly-snippets": { "branch": "main", "commit": "572f5660cf05f8cd8834e096d7b4c921ba18e175" },
-  "fzf-lua": { "branch": "main", "commit": "f6a570cc42596efb73359fc453061e24abb71d9f" },
+  "fzf-lua": { "branch": "main", "commit": "70cdea35ac8fe5e3a977616b883d780a842cc115" },
   "fzf-lua-frecency.nvim": { "branch": "master", "commit": "d776493e5586c6c203117f2433773538b388a44a" },
   "github-monochrome.nvim": { "branch": "master", "commit": "d9885008f7ba2436b296a00ca9868e34c0c91dca" },
   "github-theme": { "branch": "main", "commit": "c106c9472154d6b2c74b74565616b877ae8ed31d" },
@@ -85,5 +85,5 @@
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" },
   "yanky.nvim": { "branch": "main", "commit": "d2696b30e389dced94d5acab728f524a25f308d2" },
   "zen-mode.nvim": { "branch": "main", "commit": "863f150ca321b3dd8aa1a2b69b5f411a220e144f" },
-  "zenbones.nvim": { "branch": "main", "commit": "e3ab355fe93919ced777accfa2d631f49d0bd72c" }
+  "zenbones.nvim": { "branch": "main", "commit": "a934bc07d2ed4a98b74526c172d7f043736d8935" }
 }
