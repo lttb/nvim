@@ -4,8 +4,12 @@ function M.hl_create(group)
   vim.api.nvim_set_hl(0, group, require('lttb.theme').current[group])
 end
 
+function M.is_ghostty()
+  return vim.env.TERM == 'xterm-ghostty' and (not M.is_neovide())
+end
+
 function M.is_kitty()
-  return vim.env.KITTY_WINDOW_ID ~= nil and (not M.is_neovide())
+  return vim.env.TERM == 'xterm-kitty' and (not M.is_neovide())
 end
 
 function M.is_vscode()
@@ -95,7 +99,7 @@ end
 -- the cmd+shift mapping behaviour is different in kitty/neovide
 -- @see https://github.com/neovide/neovide/issues/1237#issuecomment-1912243657
 function M.cmd_shift(key, opts)
-  if M.is_kitty() then
+  if M.is_kitty() or M.is_ghostty() then
     return { '<S-D-' .. string.lower(key) .. '>', unpack(opts) }
   end
 
