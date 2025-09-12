@@ -1,5 +1,6 @@
 return {
-  cmd = { 'cspell-lsp-wrapper', '--stdio' },
+  -- @see https://github.com/vlabo/cspell-lsp
+  cmd = { 'cspell-lsp', '--stdio' },
   root_dir = vim.fn.getcwd(),
   init_options = {
     home = vim.fn.expand('~'),
