@@ -116,13 +116,13 @@ return {
           desc = 'Search Buffers',
         },
 
-        {
-          'gl',
-          function()
-            get().fzf.lsp_finder()
-          end,
-          desc = 'LSP: Finder',
-        },
+        -- {
+        --   'gl',
+        --   function()
+        --     get().fzf.lsp_finder()
+        --   end,
+        --   desc = 'LSP: Finder',
+        -- },
 
         {
           'gd',
