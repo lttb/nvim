@@ -8,7 +8,7 @@ return {
   {
     'dmtrKovalenko/fff.nvim',
     branch = 'main',
-    -- build = 'cargo build --release',
+    build = 'cargo build --release',
     opts = {
       -- pass here all the options
     },
