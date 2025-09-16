@@ -173,12 +173,6 @@ return {
 
         utils.cmd_shift('f', {
           function()
-            local is_unhidden = get().fzf.win.unhide()
-
-            if is_unhidden then
-              return
-            end
-
             get().fzf.grep_project({
               fzf_opts = {
                 ['--layout'] = 'reverse',
