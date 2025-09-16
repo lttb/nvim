@@ -63,11 +63,28 @@ return {
       -- experimental signature help support
       signature = { enabled = true },
 
+      fuzzy = {
+        sorts = {
+          'exact',
+          -- defaults
+          'score',
+          'sort_text',
+        },
+      },
+
       sources = {
         -- adding any nvim-cmp sources here will enable them
         -- with blink.compat
         compat = {},
         default = { 'lsp', 'path', 'snippets', 'buffer' },
+
+        providers = {
+          snippets = {
+            should_show_items = function(ctx)
+              return ctx.trigger.initial_kind ~= 'trigger_character'
+            end,
+          },
+        },
       },
 
       cmdline = {
