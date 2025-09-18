@@ -257,9 +257,10 @@ local function config()
   vim.lsp.enable('prettier_ls')
   vim.lsp.enable('cspell_ls')
   vim.lsp.enable('ts_ls', false)
+  vim.lsp.enable('gh_actions_ls')
 
   -- require('lspconfig').prettier_ls.setup({})
-  require('lspconfig').gh_actions_ls.setup({})
+  -- require('lspconfig').gh_actions_ls.setup({})
   -- require('lspconfig').cspell_ls.setup({
   --   handlers = {
   --     ['textDocument/publishDiagnostics'] = function(err, result, ctx, conf)
