@@ -9,19 +9,33 @@ function M.setup()
         return
       end
 
-      if client.name == 'biome' then
-        vim.b.ls_biome = { client = client }
+      vim.b['ls_' .. client.name] = { client = client }
 
-        if vim.b.ls_prettier_ls then
-          vim.b.ls_prettier_ls.client.stop()
-        end
-      elseif client.name == 'prettier_ls' then
-        vim.b.ls_prettier_ls = { client = client }
-
-        if vim.b.ls_biome ~= nil then
-          client.stop()
-        end
-      end
+      -- if client.name == 'yamlls' then
+      --   vim.b.yamlls = { client = client }
+      --
+      --   if vim.b.ls_prettier_ls then
+      --     vim.b.yamlls.client.server_capabilities.documentFormattingProvider = false
+      --     vim.b.yamlls.client.server_capabilities.documentRangeFormattingProvider = false
+      --   end
+      -- elseif client.name == 'biome' then
+      --   vim.b.ls_biome = { client = client }
+      --
+      --   if vim.b.ls_prettier_ls then
+      --     vim.b.ls_prettier_ls.client.stop()
+      --   end
+      -- elseif client.name == 'prettier_ls' then
+      --   vim.b.ls_prettier_ls = { client = client }
+      --
+      --   if vim.b.yamlls then
+      --     vim.b.yamlls.client.server_capabilities.documentFormattingProvider = false
+      --     vim.b.yamlls.client.server_capabilities.documentRangeFormattingProvider = false
+      --   end
+      --
+      --   if vim.b.ls_biome ~= nil then
+      --     client.stop()
+      --   end
+      -- end
     end,
   })
 end
@@ -63,8 +77,8 @@ function M.biome_code_action(bufnr)
   if result then
     for _, action in ipairs(result) do
       if
-          (action.kind == 'source.organizeImports.biome' or action.kind == 'source.fixAll.biome')
-          and action.edit ~= nil
+        (action.kind == 'source.organizeImports.biome' or action.kind == 'source.fixAll.biome')
+        and action.edit ~= nil
       then
         vim.lsp.util.apply_workspace_edit(action.edit, 'utf-8')
       end

@@ -36,6 +36,8 @@ local function config()
       --  For example, in C this would take you to the header.
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
 
+      vim.keymap.set({ 'n', 'i', 'x' }, '<D-.>', vim.lsp.buf.code_action, { desc = 'Code Action' })
+
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
@@ -192,6 +194,11 @@ local function config()
     yamlls = {
       settings = {
         yaml = {
+          -- format = {
+          --   -- use prettier instead
+          --   enable = false,
+          -- },
+
           schemaStore = {
             -- You must disable built-in schemaStore support if you want to use
             -- this plugin and its advanced options like `ignore`.
@@ -279,7 +286,17 @@ local function config()
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('LSPFormat', { clear = true }),
     callback = function(arg)
-      vim.lsp.buf.format()
+      vim.lsp.buf.format({
+        filter = function(client)
+          if client.name == 'yamlls' then
+            return vim.b.ls_prettier_ls == nil
+          end
+
+          if client.name == 'prettier_ls' then
+            return vim.b.ls_biome == nil
+          end
+        end,
+      })
 
       biome_lsp.biome_code_action(arg.buf)
     end,
@@ -307,32 +324,22 @@ return {
   },
 
   {
-    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
     -- it has to be VeryLazy or not lazy at all, otherwise LSP get stuck a bit
     event = 'VeryLazy',
-    keys = {
-      -- ghostty doesn't support <D-.>
-      { '<D-.>', vim.lsp.buf.code_action, desc = 'Code Action', mode = { 'n', 'i', 'x' } },
-      -- { '<F-2>', vim.lsp.buf.rename, desc = 'Rename Symbol' },
-    },
     config = config,
     dependencies = {
-      'williamboman/mason.nvim',
+      'neovim/nvim-lspconfig',
+      'b0o/schemastore.nvim',
+
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       {
         'smjonas/inc-rename.nvim',
-        config = function()
-          require('inc_rename').setup({})
-        end,
         keys = {
           { '<F2>', ':IncRename ' },
         },
-      },
-
-      {
-        'b0o/schemastore.nvim',
       },
 
       {
