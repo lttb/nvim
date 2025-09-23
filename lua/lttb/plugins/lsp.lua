@@ -281,7 +281,17 @@ local function config()
 
   local biome_lsp = require('lttb.plugins.lsp.biome')
 
-  biome_lsp.setup()
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+      if client == nil then
+        return
+      end
+
+      vim.b['ls_' .. client.name] = { client = client }
+    end,
+  })
 
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('LSPFormat', { clear = true }),
@@ -295,6 +305,8 @@ local function config()
           if client.name == 'prettier_ls' then
             return vim.b.ls_biome == nil
           end
+
+          return true
         end,
       })
 
