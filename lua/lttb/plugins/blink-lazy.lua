@@ -6,7 +6,7 @@ end
 
 local LazyVim = require('lttb.utils.LazyVim')
 
--- @see https://github.com/LazyVim/LazyVim/blob/25abbf546d564dc484cf903804661ba12de45507/lua/lazyvim/plugins/extras/coding/blink.lua
+-- @see https://github.com/LazyVim/LazyVim/blob/c83df9e68dd41f5a3f7df5a7048169ee286a7da8/lua/lazyvim/plugins/extras/coding/blink.lua
 return {
   {
     'saghen/blink.cmp',
@@ -19,8 +19,13 @@ return {
     },
     dependencies = {
       'rafamadriz/friendly-snippets',
+      {
+        'saghen/blink.compat',
+        opts = {},
+        version = '*',
+      },
     },
-    event = 'InsertEnter',
+    event = { 'InsertEnter', 'CmdlineEnter' },
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -30,6 +35,7 @@ return {
           return LazyVim.cmp.expand(snippet)
         end,
       },
+
       appearance = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
         -- useful for when your theme doesn't support blink.cmp
@@ -39,6 +45,7 @@ return {
         -- adjusts spacing to ensure icons are aligned
         nerd_font_variant = 'mono',
       },
+
       completion = {
         accept = {
           -- experimental auto-brackets support
@@ -56,46 +63,31 @@ return {
           auto_show_delay_ms = 200,
         },
         ghost_text = {
-          enabled = true,
+          enabled = vim.g.ai_cmp,
         },
       },
 
       -- experimental signature help support
-      signature = { enabled = true },
-
-      fuzzy = {
-        sorts = {
-          'exact',
-          -- defaults
-          'score',
-          'sort_text',
-        },
-      },
+      -- signature = { enabled = true },
 
       sources = {
         -- adding any nvim-cmp sources here will enable them
         -- with blink.compat
         compat = {},
         default = { 'lsp', 'path', 'snippets', 'buffer' },
-
-        providers = {
-          snippets = {
-            should_show_items = function(ctx)
-              return ctx.trigger.initial_kind ~= 'trigger_character'
-            end,
-          },
-        },
       },
 
       cmdline = {
+        enabled = true,
+        keymap = { preset = 'cmdline' },
         completion = {
-          menu = { auto_show = true },
+          list = { selection = { preselect = false } },
+          menu = {
+            auto_show = function(ctx)
+              return vim.fn.getcmdtype() == ':'
+            end,
+          },
           ghost_text = { enabled = true },
-        },
-        keymap = {
-          preset = 'super-tab',
-
-          ['<CR>'] = { 'select_accept_and_enter', 'fallback' },
         },
       },
 
@@ -123,7 +115,7 @@ return {
       if not opts.keymap['<Tab>'] then
         if opts.keymap.preset == 'super-tab' then -- super-tab
           opts.keymap['<Tab>'] = {
-            require('blink.cmp.keymap.presets')['super-tab']['<Tab>'][1],
+            require('blink.cmp.keymap.presets').get('super-tab')['<Tab>'][1],
             LazyVim.cmp.map({ 'snippet_forward', 'ai_accept' }),
             'fallback',
           }
@@ -185,8 +177,9 @@ return {
     'saghen/blink.cmp',
     opts = {
       sources = {
-        -- add lazydev to your completion providers
-        default = { 'lazydev' },
+        per_filetype = {
+          lua = { inherit_defaults = true, 'lazydev' },
+        },
         providers = {
           lazydev = {
             name = 'LazyDev',

@@ -3,6 +3,7 @@
   "barbar.nvim": { "branch": "master", "commit": "40c176c9af7e9aefe3af9ec9d985a3edb50d66a3" },
   "base16-nvim": { "branch": "master", "commit": "a2907cc3cd661e0f89f7db1f4fc304782a676a7d" },
   "blink.cmp": { "branch": "main", "commit": "327fff91fe6af358e990be7be1ec8b78037d2138" },
+  "blink.compat": { "branch": "main", "commit": "2ed6d9a28b07fa6f3bface818470605f8896408c" },
   "blink.pairs": { "branch": "main", "commit": "d8bf802cca951f0a3b72ddeed21bc5a1d5353f65" },
   "bufferline.nvim": { "branch": "main", "commit": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3" },
   "bufjump.nvim": { "branch": "master", "commit": "ae2728a77defbd27e9e5ef64c854fb0813ffba01" },
