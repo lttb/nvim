@@ -289,13 +289,25 @@ local function config()
         return
       end
 
-      vim.b['ls_' .. client.name] = { client = client }
+      vim.b[ev.buf]['ls_' .. client.name] = client.id
+    end,
+  })
+
+  vim.api.nvim_create_autocmd('LspDetach', {
+    callback = function(ev)
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+      if client == nil then
+        return
+      end
+
+      vim.b[ev.buf]['ls_' .. client.name] = nil
     end,
   })
 
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('LSPFormat', { clear = true }),
-    callback = function(arg)
+    callback = function(ev)
       vim.lsp.buf.format({
         filter = function(client)
           if client.name == 'yamlls' then
@@ -308,9 +320,10 @@ local function config()
 
           return true
         end,
+        bufnr = ev.buf,
       })
 
-      biome_lsp.biome_code_action(arg.buf)
+      biome_lsp.biome_code_action(ev.buf)
     end,
   })
 end
