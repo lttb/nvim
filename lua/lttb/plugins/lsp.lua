@@ -354,7 +354,11 @@ return {
     event = 'VeryLazy',
     config = config,
     dependencies = {
-      'neovim/nvim-lspconfig',
+      {
+        'neovim/nvim-lspconfig',
+        cond = false, -- avoid initialisation
+      },
+
       'b0o/schemastore.nvim',
 
       'williamboman/mason-lspconfig.nvim',
