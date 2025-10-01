@@ -49,7 +49,7 @@ return {
         }
       end,
       formatters_by_ft = {
-        lua = { 'stylua' },
+        -- lua = { 'stylua' },
         zsh = { 'shfmt' },
         sh = { 'shfmt' },
         toml = { 'taplo' },

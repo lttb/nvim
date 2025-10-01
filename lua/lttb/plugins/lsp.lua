@@ -140,9 +140,6 @@ return {
   {
     'mason-org/mason-lspconfig.nvim',
     opts = {},
-    init = function()
-      config()
-    end,
 
     dependencies = {
       {
@@ -151,7 +148,7 @@ return {
       },
       -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      'neovim/nvim-lspconfig',
+      { 'neovim/nvim-lspconfig', config = config },
       'b0o/schemastore.nvim',
 
       {
