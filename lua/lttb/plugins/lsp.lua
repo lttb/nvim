@@ -149,10 +149,14 @@ return {
       -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       { 'neovim/nvim-lspconfig', config = config },
-      'b0o/schemastore.nvim',
+
+      {
+        'b0o/schemastore.nvim',
+      },
 
       {
         'smjonas/inc-rename.nvim',
+        opts = {},
         keys = {
           { '<F2>', ':IncRename ' },
         },
