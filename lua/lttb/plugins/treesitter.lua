@@ -151,7 +151,8 @@ return {
         'nvim-treesitter/playground',
       },
       {
-        enabled = not utils.is_vscode(),
+        -- enabled = not utils.is_vscode(),
+        enabled = false,
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
           require('treesitter-context').setup({
