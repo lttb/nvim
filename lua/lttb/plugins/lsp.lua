@@ -108,6 +108,8 @@ local function config()
     end)(),
   })
 
+  require('mason-lspconfig').setup()
+
   vim.lsp.enable('prettier_ls')
   vim.lsp.enable('cspell_ls')
   vim.lsp.enable('gh_actions_ls')
@@ -141,6 +143,8 @@ return {
     'mason-org/mason-lspconfig.nvim',
     opts = {},
 
+    config = config,
+
     dependencies = {
       {
         'mason-org/mason.nvim',
@@ -148,7 +152,7 @@ return {
       },
       -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      { 'neovim/nvim-lspconfig', config = config },
+      { 'neovim/nvim-lspconfig' },
 
       {
         'b0o/schemastore.nvim',
