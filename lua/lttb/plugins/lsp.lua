@@ -108,13 +108,18 @@ local function config()
     end)(),
   })
 
-  require('mason-lspconfig').setup()
+  require('mason-lspconfig').setup({
+    exclude = {
+      'ts_ls',
+      'prettier',
+    },
+  })
 
   vim.lsp.enable('prettier_ls')
-  vim.lsp.enable('cspell_ls')
-  vim.lsp.enable('gh_actions_ls')
+  -- vim.lsp.enable('cspell_ls')
+  -- vim.lsp.enable('gh_actions_ls')
 
-  vim.lsp.enable('ts_ls', false)
+  -- vim.lsp.enable('ts_ls', false)
 
   setup_formatters()
 end
