@@ -6,6 +6,7 @@ end
 
 return {
   {
+    -- archived
     'luckasRanarison/tailwind-tools.nvim',
     event = 'VeryLazy',
     name = 'tailwind-tools',
