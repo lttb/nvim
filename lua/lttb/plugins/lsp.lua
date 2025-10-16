@@ -119,7 +119,7 @@ local function config()
   -- vim.lsp.enable('cspell_ls')
   -- vim.lsp.enable('gh_actions_ls')
 
-  -- vim.lsp.enable('ts_ls', false)
+  vim.lsp.enable('ts_ls', false)
 
   setup_formatters()
 end
