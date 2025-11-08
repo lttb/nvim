@@ -90,17 +90,51 @@ return {
         --   desc = 'Smart Open',
         -- },
 
-        -- {
-        --   '<D-p>',
-        --   function()
-        --     Snacks.picker.git_files({
-        --       untracked = true,
-        --     })
-        --   end,
-        --   mode = { 'n', 'i', 'x' },
-        --   desc = 'Search Files',
-        -- },
-        --
+        --{{{ LSP
+        {
+          'gd',
+          function()
+            Snacks.picker.lsp_definitions()
+          end,
+          desc = 'LSP: Goto Definition',
+        },
+
+        {
+          'gD',
+          function()
+            Snacks.picker.lsp_type_definitions()
+          end,
+          desc = 'LSP: Type Definition',
+        },
+
+        {
+          'gi',
+          function()
+            Snacks.picker.lsp_implementations()
+          end,
+          desc = 'LSP: Goto Implementation',
+        },
+
+        {
+          'gr',
+          function()
+            Snacks.picker.lsp_references()
+          end,
+          desc = 'LSP: Goto References',
+        },
+        --}}}
+
+        {
+          '<D-p>',
+          function()
+            Snacks.picker.git_files({
+              untracked = true,
+            })
+          end,
+          mode = { 'n', 'i', 'x' },
+          desc = 'Search Files',
+        },
+
         -- {
         --   '<leader>sa',
         --   function()
@@ -109,79 +143,79 @@ return {
         --   desc = 'Search All files',
         -- },
         --
-        -- {
-        --   '<D-f>',
-        --   function()
-        --     Snacks.picker.lines({
-        --       layout = {
-        --         preview = true,
-        --
-        --         layout = {
-        --           backdrop = false,
-        --           width = 0.7,
-        --           min_width = 80,
-        --           height = 0.8,
-        --           min_height = 30,
-        --           box = 'vertical',
-        --           border = 'rounded',
-        --           title = '{title} {live} {flags}',
-        --           title_pos = 'center',
-        --           { win = 'preview', title = '{preview}', height = 0.6,     border = 'bottom' },
-        --           { win = 'input',   height = 1,          border = 'bottom' },
-        --           { win = 'list',    border = 'none' },
-        --         },
-        --       },
-        --     })
-        --   end,
-        --   mode = { 'n', 'i', 'x' },
-        -- },
+        {
+          '<D-f>',
+          function()
+            Snacks.picker.lines({
+              layout = {
+                preview = true,
 
-        -- {
-        --   '<D-o>',
-        --   function()
-        --     Snacks.picker.buffers({
-        --       current = false,
-        --     })
-        --   end,
-        --   mode = { 'n', 'i', 'x' },
-        --   desc = 'Search Buffers',
-        -- },
+                layout = {
+                  backdrop = false,
+                  width = 0.7,
+                  min_width = 80,
+                  height = 0.8,
+                  min_height = 30,
+                  box = 'vertical',
+                  border = 'rounded',
+                  title = '{title} {live} {flags}',
+                  title_pos = 'center',
+                  { win = 'preview', title = '{preview}', height = 0.6,     border = 'bottom' },
+                  { win = 'input',   height = 1,          border = 'bottom' },
+                  { win = 'list',    border = 'none' },
+                },
+              },
+            })
+          end,
+          mode = { 'n', 'i', 'x' },
+        },
 
-        -- {
-        --   '<leader>sh',
-        --   function()
-        --     Snacks.picker.help()
-        --   end,
-        --   desc = 'Search Help',
-        -- },
-        -- {
-        --   '<leader>sd',
-        --   function()
-        --     Snacks.picker.diagnostics()
-        --   end,
-        --   desc = 'Search Diagnostics',
-        -- },
-        -- {
-        --   '<leader>sw',
-        --   function()
-        --     Snacks.picker.grep_word()
-        --   end,
-        --   desc = 'Search Word',
-        -- },
+        {
+          '<D-o>',
+          function()
+            Snacks.picker.buffers({
+              current = false,
+            })
+          end,
+          mode = { 'n', 'i', 'x' },
+          desc = 'Search Buffers',
+        },
 
-        -- utils.cmd_shift('r', {
-        --   function()
-        --     Snacks.picker.resume()
-        --   end,
-        --   desc = 'Snacks Resume',
-        -- }),
-        --
-        -- utils.cmd_shift('p', {
-        --   function()
-        --     Snacks.picker()
-        --   end,
-        --   desc = 'Snacks',
-        -- }),
+        {
+          '<leader>sh',
+          function()
+            Snacks.picker.help()
+          end,
+          desc = 'Search Help',
+        },
+        {
+          '<leader>sd',
+          function()
+            Snacks.picker.diagnostics()
+          end,
+          desc = 'Search Diagnostics',
+        },
+        {
+          '<leader>sw',
+          function()
+            Snacks.picker.grep_word()
+          end,
+          desc = 'Search Word',
+        },
+
+        utils.cmd_shift('r', {
+          function()
+            Snacks.picker.resume()
+          end,
+          desc = 'Snacks Resume',
+        }),
+
+        utils.cmd_shift('p', {
+          function()
+            Snacks.picker()
+          end,
+          desc = 'Snacks',
+        }),
 
         {
           '<leader>S.',

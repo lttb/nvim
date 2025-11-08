@@ -64,33 +64,33 @@ return {
           end,
         },
 
-        {
-          '<D-f>',
-          function()
-            get().fzf.grep_curbuf({
-              winopts = {
-                preview = {
-                  layout = 'vertical',
-                  delay = 5,
+        -- {
+        --   '<D-f>',
+        --   function()
+        --     get().fzf.grep_curbuf({
+        --       winopts = {
+        --         preview = {
+        --           layout = 'vertical',
+        --           delay = 5,
+        --
+        --           vertical = 'up:40%',
+        --         },
+        --       },
+        --     })
+        --   end,
+        --   desc = 'Fuzzily search in current buffer',
+        --   silent = true,
+        -- },
 
-                  vertical = 'up:40%',
-                },
-              },
-            })
-          end,
-          desc = 'Fuzzily search in current buffer',
-          silent = true,
-        },
-
-        {
-          '<D-p>',
-          function()
-            get().fzf.git_files({
-              cmd = 'git ls-files -c -o --exclude-standard',
-            })
-          end,
-          desc = 'Search Files',
-        },
+        -- {
+        --   '<D-p>',
+        --   function()
+        --     get().fzf.git_files({
+        --       cmd = 'git ls-files -c -o --exclude-standard',
+        --     })
+        --   end,
+        --   desc = 'Search Files',
+        -- },
 
         {
           '<leader>fg',
@@ -100,61 +100,61 @@ return {
           desc = 'Search Files',
         },
 
-        {
-          '<D-S-p>',
-          function()
-            get().cmd.run_command()
-          end,
-          desc = 'Command Palette',
-        },
-
-        {
-          '<D-o>',
-          function()
-            get().fzf.buffers()
-          end,
-          desc = 'Search Buffers',
-        },
-
         -- {
-        --   'gl',
+        --   '<D-S-p>',
         --   function()
-        --     get().fzf.lsp_finder()
+        --     get().cmd.run_command()
         --   end,
-        --   desc = 'LSP: Finder',
+        --   desc = 'Command Palette',
+        -- },
+        --
+        -- {
+        --   '<D-o>',
+        --   function()
+        --     get().fzf.buffers()
+        --   end,
+        --   desc = 'Search Buffers',
         -- },
 
         {
-          'gd',
+          'gl',
           function()
-            get().fzf.lsp_definitions()
+            get().fzf.lsp_finder()
           end,
-          desc = 'LSP: Goto Definition',
+          desc = 'LSP: Finder',
         },
 
-        {
-          'gD',
-          function()
-            get().fzf.lsp_typedefs()
-          end,
-          desc = 'LSP: Type Definition',
-        },
-
-        {
-          'gi',
-          function()
-            get().fzf.lsp_implementations()
-          end,
-          desc = 'LSP: Goto Implementation',
-        },
-
-        {
-          'gr',
-          function()
-            get().fzf.lsp_references()
-          end,
-          desc = 'LSP: Goto References',
-        },
+        -- {
+        --   'gd',
+        --   function()
+        --     get().fzf.lsp_definitions()
+        --   end,
+        --   desc = 'LSP: Goto Definition',
+        -- },
+        --
+        -- {
+        --   'gD',
+        --   function()
+        --     get().fzf.lsp_typedefs()
+        --   end,
+        --   desc = 'LSP: Type Definition',
+        -- },
+        --
+        -- {
+        --   'gi',
+        --   function()
+        --     get().fzf.lsp_implementations()
+        --   end,
+        --   desc = 'LSP: Goto Implementation',
+        -- },
+        --
+        -- {
+        --   'gr',
+        --   function()
+        --     get().fzf.lsp_references()
+        --   end,
+        --   desc = 'LSP: Goto References',
+        -- },
 
         {
           '<leader>sa',
@@ -164,12 +164,12 @@ return {
           desc = 'Search All files',
         },
 
-        utils.cmd_shift('r', {
-          function()
-            get().fzf.resume()
-          end,
-          desc = 'fzf: resume',
-        }),
+        -- utils.cmd_shift('r', {
+        --   function()
+        --     get().fzf.resume()
+        --   end,
+        --   desc = 'fzf: resume',
+        -- }),
 
         utils.cmd_shift('f', {
           function()
