@@ -157,9 +157,12 @@ return {
         -- },
 
         {
-          '<leader>sa',
+          '<leader>fa',
           function()
-            get().fzf.files()
+            get().fzf.files({
+              hidden = true,
+              no_ignore = true,
+            })
           end,
           desc = 'Search All files',
         },
