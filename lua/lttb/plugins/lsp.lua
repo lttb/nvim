@@ -13,6 +13,12 @@ local function setup_formatters()
 
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
+      local buf = ev.buf
+      if vim.bo[buf].filetype == 'markdown' then
+        -- Disable LSP formatter for Markdown (keep gq native)
+        vim.bo[buf].formatexpr = ''
+      end
+
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
       if client == nil then
