@@ -8,6 +8,17 @@ if utils.is_vscode() then
   return {}
 end
 
+local function mason_ensure_installed(list)
+  -- @see https://github.com/mason-org/mason-lspconfig.nvim/issues/113#issuecomment-1471346816
+  local registry = require('mason-registry')
+  for _, pkg_name in ipairs(list) do
+    local ok, pkg = pcall(registry.get_package, pkg_name)
+    if ok and not pkg:is_installed() then
+      pkg:install()
+    end
+  end
+end
+
 local function setup_formatters()
   local biome_lsp = require('lttb.plugins.lsp.biome')
 
@@ -122,17 +133,38 @@ local function config()
   })
 
   require('mason-lspconfig').setup({
+    ensure_installed = {
+      'bashls',
+      'biome',
+      'cspell_ls',
+      'cssls',
+      'eslint',
+      'gh_actions_ls',
+      'html',
+      'jsonls',
+      'lua_ls',
+      'marksman',
+      'rust_analyzer',
+      'stylua',
+      'tailwindcss',
+      'taplo',
+      'vtsls',
+      'yamlls',
+    },
     exclude = {
       'ts_ls',
       'prettier',
     },
   })
 
+  mason_ensure_installed({ 'shfmt', 'beautysh', 'spellcheck' })
+
   vim.lsp.enable('prettier_ls')
   -- vim.lsp.enable('cspell_ls')
   -- vim.lsp.enable('gh_actions_ls')
 
   vim.lsp.enable('ts_ls', false)
+  vim.lsp.enable('prettier', false)
 
   setup_formatters()
 end
