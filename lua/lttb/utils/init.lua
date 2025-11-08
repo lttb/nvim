@@ -130,4 +130,18 @@ function M.on_load(name, fn)
   end
 end
 
+function M.pad_lines(lines, pad_top, pad_bottom, pad_left, pad_right)
+  local padded = {}
+  for _ = 1, pad_top do
+    table.insert(padded, '')
+  end
+  for _, line in ipairs(lines) do
+    table.insert(padded, string.rep(' ', pad_left) .. line .. string.rep(' ', pad_right))
+  end
+  for _ = 1, pad_bottom do
+    table.insert(padded, '')
+  end
+  return padded
+end
+
 return M
