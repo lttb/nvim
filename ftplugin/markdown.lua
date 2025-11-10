@@ -21,6 +21,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   buffer = 0,
   callback = function()
     -- Treesitter/LSP won’t interfere now; this respects 'textwidth'
-    vim.cmd('silent normal! ggVGgq')
+    -- vim.cmd('silent normal! ggVGgq')
   end,
 })
