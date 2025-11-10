@@ -1,5 +1,7 @@
 local M = {}
 
+M.theme = 'morningstar'
+
 function M.hl_create(group)
   vim.api.nvim_set_hl(0, group, require('lttb.theme').current[group])
 end

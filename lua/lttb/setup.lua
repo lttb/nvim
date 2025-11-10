@@ -2,16 +2,15 @@
 
 vim.loader.enable()
 
+local utils = require('lttb.utils')
+
 vim.o.background = vim.env.THEME_MODE or 'light'
 
 require('lttb.settings')
-
-require('lttb.config.lazy')
-
 require('lttb.config.autocmd')
 require('lttb.config.keymaps')
 
-local utils = require('lttb.utils')
+require('lttb.config.lazy')
 
 if utils.is_vscode() then
   require('lttb.settings.vscode')
@@ -19,7 +18,7 @@ if utils.is_vscode() then
   return
 end
 
-vim.cmd.colorscheme('morningstar')
+vim.cmd.colorscheme(utils.theme)
 
 if utils.is_neovide() then
   require('lttb.settings.neovide')

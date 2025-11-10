@@ -4,7 +4,18 @@ if utils.is_vscode() then
   return {}
 end
 
+local function init()
+  vim.cmd.colorscheme(utils.theme)
+end
+
 return {
+  {
+    'lttb/morningstar.nvim',
+    lazy = false,
+    priority = 1000,
+    init = init,
+  },
+
   -- lush is used for color calculations
   { 'rktjmp/lush.nvim', lazy = true },
 
@@ -23,11 +34,6 @@ return {
   {
     'projekt0n/github-nvim-theme',
     name = 'github-theme',
-    lazy = true,
-  },
-
-  {
-    'lttb/morningstar.nvim',
     lazy = true,
   },
 
