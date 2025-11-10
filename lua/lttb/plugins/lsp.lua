@@ -84,6 +84,33 @@ local function config()
     spacing = 1,
   }
 
+  local border = {
+    { '╭', 'LspFloatBorder' },
+    { '╌', 'LspFloatBorder' },
+    { '╮', 'LspFloatBorder' },
+    { '╎', 'LspFloatBorder' },
+    { '╯', 'LspFloatBorder' },
+    { '╌', 'LspFloatBorder' },
+    { '╰', 'LspFloatBorder' },
+    { '╎', 'LspFloatBorder' },
+  }
+
+  local hover = vim.lsp.buf.hover
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.lsp.buf.hover = function()
+    return hover({
+      border = border,
+    })
+  end
+
+  local open_float = vim.diagnostic.open_float
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.diagnostic.open_float = function()
+    return open_float(nil, {
+      border = border,
+    })
+  end
+
   -- @see https://github.com/nvim-lua/kickstart.nvim/blob/a8f539562a8c5d822dd5c0ca1803d963c60ad544/init.lua#L471
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -98,17 +125,28 @@ local function config()
         })
       end, { desc = 'Enable Virtual Text' })
 
-      -- vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'Show diagnostic' })
+      vim.keymap.set('n', 'gl', function()
+        open_float(nil, {
+          border = border,
+        })
+      end, { desc = 'Show diagnostic' })
 
       -- WARN: This is not Goto Definition, this is Goto Declaration.
       --  For example, in C this would take you to the header.
       -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
 
       vim.keymap.set('n', 'K', function()
-        if vim.bo.filetype == 'help' then
-          return 'K'
-        end
-        require('lttb.plugins.lsp.hover').lsp_hover()
+        hover({
+          border = border,
+        })
+
+        -- require('hover').open()
+
+        -- if vim.bo.filetype == 'help' then
+        --   return 'K'
+        -- end
+        --
+        -- require('lttb.plugins.lsp.hover').lsp_hover()
       end, { desc = 'LSP Hover (with diagnostics)', noremap = true, expr = true })
 
       vim.keymap.set({ 'n', 'i', 'x' }, '<D-.>', vim.lsp.buf.code_action, { desc = 'Code Action' })
@@ -219,6 +257,25 @@ return {
       {
         enabled = false,
         'lukas-reineke/lsp-format.nvim',
+      },
+
+      {
+        enabled = false,
+        'lewis6991/hover.nvim',
+        opts = {
+          preview_opts = {
+            border = {
+              { '╭', 'LspFloatBorder' },
+              { '╌', 'LspFloatBorder' },
+              { '╮', 'LspFloatBorder' },
+              { '╎', 'LspFloatBorder' },
+              { '╯', 'LspFloatBorder' },
+              { '╌', 'LspFloatBorder' },
+              { '╰', 'LspFloatBorder' },
+              { '╎', 'LspFloatBorder' },
+            },
+          },
+        },
       },
     },
   },
