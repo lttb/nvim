@@ -135,19 +135,19 @@ local function config()
       --  For example, in C this would take you to the header.
       -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
 
-      vim.keymap.set('n', 'K', function()
-        hover({
-          border = border,
-        })
-
-        -- require('hover').open()
-
-        -- if vim.bo.filetype == 'help' then
-        --   return 'K'
-        -- end
-        --
-        -- require('lttb.plugins.lsp.hover').lsp_hover()
-      end, { desc = 'LSP Hover (with diagnostics)', noremap = true, expr = true })
+      -- vim.keymap.set('n', 'K', function()
+      --   hover({
+      --     border = border,
+      --   })
+      --
+      --   -- require('hover').open()
+      --
+      --   -- if vim.bo.filetype == 'help' then
+      --   --   return 'K'
+      --   -- end
+      --   --
+      --   -- require('lttb.plugins.lsp.hover').lsp_hover()
+      -- end, { desc = 'LSP Hover (with diagnostics)', noremap = true, expr = true })
 
       vim.keymap.set({ 'n', 'i', 'x' }, '<D-.>', vim.lsp.buf.code_action, { desc = 'Code Action' })
     end,

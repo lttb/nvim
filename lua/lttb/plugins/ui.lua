@@ -158,6 +158,24 @@ return {
       notify = {
         enabled = false,
       },
+
+      views = {
+        hover = {
+          border = {
+            style = {
+              { '╭', 'LspFloatBorder' },
+              { '╌', 'LspFloatBorder' },
+              { '╮', 'LspFloatBorder' },
+              { '╎', 'LspFloatBorder' },
+              { '╯', 'LspFloatBorder' },
+              { '╌', 'LspFloatBorder' },
+              { '╰', 'LspFloatBorder' },
+              { '╎', 'LspFloatBorder' },
+            },
+            padding = { 0, 1 },
+          },
+        },
+      },
     },
     dependencies = {
       'MunifTanjim/nui.nvim',
