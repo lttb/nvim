@@ -8,19 +8,6 @@ end
 
 return {
   {
-    'echasnovski/mini.icons',
-    lazy = false,
-    priority = 1000,
-    version = '*',
-    opts = {},
-    config = function()
-      local MiniIcons = require('mini.icons')
-      MiniIcons.setup()
-      MiniIcons.mock_nvim_web_devicons()
-    end,
-  },
-
-  {
     'akinsho/toggleterm.nvim',
     -- sync load is critical to work properly with editing in lazygit
     config = true,
@@ -139,11 +126,11 @@ return {
       },
       -- you can enable a preset for easier configuration
       presets = {
-        bottom_search = true,         -- use a classic bottom cmdline for search
-        command_palette = true,       -- position the cmdline and popupmenu together
+        bottom_search = true, -- use a classic bottom cmdline for search
+        command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = true,            -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true,        -- add a border to hover docs and signature help
+        inc_rename = true, -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = true, -- add a border to hover docs and signature help
       },
 
       -- @see https://github.com/LazyVim/LazyVim/discussions/830

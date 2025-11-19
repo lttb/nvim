@@ -260,6 +260,10 @@ return {
       },
 
       {
+        'hinell/lsp-timeout.nvim',
+      },
+
+      {
         enabled = false,
         'lewis6991/hover.nvim',
         opts = {

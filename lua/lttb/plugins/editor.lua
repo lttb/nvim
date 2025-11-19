@@ -26,12 +26,14 @@ return {
   },
 
   {
+    enabled = false,
     'windwp/nvim-ts-autotag',
     event = 'LazyFile',
     config = true,
   },
 
   {
+    enabled = false,
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = function()
@@ -81,6 +83,7 @@ return {
   },
 
   {
+    enabled = false,
     'folke/ts-comments.nvim',
     event = 'LazyFile',
     opts = {},
@@ -106,25 +109,33 @@ return {
   },
 
   -- better quick fix window
-  { 'kevinhwang91/nvim-bqf', event = 'LazyFile', opts = {} },
+  {
+    enabled = false,
+    'kevinhwang91/nvim-bqf',
+    event = 'LazyFile',
+    opts = {},
+  },
 
-  { 'lttb/macos-text.nvim',  event = 'LazyFile', opts = {} },
+  { 'lttb/macos-text.nvim', event = 'LazyFile', opts = {} },
 
   {
     'kwkarlwang/bufjump.nvim',
     event = 'VeryLazy',
     opts = {
-      on_success = nil,
+      on_success = function()
+        vim.cmd([[execute "normal! g`\"zz"]])
+      end,
     },
     keys = {
-      { '<C-P>', ":lua require('bufjump').backward()<cr>",          mode = { 'n' }, silent = true },
-      { '<C-N>', ":lua require('bufjump').forward()<cr>",           mode = { 'n' }, silent = true },
+      { '<C-P>', ":lua require('bufjump').backward()<cr>", mode = { 'n' }, silent = true },
+      { '<C-N>', ":lua require('bufjump').forward()<cr>", mode = { 'n' }, silent = true },
       { '<M-o>', ":lua require('bufjump').backward_same_buf()<cr>", mode = { 'n' }, silent = true },
-      { '<M-i>', ":lua require('bufjump').forward_same_buf()<cr>",  mode = { 'n' }, silent = true },
+      { '<M-i>', ":lua require('bufjump').forward_same_buf()<cr>", mode = { 'n' }, silent = true },
     },
   },
 
   {
+    enabled = false,
     '3rd/image.nvim',
     cond = utils.is_kitty(),
     build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
