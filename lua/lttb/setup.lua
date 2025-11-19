@@ -5,6 +5,7 @@ vim.loader.enable()
 local utils = require('lttb.utils')
 
 vim.o.background = vim.env.THEME_MODE or 'light'
+vim.env.DELTA_FEATURES = '+' .. vim.o.background
 
 require('lttb.settings')
 require('lttb.config.autocmd')
