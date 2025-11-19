@@ -73,7 +73,7 @@ return {
         {
           '<D-g>',
           function()
-            lazygit.cmd = 'DELTA_FEATURES="+' .. vim.o.background .. '" lazygit'
+            lazygit.cmd = 'lazygit'
             __term__ = lazygit:toggle()
           end,
           desc = 'Toggle lazy Git',
@@ -100,6 +100,7 @@ return {
   },
 
   {
+    enabled = false,
     'folke/noice.nvim',
     event = 'VeryLazy',
     -- -- @see https://github.com/folke/noice.nvim/issues/921#issuecomment-2253363579
@@ -280,6 +281,7 @@ return {
   },
 
   {
+    enabled = false,
     'mvllow/modes.nvim',
     event = 'VeryLazy',
     opts = {
@@ -294,6 +296,7 @@ return {
   },
 
   {
+    enabled = false,
     'folke/which-key.nvim',
     event = 'VeryLazy',
     cmd = 'WhichKey',
@@ -324,6 +327,7 @@ return {
   },
 
   {
+    enabled = false,
     'folke/trouble.nvim',
     cmd = 'Trouble',
     opts = {},
@@ -333,6 +337,7 @@ return {
   },
 
   {
+    enabled = false,
     'shortcuts/no-neck-pain.nvim',
     event = 'VeryLazy',
     opts = {
@@ -369,6 +374,7 @@ return {
   },
 
   {
+    enabled = false,
     'lttb/flash-select.nvim',
     event = 'LazyFile',
     opts = {},
