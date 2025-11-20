@@ -233,6 +233,13 @@ return {
               highlight = 'Directory',
               separator = false, -- use a "true" to enable the default, or set your own character
             },
+
+            {
+              filetype = 'fyler',
+              text = '',
+              highlight = 'Directory',
+              separator = false, -- use a "true" to enable the default, or set your own character
+            },
           },
 
           show_buffer_icons = false,
