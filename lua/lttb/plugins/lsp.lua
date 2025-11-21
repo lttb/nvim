@@ -19,6 +19,28 @@ local function mason_ensure_installed(list)
   end
 end
 
+local function format_preserve_folds(bufnr, format_fn)
+  -- Remember cursor/scroll
+  local view = vim.fn.winsaveview()
+
+  -- Only save folds + cursor in the view
+  local old_viewopts = vim.opt.viewoptions:get()
+  vim.opt.viewoptions = { 'folds', 'cursor' }
+
+  -- Save a temporary view (slot 9, for example)
+  vim.cmd('silent! mkview 9')
+
+  -- Run your formatting
+  format_fn()
+
+  -- Restore folds + cursor
+  vim.cmd('silent! loadview 9')
+
+  -- Restore viewoptions and fine-grained view (topline, leftcol, etc.)
+  vim.opt.viewoptions = old_viewopts
+  vim.fn.winrestview(view)
+end
+
 local function setup_formatters()
   local biome_lsp = require('lttb.plugins.lsp.biome')
 
@@ -55,24 +77,29 @@ local function setup_formatters()
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('LSPFormat', { clear = true }),
     callback = function(ev)
-      pcall(vim.cmd, 'silent undojoin')
+      format_preserve_folds(ev.buf, function()
+        pcall(function()
+          vim.api.nvim_exec2('silent! undojoin', { output = false })
+        end)
 
-      vim.lsp.buf.format({
-        filter = function(client)
-          if client.name == 'yamlls' then
-            return vim.b.ls_prettier_ls == nil
-          end
+        vim.lsp.buf.format({
+          filter = function(client)
+            if client.name == 'yamlls' then
+              return vim.b.ls_prettier_ls == nil
+            end
 
-          if client.name == 'prettier_ls' then
-            return vim.b.ls_biome == nil
-          end
+            if client.name == 'prettier_ls' then
+              return vim.b.ls_biome == nil
+            end
 
-          return true
-        end,
-        bufnr = ev.buf,
-      })
+            return true
+          end,
+          bufnr = ev.buf,
+          async = false,
+        })
 
-      biome_lsp.biome_code_action(ev.buf)
+        biome_lsp.biome_code_action(ev.buf)
+      end)
     end,
   })
 end
