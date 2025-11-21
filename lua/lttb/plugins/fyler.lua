@@ -32,10 +32,16 @@ return {
           -- open the tree but don't focus it
           is_shown = true
 
+          local curr_winid = vim.api.nvim_get_current_win()
+
           -- Open Fyler with optional settings
           require('fyler').open({
             kind = 'split_left_most',
           })
+
+          vim.schedule(function()
+            vim.api.nvim_set_current_win(curr_winid)
+          end)
         end,
       })
     end,
