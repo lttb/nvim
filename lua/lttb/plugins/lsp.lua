@@ -55,6 +55,8 @@ local function setup_formatters()
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('LSPFormat', { clear = true }),
     callback = function(ev)
+      pcall(vim.cmd, 'silent undojoin')
+
       vim.lsp.buf.format({
         filter = function(client)
           if client.name == 'yamlls' then
