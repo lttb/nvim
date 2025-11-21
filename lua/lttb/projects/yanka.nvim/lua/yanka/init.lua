@@ -48,28 +48,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     -- @see https://github.com/ibhagwan/smartyank.nvim/blob/7e3905578f646503525b2f7018b8afd17861018c/lua/smartyank/init.lua#L146-L147
     -- get yank data from the unnamed register (not yank register 0)
     -- or we will acquire the wrong yank data when `validate_yank == false`
-    local ok, yank_data = pcall(vim.fn.getreg, [["]])
-
-    if not ok then
-      return
-    end
+    local yank_data = vim.fn.getreg([["]])
 
     -- NOTE: reconcat to force to drop the trailing \n
     local trimmed_text = table.concat(trim_text(yank_data), '\n')
 
-    vim.fn.setreg('"', trimmed_text)
+    -- vim.fn.setreg('"', trimmed_text)
+    vim.fn.setreg('+', trimmed_text)
 
-    vim.api.nvim_exec_autocmds('TextYankPost', {
-      pattern = '*',
-      modeline = false,
-      data = {
-        _yanka = true,
-        operator = 'y',
-        regcontents = trimmed_text,
-        regname = '"',
-        regtype = 'v',
-      },
-    })
+    -- vim.api.nvim_exec_autocmds('TextYankPost', {
+    --   pattern = '*',
+    --   modeline = false,
+    --   data = {
+    --     _yanka = true,
+    --     operator = 'y',
+    --     regcontents = trimmed_text,
+    --     regname = '"',
+    --     regtype = 'v',
+    --   },
+    -- })
   end,
 })
 
