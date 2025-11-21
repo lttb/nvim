@@ -89,24 +89,49 @@ return {
   },
 
   {
+    'lttb/yanka.nvim',
+    event = 'LazyFile',
+    opts = {},
+    keys = {
+      -- { 'y',     '<Plug>(YankyYank)', mode = { 'x' } },
+      -- { '<D-c>', '<Plug>(YankyYank)', mode = { 'x' } },
+      -- { 'y', 'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
+      { '<D-c>', 'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
+      { '<D-x>', '"+d', mode = { 'x' } },
+      { '<D-x>', '"+dd', mode = { 'n' } },
+      { '<D-c>', 'yy', mode = { 'n' } },
+      {
+        '<D-v>',
+        '<cmd>lua require("yanka").put_with_autoindent()<CR>',
+        mode = { 'i', 'n', 't', 'x' },
+        noremap = true,
+        silent = true,
+      },
+      { '<D-v>', '<C-r>+', mode = { 'c' } },
+    },
+  },
+
+  {
+    -- NOTE: it seems that this plugin triggers cmdline focus
+    enabled = false,
     'ibhagwan/smartyank.nvim',
-    event = 'VeryLazy',
+    event = 'LazyFile',
     opts = {
       highlight = {
-        enabled = true,         -- highlight yanked text
+        enabled = true, -- highlight yanked text
         higroup = 'CursorLine', -- highlight group of yanked text
-        timeout = 200,          -- timeout for clearing the highlight
+        timeout = 200, -- timeout for clearing the highlight
       },
       clipboard = { enabled = true },
       tmux = {
-        enabled = true,
+        enabled = false,
         -- remove `-w` to disable copy to host client's clipboard
         cmd = { 'tmux', 'set-buffer', '-w' },
       },
       osc52 = {
         enabled = true,
-        ssh_only = true,       -- false to OSC52 yank also in local sessions
-        silent = false,        -- true to disable the "n chars copied" echo
+        ssh_only = true, -- false to OSC52 yank also in local sessions
+        silent = true, -- true to disable the "n chars copied" echo
         echo_hl = 'Directory', -- highlight group of the OSC52 echo message
       },
 
@@ -122,29 +147,6 @@ return {
   },
 
   {
-    'lttb/yanka.nvim',
-    opts = {},
-    keys = {
-      -- { 'y',     '<Plug>(YankyYank)', mode = { 'x' } },
-      -- { '<D-c>', '<Plug>(YankyYank)', mode = { 'x' } },
-      { 'y',     'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
-      { '<D-c>', 'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
-      { '<D-x>', '"+d',                                    mode = { 'x' } },
-      { '<D-x>', '"+dd',                                   mode = { 'n' } },
-      { '<D-c>', 'yy',                                     mode = { 'n' } },
-      {
-        '<D-v>',
-        '<cmd>lua require("yanka").put_with_autoindent()<CR>',
-        mode = { 'i', 'n', 't', 'x' },
-        noremap = true,
-        silent = true,
-      },
-      { '<D-v>', '<C-r>+', mode = { 'c' } },
-    },
-  },
-
-  {
-    enabled = false,
     'gbprod/yanky.nvim',
     event = 'VeryLazy',
     config = function()
@@ -156,7 +158,7 @@ return {
 
       require('yanky').setup({
         highlight = {
-          on_yank = false,
+          on_yank = true,
           timer = 200,
         },
       })
@@ -165,7 +167,7 @@ return {
       vim.api.nvim_set_hl(0, 'YankyPut', { link = 'CursorLine' })
     end,
     keys = {
-      -- { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank text' },
+      { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank text' },
       -- { 'p',  '<Plug>(YankyPutAfter)',   mode = { 'n', 'x' }, desc = 'Put yanked text after cursor' },
       -- { 'P',  '<Plug>(YankyPutBefore)',  mode = { 'n', 'x' }, desc = 'Put yanked text before cursor' },
       -- { 'gp', '<Plug>(YankyGPutAfter)',  mode = { 'n', 'x' }, desc = 'Put yanked text after selection' },
