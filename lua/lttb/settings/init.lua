@@ -22,7 +22,7 @@ vim.opt.mouse         = 'a'                                              -- Enab
 vim.opt.backup        = false                                            -- Don't store backup
 vim.opt.writebackup   = false                                            -- Don't store backup
 vim.opt.timeoutlen    = 1000
-vim.opt.updatetime    = 200                                              -- Faster CursorHold
+vim.opt.updatetime    = 1000                                             -- Faster CursorHold
 vim.opt.switchbuf     = 'usetab'                                         -- Use already opened buffers when switching
 vim.opt.modeline      = true                                             -- Allow modeline
 
@@ -63,6 +63,8 @@ vim.opt.pumblend      = 10
 vim.opt.winblend      = 10
 
 vim.opt.fillchars     = 'eob: '
+
+vim.opt.cmdheight     = 0
 
 -- Don't show "Scanning..." messages (improves 'mini.completion')
 -- vim.cmd('set shortmess+=C')

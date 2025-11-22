@@ -8,18 +8,15 @@ return {
   {
     'A7Lavinraj/fyler.nvim',
     dependencies = { 'echasnovski/mini.icons' },
-    branch = 'main',
+    branch = 'stable',
     opts = {
       views = {
-        explorer = {
-          auto_confirm_simple_edits = true,
+        finder = {
           close_on_select = false,
+          confirm_simple = true,
 
-          win = {
-            win_opts = {
-              number = false,
-              relativenumber = false,
-            },
+          watcher = {
+            enabled = true,
           },
         },
       },
@@ -38,7 +35,17 @@ return {
 
           -- open the tree but don't focus it
           is_shown = true
-          vim.cmd('Fyler kind=split_left_most')
+
+          local curr_winid = vim.api.nvim_get_current_win()
+
+          -- Open Fyler with optional settings
+          require('fyler').open({
+            kind = 'split_left_most',
+          })
+
+          vim.schedule(function()
+            vim.api.nvim_set_current_win(curr_winid)
+          end)
         end,
       })
     end,

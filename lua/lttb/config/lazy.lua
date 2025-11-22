@@ -1,5 +1,7 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 
+local utils = require('lttb.utils')
+
 -- {{{ Bootstrap lazy
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -8,7 +10,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
-      { out, 'WarningMsg' },
+      { out,                            'WarningMsg' },
       { '\nPress any key to exit...' },
     }, true, {})
     vim.fn.getchar()
@@ -42,12 +44,24 @@ require('lazy').setup({
     -- have outdated releases, which may break your Neovim install.
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
+
+    cond = function(spec)
+      if not utils.is_vscode() then
+        if spec.cond == nil then
+          return true
+        end
+
+        return spec.cond
+      end
+
+      return spec.vscode == true
+    end,
   },
   -- install = { colorscheme = { 'morningstar' } },
   checker = {
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update
-  }, -- automatically check for plugin updates
+  },                -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins
