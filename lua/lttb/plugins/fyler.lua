@@ -14,6 +14,10 @@ return {
         finder = {
           close_on_select = false,
           confirm_simple = true,
+
+          watcher = {
+            enabled = true,
+          },
         },
       },
     },
