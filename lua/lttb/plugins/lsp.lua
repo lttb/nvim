@@ -289,7 +289,9 @@ return {
       },
 
       {
-        'hinell/lsp-timeout.nvim',
+        'zeioth/garbage-day.nvim',
+        event = 'VeryLazy',
+        opts = {},
       },
 
       {
