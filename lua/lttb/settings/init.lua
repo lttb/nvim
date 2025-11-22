@@ -1,5 +1,7 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 
+vim.lsp.set_log_level('off')
+
 --stylua: ignore start
 
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
