@@ -15,6 +15,21 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- limit number of buffers to 10
+vim.api.nvim_create_autocmd('BufAdd', {
+  callback = function()
+    local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+    if #bufs > 10 then
+      for _, buf in ipairs(bufs) do
+        if buf.bufnr ~= vim.api.nvim_get_current_buf() then
+          vim.cmd('bdelete ' .. buf.bufnr)
+          break
+        end
+      end
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = lttb_ag,
   callback = function()
