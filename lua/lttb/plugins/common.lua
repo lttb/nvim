@@ -1,10 +1,9 @@
-local utils = require('lttb.utils')
-
 return {
-  'nvim-lua/plenary.nvim',
+  { 'nvim-lua/plenary.nvim', vscode = true },
 
   {
     'folke/flash.nvim',
+    vscode = true,
     ---@type Flash.Config
     opts = {
       search = {
@@ -90,6 +89,7 @@ return {
 
   {
     'lttb/yanka.nvim',
+    vscode = true,
     event = 'LazyFile',
     opts = {},
     keys = {
@@ -97,9 +97,9 @@ return {
       -- { '<D-c>', '<Plug>(YankyYank)', mode = { 'x' } },
       -- { 'y', 'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
       { '<D-c>', 'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
-      { '<D-x>', '"+d', mode = { 'x' } },
-      { '<D-x>', '"+dd', mode = { 'n' } },
-      { '<D-c>', 'yy', mode = { 'n' } },
+      { '<D-x>', '"+d',                                    mode = { 'x' } },
+      { '<D-x>', '"+dd',                                   mode = { 'n' } },
+      { '<D-c>', 'yy',                                     mode = { 'n' } },
       {
         '<D-v>',
         '<cmd>lua require("yanka").put_with_autoindent()<CR>',
@@ -114,13 +114,14 @@ return {
   {
     -- NOTE: it seems that this plugin triggers cmdline focus
     enabled = false,
+    vscode = true,
     'ibhagwan/smartyank.nvim',
     event = 'LazyFile',
     opts = {
       highlight = {
-        enabled = true, -- highlight yanked text
+        enabled = true,         -- highlight yanked text
         higroup = 'CursorLine', -- highlight group of yanked text
-        timeout = 200, -- timeout for clearing the highlight
+        timeout = 200,          -- timeout for clearing the highlight
       },
       clipboard = { enabled = true },
       tmux = {
@@ -130,8 +131,8 @@ return {
       },
       osc52 = {
         enabled = true,
-        ssh_only = true, -- false to OSC52 yank also in local sessions
-        silent = true, -- true to disable the "n chars copied" echo
+        ssh_only = true,       -- false to OSC52 yank also in local sessions
+        silent = true,         -- true to disable the "n chars copied" echo
         echo_hl = 'Directory', -- highlight group of the OSC52 echo message
       },
 
@@ -148,6 +149,7 @@ return {
 
   {
     'gbprod/yanky.nvim',
+    vscode = true,
     event = 'VeryLazy',
     config = function()
       -- vim.keymap.set('v', 'y', function()
@@ -177,6 +179,7 @@ return {
 
   {
     'chrisgrieser/nvim-spider',
+    vscode = true,
     keys = {
       {
         'e',
@@ -208,12 +211,14 @@ return {
   {
     -- extended treesitter objects
     'chrisgrieser/nvim-various-textobjs',
+    vscode = true,
     event = 'LazyFile',
     opts = { keymaps = { useDefaults = true, disabledDefaults = { 'gc' } } },
   },
 
   {
     'chrishrb/gx.nvim',
+    vscode = true,
     keys = { { 'gx', '<cmd>Browse<cr>', mode = { 'n', 'x' } } },
     cmd = { 'Browse' },
     init = function()
@@ -225,6 +230,7 @@ return {
 
   {
     'kylechui/nvim-surround',
+    vscode = true,
     event = 'VeryLazy',
     opts = {},
   },
