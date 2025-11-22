@@ -103,7 +103,7 @@ return {
         return _get_adapter_by_scheme(scheme)
       end
 
-      -- oil_sidebar.setup()
+      oil_sidebar.setup()
     end,
   },
 }
