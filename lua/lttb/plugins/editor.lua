@@ -64,7 +64,6 @@ return {
   },
 
   {
-    enabled = false,
     'saghen/blink.pairs',
     event = 'InsertEnter',
     version = '*',
@@ -127,10 +126,10 @@ return {
       end,
     },
     keys = {
-      { '<C-P>', ":lua require('bufjump').backward()<cr>", mode = { 'n' }, silent = true },
-      { '<C-N>', ":lua require('bufjump').forward()<cr>", mode = { 'n' }, silent = true },
+      { '<C-P>', ":lua require('bufjump').backward()<cr>",          mode = { 'n' }, silent = true },
+      { '<C-N>', ":lua require('bufjump').forward()<cr>",           mode = { 'n' }, silent = true },
       { '<M-o>', ":lua require('bufjump').backward_same_buf()<cr>", mode = { 'n' }, silent = true },
-      { '<M-i>', ":lua require('bufjump').forward_same_buf()<cr>", mode = { 'n' }, silent = true },
+      { '<M-i>', ":lua require('bufjump').forward_same_buf()<cr>",  mode = { 'n' }, silent = true },
     },
   },
 
