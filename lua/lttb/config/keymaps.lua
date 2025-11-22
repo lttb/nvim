@@ -82,6 +82,9 @@ vim.keymap.set({ 'i', 'n' }, '<D-s>', function()
   vim.cmd.write({ mods = { silent = true } })
 end, { desc = 'Quick Save', silent = true })
 
+vim.keymap.set({ 'v', 'n' }, 'c', '"_c', { noremap = true, silent = true })
+vim.keymap.set({ 'v', 'n' }, 'C', '"_C', { noremap = true, silent = true })
+
 -- TODO: automatically close split if the last buffer in the split was closed
 vim.keymap.set({ 'n', 't', 'i' }, '<D-w>', function()
   local Terminal = require('toggleterm.terminal').Terminal
