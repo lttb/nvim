@@ -3,7 +3,7 @@ return {
     'saghen/blink.pairs',
     event = 'InsertEnter',
     version = '*',
-    dependencies = 'saghen/blink.download',
+    build = 'cargo build --release',
     opts = {
       highlights = {
         enabled = false,
