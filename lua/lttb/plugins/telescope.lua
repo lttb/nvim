@@ -68,21 +68,21 @@ return {
           desc = 'Search Buffers',
         },
 
-        -- {
-        --   '<D-p>',
-        --   function()
-        --     vim.fn.system('git rev-parse --is-inside-work-tree')
-        --
-        --     if vim.v.shell_error == 0 then
-        --       get().builtin.git_files({
-        --         show_untracked = true,
-        --       })
-        --     else
-        --       get().builtin.find_files({})
-        --     end
-        --   end,
-        --   desc = 'Search Files',
-        -- },
+        {
+          '<D-p>',
+          function()
+            vim.fn.system('git rev-parse --is-inside-work-tree')
+
+            if vim.v.shell_error == 0 then
+              get().builtin.git_files({
+                show_untracked = true,
+              })
+            else
+              get().builtin.find_files({})
+            end
+          end,
+          desc = 'Search Files',
+        },
 
         -- {
         --   '<leader>sgt',
@@ -231,7 +231,7 @@ return {
           desc = 'LSP: Goto References',
         },
 
-        -- utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
+        utils.cmd_shift('p', { '<cmd>Telescope<cr>', desc = 'Telescope' }),
 
         utils.cmd_shift('r', { '<cmd>Telescope resume<cr>', desc = 'Telescope Resume' }),
 
@@ -321,7 +321,6 @@ return {
       },
 
       {
-        enabled = false,
         'lttb/smart-open.nvim',
         branch = 'feat/git-files-open-buffers',
         -- @see https://github.com/danielfalk/smart-open.nvim/issues/43
