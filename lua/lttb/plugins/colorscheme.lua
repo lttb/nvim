@@ -29,6 +29,9 @@ return {
     'mcchrish/zenbones.nvim',
     lazy = true,
     dependencies = { 'rktjmp/lush.nvim' },
+    init = function()
+      vim.g.zenwritten = { transparent_background = not utils.is_neovide(), italic_strings = false }
+    end,
   },
 
   {
