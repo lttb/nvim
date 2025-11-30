@@ -21,7 +21,7 @@ return {
         },
         float_opts = {
           border = 'curved',
-          winblend = 5,
+          -- winblend = 5,
         },
         winbar = {
           enabled = false,
