@@ -19,6 +19,7 @@ highlight Normal guifg=#C1C1C1 guibg=#24282E guisp=NONE blend=NONE gui=NONE
 highlight! link ModeMsg Normal
 highlight! link NvimTreeExecFile Normal
 highlight! link WinBarNC Normal
+highlight BlinkCmpKind guifg=#8E8E8E guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight Bold guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight! link @markup.strong Bold
 highlight Boolean guifg=#C1C1C1 guibg=NONE guisp=NONE blend=NONE gui=italic
@@ -40,7 +41,6 @@ highlight! link @comment Comment
 highlight Conceal guifg=#848484 guibg=NONE guisp=NONE blend=NONE gui=bold,italic
 highlight Constant guifg=#C1C1C1 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link Character Constant
-highlight! link String Constant
 highlight! link TroubleSource Constant
 highlight! link WhichKeyValue Constant
 highlight! link helpOption Constant
@@ -61,6 +61,8 @@ highlight! link ColorColumn CursorLine
 highlight! link CursorColumn CursorLine
 highlight! link FzfLuaFzfCursorLine CursorLine
 highlight! link NeogitDiffContextHighlight CursorLine
+highlight! link SnacksPickerListCursorLine CursorLine
+highlight! link SnacksPickerPreviewCursorLine CursorLine
 highlight! link TelescopeSelection CursorLine
 highlight CursorLineNr guifg=#C1C1C1 guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight Delimiter guifg=#7A8495 guibg=NONE guisp=NONE blend=NONE gui=NONE
@@ -145,7 +147,7 @@ highlight! link @function Function
 highlight FzfLuaBufFlagAlt guifg=#6099C0 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight FzfLuaBufFlagCur guifg=#B77E64 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight FzfLuaBufNr guifg=#819B69 guibg=NONE guisp=NONE blend=NONE gui=NONE
-highlight FzfLuaFzfMatch guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=bold
+highlight FzfLuaFzfMatch guifg=#B279A7 guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight FzfLuaHeaderBind guifg=#819B69 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight FzfLuaHeaderText guifg=#B77E64 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight FzfLuaLiveSym guifg=#B77E64 guibg=NONE guisp=NONE blend=NONE gui=NONE
@@ -212,6 +214,7 @@ highlight NonText guifg=#59616E guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link EndOfBuffer NonText
 highlight! link Whitespace NonText
 highlight NormalFloat guifg=NONE guibg=#24282E guisp=NONE blend=NONE gui=NONE
+highlight! link SnacksPickerBorder NormalFloat
 highlight Number guifg=#8E8E8E guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link Float Number
 highlight NvimTreeCursorLine guifg=NONE guibg=#282C34 guisp=NONE blend=NONE gui=NONE
@@ -239,6 +242,7 @@ highlight! link QuickFixLine Search
 highlight! link Sneak Search
 highlight SnacksIndent guifg=#33373D guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight SnacksIndentScope guifg=#4B5059 guibg=NONE guisp=NONE blend=NONE gui=NONE
+highlight SnacksPickerMatch guifg=#B279A7 guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight SneakLabelMask guifg=#B279A7 guibg=#B279A7 guisp=NONE blend=NONE gui=NONE
 highlight Special guifg=#969696 guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight! link WhichKeyGroup Special
@@ -281,6 +285,7 @@ highlight! link TabLine StatusLine
 highlight! link WinBar StatusLine
 highlight StatusLineNC guifg=#D1D1D1 guibg=#2E333A guisp=NONE blend=NONE gui=NONE
 highlight! link TabLineFill StatusLineNC
+highlight String guifg=#8E8E8E guibg=NONE guisp=NONE blend=NONE gui=italic
 highlight TabLineSel guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight! link BufferCurrent TabLineSel
 highlight TelescopeBorder guifg=#7A8495 guibg=NONE guisp=NONE blend=NONE gui=NONE
@@ -293,6 +298,9 @@ highlight Todo guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link @comment.todo Todo
 highlight TreesitterContextSeparator guifg=#282C34 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight Type guifg=#8B8278 guibg=NONE guisp=NONE blend=NONE gui=NONE
+highlight! link BlinkCmpLabelDescription Type
+highlight! link BlinkCmpLabelDetail Type
+highlight! link BlinkCmpSource Type
 highlight! link helpSpecial Type
 highlight! link markdownCode Type
 highlight! link @keyword.storage Type
