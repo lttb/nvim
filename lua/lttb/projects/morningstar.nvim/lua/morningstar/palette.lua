@@ -16,7 +16,7 @@ M.light = core.create('morningstar', 'light', function()
 
     type = hsluv('#AB47BC'),
 
-    cursor_line = hsluv('#f6f8fa'),
+    cursor_line = hsluv('#e9e9e7'),
   }, 'light')
 end)
 

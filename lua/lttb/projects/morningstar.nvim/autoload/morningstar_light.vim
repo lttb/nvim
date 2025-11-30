@@ -19,6 +19,7 @@ highlight Normal guifg=#202429 guibg=#FFFFFF guisp=NONE blend=NONE gui=NONE
 highlight! link ModeMsg Normal
 highlight! link NvimTreeExecFile Normal
 highlight! link WinBarNC Normal
+highlight BlinkCmpKind guifg=#4D565F guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight Bold guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight! link @markup.strong Bold
 highlight Boolean guifg=#202429 guibg=NONE guisp=NONE blend=NONE gui=italic
@@ -40,7 +41,6 @@ highlight! link @comment Comment
 highlight Conceal guifg=#59626D guibg=NONE guisp=NONE blend=NONE gui=bold,italic
 highlight Constant guifg=#202429 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link Character Constant
-highlight! link String Constant
 highlight! link TroubleSource Constant
 highlight! link WhichKeyValue Constant
 highlight! link helpOption Constant
@@ -55,12 +55,14 @@ highlight! link @string.regexp Constant
 highlight! link @variable.builtin Constant
 highlight Cursor guifg=#FFFFFF guibg=#202429 guisp=NONE blend=NONE gui=NONE
 highlight! link TermCursor Cursor
-highlight CursorLine guifg=NONE guibg=#F4F7F9 guisp=NONE blend=NONE gui=NONE
+highlight CursorLine guifg=NONE guibg=#E8E8E6 guisp=NONE blend=NONE gui=NONE
 highlight! link CocMenuSel CursorLine
 highlight! link ColorColumn CursorLine
 highlight! link CursorColumn CursorLine
 highlight! link FzfLuaFzfCursorLine CursorLine
 highlight! link NeogitDiffContextHighlight CursorLine
+highlight! link SnacksPickerListCursorLine CursorLine
+highlight! link SnacksPickerPreviewCursorLine CursorLine
 highlight! link TelescopeSelection CursorLine
 highlight CursorLineNr guifg=#202429 guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight Delimiter guifg=#8B8B8B guibg=NONE guisp=NONE blend=NONE gui=NONE
@@ -145,7 +147,7 @@ highlight! link @function Function
 highlight FzfLuaBufFlagAlt guifg=#286486 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight FzfLuaBufFlagCur guifg=#944927 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight FzfLuaBufNr guifg=#4F6C31 guibg=NONE guisp=NONE blend=NONE gui=NONE
-highlight FzfLuaFzfMatch guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=bold
+highlight FzfLuaFzfMatch guifg=#88507D guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight FzfLuaHeaderBind guifg=#4F6C31 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight FzfLuaHeaderText guifg=#944927 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight FzfLuaLiveSym guifg=#944927 guibg=NONE guisp=NONE blend=NONE gui=NONE
@@ -212,9 +214,10 @@ highlight NonText guifg=#B9B9B9 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link EndOfBuffer NonText
 highlight! link Whitespace NonText
 highlight NormalFloat guifg=NONE guibg=#FFFFFF guisp=NONE blend=NONE gui=NONE
+highlight! link SnacksPickerBorder NormalFloat
 highlight Number guifg=#4D565F guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link Float Number
-highlight NvimTreeCursorLine guifg=NONE guibg=#F4F7F9 guisp=NONE blend=NONE gui=NONE
+highlight NvimTreeCursorLine guifg=NONE guibg=#E8E8E6 guisp=NONE blend=NONE gui=NONE
 highlight! link NvimTreeCursorColumn NvimTreeCursorLine
 highlight NvimTreeNormal guifg=NONE guibg=#FFFFFF guisp=NONE blend=NONE gui=NONE
 highlight! link NnnNormal NvimTreeNormal
@@ -239,6 +242,7 @@ highlight! link QuickFixLine Search
 highlight! link Sneak Search
 highlight SnacksIndent guifg=#EEEEEE guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight SnacksIndentScope guifg=#C1C1C1 guibg=NONE guisp=NONE blend=NONE gui=NONE
+highlight SnacksPickerMatch guifg=#88507D guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight SneakLabelMask guifg=#88507D guibg=#88507D guisp=NONE blend=NONE gui=NONE
 highlight Special guifg=#474E58 guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight! link WhichKeyGroup Special
@@ -281,6 +285,7 @@ highlight! link TabLine StatusLine
 highlight! link WinBar StatusLine
 highlight StatusLineNC guifg=#525A65 guibg=#EEEEEE guisp=NONE blend=NONE gui=NONE
 highlight! link TabLineFill StatusLineNC
+highlight String guifg=#4D565F guibg=NONE guisp=NONE blend=NONE gui=italic
 highlight TabLineSel guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=bold
 highlight! link BufferCurrent TabLineSel
 highlight TelescopeBorder guifg=#777777 guibg=NONE guisp=NONE blend=NONE gui=NONE
@@ -291,8 +296,11 @@ highlight! link FzfLuaTitle Title
 highlight! link @markup.heading Title
 highlight Todo guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link @comment.todo Todo
-highlight TreesitterContextSeparator guifg=#F4F7F9 guibg=NONE guisp=NONE blend=NONE gui=NONE
+highlight TreesitterContextSeparator guifg=#E8E8E6 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight Type guifg=#7D6D81 guibg=NONE guisp=NONE blend=NONE gui=NONE
+highlight! link BlinkCmpLabelDescription Type
+highlight! link BlinkCmpLabelDetail Type
+highlight! link BlinkCmpSource Type
 highlight! link helpSpecial Type
 highlight! link markdownCode Type
 highlight! link @keyword.storage Type
@@ -301,7 +309,7 @@ highlight! link @type Type
 highlight! link @variable.parameter.vimdoc Type
 highlight Underlined guifg=NONE guibg=NONE guisp=NONE blend=NONE gui=underline
 highlight! link @markup.underline Underlined
-highlight VertSplit guifg=#F4F7F9 guibg=#F4F7F9 guisp=NONE blend=NONE gui=NONE
+highlight VertSplit guifg=#E8E8E6 guibg=#E8E8E6 guisp=NONE blend=NONE gui=NONE
 highlight Visual guifg=NONE guibg=#E5E8ED guisp=NONE blend=NONE gui=NONE
 highlight WarningMsg guifg=#944927 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight! link DiagnosticWarn WarningMsg
@@ -312,7 +320,7 @@ highlight! link @comment.warning WarningMsg
 highlight WhichKeySeparator guifg=#A3A3A3 guibg=NONE guisp=NONE blend=NONE gui=NONE
 highlight WildMenu guifg=#FFFFFF guibg=#88507D guisp=NONE blend=NONE gui=NONE
 highlight! link SneakLabel WildMenu
-highlight WinSeparator guifg=#F4F7F9 guibg=#F4F7F9 guisp=NONE blend=NONE gui=NONE
+highlight WinSeparator guifg=#E8E8E6 guibg=#E8E8E6 guisp=NONE blend=NONE gui=NONE
 highlight! link NvimTreeWinSeparator WinSeparator
 highlight! link NvimTreeGitNew diffAdded
 highlight! link NvimTreeGitDirty diffChanged
