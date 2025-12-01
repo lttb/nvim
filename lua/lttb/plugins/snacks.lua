@@ -147,6 +147,11 @@ return {
           '<D-f>',
           function()
             Snacks.picker.lines({
+              matcher = {
+                fuzzy = true,
+                ignorecase = true,
+                smartcase = true,
+              },
               layout = {
                 preview = true,
 
@@ -160,9 +165,9 @@ return {
                   border = 'rounded',
                   title = '{title} {live} {flags}',
                   title_pos = 'center',
-                  { win = 'preview', title = '{preview}', height = 0.6,     border = 'bottom' },
-                  { win = 'input',   height = 1,          border = 'bottom' },
-                  { win = 'list',    border = 'none' },
+                  { win = 'preview', title = '{preview}', height = 0.6, border = 'bottom' },
+                  { win = 'input', height = 1, border = 'bottom' },
+                  { win = 'list', border = 'none' },
                 },
               },
             })
