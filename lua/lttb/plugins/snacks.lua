@@ -78,17 +78,17 @@ return {
     end,
     keys = function()
       return {
-        {
-          '<leader><leader>',
-          function()
-            Snacks.picker.smart({
-              multi = { 'buffers', 'recent', 'git_files', not utils.is_dotfiles() and 'files' or nil },
-              filter = { cwd = true },
-              untracked = true,
-            })
-          end,
-          desc = 'Smart Open',
-        },
+        -- {
+        --   '<leader><leader>',
+        --   function()
+        --     Snacks.picker.smart({
+        --       multi = { 'buffers', 'recent', 'git_files', not utils.is_dotfiles() and 'files' or nil },
+        --       filter = { cwd = true },
+        --       untracked = true,
+        --     })
+        --   end,
+        --   desc = 'Smart Open',
+        -- },
 
         --{{{ LSP
         {
