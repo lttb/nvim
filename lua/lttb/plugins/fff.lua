@@ -6,6 +6,7 @@ end
 
 return {
   {
+    enabled = not utils.is_dotfiles(),
     'dmtrKovalenko/fff.nvim',
     build = 'cargo build --release',
     lazy = false,
