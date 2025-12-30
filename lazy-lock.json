@@ -21,6 +21,7 @@
   "guess-indent.nvim": { "branch": "main", "commit": "84a4987ff36798c2fc1169cbaff67960aed9776f" },
   "gx.nvim": { "branch": "main", "commit": "ba9c408fc0130fc4548760c3933a81b58fc50de8" },
   "hover.nvim": { "branch": "main", "commit": "3b49066e09e03e63be6d6f43ae2b8bcd58301f63" },
+  "img-clip.nvim": { "branch": "main", "commit": "b6ddfb97b5600d99afe3452d707444afda658aca" },
   "inc-rename.nvim": { "branch": "main", "commit": "2597bccb57d1b570fbdbd4adf88b955f7ade715b" },
   "kanso.nvim": { "branch": "main", "commit": "927361caec8c32e210acd5c56045e0d7d80143a0" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },

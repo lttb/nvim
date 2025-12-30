@@ -1,13 +1,8 @@
-local utils = require('lttb.utils')
-
-if utils.is_vscode() then
-  return {}
-end
-
 return {
   {
     'olimorris/codecompanion.nvim',
     cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionCmd', 'CodeCompanionActions' },
+    version = '^18.0.0',
     event = 'VeryLazy',
     config = function()
       require('lttb.plugins.codecompanion.fidget-spinner'):init()
