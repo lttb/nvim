@@ -215,6 +215,7 @@ local function config()
       'stylua',
       'tailwindcss',
       'taplo',
+      'tsgo',
       'vtsls',
       'yamlls',
     },
@@ -230,6 +231,8 @@ local function config()
   -- vim.lsp.enable('cspell_ls')
   -- vim.lsp.enable('gh_actions_ls')
 
+  vim.lsp.enable('vtsls', true)
+  vim.lsp.enable('tsgo', false)
   vim.lsp.enable('ts_ls', false)
   vim.lsp.enable('prettier', false)
 
