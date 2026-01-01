@@ -139,8 +139,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     })
 
     color.extend_hl('FloatBorder', {
-      -- bg = normalHL.bg,
-      bg = 'NONE',
+      bg = normalHL.bg,
+      -- bg = 'NONE',
     })
     color.extend_hl('NormalFloat', {
       bg = normalHL.bg,
@@ -171,7 +171,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
     vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
     vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
-    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+    -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+    -- vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
   end,
 })
 
