@@ -40,7 +40,7 @@ return {
         'sql',
         'ssh_config',
         'toml',
-        'tsv',
+        'tsx',
         'typescript',
         'vim',
         'vimdoc',
