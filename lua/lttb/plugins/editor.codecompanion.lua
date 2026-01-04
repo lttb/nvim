@@ -4,6 +4,9 @@ return {
     cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionCmd', 'CodeCompanionActions' },
     version = '^18.0.0',
     event = 'VeryLazy',
+    init = function()
+      require('lttb.plugins.codecompanion.fidget-spinner'):init()
+    end,
     config = function()
       require('codecompanion').setup({
         adapters = {
@@ -33,11 +36,17 @@ return {
             adapter = 'claude_code',
           },
         },
+
+        extensions = {
+          spinner = {},
+        },
       })
     end,
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
+      'j-hui/fidget.nvim',
+      'franco-ruggeri/codecompanion-spinner.nvim',
     },
     keys = {
       { '<D-i>',   ':CodeCompanion ',               desc = '[AI] Inline Assistant', mode = { 'x', 'n' } },
