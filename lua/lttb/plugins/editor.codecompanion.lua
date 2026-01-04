@@ -5,8 +5,6 @@ return {
     version = '^18.0.0',
     event = 'VeryLazy',
     config = function()
-      require('lttb.plugins.codecompanion.fidget-spinner'):init()
-
       require('codecompanion').setup({
         adapters = {
           http = {
@@ -26,13 +24,13 @@ return {
         },
         interactions = {
           chat = {
-            adapter = 'claude_code_pro',
+            adapter = 'claude_code',
           },
           inline = {
             adapter = 'claude_code_pro',
           },
           cmd = {
-            adapter = 'claude_code_pro',
+            adapter = 'claude_code',
           },
         },
       })
@@ -40,7 +38,6 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
-      'j-hui/fidget.nvim',
     },
     keys = {
       { '<D-i>',   ':CodeCompanion ',               desc = '[AI] Inline Assistant', mode = { 'x', 'n' } },
