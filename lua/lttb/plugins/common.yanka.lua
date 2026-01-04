@@ -9,8 +9,8 @@ return {
       -- { '<D-c>', '<Plug>(YankyYank)', mode = { 'x' } },
       -- { 'y', 'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
       { '<D-c>', 'my<cmd>normal! y<cr>`y<cmd>redraw!<cr>', mode = { 'x' } },
-      { '<D-x>', '"+d',                                    mode = { 'x' } },
-      { '<D-x>', '"+dd',                                   mode = { 'n' } },
+      { '<D-x>', 'y"+d',                                   mode = { 'x' } },
+      { '<D-x>', 'yy"+dd',                                 mode = { 'n' } },
       { '<D-c>', 'yy',                                     mode = { 'n' } },
       {
         '<D-v>',
