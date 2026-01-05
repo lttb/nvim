@@ -25,7 +25,7 @@ return {
             end,
           },
         },
-        interactions = {
+        interactions = vim.env.HOST_CODENAME == 'canary' and {} or {
           chat = {
             adapter = 'claude_code',
           },
@@ -49,9 +49,9 @@ return {
       'franco-ruggeri/codecompanion-spinner.nvim',
     },
     keys = {
-      { '<D-i>',   ':CodeCompanion ',               desc = '[AI] Inline Assistant', mode = { 'x', 'n' } },
-      { '<D-S-i>', '<cmd>CodeCompanionActions<cr>', desc = '[AI] Actions',          mode = { 'x', 'n' } },
-      { '<D-C-i>', '<cmd>CodeCompanionChat<cr>',    desc = '[AI] Chat',             mode = { 'x', 'n' } },
+      { '<D-i>', ':CodeCompanion ', desc = '[AI] Inline Assistant', mode = { 'x', 'n' } },
+      { '<D-S-i>', '<cmd>CodeCompanionActions<cr>', desc = '[AI] Actions', mode = { 'x', 'n' } },
+      { '<D-C-i>', '<cmd>CodeCompanionChat<cr>', desc = '[AI] Chat', mode = { 'x', 'n' } },
     },
   },
 }
