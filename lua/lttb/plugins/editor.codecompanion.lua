@@ -10,11 +10,7 @@ return {
     config = function()
       require('codecompanion').setup({
         adapters = {
-          http = {
-            claude_code_pro = function()
-              return require('lttb.plugins.codecompanion.claude-adapter')
-            end,
-          },
+          http = {},
           acp = {
             claude_code = function()
               return require('codecompanion.adapters').extend('claude_code', {
@@ -30,7 +26,7 @@ return {
             adapter = 'claude_code',
           },
           inline = {
-            adapter = 'claude_code_pro',
+            adapter = 'copilot',
           },
           cmd = {
             adapter = 'claude_code',
