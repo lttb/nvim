@@ -1,5 +1,6 @@
 return {
   {
+    enabled = false,
     'gbprod/yanky.nvim',
     vscode = true,
     event = 'VeryLazy',
@@ -21,7 +22,7 @@ return {
       vim.api.nvim_set_hl(0, 'YankyPut', { link = 'CursorLine' })
     end,
     keys = {
-      { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank text' },
+      -- { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank text' },
       -- { 'p',  '<Plug>(YankyPutAfter)',   mode = { 'n', 'x' }, desc = 'Put yanked text after cursor' },
       -- { 'P',  '<Plug>(YankyPutBefore)',  mode = { 'n', 'x' }, desc = 'Put yanked text before cursor' },
       -- { 'gp', '<Plug>(YankyGPutAfter)',  mode = { 'n', 'x' }, desc = 'Put yanked text after selection' },
