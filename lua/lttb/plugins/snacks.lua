@@ -78,17 +78,17 @@ return {
     end,
     keys = function()
       return {
-        {
-          '<leader><leader>',
-          function()
-            Snacks.picker.smart({
-              multi = { 'buffers', 'recent', 'git_files', not utils.is_dotfiles() and 'files' or nil },
-              filter = { cwd = true },
-              untracked = true,
-            })
-          end,
-          desc = 'Smart Open',
-        },
+        -- {
+        --   '<leader><leader>',
+        --   function()
+        --     Snacks.picker.smart({
+        --       multi = { 'buffers', 'recent', 'git_files', not utils.is_dotfiles() and 'files' or nil },
+        --       filter = { cwd = true },
+        --       untracked = true,
+        --     })
+        --   end,
+        --   desc = 'Smart Open',
+        -- },
 
         --{{{ LSP
         {
@@ -165,9 +165,9 @@ return {
                   border = 'rounded',
                   title = '{title} {live} {flags}',
                   title_pos = 'center',
-                  { win = 'preview', title = '{preview}', height = 0.6,     border = 'bottom' },
-                  { win = 'input',   height = 1,          border = 'bottom' },
-                  { win = 'list',    border = 'none' },
+                  { win = 'preview', title = '{preview}', height = 0.6, border = 'bottom' },
+                  { win = 'input', height = 1, border = 'bottom' },
+                  { win = 'list', border = 'none' },
                 },
               },
             })
