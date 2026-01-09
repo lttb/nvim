@@ -10,8 +10,7 @@ local LazyVim = require('lttb.utils.LazyVim')
 return {
   {
     'saghen/blink.cmp',
-    version = '*',
-    build = 'cargo build --release',
+    version = '1.*',
     opts_extend = {
       'sources.completion.enabled_providers',
       'sources.compat',
@@ -98,6 +97,10 @@ return {
         preset = 'enter',
         ['<C-y>'] = { 'select_and_accept' },
       },
+
+      fuzzy = {
+        implementation = 'lua',
+      },
     },
     ---@param opts blink.cmp.Config | { sources: { compat: string[] } }
     config = function(_, opts)
@@ -176,23 +179,23 @@ return {
   },
 
   -- lazydev
-  {
-    'saghen/blink.cmp',
-    opts = {
-      sources = {
-        per_filetype = {
-          lua = { inherit_defaults = true, 'lazydev' },
-        },
-        providers = {
-          lazydev = {
-            name = 'LazyDev',
-            module = 'lazydev.integrations.blink',
-            score_offset = 100, -- show at a higher priority than lsp
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   'saghen/blink.cmp',
+  --   opts = {
+  --     sources = {
+  --       per_filetype = {
+  --         lua = { inherit_defaults = true, 'lazydev' },
+  --       },
+  --       providers = {
+  --         lazydev = {
+  --           name = 'LazyDev',
+  --           module = 'lazydev.integrations.blink',
+  --           score_offset = 100, -- show at a higher priority than lsp
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
   -- catppuccin support
   {
     'catppuccin',
