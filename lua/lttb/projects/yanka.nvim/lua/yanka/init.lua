@@ -83,7 +83,7 @@ function M.put_with_autoindent()
   local indent_string = indent_char:rep(current_indent)
 
   -- Get the content from the clipboard
-  local clipboard_content = vim.fn.getreg('+')
+  local clipboard_content = vim.fn.getreg('+') or vim.fn.getreg('"')
 
   -- Create an iterator for the lines in clipboard content
   local lines = trim_text(clipboard_content)
