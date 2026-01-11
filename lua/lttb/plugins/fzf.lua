@@ -12,6 +12,19 @@ return {
     opts = {
       defaults = {
         git_icons = true,
+
+        fzf_opts = {
+          ['--layout'] = 'reverse',
+          ['--info'] = 'inline',
+        },
+
+        winopts = {
+          preview = {
+            layout = 'vertical',
+            delay = 5,
+            vertical = 'up:40%',
+          },
+        },
       },
       -- lsp = {
       --   -- @see https://github.com/nvimtools/none-ls.nvim/wiki/Compatibility-with-other-plugins
@@ -55,7 +68,7 @@ return {
 
       return {
         {
-          '<leader>ff',
+          '<leader><leader>',
           function()
             -- TODO: raise an issue with `cwd_only` buffers the first item in the list isn't available
             get().fzf.combine({
@@ -82,15 +95,15 @@ return {
         --   silent = true,
         -- },
 
-        -- {
-        --   '<D-p>',
-        --   function()
-        --     get().fzf.git_files({
-        --       cmd = 'git ls-files -c -o --exclude-standard',
-        --     })
-        --   end,
-        --   desc = 'Search Files',
-        -- },
+        {
+          '<D-p>',
+          function()
+            get().fzf.git_files({
+              cmd = 'git ls-files -c -o --exclude-standard',
+            })
+          end,
+          desc = 'Search Files',
+        },
 
         {
           '<leader>fg',
@@ -108,13 +121,13 @@ return {
         --   desc = 'Command Palette',
         -- },
         --
-        -- {
-        --   '<D-o>',
-        --   function()
-        --     get().fzf.buffers()
-        --   end,
-        --   desc = 'Search Buffers',
-        -- },
+        {
+          '<D-o>',
+          function()
+            get().fzf.buffers()
+          end,
+          desc = 'Search Buffers',
+        },
 
         {
           'gl',
@@ -177,16 +190,16 @@ return {
         utils.cmd_shift('f', {
           function()
             get().fzf.grep_project({
-              fzf_opts = {
-                ['--layout'] = 'reverse',
-                ['--info'] = 'inline',
-              },
-
               file_ignore_patterns = {
                 'lazy-lock.json',
                 '*.lock',
                 'package-lock.json',
                 'LICENSE',
+              },
+
+              fzf_opts = {
+                ['--layout'] = 'reverse',
+                ['--info'] = 'inline',
               },
 
               winopts = {

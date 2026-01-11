@@ -78,17 +78,17 @@ return {
     end,
     keys = function()
       return {
-        {
-          '<leader><leader>',
-          function()
-            Snacks.picker.smart({
-              multi = { 'buffers', 'recent', 'git_files', not utils.is_dotfiles() and 'files' or nil },
-              filter = { cwd = true },
-              untracked = true,
-            })
-          end,
-          desc = 'Smart Open',
-        },
+        -- {
+        --   '<leader><leader>',
+        --   function()
+        --     Snacks.picker.smart({
+        --       multi = { 'buffers', 'recent', 'git_files', not utils.is_dotfiles() and 'files' or nil },
+        --       filter = { cwd = true },
+        --       untracked = true,
+        --     })
+        --   end,
+        --   desc = 'Smart Open',
+        -- },
 
         --{{{ LSP
         {
@@ -124,16 +124,16 @@ return {
         },
         --}}}
 
-        {
-          '<D-p>',
-          function()
-            Snacks.picker.git_files({
-              untracked = true,
-            })
-          end,
-          mode = { 'n', 'i', 'x' },
-          desc = 'Search Files',
-        },
+        -- {
+        --   '<D-p>',
+        --   function()
+        --     Snacks.picker.git_files({
+        --       untracked = true,
+        --     })
+        --   end,
+        --   mode = { 'n', 'i', 'x' },
+        --   desc = 'Search Files',
+        -- },
 
         -- {
         --   '<leader>sa',
@@ -175,16 +175,16 @@ return {
           mode = { 'n', 'i', 'x' },
         },
 
-        {
-          '<D-o>',
-          function()
-            Snacks.picker.buffers({
-              current = false,
-            })
-          end,
-          mode = { 'n', 'i', 'x' },
-          desc = 'Search Buffers',
-        },
+        -- {
+        --   '<D-o>',
+        --   function()
+        --     Snacks.picker.buffers({
+        --       current = false,
+        --     })
+        --   end,
+        --   mode = { 'n', 'i', 'x' },
+        --   desc = 'Search Buffers',
+        -- },
 
         {
           '<leader>sh',
