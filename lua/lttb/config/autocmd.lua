@@ -16,19 +16,19 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- limit number of buffers to 10
-vim.api.nvim_create_autocmd('BufAdd', {
-  callback = function()
-    local bufs = vim.fn.getbufinfo({ buflisted = 1 })
-    if #bufs > 10 then
-      for _, buf in ipairs(bufs) do
-        if buf.bufnr ~= vim.api.nvim_get_current_buf() then
-          vim.cmd('bdelete ' .. buf.bufnr)
-          break
-        end
-      end
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd('BufAdd', {
+--   callback = function()
+--     local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+--     if #bufs > 10 then
+--       for _, buf in ipairs(bufs) do
+--         if buf.bufnr ~= vim.api.nvim_get_current_buf() then
+--           vim.cmd('bdelete ' .. buf.bufnr)
+--           break
+--         end
+--       end
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = lttb_ag,
@@ -168,6 +168,14 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       --   bg = '#24282e',
       -- })
     end
+
+    color.extend_hl('FzfLuaNormal', {
+      link = 'NormalFloat',
+    })
+
+    color.extend_hl('FzfLuaBorder', {
+      link = 'FloatBorder',
+    })
 
     vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
     vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
