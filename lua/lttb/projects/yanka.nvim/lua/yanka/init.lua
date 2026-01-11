@@ -40,22 +40,27 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = '[YankaYank]',
   callback = function(args)
     local is_yanka = args and args.data and args.data._yanka
+    local regname = args and args.data and args.data.regname
 
     if is_yanka then
+      return
+    end
+
+    -- Only apply when yanked into + register
+    if not (regname == '+') then
       return
     end
 
     -- @see https://github.com/ibhagwan/smartyank.nvim/blob/7e3905578f646503525b2f7018b8afd17861018c/lua/smartyank/init.lua#L146-L147
     -- get yank data from the unnamed register (not yank register 0)
     -- or we will acquire the wrong yank data when `validate_yank == false`
-    local yank_data = vim.fn.getreg([["]])
+    local yank_data = vim.fn.getreg([[+]])
 
     -- NOTE: reconcat to force to drop the trailing \n
     local trimmed_text = table.concat(trim_text(yank_data), '\n')
 
     vim.schedule(function()
-      vim.fn.setreg('"', trimmed_text)
-      vim.fn.setreg('+', trimmed_text)
+      pcall(vim.fn.setreg, '+', trimmed_text)
     end)
 
     -- vim.api.nvim_exec_autocmds('TextYankPost', {
@@ -83,7 +88,7 @@ function M.put_with_autoindent()
   local indent_string = indent_char:rep(current_indent)
 
   -- Get the content from the clipboard
-  local clipboard_content = vim.fn.getreg('+') or vim.fn.getreg('"')
+  local clipboard_content = vim.fn.getreg([[+]])
 
   -- Create an iterator for the lines in clipboard content
   local lines = trim_text(clipboard_content)
