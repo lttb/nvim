@@ -1,9 +1,5 @@
 local utils = require('lttb.utils')
 
-if utils.is_vscode() then
-  return {}
-end
-
 return {
   {
     'nvim-tree/nvim-tree.lua',
@@ -41,13 +37,13 @@ return {
 
           glyphs = {
             git = {
-              unstaged = '┆',
-              staged = '┃',
-              unmerged = '┃',
-              renamed = '┃',
-              untracked = '┆',
-              deleted = '▁',
-              ignored = '┆',
+              unstaged = '',
+              staged = '',
+              unmerged = '',
+              renamed = '',
+              untracked = '',
+              deleted = '',
+              ignored = '',
             },
           },
         },
