@@ -1,11 +1,11 @@
 {
   "bash-language-server": "5.6.0",
   "beautysh": "6.4.2",
-  "biome": "2.3.7",
+  "biome": "2.3.11",
   "cspell-lsp": "1.1.5",
   "css-lsp": "4.10.0",
   "eslint-lsp": "4.10.0",
-  "gh-actions-language-server": "0.0.3",
+  "gh-actions-language-server": "0.3.34",
   "html-lsp": "4.10.0",
   "json-lsp": "4.10.0",
   "lua-language-server": "3.16.4",
