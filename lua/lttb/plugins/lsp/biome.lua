@@ -33,6 +33,10 @@ function M.biome_code_action(bufnr)
   }
 
   local response = biome_lsp_client.request_sync('textDocument/codeAction', params, 5000, bufnr)
+  if not response then
+    return
+  end
+
   local result, error = response.result, response.error
   if result then
     for _, action in ipairs(result) do
