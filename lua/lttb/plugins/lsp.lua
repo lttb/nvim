@@ -211,6 +211,7 @@ local function config()
   require('mason-lspconfig').setup({
     ensure_installed = {
       'bashls',
+      'beautysh',
       'biome',
       'cspell_ls',
       'cssls',
@@ -222,6 +223,8 @@ local function config()
       'marksman',
       'oxlint',
       'rust_analyzer',
+      'shellcheck',
+      'shfmt',
       'stylua',
       'tailwindcss',
       'taplo',
