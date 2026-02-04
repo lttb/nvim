@@ -47,6 +47,7 @@ local function setup_formatters()
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
       local buf = ev.buf
+
       if vim.bo[buf].filetype == 'markdown' then
         -- Disable LSP formatter for Markdown (keep gq native)
         vim.bo[buf].formatexpr = ''
@@ -77,20 +78,28 @@ local function setup_formatters()
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('LSPFormat', { clear = true }),
     callback = function(ev)
+      print('format')
+
       format_preserve_folds(ev.buf, function()
         pcall(function()
           vim.api.nvim_exec2('silent! undojoin', { output = false })
         end)
 
+        print('buf format')
+
         vim.lsp.buf.format({
           filter = function(client)
+            print('client:after', client.name)
+
             if client.name == 'yamlls' then
               return vim.b.ls_prettier_ls == nil
             end
 
             if client.name == 'prettier_ls' then
-              return vim.b.ls_biome == nil
+              return vim.b.ls_biome == nil and vim.b.ls_oxfmt == nil
             end
+
+            print('client:after', client.name)
 
             return true
           end,
@@ -211,6 +220,7 @@ local function config()
       'jsonls',
       'lua_ls',
       'marksman',
+      'oxlint',
       'rust_analyzer',
       'stylua',
       'tailwindcss',
@@ -227,6 +237,7 @@ local function config()
 
   mason_ensure_installed({ 'shfmt', 'beautysh', 'spellcheck' })
 
+  vim.lsp.enable('oxfmt')
   vim.lsp.enable('prettier_ls')
   -- vim.lsp.enable('cspell_ls')
   -- vim.lsp.enable('gh_actions_ls')
