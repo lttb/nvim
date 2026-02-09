@@ -218,7 +218,7 @@ local function config()
       'oxlint',
       'rust_analyzer',
       'shellcheck',
-      'shfmt',
+      -- 'shfmt',
       'stylua',
       'tailwindcss',
       'taplo',
