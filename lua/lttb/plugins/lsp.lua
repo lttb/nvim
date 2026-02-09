@@ -78,19 +78,13 @@ local function setup_formatters()
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('LSPFormat', { clear = true }),
     callback = function(ev)
-      print('format')
-
       format_preserve_folds(ev.buf, function()
         pcall(function()
           vim.api.nvim_exec2('silent! undojoin', { output = false })
         end)
 
-        print('buf format')
-
         vim.lsp.buf.format({
           filter = function(client)
-            print('client:after', client.name)
-
             if client.name == 'yamlls' then
               return vim.b.ls_prettier_ls == nil
             end
