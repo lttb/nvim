@@ -33,6 +33,8 @@ vim.opt.undodir       = vim.fn.expand('$HOME/.config/nvim/misc/undodir') -- Set 
 
 vim.opt.shell         = 'zsh'                                            -- Use zsh as shell
 
+vim.opt.swapfile      = false
+
 -- }}}
 
 -- UI {{{

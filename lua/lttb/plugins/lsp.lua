@@ -205,7 +205,7 @@ local function config()
   require('mason-lspconfig').setup({
     ensure_installed = {
       'bashls',
-      'beautysh',
+      -- 'beautysh',
       'biome',
       'cspell_ls',
       'cssls',
