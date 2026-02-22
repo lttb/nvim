@@ -67,15 +67,15 @@ return {
       end
 
       return {
-        {
-          '<leader><leader>',
-          function()
-            -- TODO: raise an issue with `cwd_only` buffers the first item in the list isn't available
-            get().fzf.combine({
-              pickers = 'buffers,frecency',
-            })
-          end,
-        },
+        -- {
+        --   '<leader><leader>',
+        --   function()
+        --     -- TODO: raise an issue with `cwd_only` buffers the first item in the list isn't available
+        --     get().fzf.combine({
+        --       pickers = 'buffers,frecency',
+        --     })
+        --   end,
+        -- },
 
         -- {
         --   '<D-f>',
@@ -129,13 +129,13 @@ return {
           desc = 'Search Buffers',
         },
 
-        {
-          'gl',
-          function()
-            get().fzf.lsp_finder()
-          end,
-          desc = 'LSP: Finder',
-        },
+        -- {
+        --   'gl',
+        --   function()
+        --     get().fzf.lsp_finder()
+        --   end,
+        --   desc = 'LSP: Finder',
+        -- },
 
         -- {
         --   'gd',
