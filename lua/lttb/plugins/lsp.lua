@@ -232,7 +232,7 @@ local function config()
     },
   })
 
-  mason_ensure_installed({ 'shfmt', 'beautysh', 'spellcheck' })
+  mason_ensure_installed({ 'shfmt', 'beautysh' })
 
   vim.lsp.enable('oxfmt')
   vim.lsp.enable('prettier_ls')
