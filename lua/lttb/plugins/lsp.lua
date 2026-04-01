@@ -217,7 +217,7 @@ local function config()
       'marksman',
       'oxlint',
       'rust_analyzer',
-      'shellcheck',
+      -- 'shellcheck',
       -- 'shfmt',
       'stylua',
       'tailwindcss',
@@ -232,7 +232,7 @@ local function config()
     },
   })
 
-  mason_ensure_installed({ 'shfmt', 'beautysh' })
+  mason_ensure_installed({ 'shfmt', 'beautysh', 'shellcheck' })
 
   vim.lsp.enable('oxfmt')
   vim.lsp.enable('prettier_ls')
