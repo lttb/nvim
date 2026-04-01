@@ -10,17 +10,17 @@ if vim.opt_local.textwidth:get() == 0 then
 end
 
 -- Make gq use Vim's formatter (not LSP/formatter plugins)
-vim.opt_local.formatexpr = '' -- <— key fix
-vim.opt_local.formatprg = '' -- just in case
+-- vim.opt_local.formatexpr = '' -- <— key fix
+-- vim.opt_local.formatprg = ''  -- just in case
 
 -- Wrap while typing (optional)
-vim.opt_local.formatoptions = vim.opt_local.formatoptions + 'tcrqnj'
+-- vim.opt_local.formatoptions = vim.opt_local.formatoptions + 'tcrqnj'
 
 -- Reflow whole buffer on save (optional)
-vim.api.nvim_create_autocmd('BufWritePre', {
-  buffer = 0,
-  callback = function()
-    -- Treesitter/LSP won’t interfere now; this respects 'textwidth'
-    -- vim.cmd('silent normal! ggVGgq')
-  end,
-})
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--   buffer = 0,
+--   callback = function()
+--     -- Treesitter/LSP won’t interfere now; this respects 'textwidth'
+--     -- vim.cmd('silent normal! ggVGgq')
+--   end,
+-- })
