@@ -189,6 +189,7 @@ local function config()
       -- end, { desc = 'LSP Hover (with diagnostics)', noremap = true, expr = true })
 
       vim.keymap.set({ 'n', 'i', 'x' }, '<D-.>', vim.lsp.buf.code_action, { desc = 'Code Action' })
+      vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, { buffer = event.buf, desc = 'LSP Rename' })
     end,
   })
 
@@ -325,14 +326,6 @@ return {
     config = config,
     dependencies = {
       { 'b0o/schemastore.nvim' },
-
-      {
-        'smjonas/inc-rename.nvim',
-        opts = {},
-        keys = {
-          { '<F2>', ':IncRename ' },
-        },
-      },
 
       {
         'zeioth/garbage-day.nvim',
