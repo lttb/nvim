@@ -28,39 +28,16 @@ local function config()
       lualine_c = {
         {
           function()
-            local color = require('lttb.utils.color')
-
-            color.inherit_hl('lualine_b_normal', 'LuaLineProgress', {
-              fg = color.alpha_hl('lualine_b_normal', 'fg', 0.25),
-            })
-
-            return require('lsp-progress').progress({
-              --- @param client_messages string[]|table[]
-              ---     Client messages array.
-              --- @return string
-              ---     The returned value will be returned as the result of `progress` API.
-              format = function(client_messages)
-                local sign = '' -- nf-fa-gear \uf013
-                if #client_messages > 0 then
-                  local message = sign .. ' ' .. table.concat(client_messages, ' ')
-
-                  -- ignore null-ls messages
-                  if string.find(message, 'null%-ls') then
-                    return ''
-                  end
-
-                  return message
-                end
-
-                local clients = (vim.lsp and vim.lsp.get_clients and vim.lsp.get_clients()) or nil
-                if clients ~= nil and #clients > 0 then
-                  return sign
-                end
-                return ''
-              end,
-            })
+            local progress = vim.ui.progress_status()
+            if progress ~= '' then
+              return ' ' .. progress
+            end
+            local clients = vim.lsp.get_clients({ bufnr = 0 })
+            if #clients > 0 then
+              return ''
+            end
+            return ''
           end,
-          color = 'LuaLineProgress',
         },
       },
       lualine_x = {},
@@ -121,12 +98,10 @@ local function config()
     -- patch('command')
   end)
 
-  -- listen lsp-progress event and refresh lualine
-  vim.api.nvim_create_augroup('lualine_augroup', { clear = true })
-  vim.api.nvim_create_autocmd('User', {
-    group = 'lualine_augroup',
-    pattern = 'LspProgressStatusUpdated',
-    callback = require('lualine').refresh,
+  vim.api.nvim_create_autocmd('LspProgress', {
+    callback = function()
+      require('lualine').refresh()
+    end,
   })
 end
 
@@ -135,11 +110,5 @@ return {
     'nvim-lualine/lualine.nvim',
     event = 'LazyFile',
     config = config,
-    dependencies = {
-      {
-        'linrongbin16/lsp-progress.nvim',
-        opts = {},
-      },
-    },
   },
 }

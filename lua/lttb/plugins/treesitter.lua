@@ -177,13 +177,6 @@ return {
 
       vim.treesitter.language.register('markdown', 'mdx')
       vim.treesitter.language.register('tsx', { 'typescript', 'typescriptreact' })
-
-      vim.api.nvim_create_autocmd('FileType', {
-        callback = function(args)
-          pcall(vim.treesitter.stop, args.buf)
-          pcall(vim.treesitter.start, args.buf)
-        end,
-      })
     end,
     dependencies = {
       -- 'nvim-treesitter/nvim-treesitter-refactor',

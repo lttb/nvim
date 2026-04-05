@@ -9,14 +9,17 @@ if utils.is_vscode() then
 end
 
 local function mason_ensure_installed(list)
-  -- @see https://github.com/mason-org/mason-lspconfig.nvim/issues/113#issuecomment-1471346816
-  local registry = require('mason-registry')
-  for _, pkg_name in ipairs(list) do
-    local ok, pkg = pcall(registry.get_package, pkg_name)
-    if ok and not pkg:is_installed() then
-      pkg:install()
-    end
-  end
+  vim.schedule(function()
+    local registry = require('mason-registry')
+    registry.refresh(function()
+      for _, pkg_name in ipairs(list) do
+        local ok, pkg = pcall(registry.get_package, pkg_name)
+        if ok and not pkg:is_installed() then
+          pkg:install()
+        end
+      end
+    end)
+  end)
 end
 
 local function format_preserve_folds(bufnr, format_fn)
@@ -93,8 +96,6 @@ local function setup_formatters()
               return vim.b.ls_biome == nil and vim.b.ls_oxfmt == nil
             end
 
-            print('client:after', client.name)
-
             return true
           end,
           bufnr = ev.buf,
@@ -108,6 +109,12 @@ local function setup_formatters()
 end
 
 local function config()
+  -- Add mason bin to PATH without running full mason.setup()
+  local mason_bin = vim.fn.stdpath('data') .. '/mason/bin'
+  if not vim.env.PATH:find(mason_bin, 1, true) then
+    vim.env.PATH = mason_bin .. ':' .. vim.env.PATH
+  end
+
   --- @type vim.diagnostic.Opts.VirtualText
   local virtual_text_settings = {
     enabled = false,
@@ -202,47 +209,82 @@ local function config()
     end)(),
   })
 
-  require('mason-lspconfig').setup({
-    ensure_installed = {
-      'bashls',
-      -- 'beautysh',
-      'biome',
-      'cspell_ls',
-      'cssls',
-      'eslint',
-      'gh_actions_ls',
-      'html',
-      'jsonls',
-      'lua_ls',
-      'marksman',
-      'oxlint',
-      'rust_analyzer',
-      -- 'shellcheck',
-      -- 'shfmt',
-      'stylua',
-      'tailwindcss',
-      'taplo',
-      'tsgo',
-      'vtsls',
-      'yamlls',
-    },
-    exclude = {
-      'ts_ls',
-      'prettier',
-    },
+  mason_ensure_installed({
+    'bash-language-server',
+    'biome',
+    'cspell',
+    'css-lsp',
+    'eslint-lsp',
+    'github-actions-languageserver',
+    'html-lsp',
+    'json-lsp',
+    'lua-language-server',
+    'marksman',
+    'oxlint',
+    'rust-analyzer',
+    'shfmt',
+    'beautysh',
+    'shellcheck',
+    'stylua',
+    'tailwindcss-language-server',
+    'taplo',
+    'tsgo',
+    'vtsls',
+    'yaml-language-server',
   })
 
-  mason_ensure_installed({ 'shfmt', 'beautysh', 'shellcheck' })
+  vim.lsp.enable({
+    'bashls',
+    'biome',
+    'cssls',
+    'eslint',
+    'html',
+    'jsonls',
+    'lua_ls',
+    'marksman',
+    'oxfmt',
+    'prettier_ls',
+    'rust_analyzer',
+    'taplo',
+    'vtsls',
+    'yamlls',
+  })
 
-  vim.lsp.enable('oxfmt')
-  vim.lsp.enable('prettier_ls')
   -- vim.lsp.enable('cspell_ls')
   -- vim.lsp.enable('gh_actions_ls')
-
-  vim.lsp.enable('vtsls', true)
   vim.lsp.enable('tsgo', false)
   vim.lsp.enable('ts_ls', false)
   vim.lsp.enable('prettier', false)
+
+  -- Start tailwindcss manually, bypassing vim.lsp.enable entirely
+  local tw_filetypes = {
+    html = true, css = true, scss = true,
+    javascript = true, javascriptreact = true,
+    typescript = true, typescriptreact = true,
+    vue = true, svelte = true,
+  }
+  vim.api.nvim_create_autocmd('LspAttach', {
+    once = true,
+    callback = function(ev)
+      if not tw_filetypes[vim.bo[ev.buf].filetype] then
+        return
+      end
+      vim.defer_fn(function()
+        local buf = vim.api.nvim_get_current_buf()
+        local root = vim.fs.root(buf, {
+          'tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.mjs',
+          'tailwind.config.ts', 'tailwind.config.cts', 'tailwind.config.mts',
+        })
+        if root then
+          vim.lsp.start({
+            name = 'tailwindcss',
+            cmd = { 'tailwindcss-language-server', '--stdio' },
+            root_dir = root,
+          })
+        end
+      end, 0)
+    end,
+  })
 
   setup_formatters()
 end
@@ -268,23 +310,16 @@ return {
   },
 
   {
-    'mason-org/mason-lspconfig.nvim',
+    'mason-org/mason.nvim',
+    cmd = 'Mason',
     opts = {},
+  },
 
+  {
+    'neovim/nvim-lspconfig',
     config = config,
-
     dependencies = {
-      {
-        'mason-org/mason.nvim',
-        opts = {},
-      },
-      -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      { 'neovim/nvim-lspconfig' },
-
-      {
-        'b0o/schemastore.nvim',
-      },
+      { 'b0o/schemastore.nvim' },
 
       {
         'smjonas/inc-rename.nvim',
@@ -295,33 +330,9 @@ return {
       },
 
       {
-        enabled = false,
-        'lukas-reineke/lsp-format.nvim',
-      },
-
-      {
         'zeioth/garbage-day.nvim',
         event = 'VeryLazy',
         opts = {},
-      },
-
-      {
-        enabled = false,
-        'lewis6991/hover.nvim',
-        opts = {
-          preview_opts = {
-            border = {
-              { '╭', 'LspFloatBorder' },
-              { '╌', 'LspFloatBorder' },
-              { '╮', 'LspFloatBorder' },
-              { '╎', 'LspFloatBorder' },
-              { '╯', 'LspFloatBorder' },
-              { '╌', 'LspFloatBorder' },
-              { '╰', 'LspFloatBorder' },
-              { '╎', 'LspFloatBorder' },
-            },
-          },
-        },
       },
     },
   },
