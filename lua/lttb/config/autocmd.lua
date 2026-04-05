@@ -146,7 +146,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       bg = normalHL.bg,
     })
 
-    vim.api.nvim_set_hl(0, 'LspFloatBorder', { link = 'IblIndent' })
+    vim.api.nvim_set_hl(0, 'LspFloatBorder', {
+      fg = color.alpha(normalHL.fg, utils.is_neovide() and 0.025 or 0.1),
+    })
 
     -- color.extend_hl('HoverBorder', {
     --   bg = 'NONE',

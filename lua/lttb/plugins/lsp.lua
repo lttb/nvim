@@ -124,14 +124,14 @@ local function config()
   }
 
   local border = {
-    { '╭', 'LspFloatBorder' },
-    { '╌', 'LspFloatBorder' },
-    { '╮', 'LspFloatBorder' },
-    { '╎', 'LspFloatBorder' },
-    { '╯', 'LspFloatBorder' },
-    { '╌', 'LspFloatBorder' },
-    { '╰', 'LspFloatBorder' },
-    { '╎', 'LspFloatBorder' },
+    { ' ', 'NormalFloat' },
+    { ' ', 'NormalFloat' },
+    { ' ', 'NormalFloat' },
+    { ' ', 'NormalFloat' },
+    { ' ', 'NormalFloat' },
+    { ' ', 'NormalFloat' },
+    { ' ', 'NormalFloat' },
+    { ' ', 'NormalFloat' },
   }
 
   local hover = vim.lsp.buf.hover
