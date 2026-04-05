@@ -197,16 +197,21 @@ local function config()
 
     virtual_text = virtual_text_settings,
 
-    signs = (function()
-      -- Highlight line number instead of having icons in sign column
-      -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#highlight-line-number-instead-of-having-icons-in-sign-column
-      local signs_map = {}
-      for _, diag in ipairs({ 'Error', 'Warn', 'Info', 'Hint' }) do
-        local hl = 'DiagnosticSign' .. diag
-        signs_map[hl] = { text = '', texthl = hl, linehl = '', numhl = hl }
-      end
-      return signs_map
-    end)(),
+    -- Highlight line number instead of having icons in sign column
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = '',
+        [vim.diagnostic.severity.WARN] = '',
+        [vim.diagnostic.severity.INFO] = '',
+        [vim.diagnostic.severity.HINT] = '',
+      },
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+        [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+        [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+        [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+      },
+    },
   })
 
   mason_ensure_installed({
