@@ -301,22 +301,6 @@ local function config()
     end,
   })
 
-  -- Auto-activate linked editing for HTML/JSX tag rename
-  vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('lttb-linked-editing', { clear = true }),
-    callback = function(args)
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client and client:supports_method('textDocument/linkedEditingRange') then
-        vim.api.nvim_create_autocmd('CursorMoved', {
-          buffer = args.buf,
-          callback = function()
-            pcall(vim.lsp.buf.linked_editing_range)
-          end,
-        })
-      end
-    end,
-  })
-
   setup_formatters()
 end
 
