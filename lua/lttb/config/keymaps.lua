@@ -5,6 +5,7 @@ local utils = require('lttb.utils')
 
 -- quit
 vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
+vim.keymap.set('n', '<leader>qr', '<cmd>restart<cr>', { desc = 'Restart Neovim' })
 
 -- Fix gx, avoid netrw
 -- vim.keymap.set('n', 'gx', '<cmd>!open "<cWORD>"<cr><cr>', { silent = true })

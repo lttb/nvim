@@ -70,6 +70,9 @@ vim.opt.fillchars     = 'eob: '
 
 vim.opt.cmdheight     = 0
 
+vim.opt.pumborder     = 'rounded'  -- Rounded popup menu border (0.12)
+vim.opt.pummaxwidth   = 40         -- Cap completion popup width (0.12)
+
 -- Don't show "Scanning..." messages (improves 'mini.completion')
 -- vim.cmd('set shortmess+=C')
 

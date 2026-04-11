@@ -61,11 +61,10 @@ return {
       },
       -- words = {},
 
+      -- Disabled: Neovim 0.12 UI2 msg window (see ui.tiny-cmdline.lua) handles
+      -- notifications now. Use `:messages` + `g<` for history via the UI2 pager.
       notifier = {
-        enabled = true,
-
-        style = 'minimal',
-        top_down = false,
+        enabled = false,
       },
     },
     config = function(_, opts)
@@ -91,6 +90,9 @@ return {
         -- },
 
         --{{{ LSP
+        -- Note: Neovim 0.12 ships grr/gra/gri/grn/grt/grx/gO as default LSP
+        -- mappings. The two-letter gd/gD/gi/gr overrides below coexist with
+        -- those defaults (different key lengths, no conflict).
         {
           'gd',
           function()
@@ -235,20 +237,6 @@ return {
             Snacks.scratch.select()
           end,
           desc = 'Select Scratch Buffer',
-        },
-        {
-          '<leader>n',
-          function()
-            Snacks.notifier.show_history()
-          end,
-          desc = 'Notification History',
-        },
-        {
-          '<leader>un',
-          function()
-            Snacks.notifier.hide()
-          end,
-          desc = 'Dismiss All Notifications',
         },
       }
     end,
