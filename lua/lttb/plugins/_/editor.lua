@@ -22,13 +22,6 @@ return {
 
   {
     enabled = false,
-    'windwp/nvim-ts-autotag',
-    event = 'LazyFile',
-    config = true,
-  },
-
-  {
-    enabled = false,
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = function()

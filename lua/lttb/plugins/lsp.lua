@@ -264,10 +264,15 @@ local function config()
 
   -- Start tailwindcss manually, bypassing vim.lsp.enable entirely
   local tw_filetypes = {
-    html = true, css = true, scss = true,
-    javascript = true, javascriptreact = true,
-    typescript = true, typescriptreact = true,
-    vue = true, svelte = true,
+    html = true,
+    css = true,
+    scss = true,
+    javascript = true,
+    javascriptreact = true,
+    typescript = true,
+    typescriptreact = true,
+    vue = true,
+    svelte = true,
   }
   vim.api.nvim_create_autocmd('LspAttach', {
     once = true,
@@ -278,8 +283,12 @@ local function config()
       vim.defer_fn(function()
         local buf = vim.api.nvim_get_current_buf()
         local root = vim.fs.root(buf, {
-          'tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.mjs',
-          'tailwind.config.ts', 'tailwind.config.cts', 'tailwind.config.mts',
+          'tailwind.config.js',
+          'tailwind.config.cjs',
+          'tailwind.config.mjs',
+          'tailwind.config.ts',
+          'tailwind.config.cts',
+          'tailwind.config.mts',
         })
         if root then
           vim.lsp.start({
@@ -289,6 +298,22 @@ local function config()
           })
         end
       end, 0)
+    end,
+  })
+
+  -- Auto-activate linked editing for HTML/JSX tag rename
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('lttb-linked-editing', { clear = true }),
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client and client:supports_method('textDocument/linkedEditingRange') then
+        vim.api.nvim_create_autocmd('CursorMoved', {
+          buffer = args.buf,
+          callback = function()
+            pcall(vim.lsp.buf.linked_editing_range)
+          end,
+        })
+      end
     end,
   })
 
