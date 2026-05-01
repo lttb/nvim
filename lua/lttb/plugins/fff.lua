@@ -27,6 +27,12 @@ return {
         end,
         desc = 'Toggle FFF',
       },
+      {
+        '<D-S-f>',
+        function()
+          require('fff').live_grep()
+        end,
+      },
     },
   },
 }

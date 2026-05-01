@@ -187,54 +187,54 @@ return {
         --   desc = 'fzf: resume',
         -- }),
 
-        utils.cmd_shift('f', {
-          function()
-            get().fzf.grep_project({
-              file_ignore_patterns = {
-                'lazy-lock.json',
-                '*.lock',
-                'package-lock.json',
-                'LICENSE',
-              },
-
-              fzf_opts = {
-                ['--layout'] = 'reverse',
-                ['--info'] = 'inline',
-              },
-
-              winopts = {
-                preview = {
-                  layout = 'vertical',
-                  delay = 5,
-                  vertical = 'up:40%',
-                },
-              },
-
-              prompt = '  ',
-
-              keymap = {
-                builtin = {
-                  ['<Esc>'] = 'hide',
-                },
-              },
-
-              actions = {
-                ['ctrl-r'] = get().actions.resume,
-                ['enter'] = {
-                  function(selected, opts)
-                    get().fzf.win.hide()
-
-                    vim.schedule(function()
-                      get().actions.file_edit(selected, opts)
-                    end)
-                  end,
-                  get().actions.resume,
-                },
-              },
-            })
-          end,
-          desc = 'fzf: search',
-        }),
+        -- utils.cmd_shift('f', {
+        --   function()
+        --     get().fzf.grep_project({
+        --       file_ignore_patterns = {
+        --         'lazy-lock.json',
+        --         '*.lock',
+        --         'package-lock.json',
+        --         'LICENSE',
+        --       },
+        --
+        --       fzf_opts = {
+        --         ['--layout'] = 'reverse',
+        --         ['--info'] = 'inline',
+        --       },
+        --
+        --       winopts = {
+        --         preview = {
+        --           layout = 'vertical',
+        --           delay = 5,
+        --           vertical = 'up:40%',
+        --         },
+        --       },
+        --
+        --       prompt = '  ',
+        --
+        --       keymap = {
+        --         builtin = {
+        --           ['<Esc>'] = 'hide',
+        --         },
+        --       },
+        --
+        --       actions = {
+        --         ['ctrl-r'] = get().actions.resume,
+        --         ['enter'] = {
+        --           function(selected, opts)
+        --             get().fzf.win.hide()
+        --
+        --             vim.schedule(function()
+        --               get().actions.file_edit(selected, opts)
+        --             end)
+        --           end,
+        --           get().actions.resume,
+        --         },
+        --       },
+        --     })
+        --   end,
+        --   desc = 'fzf: search',
+        -- }),
       }
     end,
   },
