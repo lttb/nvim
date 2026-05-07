@@ -6,9 +6,9 @@ return {
     event = 'LazyFile',
     opts = {
       highlight = {
-        enabled = true, -- highlight yanked text
+        enabled = true,         -- highlight yanked text
         higroup = 'CursorLine', -- highlight group of yanked text
-        timeout = 200, -- timeout for clearing the highlight
+        timeout = 200,          -- timeout for clearing the highlight
       },
       clipboard = { enabled = true },
       tmux = {
@@ -18,8 +18,8 @@ return {
       },
       osc52 = {
         enabled = true,
-        ssh_only = true, -- false to OSC52 yank also in local sessions
-        silent = true, -- true to disable the "n chars copied" echo
+        ssh_only = false,      -- false to OSC52 yank also in local sessions
+        silent = true,         -- true to disable the "n chars copied" echo
         echo_hl = 'Directory', -- highlight group of the OSC52 echo message
       },
 
