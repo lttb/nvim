@@ -18,7 +18,7 @@
   "stylua": "v2.5.2",
   "tailwindcss-language-server": "0.14.29",
   "taplo": "0.10.0",
-  "tsgo": "7.0.0-dev.20260601.1",
+  "tsgo": "7.0.0-dev.20260605.1",
   "vtsls": "0.3.0",
   "yaml-language-server": "1.23.0"
 }
