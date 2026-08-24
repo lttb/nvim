@@ -234,7 +234,7 @@ local function config()
     'stylua',
     'tailwindcss-language-server',
     'taplo',
-    'tsgo',
+    'tsc',
     'vtsls',
     'yaml-language-server',
   })
@@ -252,7 +252,7 @@ local function config()
     'prettier_ls',
     'rust_analyzer',
     'taplo',
-    'vtsls',
+    'tsc',
     'yamlls',
   })
 
