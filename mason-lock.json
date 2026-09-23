@@ -1,5 +1,5 @@
 {
-  "bash-language-server": "5.8.0",
+  "bash-language-server": "5.8.1",
   "beautysh": "6.4.3",
   "biome": "2.5.14",
   "cspell": "10.3.3",
@@ -19,6 +19,7 @@
   "tailwindcss-language-server": "0.16.0",
   "taplo": "0.10.0",
   "tsc": "7.0.2",
+  "tsgo": "7.0.0-dev.20260707.2",
   "vtsls": "0.3.0",
   "yaml-language-server": "1.24.0"
 }
